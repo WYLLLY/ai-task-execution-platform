@@ -97,6 +97,8 @@ The PR remained OPEN on the audited SHA. Both the [pull-request workflow](https:
 
 ## Coverage limits and deferred work
 
+Coordinator follow-up after the independent review: adding this report initially failed the documentation commit's CI because Ruff also formats embedded Python blocks. The harness was formatted without changing its parsed AST or application code. Both [PR CI](https://github.com/WYLLLY/ai-task-execution-platform/actions/runs/38891523659) and [push CI](https://github.com/WYLLLY/ai-task-execution-platform/actions/runs/38891516765) subsequently passed on `e696a7bfa570db82a6a9c65c18760f7709b2d730`, including integration and Compose smoke. GitHub emitted a non-blocking annotation: the pinned checkout/setup-uv actions declare Node.js 20 and the runner forces Node.js 24. Compatibility passed in these runs; updating the pinned actions to versions declaring the supported runtime is a maintenance follow-up, not an unresolved M1 application defect. No workflow change was made during this review.
+
 No required existing M1 check was left unexecuted. No remediation is requested because no unresolved defect was confirmed.
 
 F01–F03 require M2 commands/admission/task states. F04–F10 require M3 execution/fencing/external-call recovery. F11–F13 require M4 workflow/tools. F14–F16 require M3/M5 accounting/provider behavior. F17–F19 require M6 SSE/degraded-load behavior. F20–F22 require M7 retention/restore/deployment recovery. These complete scenarios are **deferred, not passed**. M1 identity revocation, real Redis degradation and pool isolation are prerequisite evidence only; they do not certify those later gates. No nonexistent prospective `make test-*` command was treated as an executable check.
