@@ -139,22 +139,38 @@ from sqlalchemy import select, text, func
 from sqlalchemy.exc import DBAPIError, TimeoutError as PoolTimeout
 from task_platform.api import create_app
 from task_platform.db import create_engine, sessions
-from task_platform.identity import provision_principal, issue_key, disable_principal, revoke_key, authenticate, AuthenticationError, NotFoundError
+from task_platform.identity import (
+    provision_principal,
+    issue_key,
+    disable_principal,
+    revoke_key,
+    authenticate,
+    AuthenticationError,
+    NotFoundError,
+)
 from task_platform.models import Principal, APIKey, AuditEvent
 from task_platform.observability import configure_logging
 from tests.integration.conftest import settings_for
 from httpx import AsyncClient, ASGITransport
 
+
 async def blocked(observer, count):
-    async with asyncio.timeout(.8), observer.connect() as c:
-        while (await c.scalar(text("SELECT count(*) FROM pg_stat_activity WHERE usename='atp_admin' AND cardinality(pg_blocking_pids(pid))>0"))) < count:
-            await asyncio.sleep(.005)
+    async with asyncio.timeout(0.8), observer.connect() as c:
+        while (
+            await c.scalar(
+                text(
+                    "SELECT count(*) FROM pg_stat_activity WHERE usename='atp_admin' AND cardinality(pg_blocking_pids(pid))>0"
+                )
+            )
+        ) < count:
+            await asyncio.sleep(0.005)
+
 
 async def disable_wins():
-    engines = [create_engine(settings_for('admin')) for _ in range(3)]
+    engines = [create_engine(settings_for("admin")) for _ in range(3)]
     holder, contender, observer = engines
     try:
-        p = await provision_principal(sessions(holder), 'review-disable-race')
+        p = await provision_principal(sessions(holder), "review-disable-race")
         async with sessions(holder).begin() as s:
             owner = await s.scalar(select(Principal).where(Principal.id == p).with_for_update())
             owner.active = False
@@ -168,32 +184,52 @@ async def disable_wins():
         except NotFoundError:
             pass
         else:
-            raise AssertionError('Disabled owner received key')
+            raise AssertionError("Disabled owner received key")
         async with sessions(holder)() as s:
-            assert await s.scalar(select(func.count()).select_from(APIKey).where(APIKey.principal_id == p)) == 0
-            assert await s.scalar(select(func.count()).select_from(AuditEvent).where(AuditEvent.principal_id == p, AuditEvent.action == 'key.created')) == 0
+            assert (
+                await s.scalar(
+                    select(func.count()).select_from(APIKey).where(APIKey.principal_id == p)
+                )
+                == 0
+            )
+            assert (
+                await s.scalar(
+                    select(func.count())
+                    .select_from(AuditEvent)
+                    .where(AuditEvent.principal_id == p, AuditEvent.action == "key.created")
+                )
+                == 0
+            )
     finally:
-        for e in engines: await e.dispose()
+        for e in engines:
+            await e.dispose()
+
 
 async def issue_wins():
-    e = create_engine(settings_for('admin'))
-    api = create_engine(settings_for('api'))
+    e = create_engine(settings_for("admin"))
+    api = create_engine(settings_for("api"))
     try:
-        p = await provision_principal(sessions(e), 'review-issue-first')
+        p = await provision_principal(sessions(e), "review-issue-first")
         k, token = await issue_key(sessions(e), p)
-        async with sessions(api)() as s: assert (await authenticate(s, token)).key_id == k
+        async with sessions(api)() as s:
+            assert (await authenticate(s, token)).key_id == k
         await disable_principal(sessions(e), p)
         async with sessions(api)() as s:
-            try: await authenticate(s, token)
-            except AuthenticationError: pass
-            else: raise AssertionError('Disabled owner authenticated')
+            try:
+                await authenticate(s, token)
+            except AuthenticationError:
+                pass
+            else:
+                raise AssertionError("Disabled owner authenticated")
     finally:
-        await e.dispose(); await api.dispose()
+        await e.dispose()
+        await api.dispose()
+
 
 async def double_revoke():
-    es = [create_engine(settings_for('admin')) for _ in range(4)]
+    es = [create_engine(settings_for("admin")) for _ in range(4)]
     try:
-        p = await provision_principal(sessions(es[0]), 'review-double-revoke')
+        p = await provision_principal(sessions(es[0]), "review-double-revoke")
         k, token = await issue_key(sessions(es[0]), p)
         async with sessions(es[0]).begin() as s:
             await s.scalar(select(Principal).where(Principal.id == p).with_for_update())
@@ -203,86 +239,148 @@ async def double_revoke():
         await asyncio.gather(*tasks)
         async with sessions(es[0])() as s:
             assert await s.scalar(select(APIKey.permission_version).where(APIKey.id == k)) == 2
-            assert await s.scalar(select(func.count()).select_from(AuditEvent).where(AuditEvent.subject_id == k, AuditEvent.action == 'key.revoked')) == 1
+            assert (
+                await s.scalar(
+                    select(func.count())
+                    .select_from(AuditEvent)
+                    .where(AuditEvent.subject_id == k, AuditEvent.action == "key.revoked")
+                )
+                == 1
+            )
     finally:
-        for e in es: await e.dispose()
+        for e in es:
+            await e.dispose()
+
 
 async def pool_isolation():
-    config = settings_for('api')
+    config = settings_for("api")
     reads, control = create_engine(config), create_engine(config, control=True)
     try:
         async with contextlib.AsyncExitStack() as stack:
-            for _ in range(8): await stack.enter_async_context(reads.connect())
+            for _ in range(8):
+                await stack.enter_async_context(reads.connect())
+
             async def exhausted():
                 start = time.monotonic()
                 try:
-                    async with reads.connect(): raise AssertionError('overflow connection')
-                except PoolTimeout: pass
+                    async with reads.connect():
+                        raise AssertionError("overflow connection")
+                except PoolTimeout:
+                    pass
                 return time.monotonic() - start
+
             t = asyncio.create_task(exhausted())
             start = time.monotonic()
             async with asyncio.timeout(1), control.connect() as c:
-                assert await c.scalar(text('SELECT 1')) == 1
+                assert await c.scalar(text("SELECT 1")) == 1
             control_time = time.monotonic() - start
             wait = await t
             assert 1.8 < wait < 3.0
-            print(json.dumps({'control_seconds': round(control_time, 4), 'read_timeout_seconds': round(wait,4)}))
+            print(
+                json.dumps(
+                    {
+                        "control_seconds": round(control_time, 4),
+                        "read_timeout_seconds": round(wait, 4),
+                    }
+                )
+            )
     finally:
-        await reads.dispose(); await control.dispose()
+        await reads.dispose()
+        await control.dispose()
+
 
 async def extended_denials():
     attempts = 0
     statements = [
-        'TRUNCATE audit_events',
-        'ALTER TABLE principals ADD COLUMN rogue text',
-        'DROP TABLE api_keys',
-        'GRANT atp_admin TO atp_api',
-        'CREATE ROLE rogue LOGIN',
+        "TRUNCATE audit_events",
+        "ALTER TABLE principals ADD COLUMN rogue text",
+        "DROP TABLE api_keys",
+        "GRANT atp_admin TO atp_api",
+        "CREATE ROLE rogue LOGIN",
         "SELECT pg_read_file('/etc/passwd')",
         "COPY (SELECT 1) TO PROGRAM 'true'",
         "ALTER SYSTEM SET log_statement='all'",
         "SET ROLE postgres",
     ]
-    for role in ('api','worker','admin'):
+    for role in ("api", "worker", "admin"):
         e = create_engine(settings_for(role))
         try:
             for sql in statements:
                 async with e.connect() as c:
-                    if sql.startswith('ALTER SYSTEM'):
-                        c = await c.execution_options(isolation_level='AUTOCOMMIT')
-                    try: await c.execute(text(sql))
+                    if sql.startswith("ALTER SYSTEM"):
+                        c = await c.execution_options(isolation_level="AUTOCOMMIT")
+                    try:
+                        await c.execute(text(sql))
                     except DBAPIError as exc:
-                        assert getattr(exc.orig, 'sqlstate', None) == '42501', (role, sql, getattr(exc.orig,'sqlstate',None))
-                    else: raise AssertionError((role,sql))
+                        assert getattr(exc.orig, "sqlstate", None) == "42501", (
+                            role,
+                            sql,
+                            getattr(exc.orig, "sqlstate", None),
+                        )
+                    else:
+                        raise AssertionError((role, sql))
                     attempts += 1
-        finally: await e.dispose()
-    print(json.dumps({'forbidden_statements_denied': attempts}))
+        finally:
+            await e.dispose()
+    print(json.dumps({"forbidden_statements_denied": attempts}))
+
 
 async def canary_errors():
-    canary = 'REVIEW_CANARY_438ff0'
-    config = settings_for('api')
+    canary = "REVIEW_CANARY_438ff0"
+    config = settings_for("api")
     app = create_app(config)
     stream = io.StringIO()
     with contextlib.redirect_stderr(stream):
         configure_logging()
-        async with app.router.lifespan_context(app), AsyncClient(transport=ASGITransport(app=app),base_url='http://test') as client:
-            @app.get('/review-error')
-            async def injected(): raise RuntimeError(canary)
-            result = await client.get('/review-error?secret='+canary,headers={'Authorization':'Bearer '+canary})
+        async with (
+            app.router.lifespan_context(app),
+            AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as client,
+        ):
+
+            @app.get("/review-error")
+            async def injected():
+                raise RuntimeError(canary)
+
+            result = await client.get(
+                "/review-error?secret=" + canary, headers={"Authorization": "Bearer " + canary}
+            )
             assert result.status_code == 500
             assert canary not in result.text
     assert canary not in stream.getvalue()
-    assert 'request.failed' in stream.getvalue()
+    assert "request.failed" in stream.getvalue()
     env = os.environ.copy()
-    env['DATABASE_URL_FILE'] = str(Path(env['TEST_SECRETS_DIR']) / 'admin_database_url')
-    result = subprocess.run([sys.executable,'-c','from task_platform.cli import main; main()','admin','key-create','--principal',canary],env=env,capture_output=True,text=True)
+    env["DATABASE_URL_FILE"] = str(Path(env["TEST_SECRETS_DIR"]) / "admin_database_url")
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-c",
+            "from task_platform.cli import main; main()",
+            "admin",
+            "key-create",
+            "--principal",
+            canary,
+        ],
+        env=env,
+        capture_output=True,
+        text=True,
+    )
     assert result.returncode == 1 and canary not in result.stdout + result.stderr
-    print(json.dumps({'http_error_disclosures': 0, 'cli_error_disclosures': 0}))
+    print(json.dumps({"http_error_disclosures": 0, "cli_error_disclosures": 0}))
+
 
 async def main():
-    for fn in (disable_wins, issue_wins, double_revoke, pool_isolation, extended_denials, canary_errors):
+    for fn in (
+        disable_wins,
+        issue_wins,
+        double_revoke,
+        pool_isolation,
+        extended_denials,
+        canary_errors,
+    ):
         await fn()
-        print('PASS '+fn.__name__)
-    print('6 adversarial scenarios passed; 0 failed; 0 errors; 0 skipped')
+        print("PASS " + fn.__name__)
+    print("6 adversarial scenarios passed; 0 failed; 0 errors; 0 skipped")
+
+
 asyncio.run(main())
 ```
