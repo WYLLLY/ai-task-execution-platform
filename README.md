@@ -57,4 +57,4 @@ On hosts with the standalone Compose binary, set `COMPOSE=docker-compose`; set `
 
 The [compatibility manifest](docs/compatibility.json) records schema/runtime support and the 38-connection budget within PostgreSQL's configured 50. Production application pools have no overflow; pool acquisition, statements and lock waits are bounded. API control uses a separate pool. Read/SSE load and durable worker failure matrices F01–F22 require later milestones and are not claimed by M1.
 
-See [M1 verification](reviews/M1-verification.md) and [independent review](reviews/M1-independent-review.md) for observed results, commands and limits.
+See [M1 verification](reviews/M1-verification.md), the [independent PR review](reviews/M1-review.md) and the [initial implementation review](reviews/M1-independent-review.md) for observed results, commands and limits.

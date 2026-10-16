@@ -1,8 +1,8 @@
 # M1 foundation verification
 
-Date: 2026-10-15. Scope: M1 only on `feature/m1-foundation`. Architecture, prior review and AGENTS.md preserved. Repository: private `WYLLLY/ai-task-execution-platform`. No merge or M2 work is authorized or performed.
+Initial verification: 2026-10-15. Final local and GitHub verification: 2026-10-16. Scope: M1 only on `feature/m1-foundation`. Architecture, prior review and AGENTS.md preserved. Repository: private `WYLLLY/ai-task-execution-platform`. No merge or M2 work is authorized or performed.
 
-**Local verification: PASS. Remote CI: pending the first branch push.**
+**Local verification: PASS. Remote CI: PASS on application/test commit `e3f6bfd41b44c4e2054a94fc949c2f1c637b3726`.**
 
 ## Delivered behavior
 
@@ -51,6 +51,14 @@ Initial attempts exposed environment/setup issues: no Git repository, uv absent,
 
 Implementation/test corrections: type/format errors; asynchronous fixture context and migration subprocess handling; quoted tmpfs option in YAML; separate API ingress network because an internal-only network did not publish the host port; preservation of existing `.env` identified by independent review. Required checks were rerun; none was weakened to hide a failure. Narrow static-lint annotations identify fixed container binding, trusted test/CLI commands, static SQL identifiers and external PostgreSQL wait observation; strict mypy remains enabled.
 
-Independent review: [APPROVE, one Low finding fixed, none unresolved](M1-independent-review.md). The final GitHub CI result will be recorded after branch publication.
+Initial independent review: [APPROVE, one Low finding fixed, none unresolved](M1-independent-review.md). The subsequent [independent PR review](M1-review.md) concludes **APPROVE**, with no confirmed findings. That reviewer independently reran all 58 tests, static checks, empty-database startup, migrations, Compose smoke and GitHub CI verification, then executed six additional adversarial scenarios. Those probes cover issuance/disable contention, concurrent revocation, pool isolation, expanded SQL restrictions and secret-safe errors. Their reproduction instructions and limitations are in the review report; they are not committed regression tests.
 
 **SKIPPED / deferred:** F01–F22 execution/admission/provider/SSE/recovery/load scenarios belong to M2–M7. Production TLS, backup/restore and release/scan campaigns are later delivery work. No paid OpenAI smoke test or real model capability is implemented or claimed. No application security scan or benchmark beyond the specified M1 checks is claimed. CI has no live provider credentials; development secrets are ignored and excluded from the image context.
+
+## GitHub evidence and final recheck
+
+The implementation was committed as `1bc4f48` (foundation/identity) and `e3f6bfd` (tests/CI/documentation), pushed to `feature/m1-foundation`, and opened as [PR #1](https://github.com/WYLLLY/ai-task-execution-platform/pull/1) targeting `main`. Repository visibility was verified as private.
+
+Both the [pull-request run](https://github.com/WYLLLY/ai-task-execution-platform/actions/runs/38858012159) and [push run](https://github.com/WYLLLY/ai-task-execution-platform/actions/runs/38858003514) completed successfully on the exact code/test SHA above. `gh pr checks 1 --repo WYLLLY/ai-task-execution-platform` reports two passing `verify` checks. CI logs independently show Ruff PASS, strict mypy PASS (22 sources), **10 unit tests passed**, **48 integration tests passed**, and **Compose smoke PASS**. No test failures, errors or skips; no live credentials or paid calls.
+
+On 2026-10-16 the complete local static/unit/integration/smoke commands above were rerun successfully after restarting the isolated Colima profile and recreating the temporary pinned uv installation. A tracked-file comparison against the generated local role passwords/database URLs found no leaked values. The full branch diff passes `git diff main...HEAD --check`. No application code changed during this finalization or the subsequent PR audit. Later documentation-only commits are checked by the same CI workflow; consult the current PR checks for their exact head.
