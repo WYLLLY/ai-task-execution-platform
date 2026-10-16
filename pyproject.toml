@@ -1,0 +1,54 @@
+[project]
+name = "ai-task-execution-platform"
+version = "0.1.0"
+description = "PostgreSQL-backed AI task execution platform"
+requires-python = ">=3.14,<3.15"
+dependencies = [
+    "alembic==1.20.0",
+    "fastapi==0.143.1",
+    "httpx==0.28.1",
+    "psycopg[binary]==3.3.6",
+    "pydantic==2.14.1",
+    "redis==8.1.0",
+    "sqlalchemy[asyncio]==2.0.54",
+    "uvicorn==0.54.0",
+]
+
+[project.scripts]
+atp = "task_platform.cli:main"
+
+[build-system]
+requires = ["hatchling==1.27.0"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/task_platform"]
+
+[tool.ruff]
+target-version = "py314"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "ASYNC", "S"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101"]
+
+[tool.mypy]
+python_version = "3.14"
+strict = true
+files = ["src", "tests", "migrations", "scripts"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+addopts = "-ra --strict-markers"
+markers = ["integration: requires isolated PostgreSQL and Redis"]
+
+[dependency-groups]
+dev = [
+    "mypy==2.4.0",
+    "pytest==9.1.1",
+    "pytest-asyncio==1.4.0",
+    "ruff==0.17.0",
+]

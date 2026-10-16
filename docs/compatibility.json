@@ -1,0 +1,26 @@
+{
+  "application_version": "0.1.0",
+  "milestone": "M1",
+  "python": "3.14.8",
+  "uv": "0.13.1",
+  "postgresql": "17.11",
+  "redis_server": "8.2.2",
+  "schema_revisions": ["0001_foundation"],
+  "workflow_handlers": [],
+  "commands": ["api", "admin", "worker --check"],
+  "execution_implemented": false,
+  "deployment_processes": {"api": 1, "workers_planned": 2},
+  "connection_budget": {
+    "api_reads": 8,
+    "api_control": 2,
+    "each_worker_execution": 4,
+    "each_worker_control": 2,
+    "admin": 2,
+    "migration": 1,
+    "probes": 3,
+    "operator_and_postgresql_reserve": 10,
+    "required_total": 38,
+    "postgresql_max_connections": 50
+  },
+  "notes": "Worker pools are budgeted for M3, not allocated by an execution loop in M1. No compatible workflow exists yet."
+}
