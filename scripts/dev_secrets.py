@@ -9,7 +9,7 @@ from uuid import uuid4
 
 def main() -> None:
     root = Path(".secrets")
-    if root.exists() or Path(".env").exists():
+    if root.exists() or root.is_symlink() or Path(".env").exists() or Path(".env").is_symlink():
         raise SystemExit(".secrets or .env already exists; preserve it or choose a fresh checkout")
     root.mkdir(mode=0o700)
     os.umask(0o077)
@@ -29,7 +29,13 @@ def main() -> None:
         'save ""\nappendonly no\nmaxmemory 64mb\nmaxmemory-policy allkeys-lru\n'
     )
     epoch = str(uuid4())
-    Path(".env").write_text(f"EXECUTION_EPOCH={epoch}\n")
+    try:
+        with Path(".env").open("x") as environment:
+            environment.write(f"EXECUTION_EPOCH={epoch}\n")
+    except FileExistsError:
+        raise SystemExit(
+            ".env appeared during setup; preserved it. Inspect partial .secrets."
+        ) from None
     (root / "metadata.json").write_text(json.dumps({"execution_epoch": epoch}))
     # Compose file-backed secrets retain source permissions; local containers have distinct UIDs.
     # The directory remains owner-only on the host; mounted files are readable in their recipient.
