@@ -1,4 +1,4 @@
-"""M1 tables only; tasks, workflows and dispatch are later milestones."""
+"""Identity and operational control with PostgreSQL-owned admission counters."""
 
 from datetime import datetime
 from uuid import UUID
@@ -15,6 +15,10 @@ class Principal(Base):
     __tablename__ = "principals"
     id: Mapped[UUID] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String(100))
+    open_tasks: Mapped[int] = mapped_column(Integer, default=0)
+    max_open_tasks: Mapped[int] = mapped_column(Integer, default=5)
+    storage_bytes: Mapped[int] = mapped_column(BigInteger, default=0)
+    max_storage_bytes: Mapped[int] = mapped_column(BigInteger, default=104857600)
     active: Mapped[bool] = mapped_column(Boolean, default=True)
     permission_version: Mapped[int] = mapped_column(BigInteger, default=1)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
@@ -38,6 +42,10 @@ class PlatformControl(Base):
     dispatch_open: Mapped[bool] = mapped_column(Boolean, default=False)
     admission_open: Mapped[bool] = mapped_column(Boolean, default=False)
     version: Mapped[int] = mapped_column(BigInteger, default=1)
+    open_tasks: Mapped[int] = mapped_column(Integer, default=0)
+    max_open_tasks: Mapped[int] = mapped_column(Integer, default=100)
+    storage_bytes: Mapped[int] = mapped_column(BigInteger, default=0)
+    max_storage_bytes: Mapped[int] = mapped_column(BigInteger, default=2147483648)
 
 
 class AuditEvent(Base):
