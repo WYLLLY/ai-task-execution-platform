@@ -40,6 +40,7 @@ async def check_database(engine: AsyncEngine, settings: Settings) -> tuple[bool,
         async with asyncio.timeout(4), engine.connect() as connection:
             # Validate usable required columns/privileges, not only the revision marker.
             for model in (
+                PlatformControl,
                 Principal,
                 APIKey,
                 Task,

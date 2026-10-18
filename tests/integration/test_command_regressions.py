@@ -105,3 +105,24 @@ async def test_readiness_detects_missing_command_privileges(
         async with engine.begin() as c:
             await c.execute(text(f"GRANT {privilege} ON {table} TO atp_api"))
         await engine.dispose()
+
+
+@pytest.mark.parametrize("column", ["max_open_tasks", "max_storage_bytes"])
+async def test_readiness_detects_missing_platform_admission_columns(
+    client: AsyncClient, command_owner: dict[str, str], column: str
+) -> None:
+    engine = create_engine(settings_for("migrator"))
+    try:
+        async with engine.begin() as c:
+            await c.execute(
+                text(f"ALTER TABLE platform_control RENAME COLUMN {column} TO hidden_test_column")
+            )
+        response = await client.get("/health/ready")
+        assert response.status_code == 503
+        assert response.json()["submission_available"] is False
+    finally:
+        async with engine.begin() as c:
+            await c.execute(
+                text(f"ALTER TABLE platform_control RENAME COLUMN hidden_test_column TO {column}")
+            )
+        await engine.dispose()
