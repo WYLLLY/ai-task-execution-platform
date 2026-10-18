@@ -2,9 +2,11 @@
 
 Date: 2026-10-18. Reviewer: separate review agent; implementation and corrections remained with the primary author. Scope: the approved M1 foundation and M2 commands/state milestone, including their combined regression suite. No application, migration, test, configuration or Git changes were made by this reviewer. This report is the reviewer's only repository edit.
 
-Reviewed source: `51c7e3c4a31b6d7470941c6cef2dc9560b495e59`, following M2 commit `644437389b3ea28de4f24645ffd49d2f66a83076`; M2-only base `24669e1d9ab191e04e2a350a50cc3e41e4aa0715`. [Draft PR #2](https://github.com/WYLLLY/ai-task-execution-platform/pull/2) targets `main` and therefore also contains unmerged M1 work. The user's local `AGENTS.md` update was read and preserved outside these commits.
+Reviewed source: `51c7e3c4a31b6d7470941c6cef2dc9560b495e59`, following M2 commit `644437389b3ea28de4f24645ffd49d2f66a83076`; M2-only base `24669e1d9ab191e04e2a350a50cc3e41e4aa0715`. [PR #2](https://github.com/WYLLLY/ai-task-execution-platform/pull/2) targets `main` and therefore also contains unmerged M1 work. The user's local `AGENTS.md` update was read and preserved outside these commits.
 
-## Verdict
+**Current independent verdict after the owner's explicit exception: APPROVE for the existing M1/M2 baseline under that bounded exception.** Historical TDD chronology remains unverified. The original rejection below is preserved; see [the dated reassessment](#reassessment-after-explicit-owner-acceptance--2026-10-18) for the changed acceptance basis and remaining publication condition.
+
+## Original verdict — before the explicit owner exception
 
 **Technical/runtime verdict: PASS for implemented M1 + M2 scope, with no remaining confirmed application defect. Overall milestone-completion verdict: REJECT under the strict process gate.** The universal per-behavior TDD process gate remains **FAIL / unverified**. The recorded initial Red runs and test-first corrections do not establish test-first chronology for every later audit-covered behavior or historical M1 behavior.
 
@@ -106,7 +108,7 @@ git diff --check
 
 GitHub status was independently read: both checks on `6444373` completed successfully ([PR run](https://github.com/WYLLLY/ai-task-execution-platform/actions/runs/39072558929), [push run](https://github.com/WYLLLY/ai-task-execution-platform/actions/runs/39072538531)). More importantly, **both checks on the corrected source revision `51c7e3c` also completed successfully**, confirmed directly from the PR: [PR run 39127995624](https://github.com/WYLLLY/ai-task-execution-platform/actions/runs/39127995624) completed at 12:39:28 UTC and [push run 39127991904](https://github.com/WYLLLY/ai-task-execution-platform/actions/runs/39127991904) at 12:39:46 UTC on 2026-10-18. PR #2 remained a draft. Documentation commits after this report require their own CI status; they are not silently covered by these revision-specific observations.
 
-## TDD process gate and remaining limits
+## Original TDD process assessment and remaining limits
 
 The [test matrix](M2-test-matrix.md) records initial M2 command/state Red (**38 failures**) and missing CLI behavior (**1 failure**), followed by specific test-first regressions. Setup/import failures, cached-observer failures and an intermediate stale-installed-image run are not valid Red evidence. These historical results are author-recorded evidence; this reviewer independently reran the final Green checks rather than inventing or reconstructing historical test order.
 
@@ -117,3 +119,23 @@ Recommendation for this process finding: preserve the evidence limitation and dr
 M2 accepts and cancels queued tasks but does not execute them. Automatic deadline maintenance, dispatch A/B/C, lease recovery, external calls, unknown remote exposure and money/token settlement remain M3 work. Active-attempt generation equality and terminal-row metadata changes needed for later accounting/events must be handled by those later migrations/services; their future behavior is not certified here. Corpus/tool authority and semantic report correctness, OpenAI contracts, SSE, retention, restoration, load and production deployment gates remain unexecuted later scope. No paid provider request, live credential, external effect simulator or application deployment was used in this audit. Local cancellation is not evidence of remote cancellation.
 
 No unconditional security, durability, performance or production-readiness guarantee follows from these checks. No merge, auto-merge or M3 work is authorized by this report.
+
+## Reassessment after explicit owner acceptance — 2026-10-18
+
+The owner explicitly accepted incomplete historical TDD traceability for the already implemented M1/M2 baseline, requested this independent reassessment, and authorized marking the PR ready for review only if the remaining gates pass. The [one-time decision](M1-M2-tdd-exception.md) precisely bounds that acceptance to `7e090d441e48ec1e53af8c7d6b76bc709bb4d429`, whose application source is unchanged from `51c7e3c4a31b6d7470941c6cef2dc9560b495e59`. The decision preserves the limitation and requires strict TDD for every subsequent behavior or correction, including changes to M1/M2 and any future M3 work. It authorizes neither merging nor M3 implementation.
+
+This is an explicit owner exception to one known process gate, not an inference from successful tests, permission to publish, or PR status. The generic verification Skill is unchanged. Historical chronology remains **unverified**, and the original strict-process **REJECT** remains accurate for the criteria applied before this decision. No retrospective Red evidence has been added or claimed.
+
+### Independent checks for the reassessment
+
+- Rechecked current instructions, the M2 acceptance gates and the verification Skill, and read the complete exception and the changes to the matrix/verification documents. Their scope is consistent: existing historical traceability only; no technical defect, failed check, future work or broad architectural requirement is waived.
+- `git diff --name-only 51c7e3c4a31b6d7470941c6cef2dc9560b495e59 HEAD` lists only the three M2 review/evidence documents. The working-tree diff for application, tests, migrations, scripts, infrastructure, dependency/build files and CI configuration is empty. The only other tracked change is the previously preserved user-owned `AGENTS.md` TDD instruction update. The new exception file and current reassessment are documentation only.
+- The previously executed **280 integration / 25 unit / 183 command / 10 concurrency** passing results, clean-database migration evidence, static checks and actual Compose smoke therefore still apply to the unchanged runtime source. No application tests or Docker operations were run solely for this documentary reassessment, in accordance with `AGENTS.md`.
+- Independently read PR #2 at head `7e090d441e48ec1e53af8c7d6b76bc709bb4d429`: it remains a draft targeting `main`, with both checks **SUCCESS**. The [PR run 39128307223](https://github.com/WYLLLY/ai-task-execution-platform/actions/runs/39128307223) completed at 12:44:24 UTC and the [push run 39128304267](https://github.com/WYLLLY/ai-task-execution-platform/actions/runs/39128304267) at 12:43:56 UTC on 2026-10-18. These are observed baseline results, not a predeclared result for the forthcoming documentation commit.
+- Verified the local document links, Markdown fence balance, diff scope and whitespace after updating this report. No application behavior, test assertion, recorded failure or historical count changed.
+
+### Reassessed conclusion
+
+**APPROVE the existing M1/M2 baseline under the explicit one-time historical TDD exception.** The technical verdict remains **PASS**, with **0 remaining confirmed application findings**. The five application findings remain resolved: **3 Medium, 2 Low, 0 High, 0 Critical**. The **1 Medium historical process risk** remains documented and unverified, but is now explicitly accepted by the owner for this baseline and is no longer a blocking finding under the authorized acceptance criteria. No other blocking M1/M2 gate was identified.
+
+The PR is eligible to become ready for review after this documentation update is published and the required checks on that final PR head are observed successful. This reviewer has not changed GitHub readiness, submitted a GitHub approval, committed or merged anything. A ready-for-review PR is not merge authorization. Strict Red → Green → Refactor and the complete required regression checks remain mandatory for every new modification; no future exception follows from this decision.

@@ -40,4 +40,9 @@ The Makefile unit command exposed a test import path error (`scripts` is not an 
 
 ## TDD traceability limitation
 
-Recorded Red runs establish the initial M2 command/state contracts and the specific corrections above. The expanded arc, transport-ambiguity, limiter and transaction-retry audit tests were added after those mechanisms existed. Their passing results establish current behavior, **not test-first chronology for every individual behavior**. Historical M1 chronology is also unavailable. Under the current strict verification Skill, the universal TDD process gate is **FAIL / unverified** for those portions; no retrospective Red is invented. Runtime verification and this process limitation must be reported separately. No test is deleted, skipped or weakened to conceal the limitation.
+Recorded Red runs establish the initial M2 command/state contracts and the specific corrections above. The expanded arc, transport-ambiguity, limiter and transaction-retry audit tests were added after those mechanisms existed. Their passing results establish current behavior, **not test-first chronology for every individual behavior**. Historical M1 chronology is also unavailable. Before the explicit owner exception, the strict verification Skill made the universal TDD process gate **FAIL / unverified** for those portions; no retrospective Red is invented. Runtime verification and this process limitation must be reported separately. No test is deleted, skipped or weakened to conceal the limitation.
+
+
+## Explicit owner acceptance of the historical limitation
+
+On 2026-10-18 the owner authorized the [one-time M1/M2 exception](M1-M2-tdd-exception.md) for the existing baseline `7e090d4` only. Historical chronology remains **unverified**, but the owner accepts that process risk for existing M1/M2. The recorded Reds, failures, coverage and runtime results above are unchanged. Independent reassessment uses this explicit exception; technical checks are not waived. Every subsequent behavior/correction, including future M3, still requires test-first Red → Green → Refactor. This decision does not start M3 or authorize a merge.

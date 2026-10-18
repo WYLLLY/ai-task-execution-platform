@@ -46,7 +46,7 @@ The author's earlier278-test run used the rebuilt application image and a read-o
 
 See [test matrix](M2-test-matrix.md) for recorded Red→Green evidence and all initial failures. Confirmed defects were tested before their corrections: secret-file race, false-positive identity/write readiness, NUL JSON acceptance, deadline sampling before child locks and unretained fresh-key terminal cancellation. Expanded audit tests add transaction/concurrency/transport/state/limiter evidence.
 
-**Runtime verification PASS does not certify universal TDD chronology.** Initial M2 and regression Red evidence exists, but some per-behavior audit tests were added after implementation and historical M1 chronology is unavailable. Under the current verification Skill the strict process gate is **FAIL / unverified** for those portions. This cannot be repaired by inventing a retrospective Red run; M2 is not claimed unconditionally complete under that gate.
+**Runtime verification PASS does not certify universal TDD chronology.** Initial M2 and regression Red evidence exists, but some per-behavior audit tests were added after implementation and historical M1 chronology is unavailable. Before the owner exception, the verification Skill made the strict process gate **FAIL / unverified** for those portions. This cannot be repaired by inventing a retrospective Red run. The owner has now explicitly accepted this historical process risk for the existing M1/M2 baseline only; see the [bounded exception](M1-M2-tdd-exception.md). Chronology remains unverified. Independent reassessment may accept M1/M2 under that exception while all technical gates remain mandatory. Strict TDD applies to every subsequent modification and future M3 work.
 
 ## Remaining limits
 
@@ -58,3 +58,8 @@ Tasks can be queued/cancelled but no worker executes them. Deadlines are evaluat
 On 2026-10-18 the independent reviewer rebuilt installed images from a new disposable PostgreSQL volume and ran the complete suite after the final readiness fix: **280 integration tests passed in 51.82 seconds**, no failures/errors/skips. The independent unit suite passed **25 tests**. See [the complete independent report](M2-review.md) for focused gate, Compose, severity and CI evidence. The final source revision is `51c7e3c4a31b6d7470941c6cef2dc9560b495e59`; subsequent report-only commits do not change application behavior.
 
 Both GitHub Actions checks for the corrected source revision `51c7e3c` completed successfully: [pull-request run](https://github.com/WYLLLY/ai-task-execution-platform/actions/runs/39127995624) and [push run](https://github.com/WYLLLY/ai-task-execution-platform/actions/runs/39127991904). These are source-verification evidence, not a predeclared result for later documentation commits. Final PR-head checks are observed separately at handoff.
+
+
+## Documentation-only exception reassessment
+
+The owner authorized a bounded historical TDD exception on 2026-10-18. Only review/acceptance documentation changes in this update; application, migration, test and infrastructure sources remain identical to the verified baseline. The [independent report](M2-review.md) records the new verdict without rewriting historical results. Local application tests are not rerun solely for this documentation change, in accordance with AGENTS.md; document consistency, links, diff scope and current PR CI are checked. The normal GitHub workflow still runs on the documentation commit, and its final status must be observed before marking the PR ready.
