@@ -11,6 +11,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncEngine
 
 from task_platform.config import Settings
+from task_platform.execution_models import CallCost, CostEvidence, ExternalCall, ProviderAdmission
 from task_platform.models import APIKey, PlatformControl, Principal
 from task_platform.task_models import (
     Attempt,
@@ -21,7 +22,7 @@ from task_platform.task_models import (
     WorkflowVersion,
 )
 
-SCHEMA_REVISION = "0002_commands"
+SCHEMA_REVISION = "0003_execution"
 
 
 class Health(BaseModel):
@@ -49,6 +50,10 @@ async def check_database(engine: AsyncEngine, settings: Settings) -> tuple[bool,
                 TaskEvent,
                 IdempotencyRecord,
                 WorkflowVersion,
+                ExternalCall,
+                CallCost,
+                CostEvidence,
+                ProviderAdmission,
             ):
                 await connection.execute(select(model).limit(0))
             role = await connection.scalar(text("SELECT current_user"))
@@ -62,21 +67,55 @@ async def check_database(engine: AsyncEngine, settings: Settings) -> tuple[bool,
                 select(PlatformControl.execution_epoch).where(PlatformControl.id == 1)
             )
             writable = True
-            if settings.role == "api":
-                for table in ("tasks", "steps", "task_events", "idempotency_records"):
+            if settings.role in {"api", "worker"}:
+                inserts = (
+                    ("tasks", "steps", "task_events", "idempotency_records")
+                    if settings.role == "api"
+                    else (
+                        "attempts",
+                        "steps",
+                        "task_events",
+                        "external_calls",
+                        "call_costs",
+                        "cost_evidence",
+                    )
+                )
+                for table in inserts:
                     writable = writable and bool(
                         await connection.scalar(
                             text("SELECT has_table_privilege(current_user, :table, 'INSERT')"),
                             {"table": table},
                         )
                     )
-                for table, columns in (
+                updates: tuple[tuple[str, tuple[str, ...]], ...] = (
                     ("tasks", ("state", "reason", "task_version", "event_sequence")),
                     ("steps", ("state", "generation", "holder", "lease_until")),
                     ("attempts", ("state",)),
                     ("principals", ("open_tasks", "storage_bytes")),
                     ("platform_control", ("open_tasks", "storage_bytes")),
-                ):
+                    ("external_calls", ("state", "local_active")),
+                    ("attempts", ("ended_at", "reason")),
+                    ("steps", ("available_at", "selected_call_id")),
+                )
+                if settings.role == "worker":
+                    updates += (
+                        ("external_calls", ("response_observed_at",)),
+                        ("tasks", ("result", "storage_bytes")),
+                        ("steps", ("result", "failures")),
+                        (
+                            "call_costs",
+                            (
+                                "confirmed_cost",
+                                "confirmed_tokens",
+                                "exposure_cost",
+                                "exposure_tokens",
+                                "revision",
+                                "overrun",
+                            ),
+                        ),
+                        ("provider_admission", ("next_allowed_at",)),
+                    )
+                for table, columns in updates:
                     for column in columns:
                         writable = writable and bool(
                             await connection.scalar(

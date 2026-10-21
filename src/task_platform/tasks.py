@@ -16,6 +16,7 @@ from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
 from task_platform.command_schemas import CancelTask, CommandError, CreateTask, invalid
 from task_platform.config import Settings
+from task_platform.execution_state import abandon_calls
 from task_platform.identity import Identity, NotFoundError, authenticate
 from task_platform.models import PlatformControl, Principal
 from task_platform.rate_limits import creation_limit
@@ -316,11 +317,14 @@ async def cancel_task(
                     .with_for_update()
                 )
             ).all()
+            await abandon_calls(session, task)
             # Lock waits can cross the deadline; sample database time only after all locks.
             now: datetime = (await session.execute(select(func.clock_timestamp()))).scalar_one()
             for attempt in attempts:
                 if attempt.state == "active":
                     attempt.state = "revoked"
+                    attempt.ended_at = now
+                    attempt.reason = "cancelled"
             for step in children:
                 if step.state not in {"succeeded", "failed", "cancelled"}:
                     step.state = "cancelled"

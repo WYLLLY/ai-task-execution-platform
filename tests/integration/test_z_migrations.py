@@ -41,7 +41,7 @@ async def test_migration_roundtrip_and_schema_readiness(
     async with admin_engine.connect() as connection:
         assert (
             await connection.scalar(text("SELECT version_num FROM alembic_version"))
-            == "0002_commands"
+            == "0003_execution"
         )
     env["DATABASE_URL_FILE"] = str(Path(env["TEST_SECRETS_DIR"]) / "api_database_url")
     denied = await asyncio.to_thread(
@@ -110,3 +110,44 @@ async def test_m1_upgrade_preserves_identity_audit_epoch_and_roles(
         await client.get("/v1/me", headers={"Authorization": f"Bearer {token}"})
     ).status_code == 200
     assert (await client.get("/health/ready")).status_code == 200
+
+
+async def test_m3_downgrade_restores_m2_worker_privileges(admin_engine: AsyncEngine) -> None:
+    env = os.environ.copy()
+    env["DATABASE_URL_FILE"] = str(Path(env["TEST_SECRETS_DIR"]) / "migrator_database_url")
+    try:
+        down = await asyncio.to_thread(
+            subprocess.run,
+            [sys.executable, "-m", "alembic", "downgrade", "0002_commands"],
+            env=env,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        assert down.returncode == 0, down.stderr
+        async with admin_engine.connect() as c:
+            for table, column in (
+                ("tasks", "state"),
+                ("tasks", "result"),
+                ("steps", "state"),
+                ("attempts", "state"),
+                ("principals", "open_tasks"),
+                ("platform_control", "storage_bytes"),
+            ):
+                assert not await c.scalar(
+                    text("SELECT has_column_privilege('atp_worker',:table,:column,'UPDATE')"),
+                    {"table": table, "column": column},
+                ), (table, column)
+            assert await c.scalar(
+                text("SELECT has_column_privilege('atp_api','attempts','state','UPDATE')")
+            )
+    finally:
+        up = await asyncio.to_thread(
+            subprocess.run,
+            [sys.executable, "-m", "alembic", "upgrade", "head"],
+            env=env,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        assert up.returncode == 0, up.stderr

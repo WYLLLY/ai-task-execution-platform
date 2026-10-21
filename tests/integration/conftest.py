@@ -62,7 +62,10 @@ async def command_owner(admin_engine: AsyncEngine) -> AsyncIterator[dict[str, st
         async with engine.begin() as connection:
             if await connection.scalar(text("SELECT to_regclass('public.tasks')")):
                 await connection.execute(
-                    text("TRUNCATE tasks, steps, attempts, task_events, idempotency_records")
+                    text(
+                        "TRUNCATE cost_evidence, call_costs, external_calls, "
+                        "tasks, steps, attempts, task_events, idempotency_records"
+                    )
                 )
                 await connection.execute(
                     text("UPDATE principals SET open_tasks=0, storage_bytes=0")

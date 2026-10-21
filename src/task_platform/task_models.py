@@ -3,7 +3,7 @@
 from datetime import datetime
 from uuid import UUID
 
-from sqlalchemy import BigInteger, Boolean, DateTime, Integer, String, Text
+from sqlalchemy import BigInteger, Boolean, DateTime, Integer, String, Text, func
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -50,6 +50,12 @@ class Step(Base):
     generation: Mapped[int] = mapped_column(BigInteger, default=0)
     holder: Mapped[str | None] = mapped_column(String(100))
     lease_until: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    available_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now()
+    )
+    selected_call_id: Mapped[UUID | None]
+    result: Mapped[dict[str, object] | None] = mapped_column(JSONB)
+    failures: Mapped[int] = mapped_column(Integer, default=0)
 
 
 class Attempt(Base):
@@ -60,6 +66,12 @@ class Attempt(Base):
     attempt_number: Mapped[int] = mapped_column(Integer)
     generation: Mapped[int] = mapped_column(BigInteger)
     state: Mapped[str] = mapped_column(String(20))
+
+    started_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    ended_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    reason: Mapped[str | None] = mapped_column(String(80))
+    worker: Mapped[str | None] = mapped_column(String(100))
+    execution_epoch: Mapped[UUID | None]
 
 
 class TaskEvent(Base):
