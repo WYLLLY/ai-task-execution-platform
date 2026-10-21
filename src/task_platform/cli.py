@@ -4,7 +4,10 @@ import argparse
 import asyncio
 import json
 import logging
+import os
+import signal
 import sys
+from functools import partial
 from uuid import UUID
 
 import uvicorn
@@ -13,6 +16,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from task_platform.catalog import set_admission, set_workflow_availability
 from task_platform.config import load_settings
 from task_platform.db import create_engine, sessions
+from task_platform.execution import Executor
 from task_platform.health import check_database
 from task_platform.identity import (
     NotFoundError,
@@ -22,7 +26,11 @@ from task_platform.identity import (
     provision_principal,
     revoke_key,
 )
+from task_platform.metrics import execution_metrics
 from task_platform.observability import configure_logging
+from task_platform.supervisor import supervise
+from task_platform.transport import SimulationTransport
+from task_platform.worker import Worker
 
 
 async def run_admin(args: argparse.Namespace) -> None:
@@ -72,9 +80,48 @@ async def worker_check() -> None:
         postgres, schema, epoch = await check_database(engine, settings)
         if not postgres or not schema or epoch != settings.execution_epoch:
             raise ValueError("Worker preflight failed")
-        print(json.dumps({"ready": True, "execution_implemented": False, "handlers": []}))
+        print(
+            json.dumps(
+                {
+                    "ready": True,
+                    "execution_implemented": True,
+                    "simulation_only": True,
+                    "handlers": ["simulation-v1"],
+                    "metrics": await execution_metrics(sessions(engine)),
+                }
+            )
+        )
     finally:
         await engine.dispose()
+
+
+async def worker_run(once: bool) -> None:
+    settings = load_settings("worker")
+    if os.environ.get("ATP_TEST_PROFILE") != "1" or not settings.dispatch_enabled:
+        raise ValueError("Simulation requires explicit isolated test profile and dispatch opt-in")
+    destination = os.environ.get("SIMULATOR_URL", "http://simulator:8001")
+    engine, control = create_engine(settings), create_engine(settings, control=True)
+    stop = asyncio.Event()
+    loop = asyncio.get_running_loop()
+    for signum in (signal.SIGINT, signal.SIGTERM):
+        loop.add_signal_handler(signum, stop.set)
+    try:
+        ready, schema, epoch = await check_database(control, settings)
+        if not ready or not schema or epoch != settings.execution_epoch:
+            raise ValueError("Worker preflight failed")
+        executor = Executor(sessions(engine), sessions(control), settings.execution_epoch)
+        async with SimulationTransport(destination) as transport:
+            worker = Worker(executor, transport, holder=f"worker-{os.getpid()}")
+            if once:
+                await executor.maintenance()
+                await worker.run_once()
+            else:
+                await worker.run(stop)
+    finally:
+        for signum in (signal.SIGINT, signal.SIGTERM):
+            loop.remove_signal_handler(signum)
+        await engine.dispose()
+        await control.dispose()
 
 
 def main() -> None:
@@ -82,8 +129,11 @@ def main() -> None:
     parser = argparse.ArgumentParser(prog="atp")
     commands = parser.add_subparsers(dest="command", required=True)
     commands.add_parser("api")
-    worker = commands.add_parser("worker", help="M1 compatibility preflight only")
-    worker.add_argument("--check", action="store_true", required=True)
+    worker = commands.add_parser("worker", help="Durable executor; M3 simulation profile only")
+    worker_mode = worker.add_mutually_exclusive_group(required=True)
+    worker_mode.add_argument("--check", action="store_true")
+    worker_mode.add_argument("--simulate", action="store_true")
+    worker.add_argument("--once", action="store_true")
     admin = commands.add_parser("admin")
     actions = admin.add_subparsers(dest="action", required=True)
     actions.add_parser("init")
@@ -113,7 +163,10 @@ def main() -> None:
                 proxy_headers=False,
             )
         elif args.command == "worker":
-            asyncio.run(worker_check())
+            if args.check:
+                asyncio.run(worker_check())
+            else:
+                raise SystemExit(supervise(partial(worker_run, args.once)))
         else:
             asyncio.run(run_admin(args))
     except ValueError, KeyError, OSError, SQLAlchemyError, NotFoundError:

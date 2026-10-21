@@ -5,7 +5,16 @@ import logging
 import sys
 from datetime import UTC, datetime
 
-EVENTS = frozenset({"request.completed", "request.failed", "command.failed", "worker.checked"})
+EVENTS = frozenset(
+    {
+        "request.completed",
+        "request.failed",
+        "command.failed",
+        "worker.checked",
+        "worker.lease_lost",
+        "worker.database_unavailable",
+    }
+)
 
 
 class JSONFormatter(logging.Formatter):
