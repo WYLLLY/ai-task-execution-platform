@@ -1,20 +1,23 @@
 {
   "application_version": "0.1.0",
-  "milestone": "M2",
+  "milestone": "M3",
   "python": "3.14.8",
   "uv": "0.13.1",
   "postgresql": "17.11",
   "redis_server": "8.2.2",
   "schema_revisions": [
-    "0002_commands"
+    "0003_execution"
   ],
-  "workflow_handlers": [],
+  "workflow_handlers": [
+    "simulation-v1"
+  ],
   "commands": [
     "api",
     "admin",
-    "worker --check"
+    "worker --check",
+    "worker --simulate [--once]"
   ],
-  "execution_implemented": false,
+  "execution_implemented": true,
   "deployment_processes": {
     "api": 1,
     "workers_planned": 2
@@ -31,7 +34,7 @@
     "required_total": 38,
     "postgresql_max_connections": 50
   },
-  "notes": "M2 admits and cancels durable tasks; execution handlers, provider calls and worker loops begin in M3. Workflow/prompt/tools/context-builder versions are pinned to 1; the current catalogue is not a claim of an executable handler.",
+  "notes": "M3 durable execution is available only with explicit ATP_TEST_PROFILE=1 and DISPATCH_ENABLED=true, using the fixed simulated HTTP boundary. The analysis workflow remains unimplemented until M4; synthetic completion is explicitly labeled simulated. Catalogue workflow/prompt/tools/context-builder versions remain pinned to 1.",
   "catalogue_versions": {
     "analysis": "1"
   }

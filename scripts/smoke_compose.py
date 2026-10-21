@@ -1,4 +1,4 @@
-"""Exercise the running disposable M1 + M2 Compose stack, including a real Redis outage."""
+"""Exercise the running disposable M1–M3 Compose stack, including a real Redis outage."""
 
 import json
 import os
@@ -108,6 +108,11 @@ def main() -> None:
             restarted.status_code == 202 and restarted.content == replay.content,
             "PostgreSQL and API restart preserve exact response",
         )
+        polling_task = client.post(
+            "/v1/tasks", json=body, headers={**headers, "Idempotency-Key": "redis-worker"}
+        )
+        require(polling_task.status_code == 202, "prepare PostgreSQL polling fixture")
+        polling_id = polling_task.json()["task_id"]
         try:
             compose("stop", "redis")
             ready = client.get("/health/ready")
@@ -136,6 +141,24 @@ def main() -> None:
             )
             steps = client.get(f"/v1/tasks/{task_id}/steps", headers=headers).json()["items"]
             require(all(step["state"] == "cancelled" for step in steps), "no executable children")
+            polling = json.loads(
+                compose(
+                    "run",
+                    "--rm",
+                    "--no-deps",
+                    "test",
+                    "python",
+                    "-m",
+                    "tests.support.redis_worker_check",
+                    polling_id,
+                )
+            )
+            require(polling["claimed"] and polling["heartbeat"], "worker survives Redis outage")
+            client.post(
+                f"/v1/tasks/{polling_id}/cancel",
+                json={"expected_task_version": 2},
+                headers={**headers, "Idempotency-Key": "polling-cleanup"},
+            ).raise_for_status()
         finally:
             compose("start", "redis")
         for _ in range(30):
@@ -213,11 +236,14 @@ def main() -> None:
                 "loopback-only ingress",
             )
     worker = json.loads(compose("run", "--rm", "--no-deps", "worker"))
-    require(worker["ready"] and not worker["execution_implemented"], "worker preflight only")
+    require(
+        worker["ready"] and worker["execution_implemented"] and worker["simulation_only"],
+        "M3 simulation-only worker preflight",
+    )
     print(
-        "PASS: M1+M2 Compose identity, lost HTTP response, PostgreSQL/API restart, "
+        "PASS: M1-M3 Compose identity, lost HTTP response, PostgreSQL/API restart, "
         "Redis outage/recovery, command replay/cancel, revocation, redaction, "
-        "isolation, limits and worker preflight"
+        "isolation, limits, worker PostgreSQL polling/heartbeat during Redis outage and preflight"
     )
 
 

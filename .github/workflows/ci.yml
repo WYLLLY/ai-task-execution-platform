@@ -1,8 +1,8 @@
-name: M1 and M2 verification
+name: M1 through M3 verification
 on:
   pull_request:
   push:
-    branches: [main, feature/m1-foundation, feature/m2]
+    branches: [main, feature/m1-foundation, feature/m2, feature/m3]
 permissions:
   contents: read
 concurrency:
