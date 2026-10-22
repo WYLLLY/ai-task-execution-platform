@@ -17,6 +17,7 @@ from task_platform.execution import Permit
 
 
 class Outcome(StrictSchema):
+    response: dict[str, object] | None = None
     outcome: Literal["succeeded", "rejected", "retryable", "unknown"] = "unknown"
     cost: int | None = Field(default=None, ge=0, le=2**63 - 1)
     tokens: int | None = Field(default=None, ge=0, le=2**63 - 1)

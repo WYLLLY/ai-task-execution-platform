@@ -1,0 +1,61 @@
+# Independent database and service: application rollback cannot roll back remote effects.
+services:
+  demo-db:
+    image: postgres:17.11-bookworm@sha256:3645570cccdfa447589da9f57dd740faa29b30938e861289a5574b6ca6b03826
+    user: "999:999"
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    cpus: 0.5
+    mem_limit: 256m
+    pids_limit: 100
+    environment:
+      POSTGRES_DB: demo
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD_FILE: /run/secrets/demo_postgres_password
+      POSTGRES_INITDB_ARGS: --auth-host=scram-sha-256
+    secrets: [demo_postgres_password, demo_password]
+    volumes:
+      - demo-data:/var/lib/postgresql/data
+      - ./infra/demo-bootstrap.sh:/docker-entrypoint-initdb.d/01-bootstrap.sh:ro
+      - ./infra/demo-schema.sql:/docker-entrypoint-initdb.d/02-schema.sql:ro
+    networks: [private]
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U postgres -d demo"]
+      interval: 2s
+      timeout: 2s
+      retries: 30
+  demo:
+    image: ai-task-platform:m1
+    build: {context: ., target: runtime}
+    command: [demo]
+    user: "10001:10001"
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    tmpfs: ["/tmp:size=16m,mode=1777"]
+    cpus: 0.5
+    mem_limit: 256m
+    pids_limit: 100
+    environment:
+      DEMO_DATABASE_URL_FILE: /run/secrets/demo_database_url
+      DEMO_SERVICE_KEY_FILE: /run/secrets/demo_service_key
+    secrets: [demo_database_url, demo_service_key]
+    networks: [private]
+    depends_on:
+      demo-db: {condition: service_healthy}
+  worker:
+    environment:
+      DEMO_URL: http://demo:8000
+      DEMO_SERVICE_KEY_FILE: /run/secrets/demo_service_key
+    secrets: [demo_service_key]
+  test:
+    secrets: [demo_database_url, demo_service_key]
+    depends_on:
+      demo-db: {condition: service_healthy}
+volumes:
+  demo-data:
+secrets:
+  demo_postgres_password: {file: .secrets/demo_postgres_password}
+  demo_password: {file: .secrets/demo_password}
+  demo_database_url: {file: .secrets/demo_database_url}
+  demo_service_key: {file: .secrets/demo_service_key}

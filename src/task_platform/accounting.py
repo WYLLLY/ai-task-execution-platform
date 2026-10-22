@@ -17,6 +17,8 @@ async def admission_reason(
     now: datetime,
     cost: int,
     tokens: int,
+    *,
+    kind: str = "simulator-v1",
 ) -> str | None:
     scopes = (
         (
@@ -64,9 +66,13 @@ async def admission_reason(
         if row[0] + cost > cap_cost or row[1] + tokens > cap_tokens:
             return "task_limit" if index == 0 else "capacity_wait"
     calls = await session.scalar(
-        select(func.count()).select_from(ExternalCall).where(ExternalCall.task_id == task.id)
+        select(func.count())
+        .select_from(ExternalCall)
+        .where(ExternalCall.task_id == task.id, ExternalCall.provider == "simulator-v1")
     )
-    if int(calls or 0) >= int(str(task.limits["llm_calls"])):
+    if (kind == "simulator-v1" and int(calls or 0) >= int(str(task.limits["llm_calls"]))) or (
+        kind == "demo-v1" and task.tool_calls >= int(str(task.limits["tool_calls"]))
+    ):
         return "task_limit"
     active = await session.scalar(
         select(func.count()).select_from(ExternalCall).where(ExternalCall.local_active.is_(True))

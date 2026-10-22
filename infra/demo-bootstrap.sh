@@ -1,0 +1,12 @@
+#!/bin/sh
+set -eu
+ATP_DEMO_PASSWORD=$(cat /run/secrets/demo_password)
+export ATP_DEMO_PASSWORD
+psql --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" --set ON_ERROR_STOP=1 <<'SQL'
+\getenv demo_password ATP_DEMO_PASSWORD
+CREATE ROLE atp_demo LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE NOINHERIT PASSWORD :'demo_password';
+REVOKE ALL ON DATABASE demo FROM PUBLIC;
+GRANT CONNECT ON DATABASE demo TO atp_demo;
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+GRANT USAGE ON SCHEMA public TO atp_demo;
+SQL

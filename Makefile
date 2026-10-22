@@ -1,6 +1,6 @@
 UV ?= uv
 COMPOSE ?= docker compose
-TEST_COMPOSE = $(COMPOSE) -p atp-m1-test
+TEST_COMPOSE = $(COMPOSE) -p atp-m1-test -f compose.yaml -f compose.demo.yaml
 
 .PHONY: sync lint format typecheck test-unit test-integration test-commands test-concurrency test-execution test-failures smoke-compose dev-secrets
 sync:
@@ -16,8 +16,9 @@ test-unit:
 	$(UV) run --frozen pytest tests/unit
 dev-secrets:
 	$(UV) run --frozen python scripts/dev_secrets.py
+	$(UV) run --frozen python scripts/demo_secrets.py
 test-integration:
-	$(TEST_COMPOSE) up --build --wait api
+	$(TEST_COMPOSE) up --build --wait api demo
 	$(TEST_COMPOSE) build test
 	$(TEST_COMPOSE) run --rm --no-deps test pytest -p no:cacheprovider tests/integration
 smoke-compose:
@@ -34,3 +35,12 @@ test-execution:
 	$(TEST_COMPOSE) run --rm --no-deps test pytest -p no:cacheprovider tests/integration/test_execution.py tests/integration/test_execution_calls.py tests/integration/test_execution_resolution.py tests/integration/test_execution_schema.py tests/integration/test_execution_worker.py
 test-failures:
 	$(TEST_COMPOSE) run --rm --no-deps test pytest -p no:cacheprovider tests/integration/test_execution_failures.py tests/integration/test_execution_transport.py
+
+# M4: simulated agent workflow and independent PostgreSQL report service.
+.PHONY: test-workflows test-tools test-e2e
+test-workflows:
+	$(TEST_COMPOSE) run --rm --no-deps test pytest -p no:cacheprovider tests/integration/test_workflows.py tests/integration/test_workflow_boundaries.py tests/integration/test_workflow_reports.py tests/integration/test_workflow_corpus.py
+test-tools:
+	$(TEST_COMPOSE) run --rm --no-deps test pytest -p no:cacheprovider tests/unit/test_agent_protocol.py tests/integration/test_tools_demo.py
+test-e2e:
+	$(TEST_COMPOSE) run --rm --no-deps test pytest -p no:cacheprovider tests/integration/test_workflow_e2e.py
