@@ -1,0 +1,46 @@
+docker-compose -p atp-m1-test -f compose.yaml -f compose.demo.yaml run --rm --no-deps test pytest -p no:cacheprovider tests/integration/test_workflows.py tests/integration/test_workflow_boundaries.py tests/integration/test_workflow_reports.py tests/integration/test_workflow_corpus.py
+ Container atp-m1-test-test-run-367fed03e017 Creating
+ Container atp-m1-test-test-run-367fed03e017 Created
+============================= test session starts ==============================
+platform linux -- Python 3.14.8, pytest-9.1.1, pluggy-1.7.0
+rootdir: /app
+configfile: pyproject.toml
+plugins: anyio-4.15.1, asyncio-1.4.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 34 items
+
+tests/integration/test_workflows.py ........                             [ 23%]
+tests/integration/test_workflow_boundaries.py ...................        [ 79%]
+tests/integration/test_workflow_reports.py .....                         [ 94%]
+tests/integration/test_workflow_corpus.py ..                             [100%]
+
+============================= 34 passed in 15.67s ==============================
+docker-compose -p atp-m1-test -f compose.yaml -f compose.demo.yaml run --rm --no-deps test pytest -p no:cacheprovider tests/unit/test_agent_protocol.py tests/integration/test_tools_demo.py
+ Container atp-m1-test-test-run-66818110008d Creating
+ Container atp-m1-test-test-run-66818110008d Created
+============================= test session starts ==============================
+platform linux -- Python 3.14.8, pytest-9.1.1, pluggy-1.7.0
+rootdir: /app
+configfile: pyproject.toml
+plugins: anyio-4.15.1, asyncio-1.4.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 24 items
+
+tests/unit/test_agent_protocol.py ......................                 [ 91%]
+tests/integration/test_tools_demo.py ..                                  [100%]
+
+============================== 24 passed in 2.23s ==============================
+docker-compose -p atp-m1-test -f compose.yaml -f compose.demo.yaml run --rm --no-deps test pytest -p no:cacheprovider tests/integration/test_workflow_e2e.py
+ Container atp-m1-test-test-run-423a0c6d3602 Creating
+ Container atp-m1-test-test-run-423a0c6d3602 Created
+============================= test session starts ==============================
+platform linux -- Python 3.14.8, pytest-9.1.1, pluggy-1.7.0
+rootdir: /app
+configfile: pyproject.toml
+plugins: anyio-4.15.1, asyncio-1.4.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 3 items
+
+tests/integration/test_workflow_e2e.py ...                               [100%]
+
+============================== 3 passed in 33.99s ==============================

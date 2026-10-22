@@ -1,0 +1,11 @@
+ Container atp-m1-test-test-run-003a88339957 Creating
+ Container atp-m1-test-test-run-003a88339957 Created
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_ test_complete_workflow_restarts_between_every_unit_with_lost_final_response __
+tests/integration/test_workflow_e2e.py:37: in test_complete_workflow_restarts_between_every_unit_with_lost_final_response
+    assert await AnalysisWorker(
+E   assert False
+=========================== short test summary info ============================
+FAILED tests/integration/test_workflow_e2e.py::test_complete_workflow_restarts_between_every_unit_with_lost_final_response
+1 failed in 2.40s

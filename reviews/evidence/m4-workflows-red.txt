@@ -1,0 +1,60 @@
+ Container atp-m1-test-test-run-7115f6a078f8 Creating
+ Container atp-m1-test-test-run-7115f6a078f8 Created
+FFFFFFFF                                                                 [100%]
+=================================== FAILURES ===================================
+_________ test_restart_each_turn_preserves_protocol_and_pinned_source __________
+tests/integration/test_workflows.py:77: in test_restart_each_turn_preserves_protocol_and_pinned_source
+    await model_turn(analysis(executor), response())
+tests/integration/test_workflows.py:67: in model_turn
+    assert await executor.accept_model(lease, call, value, cost=2, tokens=1)
+E   assert False
+___________ test_revocation_before_B_suspends_without_external_call ____________
+tests/integration/test_workflows.py:112: in test_revocation_before_B_suspends_without_external_call
+    assert await engine.authorize(lease, uuid4(), payload) is None
+E   AssertionError: assert Permit(call_id=UUID('9fa6ec91-53cc-4daf-95aa-683f6ba372c9'), payload=b'{}', remaining_seconds=899.960075, measured_at=295.900766321) is None
+_____ test_rejected_model_output_is_charged_without_tool_execution[value0] _____
+tests/integration/test_workflows.py:135: in test_rejected_model_output_is_charged_without_tool_execution
+    await model_turn(analysis(executor), value)
+tests/integration/test_workflows.py:67: in model_turn
+    assert await executor.accept_model(lease, call, value, cost=2, tokens=1)
+E   assert False
+_____ test_rejected_model_output_is_charged_without_tool_execution[value1] _____
+tests/integration/test_workflows.py:135: in test_rejected_model_output_is_charged_without_tool_execution
+    await model_turn(analysis(executor), value)
+tests/integration/test_workflows.py:67: in model_turn
+    assert await executor.accept_model(lease, call, value, cost=2, tokens=1)
+E   assert False
+_____ test_rejected_model_output_is_charged_without_tool_execution[value2] _____
+tests/integration/test_workflows.py:135: in test_rejected_model_output_is_charged_without_tool_execution
+    await model_turn(analysis(executor), value)
+tests/integration/test_workflows.py:67: in model_turn
+    assert await executor.accept_model(lease, call, value, cost=2, tokens=1)
+E   assert False
+_____ test_rejected_model_output_is_charged_without_tool_execution[value3] _____
+tests/integration/test_workflows.py:135: in test_rejected_model_output_is_charged_without_tool_execution
+    await model_turn(analysis(executor), value)
+tests/integration/test_workflows.py:67: in model_turn
+    assert await executor.accept_model(lease, call, value, cost=2, tokens=1)
+E   assert False
+_________ test_nested_foreign_excerpt_is_rejected_without_partial_read _________
+tests/integration/test_workflows.py:150: in test_nested_foreign_excerpt_is_rejected_without_partial_read
+    await model_turn(
+tests/integration/test_workflows.py:67: in model_turn
+    assert await executor.accept_model(lease, call, value, cost=2, tokens=1)
+E   assert False
+_________________ test_forged_citation_cannot_create_save_step _________________
+tests/integration/test_workflows.py:168: in test_forged_citation_cannot_create_save_step
+    await model_turn(
+tests/integration/test_workflows.py:67: in model_turn
+    assert await executor.accept_model(lease, call, value, cost=2, tokens=1)
+E   assert False
+=========================== short test summary info ============================
+FAILED tests/integration/test_workflows.py::test_restart_each_turn_preserves_protocol_and_pinned_source
+FAILED tests/integration/test_workflows.py::test_revocation_before_B_suspends_without_external_call
+FAILED tests/integration/test_workflows.py::test_rejected_model_output_is_charged_without_tool_execution[value0]
+FAILED tests/integration/test_workflows.py::test_rejected_model_output_is_charged_without_tool_execution[value1]
+FAILED tests/integration/test_workflows.py::test_rejected_model_output_is_charged_without_tool_execution[value2]
+FAILED tests/integration/test_workflows.py::test_rejected_model_output_is_charged_without_tool_execution[value3]
+FAILED tests/integration/test_workflows.py::test_nested_foreign_excerpt_is_rejected_without_partial_read
+FAILED tests/integration/test_workflows.py::test_forged_citation_cannot_create_save_step
+8 failed in 1.38s

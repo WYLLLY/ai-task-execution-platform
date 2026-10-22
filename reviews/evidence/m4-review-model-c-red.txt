@@ -1,0 +1,10 @@
+Observed behavioral RED before the corresponding application correction.
+Summary transcribed from the tool result; the original /tmp output was lost on desktop restart.
+
+Command: DOCKER_CONTEXT=colima-ai-task-platform docker-compose -p atp-m1-test -f compose.yaml -f compose.demo.yaml run --rm --no-deps -e PYTHONPATH=/app/src -v "$PWD/src:/app/src:ro" -v "$PWD/tests:/app/tests:ro" test pytest -p no:cacheprovider tests/integration/test_workflow_boundaries.py -k model_C -q --tb=short
+
+test_model_C_cannot_select_continuation_after_deadline_during_source_read
+assert not await worker.accept_model(lease, call, REPORT, cost=2, tokens=1) failed with: assert not True.
+1 failed, 18 deselected in 0.85s
+
+Subsequent combined GREEN: 4 passed, 15 deselected in 1.22s.

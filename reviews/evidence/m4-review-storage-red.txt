@@ -1,0 +1,27 @@
+ Container atp-m1-test-test-run-d51d3cf1278b Creating
+ Container atp-m1-test-test-run-d51d3cf1278b Created
+FFFF                                                                     [100%]
+=================================== FAILURES ===================================
+_ test_m4_worker_preflight_requires_corpus_and_checkpoint_privileges[SELECT-documents] _
+tests/integration/test_workflow_boundaries.py:282: in test_m4_worker_preflight_requires_corpus_and_checkpoint_privileges
+    assert not compatible
+E   assert not True
+_ test_m4_worker_preflight_requires_corpus_and_checkpoint_privileges[UPDATE(tool_calls)-tasks] _
+tests/integration/test_workflow_boundaries.py:282: in test_m4_worker_preflight_requires_corpus_and_checkpoint_privileges
+    assert not compatible
+E   assert not True
+_ test_m4_worker_preflight_requires_corpus_and_checkpoint_privileges[UPDATE(payload)-steps] _
+tests/integration/test_workflow_boundaries.py:282: in test_m4_worker_preflight_requires_corpus_and_checkpoint_privileges
+    assert not compatible
+E   assert not True
+________ test_save_reserves_storage_for_exact_payload_and_terminal_copy ________
+tests/integration/test_workflow_boundaries.py:308: in test_save_reserves_storage_for_exact_payload_and_terminal_copy
+    assert after - before >= 3 * len(payload) + 4096
+E   assert (14868 - 12625) >= ((3 * 195) + 4096)
+E    +  where 195 = len(b'{"owner":"bcf4ff1a-7b76-4efd-8c4c-f0a82ab19e2b","operation":"a19f7f07-b903-5018-9114-e3e606e8fefc","report":{"type":"report","title":"Synthetic report","summary":"Revenue is 42.","citations":[]}}')
+=========================== short test summary info ============================
+FAILED tests/integration/test_workflow_boundaries.py::test_m4_worker_preflight_requires_corpus_and_checkpoint_privileges[SELECT-documents]
+FAILED tests/integration/test_workflow_boundaries.py::test_m4_worker_preflight_requires_corpus_and_checkpoint_privileges[UPDATE(tool_calls)-tasks]
+FAILED tests/integration/test_workflow_boundaries.py::test_m4_worker_preflight_requires_corpus_and_checkpoint_privileges[UPDATE(payload)-steps]
+FAILED tests/integration/test_workflow_boundaries.py::test_save_reserves_storage_for_exact_payload_and_terminal_copy
+4 failed, 9 deselected in 0.72s

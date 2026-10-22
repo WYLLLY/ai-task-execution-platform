@@ -1,0 +1,17 @@
+ Container atp-m1-test-test-run-7f76323ed4fc Creating
+ Container atp-m1-test-test-run-7f76323ed4fc Created
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+_____ test_save_capacity_wait_does_not_consume_tool_or_first_authorization _____
+tests/integration/test_workflow_boundaries.py:164: in test_save_capacity_wait_does_not_consume_tool_or_first_authorization
+    assert await c.scalar(text("SELECT tool_calls FROM tasks")) == 0
+E   assert 1 == 0
+_____________ test_resolution_revalidates_revoked_document_rights ______________
+tests/integration/test_workflow_boundaries.py:191: in test_resolution_revalidates_revoked_document_rights
+    assert result.status_code == 409
+E   assert 200 == 409
+E    +  where 200 = <Response [200 OK]>.status_code
+=========================== short test summary info ============================
+FAILED tests/integration/test_workflow_boundaries.py::test_save_capacity_wait_does_not_consume_tool_or_first_authorization
+FAILED tests/integration/test_workflow_boundaries.py::test_resolution_revalidates_revoked_document_rights
+2 failed, 5 deselected in 0.75s

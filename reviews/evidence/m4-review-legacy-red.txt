@@ -1,0 +1,10 @@
+Observed behavioral RED before the corresponding application correction.
+Summary transcribed from the tool result; the original /tmp output was lost on desktop restart.
+
+Command: DOCKER_CONTEXT=colima-ai-task-platform docker-compose -p atp-m1-test -f compose.yaml -f compose.demo.yaml run --rm --no-deps -e PYTHONPATH=/app/src -v "$PWD/src:/app/src:ro" -v "$PWD/tests:/app/tests:ro" test pytest -p no:cacheprovider tests/integration/test_workflow_boundaries.py -k legacy_simulation -q --tb=short
+
+test_legacy_simulation_handler_cannot_consume_m4_work
+corpus, tool and report: assert await executor.claim("legacy") is None failed because claim returned a Lease.
+3 failed, 15 deselected in 0.78s
+
+Subsequent combined GREEN: 4 passed, 15 deselected in 1.22s.

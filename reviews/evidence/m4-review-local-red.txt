@@ -1,0 +1,25 @@
+ Container atp-m1-test-test-run-b2ffe1571e35 Creating
+ Container atp-m1-test-test-run-b2ffe1571e35 Created
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+__________ test_local_tool_cannot_progress_after_deadline_during_read __________
+tests/integration/test_workflow_boundaries.py:222: in test_local_tool_cannot_progress_after_deadline_during_read
+    assert not await worker.run_tool(lease)
+E   assert not True
+___________ test_search_never_materializes_unpinned_document_bodies ____________
+tests/integration/test_workflow_boundaries.py:264: in test_search_never_materializes_unpinned_document_bodies
+    assert loaded and set(loaded) == {pinned}
+E   AssertionError: assert ([UUID('cf1b3c34-4287-4467-8c28-b9d4b1682b45'), UUID('cf1b3c34-4287-4467-8c28-b9d4b1682b45'), UUID('16b6dd44-f1f6-4836-...9-b4ca-338d8ed43626'), UUID('2d4182cd-fa76-4142-b1a9-2b81475ca074'), UUID('47923609-a637-4577-8731-ea5b0919517e'), ...] and {UUID('16b6dd...087428'), ...} == {UUID('cf1b3c...9d4b1682b45')}
+E
+E     Extra items in the left set:
+E     UUID('79d0c643-3fce-4e54-97d4-495a1be88abe')
+E     UUID('47923609-a637-4577-8731-ea5b0919517e')
+E     UUID('57f96937-22f0-4605-b7c2-8a58f502558a')
+E     UUID('ccad0b9c-b291-457f-acc9-c26c103e4ebf')
+E     UUID('2d4182cd-fa76-4142-b1a9-2b81475ca074')...
+E
+E     ...Full output truncated (4 lines hidden), use '-vv' to show)
+=========================== short test summary info ============================
+FAILED tests/integration/test_workflow_boundaries.py::test_local_tool_cannot_progress_after_deadline_during_read
+FAILED tests/integration/test_workflow_boundaries.py::test_search_never_materializes_unpinned_document_bodies
+2 failed, 7 deselected in 1.06s

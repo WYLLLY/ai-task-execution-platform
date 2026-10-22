@@ -1,0 +1,11 @@
+ Container atp-m1-test-test-run-c4cf863fa0b3 Creating
+ Container atp-m1-test-test-run-c4cf863fa0b3 Created
+.F                                                                       [100%]
+=================================== FAILURES ===================================
+______ test_physical_lost_response_then_probe_and_resend_keep_one_effect _______
+tests/integration/test_tools_demo.py:117: in test_physical_lost_response_then_probe_and_resend_keep_one_effect
+    assert proof is not None and proof["payload_hash"] == hashlib.sha256(payload).hexdigest()
+E   assert (None is not None)
+=========================== short test summary info ============================
+FAILED tests/integration/test_tools_demo.py::test_physical_lost_response_then_probe_and_resend_keep_one_effect
+1 failed, 1 passed in 2.18s
