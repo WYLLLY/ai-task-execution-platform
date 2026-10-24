@@ -1,0 +1,13 @@
+ Container atp-m1-test-test-run-93cfbc706de0 Creating
+ Container atp-m1-test-test-run-93cfbc706de0 Created
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_______ test_owner_explicit_regeneration_preserves_old_provider_exposure _______
+tests/integration/test_responses_workflow.py:196: in test_owner_explicit_regeneration_preserves_old_provider_exposure
+    assert resolved.status_code == 200, resolved.text
+E   AssertionError: {"detail":"Report resolution requires remote evidence"}
+E   assert 409 == 200
+E    +  where 409 = <Response [409 Conflict]>.status_code
+=========================== short test summary info ============================
+FAILED tests/integration/test_responses_workflow.py::test_owner_explicit_regeneration_preserves_old_provider_exposure
+1 failed, 4 deselected in 0.75s

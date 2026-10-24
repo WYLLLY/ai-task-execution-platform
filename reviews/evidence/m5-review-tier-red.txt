@@ -1,0 +1,10 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_____ test_unsupported_actual_service_tier_never_settles_at_standard_rate ______
+tests/unit/test_responses.py:264: in test_unsupported_actual_service_tier_never_settles_at_standard_rate
+    assert outcome.cost is None and outcome.tokens is None
+E   assert (138 is None)
+E    +  where 138 = Outcome(response={'canonical': {'status': 'completed', 'items': [{'type': 'function_call', 'call_id': 'call_1', 'name'... 'search_documents', 'arguments': '{"query":"x"}'}]}, outcome='succeeded', cost=138, tokens=120, retry_after_seconds=0).cost
+=========================== short test summary info ============================
+FAILED tests/unit/test_responses.py::test_unsupported_actual_service_tier_never_settles_at_standard_rate
+1 failed, 33 deselected in 0.31s

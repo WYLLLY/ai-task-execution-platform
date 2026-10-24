@@ -1,0 +1,55 @@
+FFFFFFF.                                                                 [100%]
+=================================== FAILURES ===================================
+_______ test_physical_requests_and_absolute_deadlines[success-succeeded] _______
+tests/integration/test_provider_contracts.py:49: in test_physical_requests_and_absolute_deadlines
+    assert result.outcome == expected
+E   AssertionError: assert 'unknown' == 'succeeded'
+E
+E     - succeeded
+E     + unknown
+____ test_physical_requests_and_absolute_deadlines[missing_usage-succeeded] ____
+tests/integration/test_provider_contracts.py:49: in test_physical_requests_and_absolute_deadlines
+    assert result.outcome == expected
+E   AssertionError: assert 'unknown' == 'succeeded'
+E
+E     - succeeded
+E     + unknown
+_______ test_physical_requests_and_absolute_deadlines[redirect-unknown] ________
+tests/integration/test_provider_contracts.py:51: in test_physical_requests_and_absolute_deadlines
+    assert responses_server.count("request") == 1
+E   AssertionError: assert 0 == 1
+E    +  where 0 = count('request')
+E    +    where count = Simulator(url='http://127.0.0.1:49747', journal=PosixPath('/private/var/folders/h6/0xk7s0_s7db7_87hfcpb9mhm0000gp/T/pytest-of-william/pytest-2/test_physical_requests_and_abs2/physical.jsonl')).count
+__________ test_physical_requests_and_absolute_deadlines[429-unknown] __________
+tests/integration/test_provider_contracts.py:51: in test_physical_requests_and_absolute_deadlines
+    assert responses_server.count("request") == 1
+E   AssertionError: assert 0 == 1
+E    +  where 0 = count('request')
+E    +    where count = Simulator(url='http://127.0.0.1:49748', journal=PosixPath('/private/var/folders/h6/0xk7s0_s7db7_87hfcpb9mhm0000gp/T/pytest-of-william/pytest-2/test_physical_requests_and_abs3/physical.jsonl')).count
+_______ test_physical_requests_and_absolute_deadlines[malformed-unknown] _______
+tests/integration/test_provider_contracts.py:51: in test_physical_requests_and_absolute_deadlines
+    assert responses_server.count("request") == 1
+E   AssertionError: assert 0 == 1
+E    +  where 0 = count('request')
+E    +    where count = Simulator(url='http://127.0.0.1:49749', journal=PosixPath('/private/var/folders/h6/0xk7s0_s7db7_87hfcpb9mhm0000gp/T/pytest-of-william/pytest-2/test_physical_requests_and_abs4/physical.jsonl')).count
+_______ test_physical_requests_and_absolute_deadlines[oversized-unknown] _______
+tests/integration/test_provider_contracts.py:51: in test_physical_requests_and_absolute_deadlines
+    assert responses_server.count("request") == 1
+E   AssertionError: assert 0 == 1
+E    +  where 0 = count('request')
+E    +    where count = Simulator(url='http://127.0.0.1:49750', journal=PosixPath('/private/var/folders/h6/0xk7s0_s7db7_87hfcpb9mhm0000gp/T/pytest-of-william/pytest-2/test_physical_requests_and_abs5/physical.jsonl')).count
+_________ test_physical_requests_and_absolute_deadlines[slow-unknown] __________
+tests/integration/test_provider_contracts.py:51: in test_physical_requests_and_absolute_deadlines
+    assert responses_server.count("request") == 1
+E   AssertionError: assert 0 == 1
+E    +  where 0 = count('request')
+E    +    where count = Simulator(url='http://127.0.0.1:49751', journal=PosixPath('/private/var/folders/h6/0xk7s0_s7db7_87hfcpb9mhm0000gp/T/pytest-of-william/pytest-2/test_physical_requests_and_abs6/physical.jsonl')).count
+=========================== short test summary info ============================
+FAILED tests/integration/test_provider_contracts.py::test_physical_requests_and_absolute_deadlines[success-succeeded]
+FAILED tests/integration/test_provider_contracts.py::test_physical_requests_and_absolute_deadlines[missing_usage-succeeded]
+FAILED tests/integration/test_provider_contracts.py::test_physical_requests_and_absolute_deadlines[redirect-unknown]
+FAILED tests/integration/test_provider_contracts.py::test_physical_requests_and_absolute_deadlines[429-unknown]
+FAILED tests/integration/test_provider_contracts.py::test_physical_requests_and_absolute_deadlines[malformed-unknown]
+FAILED tests/integration/test_provider_contracts.py::test_physical_requests_and_absolute_deadlines[oversized-unknown]
+FAILED tests/integration/test_provider_contracts.py::test_physical_requests_and_absolute_deadlines[slow-unknown]
+7 failed, 1 passed in 3.13s

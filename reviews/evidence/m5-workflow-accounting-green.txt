@@ -1,0 +1,108 @@
+ Container atp-m1-test-test-run-f8b595df299d Creating
+ Container atp-m1-test-test-run-f8b595df299d Created
+.F.....                                                                  [100%]
+=================================== FAILURES ===================================
+________ test_real_reservation_and_protocol_replay_after_worker_restart ________
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1969: in _exec_single_context
+    self.dialect.do_execute(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/default.py:952: in do_execute
+    cursor.execute(statement, parameters)
+.venv/lib/python3.14/site-packages/sqlalchemy/dialects/postgresql/psycopg.py:642: in execute
+    result = self.await_(self._cursor.execute(query, params, **kw))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py:132: in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py:196: in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/psycopg/cursor_async.py:117: in execute
+    raise ex.with_traceback(None)
+E   psycopg.errors.CheckViolation: Terminal step immutable
+E   CONTEXT:  PL/pgSQL function guard_step() line 4 at RAISE
+
+The above exception was the direct cause of the following exception:
+tests/integration/test_responses_workflow.py:92: in test_real_reservation_and_protocol_replay_after_worker_restart
+    assert await service.complete(
+src/task_platform/execution.py:520: in complete
+    return await retry_transaction(operation)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/task_platform/tasks.py:65: in retry_transaction
+    return await operation()
+           ^^^^^^^^^^^^^^^^^
+src/task_platform/execution.py:517: in operation
+    await progression.commit()
+.venv/lib/python3.14/site-packages/sqlalchemy/ext/asyncio/session.py:1855: in commit
+    await greenlet_spawn(self._sync_transaction().commit)
+.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py:203: in greenlet_spawn
+    result = context.switch(value)
+             ^^^^^^^^^^^^^^^^^^^^^
+<string>:2: in commit
+    ???
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/state_changes.py:137: in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py:1316: in commit
+    self._prepare_impl()
+<string>:2: in _prepare_impl
+    ???
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/state_changes.py:137: in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py:1290: in _prepare_impl
+    self.session.flush()
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py:4353: in flush
+    self._flush(objects)
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py:4488: in _flush
+    with util.safe_reraise():
+         ^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/langhelpers.py:122: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py:4449: in _flush
+    flush_context.execute()
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/unitofwork.py:465: in execute
+    rec.execute(self)
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/unitofwork.py:641: in execute
+    util.preloaded.orm_persistence.save_obj(
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/persistence.py:86: in save_obj
+    _emit_update_statements(
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/persistence.py:913: in _emit_update_statements
+    c = connection.execute(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1421: in execute
+    return meth(
+.venv/lib/python3.14/site-packages/sqlalchemy/sql/elements.py:526: in _execute_on_connection
+    return connection._execute_clauseelement(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1643: in _execute_clauseelement
+    ret = self._execute_context(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1848: in _execute_context
+    return self._exec_single_context(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1988: in _exec_single_context
+    self._handle_dbapi_exception(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:2365: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1969: in _exec_single_context
+    self.dialect.do_execute(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/default.py:952: in do_execute
+    cursor.execute(statement, parameters)
+.venv/lib/python3.14/site-packages/sqlalchemy/dialects/postgresql/psycopg.py:642: in execute
+    result = self.await_(self._cursor.execute(query, params, **kw))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py:132: in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py:196: in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/psycopg/cursor_async.py:117: in execute
+    raise ex.with_traceback(None)
+E   sqlalchemy.exc.IntegrityError: (psycopg.errors.CheckViolation) Terminal step immutable
+E   CONTEXT:  PL/pgSQL function guard_step() line 4 at RAISE
+E   [SQL: UPDATE steps SET protocol_items=%(protocol_items)s::JSONB WHERE steps.id = %(steps_id)s::UUID]
+E   [SQL parameters hidden due to hide_parameters=True]
+E   (Background on this error at: https://sqlalche.me/e/20/gkpj)
+=========================== short test summary info ============================
+FAILED tests/integration/test_responses_workflow.py::test_real_reservation_and_protocol_replay_after_worker_restart
+1 failed, 6 passed in 1.84s
+The garbage collector is trying to clean up non-checked-in connection <AdaptedConnection <psycopg.AsyncConnection [IDLE] (host=postgres user=atp_admin database=atp) at 0xeeb77d078aa0>>, which will be dropped, as it cannot be safely terminated.  Please ensure that SQLAlchemy pooled connections are returned to the pool explicitly, either by calling ``close()`` or by using appropriate context managers to manage their lifecycle.
+/app/.venv/lib/python3.14/site-packages/_pytest/unraisableexception.py:33: SAWarning: The garbage collector is trying to clean up non-checked-in connection <AdaptedConnection <psycopg.AsyncConnection [IDLE] (host=postgres user=atp_admin database=atp) at 0xeeb77d078aa0>>, which will be dropped, as it cannot be safely terminated.  Please ensure that SQLAlchemy pooled connections are returned to the pool explicitly, either by calling ``close()`` or by using appropriate context managers to manage their lifecycle.
+  gc.collect()

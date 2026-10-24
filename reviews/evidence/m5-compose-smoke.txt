@@ -1,0 +1,2 @@
+/private/tmp/atp-m5-tools/bin/uv run --frozen python scripts/smoke_compose.py
+PASS: M1-M3 Compose identity, lost HTTP response, PostgreSQL/API restart, Redis outage/recovery, command replay/cancel, revocation, redaction, isolation, limits, worker PostgreSQL polling/heartbeat during Redis outage and preflight

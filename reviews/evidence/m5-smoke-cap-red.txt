@@ -1,0 +1,15 @@
+time="2026-10-23T20:56:27+02:00" level=warning msg="Found orphan containers (atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-0399653aea0d Creating
+ Container atp-m1-test-test-run-0399653aea0d Created
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_______ test_first_turn_overrun_cannot_spend_the_second_turn_reservation _______
+tests/unit/test_openai_smoke.py:119: in test_first_turn_overrun_cannot_spend_the_second_turn_reservation
+    assert len(calls) == 1
+E   assert 2 == 1
+E    +  where 2 = len([Permit(call_id=UUID('673de25f-7dac-4ea2-9993-3fe7b21e8729'), payload=b'{"model":"gpt-5.4-mini-2026-03-17","service_ti...":"Report","type":"object"}}},"tool_choice":"none"}', remaining_seconds=59.987849884999946, measured_at=735.348131347)])
+----------------------------- Captured stdout call -----------------------------
+{"status": "FAIL", "request_attempts": 2, "confirmed_cost_micro_usd": 99998, "confirmed_tokens": 240, "cap_micro_usd": 50000, "stateless_roundtrip": false}
+=========================== short test summary info ============================
+FAILED tests/unit/test_openai_smoke.py::test_first_turn_overrun_cannot_spend_the_second_turn_reservation
+1 failed, 2 deselected in 1.56s

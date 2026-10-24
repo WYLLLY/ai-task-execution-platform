@@ -1,0 +1,2 @@
+Command: actionlint .github/workflows/ci.yml
+PASS: exit 0, no diagnostics

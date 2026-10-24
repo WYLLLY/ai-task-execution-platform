@@ -1,0 +1,21 @@
+time="2026-10-23T20:50:53+02:00" level=warning msg="Found orphan containers (atp-m5-targeted) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-90d94397cccc Creating
+ Container atp-m1-test-test-run-90d94397cccc Created
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+__________ test_smoke_requires_bounded_stateless_tool_roundtrip[True] __________
+tests/unit/test_openai_smoke.py:54: in test_smoke_requires_bounded_stateless_tool_roundtrip
+    assert len(calls) == 2
+E   AssertionError: assert 1 == 2
+E    +  where 1 = len([{'model': 'gpt-5.4-mini-2026-03-17', 'service_tier': 'default', 'store': False, 'stream': False, ...}])
+_________ test_smoke_requires_bounded_stateless_tool_roundtrip[False] __________
+tests/unit/test_openai_smoke.py:51: in test_smoke_requires_bounded_stateless_tool_roundtrip
+    with pytest.raises(SystemExit):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE SystemExit
+----------------------------- Captured stdout call -----------------------------
+{"status": "PASS", "physical_requests": 1, "cost_micro_usd": 138, "tokens": 120, "cap_micro_usd": 50000}
+=========================== short test summary info ============================
+FAILED tests/unit/test_openai_smoke.py::test_smoke_requires_bounded_stateless_tool_roundtrip[True]
+FAILED tests/unit/test_openai_smoke.py::test_smoke_requires_bounded_stateless_tool_roundtrip[False]
+2 failed in 1.54s
