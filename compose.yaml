@@ -117,7 +117,7 @@ services:
     image: ai-task-platform:m1-test
     build: {context: ., target: test}
     profiles: [test]
-    mem_limit: 512m
+    mem_limit: 1g
     cpus: 1.0
     read_only: false
     environment:

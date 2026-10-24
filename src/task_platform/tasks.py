@@ -194,11 +194,18 @@ async def submit_task(
             )
             if workflow is None or not workflow.available:
                 raise NotFoundError
-            if (
-                workflow.name != "analysis"
-                or workflow.version != "1"
-                or workflow.definition != PINNED_VERSIONS
-            ):
+            supported = workflow.version == "1" and workflow.definition == PINNED_VERSIONS
+            if workflow.version == "2":
+                from task_platform.provider_admin import definition
+                from task_platform.responses import validate_profile
+
+                try:
+                    supported = workflow.definition == definition(
+                        validate_profile(workflow.definition.get("provider"))
+                    )
+                except ValueError:
+                    supported = False
+            if workflow.name != "analysis" or not supported:
                 raise CommandError(503, "Workflow version unavailable")
             if (
                 owner.open_tasks >= owner.max_open_tasks

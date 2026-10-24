@@ -48,6 +48,17 @@ async def run_admin(args: argparse.Namespace) -> None:
     factory = sessions(engine)
     try:
         match args.action:
+            case "provider-configure" | "accounting":
+                from task_platform.provider_admin import configure_provider, reconcile
+                from task_platform.provider_commands import read_json_file
+                from task_platform.responses import validate_profile
+
+                value = await asyncio.to_thread(read_json_file, args.file)
+                if args.action == "provider-configure":
+                    await configure_provider(factory, validate_profile(value))
+                else:
+                    await reconcile(factory, args.call, value)
+                print(json.dumps({"applied": True}))
             case "corpus":
                 from task_platform.corpus import import_document, revoke_document
 
@@ -169,15 +180,22 @@ def main() -> None:
     commands = parser.add_subparsers(dest="command", required=True)
     commands.add_parser("api")
     commands.add_parser("demo")
+    commands.add_parser("smoke-openai")
     worker = commands.add_parser("worker", help="Durable executor; M3/M4 simulation profiles only")
     worker_mode = worker.add_mutually_exclusive_group(required=True)
     worker_mode.add_argument("--check", action="store_true")
     worker_mode.add_argument("--simulate", action="store_true")
     worker_mode.add_argument("--analysis", action="store_true")
+    worker_mode.add_argument("--openai", action="store_true")
     worker.add_argument("--once", action="store_true")
     admin = commands.add_parser("admin")
     actions = admin.add_subparsers(dest="action", required=True)
     actions.add_parser("init")
+    for action in ("provider-configure", "accounting"):
+        sub = actions.add_parser(action)
+        sub.add_argument("--file", required=True)
+        if action == "accounting":
+            sub.add_argument("--call", required=True)
     create = actions.add_parser("principal-create")
     create.add_argument("--name", required=True)
     for action in ("key-create", "key-revoke", "principal-disable"):
@@ -223,9 +241,17 @@ def main() -> None:
                 log_config=None,
                 proxy_headers=False,
             )  # noqa: S104 -- private Compose network only
+        elif args.command == "smoke-openai":
+            from task_platform.provider_commands import smoke_openai
+
+            asyncio.run(smoke_openai())
         elif args.command == "worker":
             if args.check:
                 asyncio.run(worker_check())
+            elif args.openai:
+                from task_platform.provider_commands import worker_openai
+
+                raise SystemExit(supervise(partial(worker_openai, args.once)))
             else:
                 raise SystemExit(supervise(partial(worker_run, args.once, args.analysis)))
         else:

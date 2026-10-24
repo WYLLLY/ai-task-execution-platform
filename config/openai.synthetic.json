@@ -1,0 +1,15 @@
+{
+  "version": "openai-v1",
+  "model": "gpt-5.4-mini-2026-03-17",
+  "tariff": "gpt54mini-2026-10-23",
+  "tokenizer": "o200k_base-tiktoken-0.14.0",
+  "input_rate": 750000,
+  "cached_rate": 75000,
+  "output_rate": 4500000,
+  "project": "proj_synthetic",
+  "rpm": 100,
+  "tpm": 1000000,
+  "context_tokens": 12000,
+  "output_tokens": 2000,
+  "reasoning_effort": "low"
+}
