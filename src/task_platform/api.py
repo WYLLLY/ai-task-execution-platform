@@ -32,11 +32,11 @@ from task_platform.rate_limits import LocalLimits
 from task_platform.resolution import resolve_task
 from task_platform.task_models import Step, Task, WorkflowVersion
 from task_platform.tasks import (
-    PINNED_VERSIONS,
     cancel_task,
     owned_task,
     snapshot,
     submit_task,
+    supported_workflow,
     validate_key,
 )
 
@@ -169,12 +169,10 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                         "version": row.version,
                         "versions": row.definition,
                         "input_schema": CreateTask.model_json_schema(),
-                        "execution_implemented": False,
+                        "execution_implemented": True,
                     }
                     for row in rows
-                    if row.name == "analysis"
-                    and row.version == "1"
-                    and row.definition == PINNED_VERSIONS
+                    if supported_workflow(row)
                 ]
             }
 

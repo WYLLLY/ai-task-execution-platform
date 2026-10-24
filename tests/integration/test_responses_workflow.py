@@ -200,3 +200,27 @@ async def test_owner_explicit_regeneration_preserves_old_provider_exposure(
     async with admin_engine.connect() as c:
         assert await c.scalar(text("SELECT state FROM tasks")) == "running"
         assert await c.scalar(text("SELECT confirmed_cost FROM call_costs")) == 138
+
+
+@pytest.mark.parametrize("version", ["1", "2"])
+async def test_catalogue_advertises_implemented_available_workflows(
+    client: AsyncClient,
+    command_owner: dict[str, str],
+    admin_engine: AsyncEngine,
+    version: str,
+) -> None:
+    await configure_provider(sessions(admin_engine), validate_profile(profile_data()))
+    catalogue = await client.get("/v1/workflows", headers=command_owner)
+    assert catalogue.status_code == 200
+    items = {item["version"]: item for item in catalogue.json()["items"]}
+    assert version in items
+    assert items[version]["execution_implemented"] is True
+    async with admin_engine.begin() as connection:
+        await connection.execute(
+            text(
+                "UPDATE workflow_versions SET available=false WHERE name='analysis' AND version=:v"
+            ),
+            {"v": version},
+        )
+    hidden = await client.get("/v1/workflows", headers=command_owner)
+    assert all(item["version"] != version for item in hidden.json()["items"])

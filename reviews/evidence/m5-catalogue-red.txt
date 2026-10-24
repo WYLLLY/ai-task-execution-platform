@@ -1,0 +1,17 @@
+time="2026-10-24T22:50:05+02:00" level=warning msg="Found orphan containers (atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-98aa6a7c959c Creating
+ Container atp-m1-test-test-run-98aa6a7c959c Created
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+_________ test_catalogue_advertises_implemented_available_workflows[1] _________
+tests/integration/test_responses_workflow.py:217: in test_catalogue_advertises_implemented_available_workflows
+    assert items[version]["execution_implemented"] is True
+E   assert False is True
+_________ test_catalogue_advertises_implemented_available_workflows[2] _________
+tests/integration/test_responses_workflow.py:216: in test_catalogue_advertises_implemented_available_workflows
+    assert version in items
+E   AssertionError: assert '2' in {'1': {'name': 'analysis', 'version': '1', 'versions': {'tools': '1', 'prompt': '1', 'workflow': '1', 'context_builder...'$ref': '#/$defs/TaskInput'}, 'limits': {'$ref': '#/$defs/TaskLimits'}}, 'required': ['workflow', 'input'], ...}, ...}}
+=========================== short test summary info ============================
+FAILED tests/integration/test_responses_workflow.py::test_catalogue_advertises_implemented_available_workflows[1]
+FAILED tests/integration/test_responses_workflow.py::test_catalogue_advertises_implemented_available_workflows[2]
+2 failed, 5 deselected in 0.48s
