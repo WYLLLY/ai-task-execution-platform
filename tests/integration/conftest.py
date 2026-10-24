@@ -63,7 +63,7 @@ async def command_owner(admin_engine: AsyncEngine) -> AsyncIterator[dict[str, st
             if await connection.scalar(text("SELECT to_regclass('public.tasks')")):
                 await connection.execute(
                     text(
-                        "TRUNCATE cost_evidence, call_costs, external_calls, "
+                        "TRUNCATE accounting_decisions, cost_evidence, call_costs, external_calls, "
                         "tasks, steps, attempts, task_events, idempotency_records"
                     )
                 )

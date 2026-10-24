@@ -56,6 +56,7 @@ class Step(Base):
     )
     selected_call_id: Mapped[UUID | None]
     result: Mapped[dict[str, object] | None] = mapped_column(JSONB)
+    protocol_items: Mapped[list[dict[str, object]] | None] = mapped_column(JSONB)
     payload: Mapped[bytes | None] = mapped_column(LargeBinary)
     operation_key: Mapped[UUID | None]
     first_authorized_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
