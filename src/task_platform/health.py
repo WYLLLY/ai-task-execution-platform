@@ -85,13 +85,6 @@ async def check_database(engine: AsyncEngine, settings: Settings) -> tuple[bool,
                         "cost_evidence",
                     )
                 )
-                for table in inserts:
-                    writable = writable and bool(
-                        await connection.scalar(
-                            text("SELECT has_table_privilege(current_user, :table, 'INSERT')"),
-                            {"table": table},
-                        )
-                    )
                 updates: tuple[tuple[str, tuple[str, ...]], ...] = (
                     ("tasks", ("state", "reason", "task_version", "event_sequence")),
                     ("steps", ("state", "generation", "holder", "lease_until")),
@@ -131,17 +124,35 @@ async def check_database(engine: AsyncEngine, settings: Settings) -> tuple[bool,
                         ),
                         ("provider_admission", ("next_allowed_at",)),
                     )
-                for table, columns in updates:
-                    for column in columns:
-                        writable = writable and bool(
-                            await connection.scalar(
-                                text(
-                                    "SELECT has_column_privilege("
-                                    "current_user, :table, :column, 'UPDATE')"
-                                ),
-                                {"table": table, "column": column},
-                            )
+                # Audit every exact grant in two round trips. A per-column query loop
+                # unnecessarily keeps relation locks and the control connection busy.
+                writable = bool(
+                    await connection.scalar(
+                        text(
+                            "SELECT bool_and(has_table_privilege(current_user, t, 'INSERT')) "
+                            "FROM unnest(CAST(:tables AS text[])) AS t"
+                        ),
+                        {"tables": list(inserts)},
+                    )
+                )
+                columns_to_check = [(table, column) for table, cols in updates for column in cols]
+                writable = (
+                    bool(
+                        await connection.scalar(
+                            text(
+                                "SELECT bool_and(has_column_privilege("
+                                "current_user, t, c, 'UPDATE')) "
+                                "FROM unnest(CAST(:tables AS text[]), CAST(:columns AS text[])) "
+                                "AS required(t, c)"
+                            ),
+                            {
+                                "tables": [table for table, column in columns_to_check],
+                                "columns": [column for table, column in columns_to_check],
+                            },
                         )
+                    )
+                    and writable
+                )
             compatible = revisions == [SCHEMA_REVISION] and writable
             compatible = compatible and role == f"atp_{settings.role}"
             compatible = compatible and capacity >= settings.db_max_connections

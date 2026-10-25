@@ -112,3 +112,36 @@ async def test_worker_readiness_checks_m5_required_privileges(privilege: str, ta
             await c.execute(text(f"GRANT {privilege} ON {table} TO atp_worker"))  # noqa: S608 -- fixed parametrization
         await worker.dispose()
         await migrator.dispose()
+
+
+async def test_worker_readiness_tolerates_bounded_database_round_trip_latency() -> None:
+    """Real queries with 80ms injected latency must fit the existing 4s health budget."""
+    from sqlalchemy import event
+    from sqlalchemy.engine import Connection, ExecutionContext
+    from sqlalchemy.engine.interfaces import DBAPICursor
+
+    from task_platform.db import create_engine
+    from task_platform.health import check_database
+
+    from .conftest import settings_for
+
+    settings = settings_for("worker")
+    worker = create_engine(settings)
+
+    def latency(
+        connection: Connection,
+        cursor: DBAPICursor,
+        statement: str,
+        parameters: object,
+        context: ExecutionContext,
+        executemany: bool,
+    ) -> None:
+        # The actual role/schema queries still execute against PostgreSQL.
+        cursor.execute("SELECT pg_sleep(0.08)")
+
+    event.listen(worker.sync_engine, "before_cursor_execute", latency)
+    try:
+        assert await check_database(worker, settings) == (True, True, settings.execution_epoch)
+    finally:
+        event.remove(worker.sync_engine, "before_cursor_execute", latency)
+        await worker.dispose()
