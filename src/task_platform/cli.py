@@ -11,14 +11,11 @@ from functools import partial
 from pathlib import Path
 from uuid import UUID
 
-import uvicorn
 from sqlalchemy.exc import SQLAlchemyError
 
-from task_platform.analysis_worker import AnalysisWorker
 from task_platform.catalog import set_admission, set_workflow_availability
 from task_platform.config import load_settings, secret_setting
 from task_platform.db import create_engine, sessions
-from task_platform.execution import Executor
 from task_platform.health import check_database
 from task_platform.identity import (
     NotFoundError,
@@ -30,11 +27,7 @@ from task_platform.identity import (
 )
 from task_platform.metrics import execution_metrics
 from task_platform.observability import configure_logging
-from task_platform.report_transport import ReportTransport
 from task_platform.supervisor import supervise
-from task_platform.transport import SimulationTransport
-from task_platform.worker import Worker
-from task_platform.workflow import AnalysisExecutor
 
 
 def read_corpus_file(filename: str) -> str:
@@ -130,6 +123,13 @@ async def worker_check() -> None:
 
 
 async def worker_run(once: bool, analysis_mode: bool = False) -> None:
+    from task_platform.analysis_worker import AnalysisWorker
+    from task_platform.execution import Executor
+    from task_platform.report_transport import ReportTransport
+    from task_platform.transport import SimulationTransport
+    from task_platform.worker import Worker
+    from task_platform.workflow import AnalysisExecutor
+
     settings = load_settings("worker")
     if os.environ.get("ATP_TEST_PROFILE") != "1" or not settings.dispatch_enabled:
         raise ValueError("Simulation requires explicit isolated test profile and dispatch opt-in")
@@ -172,6 +172,12 @@ async def worker_run(once: bool, analysis_mode: bool = False) -> None:
             loop.remove_signal_handler(signum)
         await engine.dispose()
         await control.dispose()
+
+
+async def openai_run(once: bool) -> None:
+    from task_platform.provider_commands import worker_openai
+
+    await worker_openai(once)
 
 
 def main() -> None:
@@ -222,6 +228,8 @@ def main() -> None:
     args = parser.parse_args()
     try:
         if args.command == "api":
+            import uvicorn
+
             uvicorn.run(
                 "task_platform.api:create_app",
                 factory=True,
@@ -232,6 +240,8 @@ def main() -> None:
                 proxy_headers=False,
             )
         elif args.command == "demo":
+            import uvicorn
+
             uvicorn.run(
                 "task_platform.demo:create_demo_app",
                 factory=True,
@@ -249,9 +259,7 @@ def main() -> None:
             if args.check:
                 asyncio.run(worker_check())
             elif args.openai:
-                from task_platform.provider_commands import worker_openai
-
-                raise SystemExit(supervise(partial(worker_openai, args.once)))
+                raise SystemExit(supervise(partial(openai_run, args.once)))
             else:
                 raise SystemExit(supervise(partial(worker_run, args.once, args.analysis)))
         else:
