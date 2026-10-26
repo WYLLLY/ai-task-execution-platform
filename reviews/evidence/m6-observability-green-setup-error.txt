@@ -1,0 +1,12 @@
+time="2026-10-27T00:19:49+01:00" level=warning msg="Found orphan containers (atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-491443f4c59f Creating
+ Container atp-m1-test-test-run-491443f4c59f Created
+ImportError while loading conftest '/app/tests/integration/conftest.py'.
+tests/integration/conftest.py:14: in <module>
+    from task_platform.api import create_app
+src/task_platform/api.py:39: in <module>
+    from task_platform.sse import AuthLease, Connections, Stream
+E     File "/app/src/task_platform/sse.py", line 135
+E       except HistoryExpired, NotFoundError, EventInvariantError as error:
+E              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   SyntaxError: multiple exception types must be parenthesized when using 'as'

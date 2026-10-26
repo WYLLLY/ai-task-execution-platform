@@ -94,6 +94,7 @@ async def test_exact_foundation_tables_and_no_role_escalation(admin_engine: Asyn
             "steps",
             "attempts",
             "task_events",
+            "task_tombstones",
             "idempotency_records",
             "external_calls",
             "call_costs",

@@ -101,17 +101,19 @@ services:
     command: [admin, --help]
     environment:
       DATABASE_URL_FILE: /run/secrets/admin_database_url
+      REDIS_URL_FILE: /run/secrets/redis_url
       EXECUTION_EPOCH: ${EXECUTION_EPOCH:?Run make dev-secrets first}
-    secrets: [admin_database_url]
+    secrets: [admin_database_url, redis_url]
   worker:
     <<: *app
     profiles: [tools]
     command: [worker, --check]
     environment:
       DATABASE_URL_FILE: /run/secrets/worker_database_url
+      REDIS_URL_FILE: /run/secrets/redis_url
       EXECUTION_EPOCH: ${EXECUTION_EPOCH:?Run make dev-secrets first}
       DISPATCH_ENABLED: "false"
-    secrets: [worker_database_url]
+    secrets: [worker_database_url, redis_url]
   test:
     <<: *app
     image: ai-task-platform:m1-test

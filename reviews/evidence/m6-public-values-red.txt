@@ -1,0 +1,19 @@
+time="2026-10-27T00:40:18+01:00" level=warning msg="Found orphan containers (atp-m1-test-proxy-1, atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-6af3701afa66 Creating
+ Container atp-m1-test-test-run-6af3701afa66 Created
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+_ test_corrupt_progress_values_are_rejected_before_public_serialization[data0] _
+tests/integration/test_event_reads.py:120: in test_corrupt_progress_values_are_rejected_before_public_serialization
+    with pytest.raises(EventInvariantError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE EventInvariantError
+_ test_corrupt_progress_values_are_rejected_before_public_serialization[data1] _
+tests/integration/test_event_reads.py:120: in test_corrupt_progress_values_are_rejected_before_public_serialization
+    with pytest.raises(EventInvariantError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE EventInvariantError
+=========================== short test summary info ============================
+FAILED tests/integration/test_event_reads.py::test_corrupt_progress_values_are_rejected_before_public_serialization[data0]
+FAILED tests/integration/test_event_reads.py::test_corrupt_progress_values_are_rejected_before_public_serialization[data1]
+2 failed, 4 deselected in 0.25s

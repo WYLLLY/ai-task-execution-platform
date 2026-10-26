@@ -1,0 +1,18 @@
+time="2026-10-27T00:05:30+01:00" level=warning msg="Found orphan containers (atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-4fc7de7ac814 Creating
+ Container atp-m1-test-test-run-4fc7de7ac814 Created
+F.F.                                                                     [100%]
+=================================== FAILURES ===================================
+________ test_usage_distinguishes_estimate_provision_invoice_and_owner _________
+tests/integration/test_m6_projections.py:43: in test_usage_distinguishes_estimate_provision_invoice_and_owner
+    assert estimated["costs"]["confirmed_micro_usd"] == 0
+E   assert 20 == 0
+_______ test_attempt_trace_context_survives_crash_and_links_replacement ________
+tests/integration/test_m6_projections.py:128: in test_attempt_trace_context_survives_crash_and_links_replacement
+    assert before is not None, "claim must persist its trace context"
+E   AssertionError: claim must persist its trace context
+E   assert None is not None
+=========================== short test summary info ============================
+FAILED tests/integration/test_m6_projections.py::test_usage_distinguishes_estimate_provision_invoice_and_owner
+FAILED tests/integration/test_m6_projections.py::test_attempt_trace_context_survives_crash_and_links_replacement
+2 failed, 2 passed in 0.38s

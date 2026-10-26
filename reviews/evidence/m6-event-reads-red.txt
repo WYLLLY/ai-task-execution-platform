@@ -1,0 +1,25 @@
+time="2026-10-26T19:53:43+01:00" level=warning msg="Found orphan containers (atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-665f2a54ac56 Creating
+ Container atp-m1-test-test-run-665f2a54ac56 Created
+FFF                                                                      [100%]
+=================================== FAILURES ===================================
+_____________ test_snapshot_contains_costs_and_no_private_payload ______________
+tests/integration/test_event_reads.py:35: in test_snapshot_contains_costs_and_no_private_payload
+    assert costs is not None, "atomic snapshot must include accounting"
+E   AssertionError: atomic snapshot must include accounting
+E   assert None is not None
+_____ test_batches_are_contiguous_bounded_and_owner_checked_before_cursor ______
+tests/integration/test_event_reads.py:56: in test_batches_are_contiguous_bounded_and_owner_checked_before_cursor
+    assert batch.watermark == 1
+E   assert 0 == 1
+E    +  where 0 = Batch(position=0, watermark=0, oldest=1, events=()).watermark
+_________________ test_unexpected_hole_is_not_silently_skipped _________________
+tests/integration/test_event_reads.py:92: in test_unexpected_hole_is_not_silently_skipped
+    with pytest.raises(EventInvariantError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE EventInvariantError
+=========================== short test summary info ============================
+FAILED tests/integration/test_event_reads.py::test_snapshot_contains_costs_and_no_private_payload
+FAILED tests/integration/test_event_reads.py::test_batches_are_contiguous_bounded_and_owner_checked_before_cursor
+FAILED tests/integration/test_event_reads.py::test_unexpected_hole_is_not_silently_skipped
+3 failed in 0.59s

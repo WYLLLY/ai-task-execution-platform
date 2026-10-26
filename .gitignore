@@ -12,3 +12,5 @@ htmlcov/
 !.env.example
 dist/
 *.egg-info/
+
+.m6-fault-*/

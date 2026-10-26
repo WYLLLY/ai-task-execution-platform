@@ -1,0 +1,12 @@
+.F                                                                       [100%]
+=================================== FAILURES ===================================
+___ test_every_operational_rule_retains_its_fixed_alert_and_runbook_in_logs ____
+tests/unit/test_telemetry.py:46: in test_every_operational_rule_retains_its_fixed_alert_and_runbook_in_logs
+    assert value.get("alert_id") == rule.identity
+E   AssertionError: assert None == 'runtime.check_missing'
+E    +  where None = <built-in method get of dict object at 0x10be59b80>('alert_id')
+E    +    where <built-in method get of dict object at 0x10be59b80> = {'timestamp': '2026-10-26T23:42:55.441472+00:00', 'level': 'Level None', 'event': 'operations.alert'}.get
+E    +  and   'runtime.check_missing' = Rule(field='runtime_status_unknown', above=0, hold=0, identity='runtime.check_missing', action='Inspect private API availability and metrics collection; pool state is unknown.', section='pools').identity
+=========================== short test summary info ============================
+FAILED tests/unit/test_telemetry.py::test_every_operational_rule_retains_its_fixed_alert_and_runbook_in_logs
+1 failed, 1 passed in 0.21s

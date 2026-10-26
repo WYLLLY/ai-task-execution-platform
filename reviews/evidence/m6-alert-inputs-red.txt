@@ -1,0 +1,19 @@
+time="2026-10-27T00:37:59+01:00" level=warning msg="Found orphan containers (atp-m1-test-proxy-1, atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-040cc7308ac4 Creating
+ Container atp-m1-test-test-run-040cc7308ac4 Created
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+_______________ test_admin_operational_command_and_role_boundary _______________
+tests/integration/test_observability.py:69: in test_admin_operational_command_and_role_boundary
+    assert "pool_utilization_percent" in body["metrics"], "CLI must collect actual API pool signals"
+E   AssertionError: CLI must collect actual API pool signals
+E   assert 'pool_utilization_percent' in {'unknown_calls': 0, 'active_calls': 0, 'exposure_micro_usd': 0, 'exposure_tokens': 0, ...}
+____ test_failed_renewals_emit_actionable_alert_without_resurrecting_lease _____
+tests/integration/test_observability.py:146: in test_failed_renewals_emit_actionable_alert_without_resurrecting_lease
+    assert any(getattr(r, "alert_id", None) == "lease.renewal_failed" for r in caplog.records)
+E   assert False
+E    +  where False = any(<generator object test_failed_renewals_emit_actionable_alert_without_resurrecting_lease.<locals>.<genexpr> at 0xf8d51c3a63e0>)
+=========================== short test summary info ============================
+FAILED tests/integration/test_observability.py::test_admin_operational_command_and_role_boundary
+FAILED tests/integration/test_observability.py::test_failed_renewals_emit_actionable_alert_without_resurrecting_lease
+2 failed, 3 deselected in 1.18s

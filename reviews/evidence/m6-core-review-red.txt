@@ -1,0 +1,46 @@
+time="2026-10-27T00:32:44+01:00" level=warning msg="Found orphan containers (atp-m1-test-proxy-1, atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-7c4225e192c2 Creating
+ Container atp-m1-test-test-run-7c4225e192c2 Created
+FFFFFF                                                                   [100%]
+=================================== FAILURES ===================================
+_ test_trace_metadata_constraint_rejects_missing_invalid_or_zero_ids[context0] _
+tests/integration/test_m6_projections.py:201: in test_trace_metadata_constraint_rejects_missing_invalid_or_zero_ids
+    with pytest.raises(DBAPIError) as error:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE DBAPIError
+_ test_trace_metadata_constraint_rejects_missing_invalid_or_zero_ids[context1] _
+tests/integration/test_m6_projections.py:201: in test_trace_metadata_constraint_rejects_missing_invalid_or_zero_ids
+    with pytest.raises(DBAPIError) as error:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE DBAPIError
+_ test_trace_metadata_constraint_rejects_missing_invalid_or_zero_ids[context2] _
+tests/integration/test_m6_projections.py:201: in test_trace_metadata_constraint_rejects_missing_invalid_or_zero_ids
+    with pytest.raises(DBAPIError) as error:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE DBAPIError
+_ test_trace_metadata_constraint_rejects_missing_invalid_or_zero_ids[context3] _
+tests/integration/test_m6_projections.py:201: in test_trace_metadata_constraint_rejects_missing_invalid_or_zero_ids
+    with pytest.raises(DBAPIError) as error:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE DBAPIError
+_ test_trace_metadata_constraint_rejects_missing_invalid_or_zero_ids[context4] _
+tests/integration/test_m6_projections.py:201: in test_trace_metadata_constraint_rejects_missing_invalid_or_zero_ids
+    with pytest.raises(DBAPIError) as error:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE DBAPIError
+___________ test_savepoint_commit_cannot_publish_before_outer_commit ___________
+tests/integration/test_notifications.py:125: in test_savepoint_commit_cannot_publish_before_outer_commit
+    assert notifier.queue.empty(), "savepoint is not a durable commit"
+E   AssertionError: savepoint is not a durable commit
+E   assert False
+E    +  where False = empty()
+E    +    where empty = <Queue at 0xf75ca4ff7260 maxsize=100 _queue=[UUID('8554f000-263e-488f-8bd2-d010f07accad')] tasks=1>.empty
+E    +      where <Queue at 0xf75ca4ff7260 maxsize=100 _queue=[UUID('8554f000-263e-488f-8bd2-d010f07accad')] tasks=1> = <task_platform.notifications.Notifications object at 0xf75ca4e9c6b0>.queue
+=========================== short test summary info ============================
+FAILED tests/integration/test_m6_projections.py::test_trace_metadata_constraint_rejects_missing_invalid_or_zero_ids[context0]
+FAILED tests/integration/test_m6_projections.py::test_trace_metadata_constraint_rejects_missing_invalid_or_zero_ids[context1]
+FAILED tests/integration/test_m6_projections.py::test_trace_metadata_constraint_rejects_missing_invalid_or_zero_ids[context2]
+FAILED tests/integration/test_m6_projections.py::test_trace_metadata_constraint_rejects_missing_invalid_or_zero_ids[context3]
+FAILED tests/integration/test_m6_projections.py::test_trace_metadata_constraint_rejects_missing_invalid_or_zero_ids[context4]
+FAILED tests/integration/test_notifications.py::test_savepoint_commit_cannot_publish_before_outer_commit
+6 failed, 6 deselected in 0.47s

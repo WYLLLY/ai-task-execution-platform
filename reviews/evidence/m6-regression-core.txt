@@ -1,0 +1,25 @@
+time="2026-10-27T00:14:24+01:00" level=warning msg="Found orphan containers (atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-e7ed3f63dbc3 Creating
+ Container atp-m1-test-test-run-e7ed3f63dbc3 Created
+........................................................................ [ 11%]
+..................F..................................................... [ 22%]
+........................................................................ [ 33%]
+........................................................................ [ 44%]
+........................................................................ [ 55%]
+........................................................................ [ 66%]
+........................................................................ [ 77%]
+........................................................................ [ 88%]
+........................................................................ [ 99%]
+..                                                                       [100%]
+=================================== FAILURES ===================================
+_____________ test_exact_foundation_tables_and_no_role_escalation ______________
+/Users/william/Documents/Projet 2/tests/integration/test_database.py:86: in test_exact_foundation_tables_and_no_role_escalation
+    ???
+E   AssertionError: assert {'accounting_...l_costs', ...} == {'accounting_...l_costs', ...}
+E
+E     Extra items in the left set:
+E     'task_tombstones'
+E     Use -v to get more diff
+=========================== short test summary info ============================
+FAILED tests/integration/test_database.py::test_exact_foundation_tables_and_no_role_escalation
+1 failed, 649 passed in 128.38s (0:02:08)

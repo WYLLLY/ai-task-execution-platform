@@ -47,7 +47,9 @@ def load_settings(role: Role) -> Settings:
     return Settings(
         role=role,
         database_url=secret_setting("DATABASE_URL"),
-        redis_url=secret_setting("REDIS_URL") if role == "api" else None,
+        redis_url=secret_setting("REDIS_URL")
+        if role == "api" or os.environ.get("REDIS_URL") or os.environ.get("REDIS_URL_FILE")
+        else None,
         execution_epoch=UUID(os.environ["EXECUTION_EPOCH"]),
         dispatch_enabled=os.environ.get("DISPATCH_ENABLED", "false").lower() == "true",
     )

@@ -31,67 +31,107 @@ async def run_admin(args: argparse.Namespace) -> None:
         provision_principal,
         revoke_key,
     )
+    from task_platform.notifications import publishing
 
     settings = load_settings("admin")
     engine = create_engine(settings)
     factory = sessions(engine)
     try:
-        match args.action:
-            case "provider-configure" | "accounting":
-                from task_platform.provider_admin import configure_provider, reconcile
-                from task_platform.provider_commands import read_json_file
-                from task_platform.responses import validate_profile
+        async with publishing(settings, factory):
+            match args.action:
+                case "operations":
+                    import time
 
-                value = await asyncio.to_thread(read_json_file, args.file)
-                if args.action == "provider-configure":
-                    await configure_provider(factory, validate_profile(value))
-                else:
-                    await reconcile(factory, args.call, value)
-                print(json.dumps({"applied": True}))
-            case "corpus":
-                from task_platform.corpus import import_document, revoke_document
+                    from task_platform.operations import (
+                        Alerts,
+                        Probe,
+                        operational_snapshot,
+                        prometheus,
+                        runtime_snapshot,
+                    )
+                    from task_platform.provider_commands import read_json_file
 
-                if args.corpus_action == "import":
-                    content = await asyncio.to_thread(read_corpus_file, args.file)
-                    version = await import_document(
-                        factory, UUID(args.principal), UUID(args.document), content
+                    alerts = Alerts()
+                    while True:
+                        values = await operational_snapshot(factory)
+                        values.update(await runtime_snapshot())
+                        if args.probe_file:
+                            probe = Probe.model_validate(
+                                await asyncio.to_thread(read_json_file, args.probe_file)
+                            )
+                            values.update(probe.values())
+                        else:
+                            values.update(disk_status_unknown=1, backup_status_unknown=1)
+                        active = alerts.evaluate(values, time.monotonic())
+                        for alert in active:
+                            logging.getLogger(__name__).error(
+                                "", extra={"event": "operations.alert", "alert_id": alert["id"]}
+                            )
+                        print(
+                            prometheus(values)
+                            if args.format == "prometheus"
+                            else json.dumps({"metrics": values, "alerts": active}),
+                            flush=True,
+                        )
+                        if not args.watch:
+                            break
+                        await asyncio.sleep(5)
+
+                case "provider-configure" | "accounting":
+                    from task_platform.provider_admin import configure_provider, reconcile
+                    from task_platform.provider_commands import read_json_file
+                    from task_platform.responses import validate_profile
+
+                    value = await asyncio.to_thread(read_json_file, args.file)
+                    if args.action == "provider-configure":
+                        await configure_provider(factory, validate_profile(value))
+                    else:
+                        await reconcile(factory, args.call, value)
+                    print(json.dumps({"applied": True}))
+                case "corpus":
+                    from task_platform.corpus import import_document, revoke_document
+
+                    if args.corpus_action == "import":
+                        content = await asyncio.to_thread(read_corpus_file, args.file)
+                        version = await import_document(
+                            factory, UUID(args.principal), UUID(args.document), content
+                        )
+                        print(json.dumps({"document_id": args.document, "version": version}))
+                    else:
+                        await revoke_document(
+                            factory, UUID(args.principal), UUID(args.document), args.version
+                        )
+                        print(json.dumps({"revoked": True}))
+                case "init":
+                    await initialize_platform(factory, settings.execution_epoch)
+                    print(
+                        json.dumps(
+                            {"initialized": True, "execution_epoch": str(settings.execution_epoch)}
+                        )
                     )
-                    print(json.dumps({"document_id": args.document, "version": version}))
-                else:
-                    await revoke_document(
-                        factory, UUID(args.principal), UUID(args.document), args.version
+                case "admission":
+                    await set_admission(factory, args.enabled == "true")
+                    print(json.dumps({"admission_open": args.enabled == "true"}))
+                case "workflow-availability":
+                    await set_workflow_availability(
+                        factory, args.name, args.version, args.enabled == "true"
                     )
+                    print(json.dumps({"available": args.enabled == "true"}))
+                case "principal-create":
+                    principal_id = await provision_principal(factory, args.name)
+                    print(json.dumps({"principal_id": str(principal_id)}))
+                case "key-create":
+                    key_id, token = await issue_key(factory, UUID(args.principal))
+                    # Explicit one-time provisioning output, not a log or HTTP response.
+                    print(json.dumps({"key_id": str(key_id), "api_key": token}))
+                case "key-revoke":
+                    await revoke_key(factory, UUID(args.principal), UUID(args.key))
                     print(json.dumps({"revoked": True}))
-            case "init":
-                await initialize_platform(factory, settings.execution_epoch)
-                print(
-                    json.dumps(
-                        {"initialized": True, "execution_epoch": str(settings.execution_epoch)}
-                    )
-                )
-            case "admission":
-                await set_admission(factory, args.enabled == "true")
-                print(json.dumps({"admission_open": args.enabled == "true"}))
-            case "workflow-availability":
-                await set_workflow_availability(
-                    factory, args.name, args.version, args.enabled == "true"
-                )
-                print(json.dumps({"available": args.enabled == "true"}))
-            case "principal-create":
-                principal_id = await provision_principal(factory, args.name)
-                print(json.dumps({"principal_id": str(principal_id)}))
-            case "key-create":
-                key_id, token = await issue_key(factory, UUID(args.principal))
-                # Explicit one-time provisioning output, not a log or HTTP response.
-                print(json.dumps({"key_id": str(key_id), "api_key": token}))
-            case "key-revoke":
-                await revoke_key(factory, UUID(args.principal), UUID(args.key))
-                print(json.dumps({"revoked": True}))
-            case "principal-disable":
-                await disable_principal(factory, UUID(args.principal))
-                print(json.dumps({"disabled": True}))
-            case _:
-                raise ValueError("Unknown administrative command")
+                case "principal-disable":
+                    await disable_principal(factory, UUID(args.principal))
+                    print(json.dumps({"disabled": True}))
+                case _:
+                    raise ValueError("Unknown administrative command")
     finally:
         await engine.dispose()
 
@@ -129,6 +169,7 @@ async def worker_run(once: bool, analysis_mode: bool = False) -> None:
     from task_platform.db import create_engine, sessions
     from task_platform.execution import Executor
     from task_platform.health import check_database
+    from task_platform.notifications import publishing
     from task_platform.report_transport import ReportTransport
     from task_platform.transport import SimulationTransport
     from task_platform.worker import Worker
@@ -139,6 +180,7 @@ async def worker_run(once: bool, analysis_mode: bool = False) -> None:
         raise ValueError("Simulation requires explicit isolated test profile and dispatch opt-in")
     destination = os.environ.get("SIMULATOR_URL", "http://simulator:8001")
     engine, control = create_engine(settings), create_engine(settings, control=True)
+    factory, control_factory = sessions(engine), sessions(control)
     reports: ReportTransport | None = None
     stop = asyncio.Event()
     loop = asyncio.get_running_loop()
@@ -148,8 +190,11 @@ async def worker_run(once: bool, analysis_mode: bool = False) -> None:
         ready, schema, epoch = await check_database(control, settings)
         if not ready or not schema or epoch != settings.execution_epoch:
             raise ValueError("Worker preflight failed")
-        executor = Executor(sessions(engine), sessions(control), settings.execution_epoch)
-        async with SimulationTransport(destination) as transport:
+        executor = Executor(factory, control_factory, settings.execution_epoch)
+        async with (
+            publishing(settings, factory, control_factory),
+            SimulationTransport(destination) as transport,
+        ):
             worker: Worker
             if analysis_mode:
                 reports = ReportTransport(
@@ -157,7 +202,7 @@ async def worker_run(once: bool, analysis_mode: bool = False) -> None:
                     secret_setting("DEMO_SERVICE_KEY").get_secret_value(),
                 )
                 workflow_executor = AnalysisExecutor(
-                    sessions(engine), sessions(control), settings.execution_epoch
+                    factory, control_factory, settings.execution_epoch
                 )
                 worker = AnalysisWorker(
                     workflow_executor, transport, reports, holder=f"analysis-{os.getpid()}"
@@ -201,6 +246,11 @@ def main() -> None:
     admin = commands.add_parser("admin")
     actions = admin.add_subparsers(dest="action", required=True)
     actions.add_parser("init")
+    operations = actions.add_parser("operations")
+    operations.add_argument("--format", choices=["json", "prometheus"], default="json")
+    operations.add_argument("--watch", action="store_true")
+    operations.add_argument("--probe-file")
+
     for action in ("provider-configure", "accounting"):
         sub = actions.add_parser(action)
         sub.add_argument("--file", required=True)

@@ -40,6 +40,8 @@ def load_profile() -> ProviderProfile:
 
 
 async def worker_openai(once: bool) -> None:
+    from task_platform.notifications import publishing
+
     settings = load_settings("worker")
     if not settings.dispatch_enabled:
         raise ValueError("Explicit dispatch opt-in required")
@@ -47,6 +49,7 @@ async def worker_openai(once: bool) -> None:
     # Loaded only in the worker command; neither API settings nor API mounts use this key.
     key = secret_setting("OPENAI_API_KEY")
     engine, control = create_engine(settings), create_engine(settings, control=True)
+    factory, control_factory = sessions(engine), sessions(control)
     stop = asyncio.Event()
     loop = asyncio.get_running_loop()
     for signum in (signal.SIGINT, signal.SIGTERM):
@@ -59,13 +62,14 @@ async def worker_openai(once: bool) -> None:
         ready, schema, epoch = await check_database(control, settings)
         if not ready or not schema or epoch != settings.execution_epoch:
             raise ValueError("Worker preflight failed")
-        async with ResponsesTransport(
-            profile, key, test_url=os.environ.get("RESPONSES_TEST_URL")
-        ) as model:
+        async with (
+            publishing(settings, factory, control_factory),
+            ResponsesTransport(
+                profile, key, test_url=os.environ.get("RESPONSES_TEST_URL")
+            ) as model,
+        ):
             worker = AnalysisWorker(
-                ResponsesExecutor(
-                    sessions(engine), sessions(control), settings.execution_epoch, profile
-                ),
+                ResponsesExecutor(factory, control_factory, settings.execution_epoch, profile),
                 model,
                 reports,
                 holder=f"responses-{os.getpid()}",

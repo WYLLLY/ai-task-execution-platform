@@ -1,0 +1,13 @@
+time="2026-10-27T00:23:22+01:00" level=warning msg="Found orphan containers (atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-28eca07df93f Creating
+ Container atp-m1-test-test-run-28eca07df93f Created
+F                                                                        [100%]
+=================================== FAILURES ===================================
+________ test_authorized_call_trace_correlates_all_ids_without_payload _________
+tests/integration/test_observability.py:110: in test_authorized_call_trace_correlates_all_ids_without_payload
+    assert records, "committed B must correlate its call with task, step and attempt"
+E   AssertionError: committed B must correlate its call with task, step and attempt
+E   assert []
+=========================== short test summary info ============================
+FAILED tests/integration/test_observability.py::test_authorized_call_trace_correlates_all_ids_without_payload
+1 failed, 3 deselected in 0.24s

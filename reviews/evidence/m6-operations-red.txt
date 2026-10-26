@@ -1,0 +1,78 @@
+FFFFFFFFFFFF                                                             [100%]
+=================================== FAILURES ===================================
+__________ test_queue_and_pool_alerts_require_the_full_hold_and_reset __________
+tests/unit/test_operations.py:13: in test_queue_and_pool_alerts_require_the_full_hold_and_reset
+    assert {a["id"] for a in alerts.evaluate(values, 60)} == {"pool.saturated"}
+E   AssertionError: assert set() == {'pool.saturated'}
+E
+E     Extra items in the right set:
+E     'pool.saturated'
+E     Use -v to get more diff
+_ test_injected_failure_has_fixed_actionable_alert[expired_lease_seconds-16-lease.expired] _
+tests/unit/test_operations.py:36: in test_injected_failure_has_fixed_actionable_alert
+    assert len(result) == 1 and result[0]["id"] == expected
+E   assert (0 == 1)
+E    +  where 0 = len([])
+_ test_injected_failure_has_fixed_actionable_alert[renewal_failures-3-lease.renewal_failed] _
+tests/unit/test_operations.py:36: in test_injected_failure_has_fixed_actionable_alert
+    assert len(result) == 1 and result[0]["id"] == expected
+E   assert (0 == 1)
+E    +  where 0 = len([])
+_ test_injected_failure_has_fixed_actionable_alert[pool_acquire_milliseconds-1001-pool.acquire_slow] _
+tests/unit/test_operations.py:36: in test_injected_failure_has_fixed_actionable_alert
+    assert len(result) == 1 and result[0]["id"] == expected
+E   assert (0 == 1)
+E    +  where 0 = len([])
+_ test_injected_failure_has_fixed_actionable_alert[oldest_unknown_seconds-901-accounting.unknown] _
+tests/unit/test_operations.py:36: in test_injected_failure_has_fixed_actionable_alert
+    assert len(result) == 1 and result[0]["id"] == expected
+E   assert (0 == 1)
+E    +  where 0 = len([])
+_ test_injected_failure_has_fixed_actionable_alert[overrun_calls-1-accounting.overrun] _
+tests/unit/test_operations.py:36: in test_injected_failure_has_fixed_actionable_alert
+    assert len(result) == 1 and result[0]["id"] == expected
+E   assert (0 == 1)
+E    +  where 0 = len([])
+_ test_injected_failure_has_fixed_actionable_alert[handler_unavailable_tasks-1-handler.unavailable] _
+tests/unit/test_operations.py:36: in test_injected_failure_has_fixed_actionable_alert
+    assert len(result) == 1 and result[0]["id"] == expected
+E   assert (0 == 1)
+E    +  where 0 = len([])
+_ test_injected_failure_has_fixed_actionable_alert[event_invariants-1-events.invariant] _
+tests/unit/test_operations.py:36: in test_injected_failure_has_fixed_actionable_alert
+    assert len(result) == 1 and result[0]["id"] == expected
+E   assert (0 == 1)
+E    +  where 0 = len([])
+_ test_injected_failure_has_fixed_actionable_alert[disk_used_percent-81-storage.disk_full] _
+tests/unit/test_operations.py:36: in test_injected_failure_has_fixed_actionable_alert
+    assert len(result) == 1 and result[0]["id"] == expected
+E   assert (0 == 1)
+E    +  where 0 = len([])
+_ test_injected_failure_has_fixed_actionable_alert[backup_failed-1-backup.failed] _
+tests/unit/test_operations.py:36: in test_injected_failure_has_fixed_actionable_alert
+    assert len(result) == 1 and result[0]["id"] == expected
+E   assert (0 == 1)
+E    +  where 0 = len([])
+_ test_injected_failure_has_fixed_actionable_alert[backup_age_seconds-86401-backup.stale] _
+tests/unit/test_operations.py:36: in test_injected_failure_has_fixed_actionable_alert
+    assert len(result) == 1 and result[0]["id"] == expected
+E   assert (0 == 1)
+E    +  where 0 = len([])
+_______ test_prometheus_uses_only_fixed_metric_names_and_no_user_labels ________
+tests/unit/test_operations.py:43: in test_prometheus_uses_only_fixed_metric_names_and_no_user_labels
+    assert "atp_unknown_calls 2.0" in value
+E   AssertionError: assert 'atp_unknown_calls 2.0' in ''
+=========================== short test summary info ============================
+FAILED tests/unit/test_operations.py::test_queue_and_pool_alerts_require_the_full_hold_and_reset
+FAILED tests/unit/test_operations.py::test_injected_failure_has_fixed_actionable_alert[expired_lease_seconds-16-lease.expired]
+FAILED tests/unit/test_operations.py::test_injected_failure_has_fixed_actionable_alert[renewal_failures-3-lease.renewal_failed]
+FAILED tests/unit/test_operations.py::test_injected_failure_has_fixed_actionable_alert[pool_acquire_milliseconds-1001-pool.acquire_slow]
+FAILED tests/unit/test_operations.py::test_injected_failure_has_fixed_actionable_alert[oldest_unknown_seconds-901-accounting.unknown]
+FAILED tests/unit/test_operations.py::test_injected_failure_has_fixed_actionable_alert[overrun_calls-1-accounting.overrun]
+FAILED tests/unit/test_operations.py::test_injected_failure_has_fixed_actionable_alert[handler_unavailable_tasks-1-handler.unavailable]
+FAILED tests/unit/test_operations.py::test_injected_failure_has_fixed_actionable_alert[event_invariants-1-events.invariant]
+FAILED tests/unit/test_operations.py::test_injected_failure_has_fixed_actionable_alert[disk_used_percent-81-storage.disk_full]
+FAILED tests/unit/test_operations.py::test_injected_failure_has_fixed_actionable_alert[backup_failed-1-backup.failed]
+FAILED tests/unit/test_operations.py::test_injected_failure_has_fixed_actionable_alert[backup_age_seconds-86401-backup.stale]
+FAILED tests/unit/test_operations.py::test_prometheus_uses_only_fixed_metric_names_and_no_user_labels
+12 failed in 0.03s

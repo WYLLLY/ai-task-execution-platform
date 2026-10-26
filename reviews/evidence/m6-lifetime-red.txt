@@ -1,0 +1,12 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_ test_lifetime_bounds_a_stalled_source_and_does_not_release_before_final_send _
+tests/unit/test_sse_stream.py:202: in test_lifetime_bounds_a_stalled_source_and_does_not_release_before_final_send
+    assert running.done(), "absolute connection lifetime must cancel a stalled source"
+E   AssertionError: absolute connection lifetime must cancel a stalled source
+E   assert False
+E    +  where False = <built-in method done of _asyncio.Task object at 0x109afe210>()
+E    +    where <built-in method done of _asyncio.Task object at 0x109afe210> = <Task pending name='Task-2' coro=<Stream.__call__() running at /Users/william/Documents/Projet 2/src/task_platform/sse.py:187> wait_for=<Future pending cb=[Task.task_wakeup()]>>.done
+=========================== short test summary info ============================
+FAILED tests/unit/test_sse_stream.py::test_lifetime_bounds_a_stalled_source_and_does_not_release_before_final_send
+1 failed, 6 deselected in 0.31s

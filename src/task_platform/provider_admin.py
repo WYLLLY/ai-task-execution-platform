@@ -140,6 +140,7 @@ async def reconcile(factory: Factory, call_id: str, decision: object) -> bool:
                     value.tokens,
                     value.revision,
                     value.final,
+                    estimated=value.estimated,
                 )
             elif not cost.overrun:
                 raise ValueError("No overrun to acknowledge")

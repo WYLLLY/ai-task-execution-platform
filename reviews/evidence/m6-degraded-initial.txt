@@ -1,0 +1,6 @@
+time="2026-10-27T00:31:08+01:00" level=warning msg="Found orphan containers (atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-d885197766dc Creating
+ Container atp-m1-test-test-run-d885197766dc Created
+
+no tests ran in 0.00s
+ERROR: file or directory not found: tests/integration/test_degraded.py

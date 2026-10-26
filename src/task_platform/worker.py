@@ -8,6 +8,7 @@ from uuid import uuid4
 
 from sqlalchemy.exc import SQLAlchemyError
 
+from task_platform import runtime_signals
 from task_platform.execution import Executor, Lease
 from task_platform.task_models import Task
 from task_platform.transport import ModelTransport
@@ -34,8 +35,11 @@ class Worker:
             await asyncio.sleep(self.heartbeat_seconds)
             try:
                 if not await self.executor.heartbeat(lease):
+                    runtime_signals.renewal_failed(lease.task_id)
                     return False
+                runtime_signals.renewal_succeeded()
             except SQLAlchemyError, OSError, TimeoutError:
+                runtime_signals.renewal_failed(lease.task_id)
                 logger.error("", extra={"event": "worker.lease_lost"})
                 return False
 

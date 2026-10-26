@@ -42,6 +42,7 @@ class CallCost(Base):
     exposure_tokens: Mapped[int] = mapped_column(BigInteger)
     revision: Mapped[int] = mapped_column(BigInteger, default=0)
     overrun: Mapped[bool] = mapped_column(Boolean, default=False)
+    estimated: Mapped[bool] = mapped_column(Boolean, default=False)
     tariff: Mapped[str] = mapped_column(String(40))
     tokenizer: Mapped[str] = mapped_column(String(40))
 

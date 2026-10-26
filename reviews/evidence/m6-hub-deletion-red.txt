@@ -1,0 +1,10 @@
+..F                                                                      [100%]
+=================================== FAILURES ===================================
+____________ test_deletion_during_read_cannot_resurrect_cached_task ____________
+tests/unit/test_event_hub.py:89: in test_deletion_during_read_cannot_resurrect_cached_task
+    with pytest.raises(NotFoundError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE NotFoundError
+=========================== short test summary info ============================
+FAILED tests/unit/test_event_hub.py::test_deletion_during_read_cannot_resurrect_cached_task
+1 failed, 2 passed in 0.37s

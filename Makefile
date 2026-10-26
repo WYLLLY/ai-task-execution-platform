@@ -1,6 +1,6 @@
 UV ?= uv
 COMPOSE ?= docker compose
-TEST_COMPOSE = $(COMPOSE) -p atp-m1-test -f compose.yaml -f compose.demo.yaml
+TEST_COMPOSE = $(COMPOSE) -p atp-m1-test -f compose.yaml -f compose.demo.yaml -f compose.proxy.yaml
 
 .PHONY: sync lint format typecheck test-unit test-integration test-commands test-concurrency test-execution test-failures smoke-compose dev-secrets
 sync:
@@ -20,9 +20,9 @@ dev-secrets:
 	$(UV) run --frozen python scripts/dev_secrets.py
 	$(UV) run --frozen python scripts/demo_secrets.py
 test-integration:
-	$(TEST_COMPOSE) up --build --wait api demo
+	$(TEST_COMPOSE) up --build --wait api demo proxy
 	$(TEST_COMPOSE) build test
-	$(TEST_COMPOSE) run --rm --no-deps test pytest -p no:cacheprovider tests/integration
+	$(UV) run --frozen python scripts/run_verification.py tests/integration
 smoke-compose:
 	$(UV) run --frozen python scripts/smoke_compose.py
 
@@ -55,3 +55,12 @@ test-provider-contracts:
 	$(TEST_COMPOSE) run --rm --no-deps test pytest -p no:cacheprovider tests/unit/test_responses.py tests/unit/test_provider_cli.py tests/unit/test_openai_smoke.py tests/integration/test_provider_contracts.py tests/integration/test_responses_workflow.py tests/integration/test_provider_e2e.py
 smoke-openai:
 	$(UV) run --frozen atp smoke-openai
+
+# M6: real TCP/proxy, PostgreSQL and externally controlled Redis outage.
+.PHONY: test-sse test-degraded test-observability
+test-sse:
+	$(TEST_COMPOSE) run --rm --no-deps test pytest -p no:cacheprovider tests/unit/test_event_cursor.py tests/unit/test_sse_stream.py tests/unit/test_event_hub.py tests/integration/test_event_reads.py tests/integration/test_sse.py tests/integration/test_sse_network.py tests/integration/test_notifications.py tests/integration/test_m6_projections.py
+test-degraded:
+	$(UV) run --frozen python scripts/run_verification.py tests/integration/test_degraded.py
+test-observability:
+	$(TEST_COMPOSE) run --rm --no-deps test pytest -p no:cacheprovider tests/unit/test_operations.py tests/unit/test_telemetry.py tests/integration/test_observability.py
