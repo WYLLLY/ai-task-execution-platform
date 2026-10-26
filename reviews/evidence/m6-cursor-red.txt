@@ -1,0 +1,200 @@
+FFFF.FFFFFFFFFFFFFFFFFFF.FFFFFFFFF                                       [100%]
+=================================== FAILURES ===================================
+________ test_server_id_round_trips_without_changing_resume_position[0] ________
+tests/unit/test_event_cursor.py:18: in test_server_id_round_trips_without_changing_resume_position
+    assert cursor == f"{TASK}:{sequence}"
+E   AssertionError: assert '' == 'a1111111-111...11111111111:0'
+E
+E     - a1111111-1111-4111-8111-111111111111:0
+________ test_server_id_round_trips_without_changing_resume_position[1] ________
+tests/unit/test_event_cursor.py:18: in test_server_id_round_trips_without_changing_resume_position
+    assert cursor == f"{TASK}:{sequence}"
+E   AssertionError: assert '' == 'a1111111-111...11111111111:1'
+E
+E     - a1111111-1111-4111-8111-111111111111:1
+________ test_server_id_round_trips_without_changing_resume_position[7] ________
+tests/unit/test_event_cursor.py:18: in test_server_id_round_trips_without_changing_resume_position
+    assert cursor == f"{TASK}:{sequence}"
+E   AssertionError: assert '' == 'a1111111-111...11111111111:7'
+E
+E     - a1111111-1111-4111-8111-111111111111:7
+_ test_server_id_round_trips_without_changing_resume_position[9223372036854775807] _
+tests/unit/test_event_cursor.py:18: in test_server_id_round_trips_without_changing_resume_position
+    assert cursor == f"{TASK}:{sequence}"
+E   AssertionError: assert '' == 'a1111111-111...2036854775807'
+E
+E     - a1111111-1111-4111-8111-111111111111:9223372036854775807
+______________ test_header_query_and_matching_pair_are_equivalent ______________
+tests/unit/test_event_cursor.py:28: in test_header_query_and_matching_pair_are_equivalent
+    assert resume_after(TASK, 9, 1, after=cursor) == 7
+E   AssertionError: assert 0 == 7
+E    +  where 0 = resume_after(UUID('a1111111-1111-4111-8111-111111111111'), 9, 1, after='a1111111-1111-4111-8111-111111111111:7')
+_________ test_untrusted_invalid_cursor_is_bounded_and_not_reflected[] _________
+tests/unit/test_event_cursor.py:53: in test_untrusted_invalid_cursor_is_bounded_and_not_reflected
+    with pytest.raises(CommandError) as failure:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE CommandError
+_ test_untrusted_invalid_cursor_is_bounded_and_not_reflected[untrusted-secret-not-a-cursor] _
+tests/unit/test_event_cursor.py:53: in test_untrusted_invalid_cursor_is_bounded_and_not_reflected
+    with pytest.raises(CommandError) as failure:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE CommandError
+_ test_untrusted_invalid_cursor_is_bounded_and_not_reflected[a1111111-1111-4111-8111-111111111111:-1] _
+tests/unit/test_event_cursor.py:53: in test_untrusted_invalid_cursor_is_bounded_and_not_reflected
+    with pytest.raises(CommandError) as failure:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE CommandError
+_ test_untrusted_invalid_cursor_is_bounded_and_not_reflected[a1111111-1111-4111-8111-111111111111:+1] _
+tests/unit/test_event_cursor.py:53: in test_untrusted_invalid_cursor_is_bounded_and_not_reflected
+    with pytest.raises(CommandError) as failure:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE CommandError
+_ test_untrusted_invalid_cursor_is_bounded_and_not_reflected[a1111111-1111-4111-8111-111111111111:1.0] _
+tests/unit/test_event_cursor.py:53: in test_untrusted_invalid_cursor_is_bounded_and_not_reflected
+    with pytest.raises(CommandError) as failure:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE CommandError
+_ test_untrusted_invalid_cursor_is_bounded_and_not_reflected[a1111111-1111-4111-8111-111111111111:\u0661] _
+tests/unit/test_event_cursor.py:53: in test_untrusted_invalid_cursor_is_bounded_and_not_reflected
+    with pytest.raises(CommandError) as failure:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE CommandError
+_ test_untrusted_invalid_cursor_is_bounded_and_not_reflected[a1111111-1111-4111-8111-111111111111: 1] _
+tests/unit/test_event_cursor.py:53: in test_untrusted_invalid_cursor_is_bounded_and_not_reflected
+    with pytest.raises(CommandError) as failure:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE CommandError
+_ test_untrusted_invalid_cursor_is_bounded_and_not_reflected[a1111111-1111-4111-8111-111111111111:1:2] _
+tests/unit/test_event_cursor.py:53: in test_untrusted_invalid_cursor_is_bounded_and_not_reflected
+    with pytest.raises(CommandError) as failure:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE CommandError
+_ test_untrusted_invalid_cursor_is_bounded_and_not_reflected[a1111111-1111-4111-8111-111111111111:1\n] _
+tests/unit/test_event_cursor.py:53: in test_untrusted_invalid_cursor_is_bounded_and_not_reflected
+    with pytest.raises(CommandError) as failure:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE CommandError
+_ test_untrusted_invalid_cursor_is_bounded_and_not_reflected[a1111111-1111-4111-8111-111111111111:1\r] _
+tests/unit/test_event_cursor.py:53: in test_untrusted_invalid_cursor_is_bounded_and_not_reflected
+    with pytest.raises(CommandError) as failure:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE CommandError
+_ test_untrusted_invalid_cursor_is_bounded_and_not_reflected[a1111111-1111-4111-8111-111111111111:1\x00] _
+tests/unit/test_event_cursor.py:53: in test_untrusted_invalid_cursor_is_bounded_and_not_reflected
+    with pytest.raises(CommandError) as failure:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE CommandError
+_ test_untrusted_invalid_cursor_is_bounded_and_not_reflected[a1111111-1111-4111-8111-111111111111:9223372036854775808] _
+tests/unit/test_event_cursor.py:53: in test_untrusted_invalid_cursor_is_bounded_and_not_reflected
+    with pytest.raises(CommandError) as failure:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE CommandError
+_ test_untrusted_invalid_cursor_is_bounded_and_not_reflected[a1111111-1111-4111-8111-111111111111:9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999] _
+tests/unit/test_event_cursor.py:53: in test_untrusted_invalid_cursor_is_bounded_and_not_reflected
+    with pytest.raises(CommandError) as failure:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE CommandError
+_ test_untrusted_invalid_cursor_is_bounded_and_not_reflected[b2222222-2222-4222-8222-222222222222:1] _
+tests/unit/test_event_cursor.py:53: in test_untrusted_invalid_cursor_is_bounded_and_not_reflected
+    with pytest.raises(CommandError) as failure:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE CommandError
+________________ test_conflicting_header_and_query_are_rejected ________________
+tests/unit/test_event_cursor.py:60: in test_conflicting_header_and_query_are_rejected
+    with pytest.raises(CommandError) as failure:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE CommandError
+________________________ test_future_cursor_is_rejected ________________________
+tests/unit/test_event_cursor.py:66: in test_future_cursor_is_rejected
+    with pytest.raises(CommandError) as failure:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE CommandError
+______ test_position_immediately_before_retained_history_is_valid[7-7-6] _______
+tests/unit/test_event_cursor.py:75: in test_position_immediately_before_retained_history_is_valid
+    assert resume_after(TASK, watermark, oldest, after=f"{TASK}:{position}") == position
+E   AssertionError: assert 0 == 6
+E    +  where 0 = resume_after(UUID('a1111111-1111-4111-8111-111111111111'), 7, 7, after='a1111111-1111-4111-8111-111111111111:6')
+______ test_position_immediately_before_retained_history_is_valid[7-8-7] _______
+tests/unit/test_event_cursor.py:75: in test_position_immediately_before_retained_history_is_valid
+    assert resume_after(TASK, watermark, oldest, after=f"{TASK}:{position}") == position
+E   AssertionError: assert 0 == 7
+E    +  where 0 = resume_after(UUID('a1111111-1111-4111-8111-111111111111'), 7, 8, after='a1111111-1111-4111-8111-111111111111:7')
+______ test_expired_position_requires_the_authorized_task_snapshot[None] _______
+tests/unit/test_event_cursor.py:80: in test_expired_position_requires_the_authorized_task_snapshot
+    with pytest.raises(HistoryExpired) as failure:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE HistoryExpired
+_ test_expired_position_requires_the_authorized_task_snapshot[a1111111-1111-4111-8111-111111111111:5] _
+tests/unit/test_event_cursor.py:80: in test_expired_position_requires_the_authorized_task_snapshot
+    with pytest.raises(HistoryExpired) as failure:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE HistoryExpired
+_______________ test_server_cannot_issue_an_invalid_sequence[-1] _______________
+tests/unit/test_event_cursor.py:88: in test_server_cannot_issue_an_invalid_sequence
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+______ test_server_cannot_issue_an_invalid_sequence[9223372036854775808] _______
+tests/unit/test_event_cursor.py:88: in test_server_cannot_issue_an_invalid_sequence
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+______________ test_server_cannot_issue_an_invalid_sequence[True] ______________
+tests/unit/test_event_cursor.py:88: in test_server_cannot_issue_an_invalid_sequence
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+___________ test_invalid_server_metadata_is_an_invariant_error[-1-1] ___________
+tests/unit/test_event_cursor.py:94: in test_invalid_server_metadata_is_an_invariant_error
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+___________ test_invalid_server_metadata_is_an_invariant_error[7-0] ____________
+tests/unit/test_event_cursor.py:94: in test_invalid_server_metadata_is_an_invariant_error
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+___________ test_invalid_server_metadata_is_an_invariant_error[7-9] ____________
+tests/unit/test_event_cursor.py:94: in test_invalid_server_metadata_is_an_invariant_error
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+__ test_invalid_server_metadata_is_an_invariant_error[9223372036854775808-1] ___
+tests/unit/test_event_cursor.py:94: in test_invalid_server_metadata_is_an_invariant_error
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+=========================== short test summary info ============================
+FAILED tests/unit/test_event_cursor.py::test_server_id_round_trips_without_changing_resume_position[0]
+FAILED tests/unit/test_event_cursor.py::test_server_id_round_trips_without_changing_resume_position[1]
+FAILED tests/unit/test_event_cursor.py::test_server_id_round_trips_without_changing_resume_position[7]
+FAILED tests/unit/test_event_cursor.py::test_server_id_round_trips_without_changing_resume_position[9223372036854775807]
+FAILED tests/unit/test_event_cursor.py::test_header_query_and_matching_pair_are_equivalent
+FAILED tests/unit/test_event_cursor.py::test_untrusted_invalid_cursor_is_bounded_and_not_reflected[]
+FAILED tests/unit/test_event_cursor.py::test_untrusted_invalid_cursor_is_bounded_and_not_reflected[untrusted-secret-not-a-cursor]
+FAILED tests/unit/test_event_cursor.py::test_untrusted_invalid_cursor_is_bounded_and_not_reflected[a1111111-1111-4111-8111-111111111111:-1]
+FAILED tests/unit/test_event_cursor.py::test_untrusted_invalid_cursor_is_bounded_and_not_reflected[a1111111-1111-4111-8111-111111111111:+1]
+FAILED tests/unit/test_event_cursor.py::test_untrusted_invalid_cursor_is_bounded_and_not_reflected[a1111111-1111-4111-8111-111111111111:1.0]
+FAILED tests/unit/test_event_cursor.py::test_untrusted_invalid_cursor_is_bounded_and_not_reflected[a1111111-1111-4111-8111-111111111111:\u0661]
+FAILED tests/unit/test_event_cursor.py::test_untrusted_invalid_cursor_is_bounded_and_not_reflected[a1111111-1111-4111-8111-111111111111: 1]
+FAILED tests/unit/test_event_cursor.py::test_untrusted_invalid_cursor_is_bounded_and_not_reflected[a1111111-1111-4111-8111-111111111111:1:2]
+FAILED tests/unit/test_event_cursor.py::test_untrusted_invalid_cursor_is_bounded_and_not_reflected[a1111111-1111-4111-8111-111111111111:1\n]
+FAILED tests/unit/test_event_cursor.py::test_untrusted_invalid_cursor_is_bounded_and_not_reflected[a1111111-1111-4111-8111-111111111111:1\r]
+FAILED tests/unit/test_event_cursor.py::test_untrusted_invalid_cursor_is_bounded_and_not_reflected[a1111111-1111-4111-8111-111111111111:1\x00]
+FAILED tests/unit/test_event_cursor.py::test_untrusted_invalid_cursor_is_bounded_and_not_reflected[a1111111-1111-4111-8111-111111111111:9223372036854775808]
+FAILED tests/unit/test_event_cursor.py::test_untrusted_invalid_cursor_is_bounded_and_not_reflected[a1111111-1111-4111-8111-111111111111:9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999]
+FAILED tests/unit/test_event_cursor.py::test_untrusted_invalid_cursor_is_bounded_and_not_reflected[b2222222-2222-4222-8222-222222222222:1]
+FAILED tests/unit/test_event_cursor.py::test_conflicting_header_and_query_are_rejected
+FAILED tests/unit/test_event_cursor.py::test_future_cursor_is_rejected - Fail...
+FAILED tests/unit/test_event_cursor.py::test_position_immediately_before_retained_history_is_valid[7-7-6]
+FAILED tests/unit/test_event_cursor.py::test_position_immediately_before_retained_history_is_valid[7-8-7]
+FAILED tests/unit/test_event_cursor.py::test_expired_position_requires_the_authorized_task_snapshot[None]
+FAILED tests/unit/test_event_cursor.py::test_expired_position_requires_the_authorized_task_snapshot[a1111111-1111-4111-8111-111111111111:5]
+FAILED tests/unit/test_event_cursor.py::test_server_cannot_issue_an_invalid_sequence[-1]
+FAILED tests/unit/test_event_cursor.py::test_server_cannot_issue_an_invalid_sequence[9223372036854775808]
+FAILED tests/unit/test_event_cursor.py::test_server_cannot_issue_an_invalid_sequence[True]
+FAILED tests/unit/test_event_cursor.py::test_invalid_server_metadata_is_an_invariant_error[-1-1]
+FAILED tests/unit/test_event_cursor.py::test_invalid_server_metadata_is_an_invariant_error[7-0]
+FAILED tests/unit/test_event_cursor.py::test_invalid_server_metadata_is_an_invariant_error[7-9]
+FAILED tests/unit/test_event_cursor.py::test_invalid_server_metadata_is_an_invariant_error[9223372036854775808-1]
+32 failed, 2 passed in 0.17s
