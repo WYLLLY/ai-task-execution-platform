@@ -1,7 +1,6 @@
 """Bounded single-process SSE sessions; no database connection across writes or waits."""
 
 import asyncio
-import contextlib
 import time
 from collections.abc import Awaitable, Callable
 from typing import Protocol
@@ -15,6 +14,7 @@ from task_platform.command_schemas import CommandError
 from task_platform.event_cursor import HistoryExpired
 from task_platform.event_reads import Batch, EventInvariantError
 from task_platform.identity import AuthenticationError, Identity, NotFoundError
+from task_platform.runtime_signals import invariant
 
 
 class Connections:
@@ -126,6 +126,22 @@ class Stream(Response):
 
         await write(None)
         batch = self.initial
+
+        async def next_batch() -> Batch | None:
+            if self.hub is None:
+                return None
+            try:
+                return await self.hub.batch(self.identity, self.task, self.position)
+            except (HistoryExpired, NotFoundError, EventInvariantError) as error:
+                if isinstance(error, EventInvariantError):
+                    invariant(self.task)
+                await write(
+                    b'event: stream.reset\ndata: {"snapshot_url":"/v1/tasks/'
+                    + str(self.task).encode()
+                    + b'"}\n\n'
+                )
+                return None
+
         while time.monotonic() < deadline:
             for item in batch.events:
                 await write(item.wire)
@@ -133,7 +149,10 @@ class Stream(Response):
                 self.position = item.sequence
             await self.auth.ensure()
             if self.position < batch.watermark and self.hub is not None:
-                batch = await self.hub.batch(self.identity, self.task, self.position)
+                following = await next_batch()
+                if following is None:
+                    return
+                batch = following
                 continue
             now = time.monotonic()
             if now - last_write >= 10:
@@ -153,15 +172,10 @@ class Stream(Response):
                 await asyncio.sleep(wait)
             else:
                 await self.hub.wait(self.task, batch.watermark, batch.oldest, wait)
-                try:
-                    batch = await self.hub.batch(self.identity, self.task, self.position)
-                except HistoryExpired, NotFoundError, EventInvariantError:
-                    await write(
-                        b'event: stream.reset\ndata: {"snapshot_url":"/v1/tasks/'
-                        + str(self.task).encode()
-                        + b'"}\n\n'
-                    )
+                following = await next_batch()
+                if following is None:
                     return
+                batch = following
 
     async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:
         async def disconnected() -> None:
@@ -172,20 +186,20 @@ class Stream(Response):
         producer = asyncio.create_task(self._run(send))
         watcher = asyncio.create_task(disconnected())
         try:
-            done, _ = await asyncio.wait((producer, watcher), return_when=asyncio.FIRST_COMPLETED)
-            for task in done:
-                await task
+            async with asyncio.timeout(self.lifetime):
+                done, _ = await asyncio.wait(
+                    (producer, watcher), return_when=asyncio.FIRST_COMPLETED
+                )
+                for task in done:
+                    await task
+                if producer in done:
+                    async with asyncio.timeout(self.write_timeout):
+                        await send({"type": "http.response.body", "body": b"", "more_body": False})
         except TimeoutError, OSError, AuthenticationError, SQLAlchemyError, NotFoundError:
             # Close without emitting an error body or reusing stale authorization.
             pass
         finally:
             for task in (producer, watcher):
                 task.cancel()
-            for task in (producer, watcher):
-                with contextlib.suppress(asyncio.CancelledError):
-                    if not task.done():
-                        await task
+            await asyncio.gather(producer, watcher, return_exceptions=True)
             self.release()
-        with contextlib.suppress(OSError, TimeoutError):
-            async with asyncio.timeout(self.write_timeout):
-                await send({"type": "http.response.body", "body": b"", "more_body": False})

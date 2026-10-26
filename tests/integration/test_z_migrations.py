@@ -12,9 +12,12 @@ from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncEngine
 
 from task_platform.db import sessions
+from task_platform.execution import Executor
 from task_platform.identity import initialize_platform, issue_key
 
 from .conftest import settings_for
+from .test_execution import executor as executor
+from .test_execution_calls import dispatch as dispatch
 
 pytestmark = pytest.mark.integration
 
@@ -41,7 +44,7 @@ async def test_migration_roundtrip_and_schema_readiness(
     async with admin_engine.connect() as connection:
         assert (
             await connection.scalar(text("SELECT version_num FROM alembic_version"))
-            == "0005_provider"
+            == "0006_operations"
         )
     env["DATABASE_URL_FILE"] = str(Path(env["TEST_SECRETS_DIR"]) / "api_database_url")
     denied = await asyncio.to_thread(
@@ -151,3 +154,51 @@ async def test_m3_downgrade_restores_m2_worker_privileges(admin_engine: AsyncEng
             check=False,
         )
         assert up.returncode == 0, up.stderr
+
+
+async def test_m5_populated_upgrade_preserves_estimated_cost_and_legacy_attempt(
+    client: AsyncClient,
+    command_owner: dict[str, str],
+    admin_engine: AsyncEngine,
+    executor: Executor,
+) -> None:
+    from task_platform.provider_admin import reconcile
+
+    from .test_accounting_admin import evidence, pending
+
+    env = os.environ.copy()
+    env["DATABASE_URL_FILE"] = str(Path(env["TEST_SECRETS_DIR"]) / "migrator_database_url")
+    try:
+        # M3 dispatch is intentionally opt-in even in this synthetic migration fixture.
+        async with admin_engine.begin() as c:
+            await c.execute(text("UPDATE platform_control SET dispatch_open=true"))
+        call = await pending(client, command_owner, executor)
+        assert await reconcile(sessions(admin_engine), call, evidence(estimated=True))
+        for action, target in (("downgrade", "0005_provider"), ("upgrade", "head")):
+            result = await asyncio.to_thread(
+                subprocess.run,
+                [sys.executable, "-m", "alembic", action, target],
+                env=env,
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            assert result.returncode == 0, result.stderr
+        async with admin_engine.connect() as c:
+            row = (
+                await c.execute(
+                    text(
+                        "SELECT confirmed_cost,exposure_cost,estimated FROM call_costs "
+                        "WHERE call_id=:id"
+                    ),
+                    {"id": call},
+                )
+            ).one()
+            assert row == (20, 0, True)
+            assert (
+                await c.scalar(text("SELECT count(*) FROM attempts WHERE trace_context IS NULL"))
+                == 1
+            )
+    finally:
+        async with admin_engine.begin() as c:
+            await c.execute(text("UPDATE platform_control SET dispatch_open=false"))

@@ -1,13 +1,40 @@
 """Bounded independent SQLAlchemy pools, with no implicit transaction retries."""
 
+import time
+from collections import deque
+from typing import Any
+
 from sqlalchemy.ext.asyncio import (
     AsyncEngine,
     AsyncSession,
     async_sessionmaker,
     create_async_engine,
 )
+from sqlalchemy.pool import AsyncAdaptedQueuePool, ConnectionPoolEntry
 
 from task_platform.config import Settings
+
+
+class ObservedPool(AsyncAdaptedQueuePool):
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        super().__init__(*args, **kwargs)
+        self.slow_acquisitions: deque[tuple[float, int]] = deque(maxlen=256)
+
+    def _do_get(self) -> ConnectionPoolEntry:
+        started = time.monotonic()
+        try:
+            return super()._do_get()
+        finally:
+            milliseconds = int((time.monotonic() - started) * 1000)
+            if milliseconds > 1000:
+                self.slow_acquisitions.append((time.monotonic(), milliseconds))
+
+    @property
+    def max_recent_acquire_milliseconds(self) -> int:
+        cutoff = time.monotonic() - 60
+        while self.slow_acquisitions and self.slow_acquisitions[0][0] < cutoff:
+            self.slow_acquisitions.popleft()
+        return max((value for stamp, value in self.slow_acquisitions), default=0)
 
 
 def create_engine(settings: Settings, *, control: bool = False) -> AsyncEngine:
@@ -19,6 +46,7 @@ def create_engine(settings: Settings, *, control: bool = False) -> AsyncEngine:
     return create_async_engine(
         settings.database_url.get_secret_value(),
         pool_size=size,
+        poolclass=ObservedPool,
         max_overflow=0,
         pool_timeout=2,
         pool_pre_ping=True,

@@ -94,3 +94,65 @@ async def test_unexpected_hole_is_not_silently_skipped(
     finally:
         await engine.dispose()
         await migrator.dispose()
+
+
+@pytest.mark.parametrize(
+    "data",
+    [{"state": "PRIVATE_SOURCE_CANARY"}, {"task_version": {"secret": "PRIVATE_SOURCE_CANARY"}}],
+)
+async def test_corrupt_progress_values_are_rejected_before_public_serialization(
+    client: AsyncClient,
+    command_owner: dict[str, str],
+    admin_engine: AsyncEngine,
+    data: dict[str, object],
+) -> None:
+    from task_platform.event_reads import EventInvariantError
+
+    item = await create(client, command_owner)
+    async with admin_engine.connect() as c:
+        owner, key = (await c.execute(text("SELECT principal_id,key_id FROM tasks"))).one()
+    engine = create_engine(settings_for("migrator"))
+    try:
+        async with engine.begin() as c:
+            await c.execute(
+                text("UPDATE task_events SET data=CAST(:data AS jsonb)"), {"data": json.dumps(data)}
+            )
+        with pytest.raises(EventInvariantError):
+            await read_events(sessions(engine), Identity(owner, key), UUID(str(item["task_id"])))
+    finally:
+        await engine.dispose()
+
+
+async def test_replay_over_100_events_preserves_every_sequence_and_byte_bound(
+    client: AsyncClient,
+    command_owner: dict[str, str],
+    admin_engine: AsyncEngine,
+) -> None:
+    item = await create(client, command_owner)
+    task = UUID(str(item["task_id"]))
+    async with admin_engine.connect() as c:
+        owner, key = (await c.execute(text("SELECT principal_id,key_id FROM tasks"))).one()
+    engine = create_engine(settings_for("migrator"))
+    try:
+        async with engine.begin() as c:
+            await c.execute(text("UPDATE tasks SET event_sequence=151"))
+            await c.execute(
+                text("""INSERT INTO task_events(task_id,principal_id,sequence,kind,data)
+                SELECT :task,:owner,n,'usage.updated',jsonb_build_object('task_version',1,
+                'private',repeat('x',12000)) FROM generate_series(2,151) n"""),
+                {"task": task, "owner": owner},
+            )
+        seen: list[int] = []
+        position = 0
+        while position < 151:
+            batch = await read_events(
+                sessions(engine), Identity(owner, key), task, after=f"{task}:{position}"
+            )
+            assert 0 < len(batch.events) <= 100
+            assert sum(len(e.wire) for e in batch.events) <= 262144
+            assert all(b"private" not in e.wire for e in batch.events)
+            seen.extend(e.sequence for e in batch.events)
+            position = batch.events[-1].sequence
+        assert seen == list(range(1, 152))
+    finally:
+        await engine.dispose()

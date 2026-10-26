@@ -1,12 +1,13 @@
 """Deterministic ASGI transport/authentication tests, separate from PostgreSQL proofs."""
 
 import asyncio
-from uuid import uuid4
+from uuid import UUID, uuid4
 
 import pytest
 from starlette.types import Message
 
 from task_platform.command_schemas import CommandError
+from task_platform.event_cursor import HistoryExpired
 from task_platform.event_reads import Batch, Event
 from task_platform.identity import Identity
 from task_platform.sse import AuthLease, Connections, Stream
@@ -122,3 +123,92 @@ async def test_disconnect_cancels_wait_and_releases_connection() -> None:
     )
     await stream({}, receive, send)
     assert release == [True]
+
+
+async def test_retention_gap_while_draining_backlog_emits_reset_without_id() -> None:
+    task = uuid4()
+    sent: list[bytes] = []
+
+    class Purged:
+        async def batch(self, identity: Identity, task: UUID, position: int) -> Batch:
+            raise HistoryExpired(task)
+
+        async def wait(self, task: UUID, watermark: int, oldest: int, wait_seconds: float) -> None:
+            return None
+
+    async def check() -> None:
+        return None
+
+    async def send(message: Message) -> None:
+        if message["type"] == "http.response.body":
+            sent.append(message["body"])
+
+    async def receive() -> Message:
+        await asyncio.Event().wait()
+        return {"type": "http.disconnect"}
+
+    stream = Stream(
+        task,
+        Identity(uuid4(), uuid4()),
+        Batch(0, 2, 1, (Event(1, b"first"),)),
+        AuthLease(check),
+        Purged(),
+        lambda: None,
+    )
+    await stream({}, receive, send)
+    assert b"event: stream.reset\n" in sent[1]
+    assert b"id:" not in sent[1]
+    assert stream.position == 1
+
+
+@pytest.mark.parametrize("stalled", [False, True])
+async def test_lifetime_bounds_a_stalled_source_and_does_not_release_before_final_send(
+    stalled: bool,
+) -> None:
+    task = uuid4()
+    released: list[bool] = []
+    final_send = asyncio.Event()
+
+    class Stalled:
+        async def batch(self, identity: Identity, task: UUID, position: int) -> Batch:
+            if not stalled:
+                raise HistoryExpired(task)
+            await asyncio.Event().wait()
+            return Batch(0, 0, 1, ())
+
+        async def wait(self, task: UUID, watermark: int, oldest: int, wait_seconds: float) -> None:
+            if stalled:
+                await asyncio.Event().wait()
+
+    async def check() -> None:
+        return None
+
+    async def send(message: Message) -> None:
+        if message["type"] == "http.response.body" and not message.get("more_body", False):
+            final_send.set()
+            await asyncio.sleep(0.02)
+            assert not released, "connection ticket released before final transport write"
+
+    async def receive() -> Message:
+        await asyncio.Event().wait()
+        return {"type": "http.disconnect"}
+
+    stream = Stream(
+        task,
+        Identity(uuid4(), uuid4()),
+        Batch(0, 0, 1, ()),
+        AuthLease(check),
+        Stalled(),
+        lambda: released.append(True),
+        lifetime=0.03,
+    )
+    running = asyncio.create_task(stream({}, receive, send))
+    try:
+        await asyncio.sleep(0.12)
+        assert running.done(), "absolute connection lifetime must cancel a stalled source"
+        await running
+        assert final_send.is_set() is (not stalled)
+        assert released == [True]
+    finally:
+        running.cancel()
+        await asyncio.gather(running, return_exceptions=True)

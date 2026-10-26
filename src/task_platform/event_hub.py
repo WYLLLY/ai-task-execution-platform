@@ -1,11 +1,14 @@
 """One bounded PostgreSQL poller per followed task in the single API process."""
 
 import asyncio
+import time
 from collections import OrderedDict
 from collections.abc import Callable
 from dataclasses import dataclass, field
 from uuid import UUID
 
+from redis.asyncio import Redis
+from redis.exceptions import RedisError
 from sqlalchemy import select
 from sqlalchemy.exc import SQLAlchemyError
 
@@ -39,6 +42,31 @@ class Hub:
     def followed_tasks(self) -> int:
         return len(self.tasks)
 
+    async def listen(self, redis: Redis) -> None:
+        while True:
+            try:
+                async with redis.pubsub() as subscriber:
+                    await subscriber.subscribe("atp.events")
+                    while True:
+                        message = await subscriber.get_message(
+                            ignore_subscribe_messages=True, timeout=1
+                        )
+                        if message is None:
+                            continue
+                        value = message.get("data")
+                        if not isinstance(value, bytes) or len(value) != 36:
+                            continue
+                        try:
+                            task = UUID(value.decode("ascii"))
+                        except ValueError, UnicodeError:
+                            continue
+                        state = self.tasks.get(task)
+                        if state is not None:
+                            state.wake.set()
+            except RedisError, OSError, TimeoutError:
+                # Lost hints never stop SQL polling or renew authentication.
+                await asyncio.sleep(1)
+
     def subscribe(self, task: UUID, identity: Identity, batch: Batch) -> Callable[[], None]:
         state = self.tasks.get(task)
         if state is None:
@@ -67,6 +95,7 @@ class Hub:
         return release
 
     async def _poll(self, task: UUID, state: Followed) -> None:
+        last_poll = 0.0
         while True:
             try:
                 async with asyncio.timeout(1):
@@ -74,6 +103,8 @@ class Hub:
             except TimeoutError:
                 pass
             state.wake.clear()
+            await asyncio.sleep(max(0, last_poll + 0.1 - time.monotonic()))
+            last_poll = time.monotonic()
             try:
                 async with self.factory() as session:
                     row = (
@@ -97,8 +128,6 @@ class Hub:
                     state.unavailable = True
                     state.changed.notify_all()
                 return
-            # Bound duplicate-notification amplification, including Redis bursts.
-            await asyncio.sleep(0.1)
 
     async def batch(self, identity: Identity, task: UUID, position: int) -> Batch:
         state = self.tasks[task]
@@ -109,9 +138,16 @@ class Hub:
             if cached is not None:
                 return cached
             batch = await read_events(self.factory, identity, task, after=f"{task}:{position}")
-            state.cache[position] = batch
-            if len(state.cache) > 2:
-                state.cache.popitem(last=False)
+            # A poll may invalidate this query's older MVCC snapshot while it
+            # is in flight. Never publish that stale result back into the cache.
+            if (
+                state.watermark >= 0
+                and batch.watermark >= state.watermark
+                and batch.oldest >= state.oldest
+            ):
+                state.cache[position] = batch
+                if len(state.cache) > 2:
+                    state.cache.popitem(last=False)
             return batch
 
     async def wait(self, task: UUID, watermark: int, oldest: int, wait_seconds: float) -> None:
@@ -120,7 +156,10 @@ class Hub:
             async with asyncio.timeout(wait_seconds), state.changed:
                 await state.changed.wait_for(
                     lambda: (
-                        state.unavailable or (state.watermark, state.oldest) != (watermark, oldest)
+                        state.unavailable
+                        or state.watermark < 0
+                        or state.watermark > watermark
+                        or state.oldest > oldest
                     )
                 )
         except TimeoutError:

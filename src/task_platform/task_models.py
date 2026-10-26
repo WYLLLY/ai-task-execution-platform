@@ -78,6 +78,7 @@ class Attempt(Base):
     reason: Mapped[str | None] = mapped_column(String(80))
     worker: Mapped[str | None] = mapped_column(String(100))
     execution_epoch: Mapped[UUID | None]
+    trace_context: Mapped[dict[str, str] | None] = mapped_column(JSONB)
 
 
 class TaskEvent(Base):

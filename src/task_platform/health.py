@@ -23,7 +23,7 @@ from task_platform.task_models import (
     WorkflowVersion,
 )
 
-SCHEMA_REVISION = "0005_provider"
+SCHEMA_REVISION = "0006_operations"
 
 
 class Health(BaseModel):
@@ -60,6 +60,9 @@ async def check_database(engine: AsyncEngine, settings: Settings) -> tuple[bool,
                 await connection.execute(select(model).limit(0))
             await connection.execute(
                 text("SELECT call_id,kind,revision FROM accounting_decisions LIMIT 0")
+            )
+            await connection.execute(
+                text("SELECT task_id,principal_id FROM task_tombstones LIMIT 0")
             )
             role = await connection.scalar(text("SELECT current_user"))
             capacity = int(str(await connection.scalar(text("SHOW max_connections"))))
@@ -120,6 +123,7 @@ async def check_database(engine: AsyncEngine, settings: Settings) -> tuple[bool,
                                 "exposure_tokens",
                                 "revision",
                                 "overrun",
+                                "estimated",
                             ),
                         ),
                         ("provider_admission", ("next_allowed_at",)),

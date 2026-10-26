@@ -232,6 +232,15 @@ class Executor:
                     execution_epoch=self.epoch,
                     started_at=now,
                 )
+                from task_platform.telemetry import attempt_context
+
+                previous = await session.scalar(
+                    select(Attempt.trace_context)
+                    .where(Attempt.task_id == task.id)
+                    .order_by(Attempt.started_at.desc(), Attempt.id.desc())
+                    .limit(1)
+                )
+                attempt.trace_context = attempt_context(task.id, step.id, attempt.id, previous)
                 session.add(attempt)
                 task.state = "running"
                 task.task_version += 1
@@ -278,13 +287,17 @@ class Executor:
         if not payload:
             raise ValueError("Simulated context limit")
 
+        trace_context: dict[str, str] | None = None
+
         async def operation() -> Permit | None:
+            nonlocal trace_context
             async with self.factory.begin() as session:
                 platform, owner, provider = await prefix(session, lease.task_id)
                 rows = await locked_lease(session, lease)
                 if rows is None or not await owns(session, lease, rows):
                     return None
                 task, step, attempt = rows
+                trace_context = attempt.trace_context
                 kind = self.call_kind(step)
                 reserved_cost, reserved_tokens, tariff, tokenizer = self.reservation(step, payload)
                 existing = await session.get(ExternalCall, call_id)
@@ -376,7 +389,12 @@ class Executor:
 
         # Only confirmed transaction rollbacks can retry. Lost acknowledgements propagate:
         # the caller must not send, and lease recovery classifies the durable call as unknown.
-        return await retry_transaction(operation)
+        permit = await retry_transaction(operation)
+        if permit is not None:
+            from task_platform.telemetry import call_progress
+
+            call_progress(trace_context, lease.task_id, lease.step_id, lease.attempt_id, call_id)
+        return permit
 
     async def complete(
         self,
@@ -686,11 +704,14 @@ async def apply_settlement(
     tokens: int,
     revision: int,
     final: bool,
+    *,
+    estimated: bool = False,
 ) -> bool:
     valid_usage(cost, tokens, revision)
     if not evidence or len(evidence) > 100:
         raise ValueError("Invalid evidence identity")
-    fingerprint = hashlib.sha256(f"{cost}:{tokens}:{revision}:{final}".encode()).hexdigest()
+    basis = ":estimated" if estimated else ""
+    fingerprint = hashlib.sha256(f"{cost}:{tokens}:{revision}:{final}{basis}".encode()).hexdigest()
     previous = await session.get(CostEvidence, (call.id, evidence))
     if previous is not None:
         if previous.fingerprint != fingerprint:
@@ -719,9 +740,11 @@ async def apply_settlement(
             or record.confirmed_tokens != tokens
             or record.exposure_cost != 0
             or record.exposure_tokens != 0
+            or record.estimated != estimated
         )
         record.confirmed_cost = cost
         record.confirmed_tokens = tokens
+        record.estimated = estimated
         record.exposure_cost = 0
         record.exposure_tokens = 0
         record.revision += int(changed)

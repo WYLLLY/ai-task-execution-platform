@@ -10,7 +10,7 @@ services:
       OPENAI_API_KEY_FILE: /run/secrets/openai_api_key
       DEMO_SERVICE_KEY_FILE: /run/secrets/demo_service_key
       DEMO_URL: http://demo:8000
-    secrets: [worker_database_url, openai_api_key, demo_service_key]
+    secrets: [worker_database_url, openai_api_key, demo_service_key, redis_url]
     volumes:
       - ${OPENAI_PROFILE_PATH:?Set the reviewed provider profile path}:/run/config/openai-profile.json:ro
     networks: [private, provider-egress]

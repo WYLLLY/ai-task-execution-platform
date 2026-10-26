@@ -1,6 +1,7 @@
 """Owner isolation, shared polling and notification loss on real infrastructure."""
 
 import asyncio
+from collections.abc import Callable
 from typing import cast
 from uuid import UUID, uuid4
 
@@ -9,11 +10,13 @@ from httpx import AsyncClient
 from sqlalchemy import event, text
 from sqlalchemy.ext.asyncio import AsyncEngine
 from sqlalchemy.pool import AsyncAdaptedQueuePool
+from starlette.types import Message
 
 from task_platform.db import create_engine, sessions
 from task_platform.event_hub import Hub
-from task_platform.event_reads import read_events
+from task_platform.event_reads import Batch, read_events
 from task_platform.identity import Identity, issue_key, provision_principal
+from task_platform.sse import AuthLease, EventSource, Stream
 
 from .conftest import settings_for
 from .test_commands import create
@@ -101,3 +104,75 @@ async def test_retention_before_headers_returns_owned_snapshot_url(
         assert response.json()["snapshot_url"] == f"/v1/tasks/{item['task_id']}"
     finally:
         await engine.dispose()
+
+
+async def test_http_middleware_cannot_ack_or_buffer_an_unwritten_event(
+    client: AsyncClient, command_owner: dict[str, str], monkeypatch: pytest.MonkeyPatch
+) -> None:
+    from task_platform import api
+
+    item = await create(client, command_owner)
+    streams: list[Stream] = []
+    blocked = asyncio.Event()
+    request_sent = False
+
+    class ShortWrite(Stream):
+        def __init__(
+            self,
+            task: UUID,
+            identity: Identity,
+            batch: Batch,
+            auth: AuthLease,
+            hub: EventSource | None,
+            release: Callable[[], None],
+        ) -> None:
+            super().__init__(task, identity, batch, auth, hub, release, write_timeout=0.03)
+            streams.append(self)
+
+    monkeypatch.setattr(api, "Stream", ShortWrite)
+    app = api.create_app(settings_for("api"))
+
+    async def send(message: Message) -> None:
+        if message["type"] == "http.response.body" and message.get("body"):
+            blocked.set()
+            await asyncio.Event().wait()
+
+    async def receive() -> Message:
+        nonlocal request_sent
+        if not request_sent:
+            request_sent = True
+            return {"type": "http.request", "body": b"", "more_body": False}
+        await asyncio.Event().wait()
+        return {"type": "http.disconnect"}
+
+    async with app.router.lifespan_context(app):
+        running = asyncio.create_task(
+            app(
+                {
+                    "type": "http",
+                    "asgi": {"spec_version": "2.4"},
+                    "http_version": "1.1",
+                    "method": "GET",
+                    "scheme": "http",
+                    "path": f"/v1/tasks/{item['task_id']}/events",
+                    "raw_path": b"/",
+                    "query_string": b"",
+                    "root_path": "",
+                    "headers": [(b"authorization", command_owner["Authorization"].encode())],
+                    "server": ("test", 80),
+                    "client": ("test", 1),
+                },
+                receive,
+                send,
+            )
+        )
+        try:
+            async with asyncio.timeout(1):
+                await blocked.wait()
+            await asyncio.sleep(0.12)
+            assert streams[0].position == 0, "cursor advanced before real ASGI send completed"
+            assert running.done(), "write timeout must bound the real transport"
+            await running
+        finally:
+            running.cancel()
+            await asyncio.gather(running, return_exceptions=True)
