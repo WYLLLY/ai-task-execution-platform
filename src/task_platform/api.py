@@ -20,6 +20,9 @@ from sqlalchemy.exc import SQLAlchemyError
 from task_platform.command_schemas import MAX_BODY, CommandError, CreateTask, parse_command
 from task_platform.config import Settings, load_settings
 from task_platform.db import create_engine, sessions
+from task_platform.event_cursor import HistoryExpired
+from task_platform.event_hub import Hub
+from task_platform.event_reads import read_events, task_snapshot
 from task_platform.health import health
 from task_platform.identity import (
     AuthenticationError,
@@ -30,6 +33,7 @@ from task_platform.identity import (
 )
 from task_platform.rate_limits import LocalLimits
 from task_platform.resolution import resolve_task
+from task_platform.sse import AuthLease, Connections, Stream
 from task_platform.task_models import Step, Task, WorkflowVersion
 from task_platform.tasks import (
     cancel_task,
@@ -60,6 +64,8 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     factory = sessions(read_engine)
     control_factory = sessions(control_engine)
     limits = LocalLimits()
+    connections = Connections()
+    hub = Hub(factory)
     redis = Redis.from_url(
         settings.redis_url.get_secret_value(),
         socket_connect_timeout=1,
@@ -72,6 +78,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         try:
             yield
         finally:
+            await hub.close()
             await redis.aclose()
             await read_engine.dispose()
             await control_engine.dispose()
@@ -138,7 +145,10 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     @app.exception_handler(CommandError)
     async def command_error(_: Request, error: CommandError) -> JSONResponse:
-        return JSONResponse({"detail": error.detail}, status_code=error.status)
+        body = {"detail": error.detail}
+        if isinstance(error, HistoryExpired):
+            body["snapshot_url"] = error.snapshot_url
+        return JSONResponse(body, status_code=error.status)
 
     async def command_body(request: Request) -> tuple[object, str]:
         data = bytearray()
@@ -231,8 +241,41 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         task_id: UUID, identity: Annotated[Identity, Depends(current_identity)]
     ) -> dict[str, object]:
         async with factory() as session:
-            # One row contains the coherent result/version/event watermark snapshot.
-            return snapshot(await owned_task(session, identity, task_id))
+            return await task_snapshot(session, identity, task_id)
+
+    @app.get("/v1/tasks/{task_id}/events")
+    async def events(
+        task_id: UUID,
+        request: Request,
+        identity: Annotated[Identity, Depends(current_identity)],
+        credential: Annotated[str, Depends(token)],
+        after: str | None = None,
+    ) -> Response:
+        async def check() -> None:
+            async with factory() as session:
+                await authenticate(session, credential)
+
+        auth = AuthLease(check)
+        await auth.ensure()
+        initial = await read_events(
+            factory,
+            identity,
+            task_id,
+            after=after,
+            last_event_id=request.headers.get("Last-Event-ID"),
+        )
+        release_connection = connections.acquire(identity.principal_id)
+        try:
+            release_subscription = hub.subscribe(task_id, identity, initial)
+        except BaseException:
+            release_connection()
+            raise
+
+        def release() -> None:
+            release_subscription()
+            release_connection()
+
+        return Stream(task_id, identity, initial, auth, hub, release)
 
     @app.get("/v1/tasks")
     async def list_tasks(

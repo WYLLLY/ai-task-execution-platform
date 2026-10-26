@@ -1,7 +1,8 @@
 # M6 implementation matrix — in progress
 
 Base: verified M5 commit `43f63971a83832150a0e2123b6df4706550ac443`.
-M5 PR #5 remains open; this branch does not assume it has merged.
+M1–M5 were merged into main with explicit owner authorization on 2026-10-26.
+M5 merge commit: `590a72d56a67b5a5007332480dd37b494f4146c7`.
 The pre-existing AGENTS.md edit is preserved outside this work.
 
 This initial slice defines the pure SSE cursor contract from plan §3.6.
@@ -51,3 +52,25 @@ streaming/proxy/load scenarios, migrations/privileges where affected, required
 Make targets and M6 CI remain pending milestone implementation. M5's published
 591-test verification is pinned to its own final revision and is not presented
 as full M6 validation. This initial work is local on `codex/m6`, outside PR #5.
+
+## Read projection and transport increments
+
+Branch: `feature/m6` as explicitly requested. No M6 completion is claimed.
+
+- `m6-event-reads-red.txt`: 3 failed behavioral assertions (missing snapshot costs,
+  missing event watermark and missing gap detection), 0 errors/skips.
+- `m6-event-reads-green.txt`: 3 passed, real PostgreSQL, 0.60s. The read query
+  projects metadata and retained events in one statement; snapshot costs share
+  the task's single MVCC statement. No connection survives the read method.
+- `m6-stream-red.txt`: 5 failed behavioral assertions for caps, authentication
+  validity and transport lifecycle, 0 errors/skips. Importable interface scaffold.
+- `m6-stream-green.txt`: 5 passed, 0.30s. ASGI send timeout is tested directly;
+  proxy/HTTP middleware behavior remains a separate pending integration gate.
+- `m6-sse-red.txt`: 3 failed, missing HTTP route and shared replay, 0 errors/skips.
+- `m6-sse-green.txt`: 6 passed (including read projection regression), 2.02s,
+  real PostgreSQL, owner checks before cursor errors, owned 410 and shared
+  polling/cache with no checked-out connection while subscribers wait.
+
+These increments do not establish the entire F17–F19 gates. Redis notifications,
+load/outage, real proxy flushing, post-header reset, revocation integration,
+usage estimate classification, tombstones, operations and tracing remain pending.

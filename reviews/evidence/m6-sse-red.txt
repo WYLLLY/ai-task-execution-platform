@@ -1,0 +1,25 @@
+time="2026-10-26T19:57:50+01:00" level=warning msg="Found orphan containers (atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-4acbb5861bc2 Creating
+ Container atp-m1-test-test-run-4acbb5861bc2 Created
+FFF                                                                      [100%]
+=================================== FAILURES ===================================
+___________ test_event_endpoint_authorizes_before_validating_cursor ____________
+tests/integration/test_sse.py:27: in test_event_endpoint_authorizes_before_validating_cursor
+    assert (await client.get(url)).status_code == 401
+E   assert 404 == 401
+E    +  where 404 = <Response [404 Not Found]>.status_code
+_______ test_shared_polling_and_cache_release_connections_while_waiting ________
+tests/integration/test_sse.py:61: in test_shared_polling_and_cache_release_connections_while_waiting
+    assert all([e.sequence for e in b.events] == [1] for b in batches)
+E   assert False
+E    +  where False = all(<generator object test_shared_polling_and_cache_release_connections_while_waiting.<locals>.<genexpr> at 0xf5b2e03c54e0>)
+___________ test_retention_before_headers_returns_owned_snapshot_url ___________
+tests/integration/test_sse.py:85: in test_retention_before_headers_returns_owned_snapshot_url
+    assert response.status_code == 410
+E   assert 404 == 410
+E    +  where 404 = <Response [404 Not Found]>.status_code
+=========================== short test summary info ============================
+FAILED tests/integration/test_sse.py::test_event_endpoint_authorizes_before_validating_cursor
+FAILED tests/integration/test_sse.py::test_shared_polling_and_cache_release_connections_while_waiting
+FAILED tests/integration/test_sse.py::test_retention_before_headers_returns_owned_snapshot_url
+3 failed in 0.54s

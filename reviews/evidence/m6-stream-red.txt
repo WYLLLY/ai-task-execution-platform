@@ -1,0 +1,38 @@
+FFFFF                                                                    [100%]
+=================================== FAILURES ===================================
+_______ test_connections_bound_owner_and_global_and_release_idempotently _______
+tests/unit/test_sse_stream.py:18: in test_connections_bound_owner_and_global_and_release_idempotently
+    assert limits.active == 100
+E   assert 0 == 100
+E    +  where 0 = <task_platform.sse.Connections object at 0x109238980>.active
+_____ test_auth_validity_counts_from_check_start_and_failure_never_renews ______
+tests/unit/test_sse_stream.py:44: in test_auth_validity_counts_from_check_start_and_failure_never_renews
+    assert lease.valid_until == 10
+E   assert 0.0 == 10
+E    +  where 0.0 = <task_platform.sse.AuthLease object at 0x109239550>.valid_until
+_________________ test_expired_during_auth_check_cannot_write __________________
+tests/unit/test_sse_stream.py:64: in test_expired_during_auth_check_cannot_write
+    with pytest.raises(TimeoutError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE TimeoutError
+_______ test_transport_timeout_releases_ticket_without_advancing_cursor ________
+tests/unit/test_sse_stream.py:92: in test_transport_timeout_releases_ticket_without_advancing_cursor
+    assert release == [True]
+E   assert [] == [True]
+E
+E     Right contains one more item: True
+E     Use -v to get more diff
+_____________ test_disconnect_cancels_wait_and_releases_connection _____________
+tests/unit/test_sse_stream.py:114: in test_disconnect_cancels_wait_and_releases_connection
+    assert release == [True]
+E   assert [] == [True]
+E
+E     Right contains one more item: True
+E     Use -v to get more diff
+=========================== short test summary info ============================
+FAILED tests/unit/test_sse_stream.py::test_connections_bound_owner_and_global_and_release_idempotently
+FAILED tests/unit/test_sse_stream.py::test_auth_validity_counts_from_check_start_and_failure_never_renews
+FAILED tests/unit/test_sse_stream.py::test_expired_during_auth_check_cannot_write
+FAILED tests/unit/test_sse_stream.py::test_transport_timeout_releases_ticket_without_advancing_cursor
+FAILED tests/unit/test_sse_stream.py::test_disconnect_cancels_wait_and_releases_connection
+5 failed in 0.34s
