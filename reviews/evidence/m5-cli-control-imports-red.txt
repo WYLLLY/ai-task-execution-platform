@@ -1,0 +1,36 @@
+FFFF                                                                     [100%]
+=================================== FAILURES ===================================
+________ test_cli_parent_does_not_initialize_execution_runtime[--help] _________
+tests/unit/test_cli_startup.py:46: in test_cli_parent_does_not_initialize_execution_runtime
+    assert json.loads(process.stdout.splitlines()[-1]) == []
+E   AssertionError: assert ['sqlalchemy'....health', ...] == []
+E
+E     Left contains 7 more items, first extra item: 'sqlalchemy'
+E     Use -v to get more diff
+______ test_cli_parent_does_not_initialize_execution_runtime[--simulate] _______
+tests/unit/test_cli_startup.py:46: in test_cli_parent_does_not_initialize_execution_runtime
+    assert json.loads(process.stdout.splitlines()[-1]) == []
+E   AssertionError: assert ['sqlalchemy'....health', ...] == []
+E
+E     Left contains 7 more items, first extra item: 'sqlalchemy'
+E     Use -v to get more diff
+______ test_cli_parent_does_not_initialize_execution_runtime[--analysis] _______
+tests/unit/test_cli_startup.py:46: in test_cli_parent_does_not_initialize_execution_runtime
+    assert json.loads(process.stdout.splitlines()[-1]) == []
+E   AssertionError: assert ['sqlalchemy'....health', ...] == []
+E
+E     Left contains 7 more items, first extra item: 'sqlalchemy'
+E     Use -v to get more diff
+_______ test_cli_parent_does_not_initialize_execution_runtime[--openai] ________
+tests/unit/test_cli_startup.py:46: in test_cli_parent_does_not_initialize_execution_runtime
+    assert json.loads(process.stdout.splitlines()[-1]) == []
+E   AssertionError: assert ['sqlalchemy'....health', ...] == []
+E
+E     Left contains 7 more items, first extra item: 'sqlalchemy'
+E     Use -v to get more diff
+=========================== short test summary info ============================
+FAILED tests/unit/test_cli_startup.py::test_cli_parent_does_not_initialize_execution_runtime[--help]
+FAILED tests/unit/test_cli_startup.py::test_cli_parent_does_not_initialize_execution_runtime[--simulate]
+FAILED tests/unit/test_cli_startup.py::test_cli_parent_does_not_initialize_execution_runtime[--analysis]
+FAILED tests/unit/test_cli_startup.py::test_cli_parent_does_not_initialize_execution_runtime[--openai]
+4 failed in 1.65s

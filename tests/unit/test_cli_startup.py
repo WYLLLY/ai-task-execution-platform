@@ -20,6 +20,9 @@ class RuntimeGuard(importlib.abc.MetaPathFinder):
         if fullname in {
             "task_platform.execution", "task_platform.analysis_worker",
             "task_platform.workflow", "task_platform.provider_commands", "uvicorn",
+            "sqlalchemy", "task_platform.health", "task_platform.db",
+            "task_platform.identity", "task_platform.metrics", "task_platform.config",
+            "task_platform.catalog",
         }:
             initialized.append(fullname)
 

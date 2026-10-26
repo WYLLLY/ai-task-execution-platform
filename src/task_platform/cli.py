@@ -11,21 +11,6 @@ from functools import partial
 from pathlib import Path
 from uuid import UUID
 
-from sqlalchemy.exc import SQLAlchemyError
-
-from task_platform.catalog import set_admission, set_workflow_availability
-from task_platform.config import load_settings, secret_setting
-from task_platform.db import create_engine, sessions
-from task_platform.health import check_database
-from task_platform.identity import (
-    NotFoundError,
-    disable_principal,
-    initialize_platform,
-    issue_key,
-    provision_principal,
-    revoke_key,
-)
-from task_platform.metrics import execution_metrics
 from task_platform.observability import configure_logging
 from task_platform.supervisor import supervise
 
@@ -36,6 +21,17 @@ def read_corpus_file(filename: str) -> str:
 
 
 async def run_admin(args: argparse.Namespace) -> None:
+    from task_platform.catalog import set_admission, set_workflow_availability
+    from task_platform.config import load_settings
+    from task_platform.db import create_engine, sessions
+    from task_platform.identity import (
+        disable_principal,
+        initialize_platform,
+        issue_key,
+        provision_principal,
+        revoke_key,
+    )
+
     settings = load_settings("admin")
     engine = create_engine(settings)
     factory = sessions(engine)
@@ -101,6 +97,11 @@ async def run_admin(args: argparse.Namespace) -> None:
 
 
 async def worker_check() -> None:
+    from task_platform.config import load_settings
+    from task_platform.db import create_engine, sessions
+    from task_platform.health import check_database
+    from task_platform.metrics import execution_metrics
+
     settings = load_settings("worker")
     engine = create_engine(settings, control=True)
     try:
@@ -124,7 +125,10 @@ async def worker_check() -> None:
 
 async def worker_run(once: bool, analysis_mode: bool = False) -> None:
     from task_platform.analysis_worker import AnalysisWorker
+    from task_platform.config import load_settings, secret_setting
+    from task_platform.db import create_engine, sessions
     from task_platform.execution import Executor
+    from task_platform.health import check_database
     from task_platform.report_transport import ReportTransport
     from task_platform.transport import SimulationTransport
     from task_platform.worker import Worker
@@ -226,6 +230,21 @@ def main() -> None:
         else:
             sub.add_argument("--version", type=int, required=True)
     args = parser.parse_args()
+    if args.command == "worker" and not args.check:
+        try:
+            if args.openai:
+                raise SystemExit(supervise(partial(openai_run, args.once)))
+            raise SystemExit(supervise(partial(worker_run, args.once, args.analysis)))
+        except ValueError, KeyError, OSError:
+            command_failed()
+    dispatch_command(args)
+
+
+def dispatch_command(args: argparse.Namespace) -> None:
+    from sqlalchemy.exc import SQLAlchemyError
+
+    from task_platform.identity import NotFoundError
+
     try:
         if args.command == "api":
             import uvicorn
@@ -256,18 +275,17 @@ def main() -> None:
 
             asyncio.run(smoke_openai())
         elif args.command == "worker":
-            if args.check:
-                asyncio.run(worker_check())
-            elif args.openai:
-                raise SystemExit(supervise(partial(openai_run, args.once)))
-            else:
-                raise SystemExit(supervise(partial(worker_run, args.once, args.analysis)))
+            asyncio.run(worker_check())
         else:
             asyncio.run(run_admin(args))
     except ValueError, KeyError, OSError, SQLAlchemyError, NotFoundError:
-        logging.getLogger(__name__).error("", extra={"event": "command.failed"})
-        print(
-            "Command failed; check configuration, permissions and service availability.",
-            file=sys.stderr,
-        )
-        raise SystemExit(1) from None
+        command_failed()
+
+
+def command_failed() -> None:
+    logging.getLogger(__name__).error("", extra={"event": "command.failed"})
+    print(
+        "Command failed; check configuration, permissions and service availability.",
+        file=sys.stderr,
+    )
+    raise SystemExit(1) from None
