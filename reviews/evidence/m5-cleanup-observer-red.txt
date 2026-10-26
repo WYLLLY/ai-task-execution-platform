@@ -1,0 +1,39 @@
+time="2026-10-26T19:02:30+01:00" level=warning msg="Found orphan containers (atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-151b1b9ca801 Creating
+ Container atp-m1-test-test-run-151b1b9ca801 Created
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+__________ test_fixture_cleanup_retries_confirmed_lock_timeout[True] ___________
+tests/integration/test_fixture_cleanup.py:66: in test_fixture_cleanup_retries_confirmed_lock_timeout
+    await asyncio.sleep(0.01)
+/usr/local/lib/python3.14/asyncio/tasks.py:712: in sleep
+    return await future
+           ^^^^^^^^^^^^
+E   asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+tests/integration/test_fixture_cleanup.py:55: in test_fixture_cleanup_retries_confirmed_lock_timeout
+    async with asyncio.timeout(3):
+               ^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.14/asyncio/timeouts.py:115: in __aexit__
+    raise TimeoutError from exc_val
+E   TimeoutError
+__________ test_fixture_cleanup_retries_confirmed_lock_timeout[False] __________
+tests/integration/test_fixture_cleanup.py:66: in test_fixture_cleanup_retries_confirmed_lock_timeout
+    await asyncio.sleep(0.01)
+/usr/local/lib/python3.14/asyncio/tasks.py:712: in sleep
+    return await future
+           ^^^^^^^^^^^^
+E   asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+tests/integration/test_fixture_cleanup.py:55: in test_fixture_cleanup_retries_confirmed_lock_timeout
+    async with asyncio.timeout(3):
+               ^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.14/asyncio/timeouts.py:115: in __aexit__
+    raise TimeoutError from exc_val
+E   TimeoutError
+=========================== short test summary info ============================
+FAILED tests/integration/test_fixture_cleanup.py::test_fixture_cleanup_retries_confirmed_lock_timeout[True]
+FAILED tests/integration/test_fixture_cleanup.py::test_fixture_cleanup_retries_confirmed_lock_timeout[False]
+2 failed in 6.62s

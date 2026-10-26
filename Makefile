@@ -12,6 +12,8 @@ format:
 	$(UV) run --frozen ruff format .
 typecheck:
 	$(UV) run --frozen mypy
+prepare-tokenizer:
+	$(UV) run --frozen python -c 'import tiktoken; tiktoken.get_encoding("o200k_base")'
 test-unit:
 	$(UV) run --frozen pytest tests/unit
 dev-secrets:
@@ -44,3 +46,12 @@ test-tools:
 	$(TEST_COMPOSE) run --rm --no-deps test pytest -p no:cacheprovider tests/unit/test_agent_protocol.py tests/integration/test_tools_demo.py
 test-e2e:
 	$(TEST_COMPOSE) run --rm --no-deps test pytest -p no:cacheprovider tests/integration/test_workflow_e2e.py
+
+# M5 uses synthetic Responses fixtures and real PostgreSQL accounting in ordinary CI.
+.PHONY: test-accounting test-provider-contracts smoke-openai
+test-accounting:
+	$(TEST_COMPOSE) run --rm --no-deps test pytest -p no:cacheprovider tests/integration/test_accounting_admin.py tests/integration/test_accounting_schema.py tests/integration/test_provider_capacity.py tests/integration/test_execution_calls.py
+test-provider-contracts:
+	$(TEST_COMPOSE) run --rm --no-deps test pytest -p no:cacheprovider tests/unit/test_responses.py tests/unit/test_provider_cli.py tests/unit/test_openai_smoke.py tests/integration/test_provider_contracts.py tests/integration/test_responses_workflow.py tests/integration/test_provider_e2e.py
+smoke-openai:
+	$(UV) run --frozen atp smoke-openai

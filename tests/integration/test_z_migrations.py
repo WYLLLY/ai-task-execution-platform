@@ -41,7 +41,7 @@ async def test_migration_roundtrip_and_schema_readiness(
     async with admin_engine.connect() as connection:
         assert (
             await connection.scalar(text("SELECT version_num FROM alembic_version"))
-            == "0004_workflow"
+            == "0005_provider"
         )
     env["DATABASE_URL_FILE"] = str(Path(env["TEST_SECRETS_DIR"]) / "api_database_url")
     denied = await asyncio.to_thread(

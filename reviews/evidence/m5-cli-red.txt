@@ -1,0 +1,35 @@
+FFFFF                                                                    [100%]
+=================================== FAILURES ===================================
+___________ test_provider_commands_are_available[arguments0---file] ____________
+tests/unit/test_provider_cli.py:16: in test_provider_commands_are_available
+    assert result.returncode == 0 and expected in result.stdout
+E   assert (2 == 0)
+E    +  where 2 = CompletedProcess(args=['/Users/william/Documents/Projet 2/.venv/bin/python', '-c', 'from task_platform.cli import main...principal-create', 'key-create', 'key-revoke', 'principal-disable', 'admission', 'workflow-availability', 'corpus')\n").returncode
+___________ test_provider_commands_are_available[arguments1---call] ____________
+tests/unit/test_provider_cli.py:16: in test_provider_commands_are_available
+    assert result.returncode == 0 and expected in result.stdout
+E   assert (2 == 0)
+E    +  where 2 = CompletedProcess(args=['/Users/william/Documents/Projet 2/.venv/bin/python', '-c', 'from task_platform.cli import main...principal-create', 'key-create', 'key-revoke', 'principal-disable', 'admission', 'workflow-availability', 'corpus')\n").returncode
+__________ test_provider_commands_are_available[arguments2---openai] ___________
+tests/unit/test_provider_cli.py:16: in test_provider_commands_are_available
+    assert result.returncode == 0 and expected in result.stdout
+E   AssertionError: assert (0 == 0 and '--openai' in 'usage: atp worker [-h] (--check | --simulate | --analysis) [--once]\n\noptions:\n  -h, --help  show this help message and exit\n  --check\n  --simulate\n  --analysis\n  --once\n')
+E    +  where 0 = CompletedProcess(args=['/Users/william/Documents/Projet 2/.venv/bin/python', '-c', 'from task_platform.cli import main...options:\n  -h, --help  show this help message and exit\n  --check\n  --simulate\n  --analysis\n  --once\n', stderr='').returncode
+E    +  and   'usage: atp worker [-h] (--check | --simulate | --analysis) [--once]\n\noptions:\n  -h, --help  show this help message and exit\n  --check\n  --simulate\n  --analysis\n  --once\n' = CompletedProcess(args=['/Users/william/Documents/Projet 2/.venv/bin/python', '-c', 'from task_platform.cli import main...options:\n  -h, --help  show this help message and exit\n  --check\n  --simulate\n  --analysis\n  --once\n', stderr='').stdout
+_____ test_smoke_without_distinct_authorization_and_cap_is_skipped[False] ______
+tests/unit/test_provider_cli.py:26: in test_smoke_without_distinct_authorization_and_cap_is_skipped
+    assert result.returncode == 0 and "SKIPPED" in result.stdout
+E   assert (2 == 0)
+E    +  where 2 = CompletedProcess(args=['/Users/william/Documents/Projet 2/.venv/bin/python', '-c', 'from task_platform.cli import main...n} ...\natp: error: argument command: invalid choice: 'smoke-openai' (choose from 'api', 'demo', 'worker', 'admin')\n").returncode
+______ test_smoke_without_distinct_authorization_and_cap_is_skipped[True] ______
+tests/unit/test_provider_cli.py:26: in test_smoke_without_distinct_authorization_and_cap_is_skipped
+    assert result.returncode == 0 and "SKIPPED" in result.stdout
+E   assert (2 == 0)
+E    +  where 2 = CompletedProcess(args=['/Users/william/Documents/Projet 2/.venv/bin/python', '-c', 'from task_platform.cli import main...n} ...\natp: error: argument command: invalid choice: 'smoke-openai' (choose from 'api', 'demo', 'worker', 'admin')\n").returncode
+=========================== short test summary info ============================
+FAILED tests/unit/test_provider_cli.py::test_provider_commands_are_available[arguments0---file]
+FAILED tests/unit/test_provider_cli.py::test_provider_commands_are_available[arguments1---call]
+FAILED tests/unit/test_provider_cli.py::test_provider_commands_are_available[arguments2---openai]
+FAILED tests/unit/test_provider_cli.py::test_smoke_without_distinct_authorization_and_cap_is_skipped[False]
+FAILED tests/unit/test_provider_cli.py::test_smoke_without_distinct_authorization_and_cap_is_skipped[True]
+5 failed in 2.54s

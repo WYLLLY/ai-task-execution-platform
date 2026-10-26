@@ -7,7 +7,7 @@ from uuid import uuid4
 from task_platform.execution import Lease
 from task_platform.report_transport import ReportTransport
 from task_platform.task_models import Step
-from task_platform.transport import SimulationTransport
+from task_platform.transport import ModelTransport
 from task_platform.worker import Worker
 from task_platform.workflow import AnalysisExecutor
 
@@ -18,7 +18,7 @@ class AnalysisWorker(Worker):
     def __init__(
         self,
         executor: AnalysisExecutor,
-        model: SimulationTransport,
+        model: ModelTransport,
         reports: ReportTransport,
         *,
         holder: str,
@@ -68,6 +68,7 @@ class AnalysisWorker(Worker):
                 tokens=outcome.tokens,
                 result=outcome.response,
                 retry_after_seconds=outcome.retry_after_seconds,
+                observation=outcome.observation,
             )
 
     async def run_once(self) -> bool:

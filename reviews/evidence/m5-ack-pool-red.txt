@@ -1,0 +1,20 @@
+time="2026-10-23T20:54:27+02:00" level=warning msg="Found orphan containers (atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-1bc318377090 Creating
+ Container atp-m1-test-test-run-1bc318377090 Created
+F                                                                        [100%]
+=================================== FAILURES ===================================
+____________________ test_lost_commit_ack_replay_is_stable _____________________
+tests/integration/test_accounting_admin.py:154: in test_lost_commit_ack_replay_is_stable
+    assert cast(QueuePool, admin_engine.sync_engine.pool).checkedout() == 0
+E   assert 1 == 0
+E    +  where 1 = checkedout()
+E    +    where checkedout = <sqlalchemy.pool.impl.AsyncAdaptedQueuePool object at 0xe3c24dfb2ba0>.checkedout
+E    +      where <sqlalchemy.pool.impl.AsyncAdaptedQueuePool object at 0xe3c24dfb2ba0> = cast(QueuePool, <sqlalchemy.pool.impl.AsyncAdaptedQueuePool object at 0xe3c24dfb2ba0>)
+E    +        where <sqlalchemy.pool.impl.AsyncAdaptedQueuePool object at 0xe3c24dfb2ba0> = Engine(postgresql+psycopg://atp_admin:***@postgres:5432/atp).pool
+E    +          where Engine(postgresql+psycopg://atp_admin:***@postgres:5432/atp) = <sqlalchemy.ext.asyncio.engine.AsyncEngine object at 0xe3c24de80ad0>.sync_engine
+=========================== short test summary info ============================
+FAILED tests/integration/test_accounting_admin.py::test_lost_commit_ack_replay_is_stable
+1 failed, 3 deselected in 0.50s
+The garbage collector is trying to clean up non-checked-in connection <AdaptedConnection <psycopg.AsyncConnection [IDLE] (host=postgres user=atp_admin database=atp) at 0xe3c24dfb3770>>, which will be dropped, as it cannot be safely terminated.  Please ensure that SQLAlchemy pooled connections are returned to the pool explicitly, either by calling ``close()`` or by using appropriate context managers to manage their lifecycle.
+/app/.venv/lib/python3.14/site-packages/_pytest/unraisableexception.py:33: SAWarning: The garbage collector is trying to clean up non-checked-in connection <AdaptedConnection <psycopg.AsyncConnection [IDLE] (host=postgres user=atp_admin database=atp) at 0xe3c24dfb3770>>, which will be dropped, as it cannot be safely terminated.  Please ensure that SQLAlchemy pooled connections are returned to the pool explicitly, either by calling ``close()`` or by using appropriate context managers to manage their lifecycle.
+  gc.collect()

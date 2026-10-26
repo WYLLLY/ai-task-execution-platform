@@ -1,0 +1,5 @@
+time="2026-10-24T03:39:53+02:00" level=warning msg="Found orphan containers (atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-fe73c49f8b9e Creating
+ Container atp-m1-test-test-run-fe73c49f8b9e Created
+...                                                                      [100%]
+3 passed in 1.77s

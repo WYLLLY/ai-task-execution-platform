@@ -23,7 +23,7 @@ from task_platform.task_models import (
     WorkflowVersion,
 )
 
-SCHEMA_REVISION = "0004_workflow"
+SCHEMA_REVISION = "0005_provider"
 
 
 class Health(BaseModel):
@@ -58,6 +58,9 @@ async def check_database(engine: AsyncEngine, settings: Settings) -> tuple[bool,
                 Document,
             ):
                 await connection.execute(select(model).limit(0))
+            await connection.execute(
+                text("SELECT call_id,kind,revision FROM accounting_decisions LIMIT 0")
+            )
             role = await connection.scalar(text("SELECT current_user"))
             capacity = int(str(await connection.scalar(text("SHOW max_connections"))))
             revisions = (
@@ -82,13 +85,6 @@ async def check_database(engine: AsyncEngine, settings: Settings) -> tuple[bool,
                         "cost_evidence",
                     )
                 )
-                for table in inserts:
-                    writable = writable and bool(
-                        await connection.scalar(
-                            text("SELECT has_table_privilege(current_user, :table, 'INSERT')"),
-                            {"table": table},
-                        )
-                    )
                 updates: tuple[tuple[str, tuple[str, ...]], ...] = (
                     ("tasks", ("state", "reason", "task_version", "event_sequence")),
                     ("steps", ("state", "generation", "holder", "lease_until")),
@@ -101,7 +97,7 @@ async def check_database(engine: AsyncEngine, settings: Settings) -> tuple[bool,
                 )
                 if settings.role == "worker":
                     updates += (
-                        ("external_calls", ("response_observed_at",)),
+                        ("external_calls", ("response_observed_at", "provider_observation")),
                         ("tasks", ("result", "storage_bytes", "tool_calls")),
                         (
                             "steps",
@@ -112,6 +108,7 @@ async def check_database(engine: AsyncEngine, settings: Settings) -> tuple[bool,
                                 "operation_key",
                                 "first_authorized_at",
                                 "probe_count",
+                                "protocol_items",
                             ),
                         ),
                         (
@@ -127,17 +124,35 @@ async def check_database(engine: AsyncEngine, settings: Settings) -> tuple[bool,
                         ),
                         ("provider_admission", ("next_allowed_at",)),
                     )
-                for table, columns in updates:
-                    for column in columns:
-                        writable = writable and bool(
-                            await connection.scalar(
-                                text(
-                                    "SELECT has_column_privilege("
-                                    "current_user, :table, :column, 'UPDATE')"
-                                ),
-                                {"table": table, "column": column},
-                            )
+                # Audit every exact grant in two round trips. A per-column query loop
+                # unnecessarily keeps relation locks and the control connection busy.
+                writable = bool(
+                    await connection.scalar(
+                        text(
+                            "SELECT bool_and(has_table_privilege(current_user, t, 'INSERT')) "
+                            "FROM unnest(CAST(:tables AS text[])) AS t"
+                        ),
+                        {"tables": list(inserts)},
+                    )
+                )
+                columns_to_check = [(table, column) for table, cols in updates for column in cols]
+                writable = (
+                    bool(
+                        await connection.scalar(
+                            text(
+                                "SELECT bool_and(has_column_privilege("
+                                "current_user, t, c, 'UPDATE')) "
+                                "FROM unnest(CAST(:tables AS text[]), CAST(:columns AS text[])) "
+                                "AS required(t, c)"
+                            ),
+                            {
+                                "tables": [table for table, column in columns_to_check],
+                                "columns": [column for table, column in columns_to_check],
+                            },
                         )
+                    )
+                    and writable
+                )
             compatible = revisions == [SCHEMA_REVISION] and writable
             compatible = compatible and role == f"atp_{settings.role}"
             compatible = compatible and capacity >= settings.db_max_connections

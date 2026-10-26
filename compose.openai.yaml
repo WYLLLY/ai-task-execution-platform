@@ -1,0 +1,21 @@
+# Explicit operator opt-in only. Never loaded by ordinary CI or default development.
+# Supply the provider project/profile and a worker-only OpenAI key file first.
+services:
+  worker:
+    command: [worker, --openai]
+    mem_limit: 512m
+    environment:
+      DISPATCH_ENABLED: ${OPENAI_DISPATCH_ENABLED:-false}
+      OPENAI_PROFILE_FILE: /run/config/openai-profile.json
+      OPENAI_API_KEY_FILE: /run/secrets/openai_api_key
+      DEMO_SERVICE_KEY_FILE: /run/secrets/demo_service_key
+      DEMO_URL: http://demo:8000
+    secrets: [worker_database_url, openai_api_key, demo_service_key]
+    volumes:
+      - ${OPENAI_PROFILE_PATH:?Set the reviewed provider profile path}:/run/config/openai-profile.json:ro
+    networks: [private, provider-egress]
+networks:
+  provider-egress: {}
+secrets:
+  openai_api_key:
+    file: ${OPENAI_KEY_PATH:?Set the worker-only OpenAI key file path}

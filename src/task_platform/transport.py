@@ -6,7 +6,7 @@ import time
 from datetime import UTC, datetime
 from email.utils import parsedate_to_datetime
 from types import TracebackType
-from typing import Literal, Self
+from typing import Literal, Protocol, Self
 from urllib.parse import urlsplit
 
 import httpx
@@ -17,6 +17,7 @@ from task_platform.execution import Permit
 
 
 class Outcome(StrictSchema):
+    observation: dict[str, object] | None = None
     response: dict[str, object] | None = None
     outcome: Literal["succeeded", "rejected", "retryable", "unknown"] = "unknown"
     cost: int | None = Field(default=None, ge=0, le=2**63 - 1)
@@ -110,3 +111,7 @@ def retry_delay(value: str | None, status: int) -> int:
         return max(0, min(86400, math.ceil((when - datetime.now(UTC)).total_seconds())))
     except ValueError, TypeError, OverflowError:
         return 1
+
+
+class ModelTransport(Protocol):
+    async def send(self, permit: Permit) -> Outcome: ...

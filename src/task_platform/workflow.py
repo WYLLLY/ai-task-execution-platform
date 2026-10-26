@@ -144,11 +144,7 @@ class AnalysisExecutor(Executor):
     async def authorization_reason(
         self, session: AsyncSession, task: Task, step: Step, payload: bytes
     ) -> str | None:
-        if (
-            not self.handler_available(task)
-            or task.workflow_name != "analysis"
-            or task.workflow_version != "1"
-        ):
+        if not self.handler_available(task):
             return "handler_unavailable"
         try:
             await sources(session, task)
@@ -219,7 +215,7 @@ class AnalysisExecutor(Executor):
                             for citation in output["excerpts"]:
                                 check_citation(Citation.model_validate(citation), docs)
                         history.append(item)
-                return build_context(TaskInput.model_validate(task.input).texts, history)
+                return self.build_model_context(task, history, list(previous))
             except ValueError, ValidationError:
                 if not await owns(session, lease, rows):
                     return None
@@ -231,6 +227,11 @@ class AnalysisExecutor(Executor):
                 platform.open_tasks -= 1
                 event(session, task, "task.failed")
                 return None
+
+    def build_model_context(
+        self, task: Task, history: list[dict[str, object]], previous: list[Step]
+    ) -> bytes:
+        return build_context(TaskInput.model_validate(task.input).texts, history)
 
     async def accept_model(
         self,

@@ -1,0 +1,91 @@
+time="2026-10-24T03:46:41+02:00" level=warning msg="buildx Docker CLI plugin not found: falling back to the classic builder. BuildKit-only build features (multi-arch, secrets, ssh, additional contexts, ...) will not be available"
+ Image ai-task-platform:m1-test Building
+ Image ai-task-platform:m1-test Building
+Sending build context to Docker daemon  204.9kB
+
+Step 1/27 : FROM python:3.14.8-slim-bookworm@sha256:48b13b003dda20b16f9442b8475aa05fe21bf6579a8c881db92ffb4d8fd20f83 AS build
+ ---> 48b13b003dda
+Step 2/27 : WORKDIR /app
+ ---> Using cache
+ ---> 5aaa8d111d60
+Step 3/27 : RUN pip install --no-cache-dir uv==0.13.1
+ ---> Using cache
+ ---> b96fb089c2aa
+Step 4/27 : ENV UV_LINK_MODE=copy UV_PYTHON_DOWNLOADS=never TIKTOKEN_CACHE_DIR=/app/tokenizer-cache
+ ---> Using cache
+ ---> 0b8b5c1d4e5b
+Step 5/27 : COPY pyproject.toml uv.lock ./
+ ---> Using cache
+ ---> 5c18d4a79f38
+Step 6/27 : COPY src ./src
+ ---> Using cache
+ ---> e84336cc9f3b
+Step 7/27 : RUN uv sync --frozen --no-dev --no-editable
+ ---> Using cache
+ ---> 404e24bb1f80
+Step 8/27 : RUN .venv/bin/python -c 'import tiktoken; tiktoken.get_encoding("o200k_base")'
+ ---> Using cache
+ ---> 60b91c3f435a
+Step 9/27 : FROM python:3.14.8-slim-bookworm@sha256:48b13b003dda20b16f9442b8475aa05fe21bf6579a8c881db92ffb4d8fd20f83 AS runtime
+ ---> 48b13b003dda
+Step 10/27 : ENV PATH="/app/.venv/bin:$PATH" PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
+ ---> Using cache
+ ---> 7310cff1593e
+Step 11/27 : WORKDIR /app
+ ---> Using cache
+ ---> 8abcf65ee721
+Step 12/27 : COPY --from=build /app/.venv /app/.venv
+ ---> Using cache
+ ---> 2568502e67d5
+Step 13/27 : COPY --from=build /app/tokenizer-cache /app/tokenizer-cache
+ ---> Using cache
+ ---> 2d4f2414eb60
+Step 14/27 : ENV TIKTOKEN_CACHE_DIR=/app/tokenizer-cache
+ ---> Using cache
+ ---> 1755533f99ba
+Step 15/27 : COPY migrations ./migrations
+ ---> Using cache
+ ---> ec9a83f80724
+Step 16/27 : COPY alembic.ini ./
+ ---> Using cache
+ ---> 6bbebb03ac32
+Step 17/27 : USER 10001:10001
+ ---> Using cache
+ ---> bf21a63ec42b
+Step 18/27 : ENTRYPOINT ["atp"]
+ ---> Using cache
+ ---> edcb75acc2ca
+Step 19/27 : CMD ["api"]
+ ---> Using cache
+ ---> a8d231817d99
+Step 20/27 : FROM build AS test
+ ---> 60b91c3f435a
+Step 21/27 : RUN uv sync --frozen --no-editable
+ ---> Using cache
+ ---> 2fc5c218f0e1
+Step 22/27 : COPY . .
+ ---> c07538132c2d
+Step 23/27 : ENV PATH="/app/.venv/bin:$PATH" PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
+ ---> Running in f985c62ce194
+ ---> Removed intermediate container f985c62ce194
+ ---> ae71c6d11839
+Step 24/27 : USER 10001:10001
+ ---> Running in 29bde5e7aab8
+ ---> Removed intermediate container 29bde5e7aab8
+ ---> fb101eaafc75
+Step 25/27 : ENTRYPOINT []
+ ---> Running in 8d7a19e3d334
+ ---> Removed intermediate container 8d7a19e3d334
+ ---> 303631f3b39b
+Step 26/27 : CMD ["pytest", "-p", "no:cacheprovider"]
+ ---> Running in 33f60e25e647
+ ---> Removed intermediate container 33f60e25e647
+ ---> 9e6ede3163b0
+Step 27/27 : LABEL com.docker.compose.image.builder=classic
+ ---> Running in 93e2d5e99192
+ ---> Removed intermediate container 93e2d5e99192
+ ---> 29da60cb4e70
+Successfully built 29da60cb4e70
+Successfully tagged ai-task-platform:m1-test
+ Image ai-task-platform:m1-test Built
+ Image ai-task-platform:m1-test Built

@@ -1,0 +1,5 @@
+/private/tmp/atp-m5-tools/bin/uv run --frozen atp smoke-openai
+error: Could not acquire lock
+  cause: Could not create temporary file
+  cause: Operation not permitted (os error 1) at path "/Users/william/.cache/uv/.tmpkupY8V"
+make: *** [smoke-openai] Error 2

@@ -39,6 +39,24 @@ PINNED_VERSIONS: dict[str, object] = {
 }
 
 
+def supported_workflow(workflow: WorkflowVersion) -> bool:
+    if workflow.name != "analysis":
+        return False
+    if workflow.version == "1":
+        return workflow.definition == PINNED_VERSIONS
+    if workflow.version == "2":
+        from task_platform.provider_admin import definition
+        from task_platform.responses import validate_profile
+
+        try:
+            return workflow.definition == definition(
+                validate_profile(workflow.definition.get("provider"))
+            )
+        except ValueError:
+            return False
+    return False
+
+
 @dataclass(frozen=True)
 class CommandResponse:
     status: int
@@ -194,11 +212,7 @@ async def submit_task(
             )
             if workflow is None or not workflow.available:
                 raise NotFoundError
-            if (
-                workflow.name != "analysis"
-                or workflow.version != "1"
-                or workflow.definition != PINNED_VERSIONS
-            ):
+            if not supported_workflow(workflow):
                 raise CommandError(503, "Workflow version unavailable")
             if (
                 owner.open_tasks >= owner.max_open_tasks

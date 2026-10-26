@@ -1,0 +1,11 @@
+ Container atp-m1-test-test-run-2ae02336232e Creating
+ Container atp-m1-test-test-run-2ae02336232e Created
+F                                                                        [100%]
+=================================== FAILURES ===================================
+____________________ test_partial_observation_column_exists ____________________
+tests/integration/test_accounting_schema.py:78: in test_partial_observation_column_exists
+    assert await c.scalar(text("SELECT count(*) FROM information_schema.columns "
+E   assert 0 == 1
+=========================== short test summary info ============================
+FAILED tests/integration/test_accounting_schema.py::test_partial_observation_column_exists
+1 failed, 6 deselected in 0.20s

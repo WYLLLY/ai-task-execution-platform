@@ -1,0 +1,37 @@
+FFFF                                                                     [100%]
+=================================== FAILURES ===================================
+___ test_incomplete_wire_item_never_becomes_tool_action[status-in_progress] ____
+tests/unit/test_responses.py:246: in test_incomplete_wire_item_never_becomes_tool_action
+    assert outcome.outcome == "rejected"
+E   AssertionError: assert 'succeeded' == 'rejected'
+E
+E     - rejected
+E     + succeeded
+____ test_incomplete_wire_item_never_becomes_tool_action[status-incomplete] ____
+tests/unit/test_responses.py:246: in test_incomplete_wire_item_never_becomes_tool_action
+    assert outcome.outcome == "rejected"
+E   AssertionError: assert 'succeeded' == 'rejected'
+E
+E     - rejected
+E     + succeeded
+_________ test_incomplete_wire_item_never_becomes_tool_action[id-None] _________
+tests/unit/test_responses.py:246: in test_incomplete_wire_item_never_becomes_tool_action
+    assert outcome.outcome == "rejected"
+E   AssertionError: assert 'succeeded' == 'rejected'
+E
+E     - rejected
+E     + succeeded
+_______ test_partial_provider_observation_is_retained_without_settlement _______
+tests/unit/test_responses.py:254: in test_partial_provider_observation_is_retained_without_settlement
+    assert outcome.model_dump().get("observation") == {
+E   assert None == {'response_id': 'resp_synthetic', 'model': 'gpt-5.4-mini-2026-03-17', 'status': 'completed', 'usage': {'input_tokens': 100}}
+E    +  where None = <built-in method get of dict object at 0x109ea9dc0>('observation')
+E    +    where <built-in method get of dict object at 0x109ea9dc0> = {'response': {'canonical': {'status': 'completed', 'items': [{'type': 'function_call', 'call_id': 'call_1', 'name': 's... 'fc_1', 'status': 'completed', 'call_id': 'call_1', ...}]}, 'outcome': 'succeeded', 'cost': None, 'tokens': None, ...}.get
+E    +      where {'response': {'canonical': {'status': 'completed', 'items': [{'type': 'function_call', 'call_id': 'call_1', 'name': 's... 'fc_1', 'status': 'completed', 'call_id': 'call_1', ...}]}, 'outcome': 'succeeded', 'cost': None, 'tokens': None, ...} = model_dump()
+E    +        where model_dump = Outcome(response={'canonical': {'status': 'completed', 'items': [{'type': 'function_call', 'call_id': 'call_1', 'name'...search_documents', 'arguments': '{"query":"x"}'}]}, outcome='succeeded', cost=None, tokens=None, retry_after_seconds=0).model_dump
+=========================== short test summary info ============================
+FAILED tests/unit/test_responses.py::test_incomplete_wire_item_never_becomes_tool_action[status-in_progress]
+FAILED tests/unit/test_responses.py::test_incomplete_wire_item_never_becomes_tool_action[status-incomplete]
+FAILED tests/unit/test_responses.py::test_incomplete_wire_item_never_becomes_tool_action[id-None]
+FAILED tests/unit/test_responses.py::test_partial_provider_observation_is_retained_without_settlement
+4 failed, 29 deselected in 0.33s

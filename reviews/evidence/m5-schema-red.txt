@@ -1,0 +1,39 @@
+ Container atp-m1-test-test-run-81512defed86 Creating
+ Container atp-m1-test-test-run-81512defed86 Created
+FFFFFF                                                                   [100%]
+=================================== FAILURES ===================================
+___________________ test_private_accounting_decisions_exist ____________________
+tests/integration/test_accounting_schema.py:12: in test_private_accounting_decisions_exist
+    assert await c.scalar(text("SELECT to_regclass('accounting_decisions')")) == "accounting_decisions"
+E   AssertionError: assert None == 'accounting_decisions'
+___________________ test_private_protocol_checkpoint_exists ____________________
+tests/integration/test_accounting_schema.py:17: in test_private_protocol_checkpoint_exists
+    assert await c.scalar(text("SELECT count(*) FROM information_schema.columns WHERE table_name='steps' AND column_name='protocol_items'")) == 1
+E   assert 0 == 1
+__________ test_accounting_decisions_privileges[atp_admin-True-True] ___________
+tests/integration/test_accounting_schema.py:24: in test_accounting_decisions_privileges
+    assert exists is not None, "M5 audit relation is missing"
+E   AssertionError: M5 audit relation is missing
+E   assert None is not None
+_________ test_accounting_decisions_privileges[atp_worker-False-True] __________
+tests/integration/test_accounting_schema.py:24: in test_accounting_decisions_privileges
+    assert exists is not None, "M5 audit relation is missing"
+E   AssertionError: M5 audit relation is missing
+E   assert None is not None
+__________ test_accounting_decisions_privileges[atp_api-False-False] ___________
+tests/integration/test_accounting_schema.py:24: in test_accounting_decisions_privileges
+    assert exists is not None, "M5 audit relation is missing"
+E   AssertionError: M5 audit relation is missing
+E   assert None is not None
+______________ test_admin_has_settlement_but_no_task_progression _______________
+tests/integration/test_accounting_schema.py:31: in test_admin_has_settlement_but_no_task_progression
+    assert await c.scalar(text("SELECT has_column_privilege('atp_admin','call_costs','confirmed_cost','UPDATE')")) is True
+E   assert False is True
+=========================== short test summary info ============================
+FAILED tests/integration/test_accounting_schema.py::test_private_accounting_decisions_exist
+FAILED tests/integration/test_accounting_schema.py::test_private_protocol_checkpoint_exists
+FAILED tests/integration/test_accounting_schema.py::test_accounting_decisions_privileges[atp_admin-True-True]
+FAILED tests/integration/test_accounting_schema.py::test_accounting_decisions_privileges[atp_worker-False-True]
+FAILED tests/integration/test_accounting_schema.py::test_accounting_decisions_privileges[atp_api-False-False]
+FAILED tests/integration/test_accounting_schema.py::test_admin_has_settlement_but_no_task_progression
+6 failed in 0.31s

@@ -1,0 +1,18 @@
+time="2026-10-26T19:06:47+01:00" level=warning msg="Found orphan containers (atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-d3675f1318d2 Creating
+ Container atp-m1-test-test-run-d3675f1318d2 Created
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_______ test_openai_cli_process_restart_and_remote_report_reconciliation _______
+tests/integration/test_provider_e2e.py:98: in test_openai_cli_process_restart_and_remote_report_reconciliation
+    assert await c.scalar(text("SELECT state FROM tasks")) == "succeeded", history
+E   AssertionError: [[('analysis/turn-1/model', 'succeeded', 0, 0, Decimal('-2.614592')), ('analysis/turn-1/tool', 'ready', 0, 0, Decimal(...1/tool', 'succeeded', 0, 0, Decimal('-9.784074')), ('analysis/turn-2/model', 'succeeded', 0, 0, Decimal('-7.481623'))]]
+E   assert 'running' == 'succeeded'
+E
+E     - succeeded
+E     + running
+----------------------------- Captured stdout call -----------------------------
+Durable restart history: [[('analysis/turn-1/model', 'succeeded', 0, 0, Decimal('-2.614592')), ('analysis/turn-1/tool', 'ready', 0, 0, Decimal('-0.377249'))], [('analysis/turn-1/model', 'succeeded', 0, 0, Decimal('-4.835654')), ('analysis/turn-1/tool', 'succeeded', 0, 0, Decimal('-2.598311')), ('analysis/turn-2/model', 'ready', 0, 0, Decimal('-0.295861'))], [('analysis/save-report', 'ready', 0, 0, Decimal('-0.354206')), ('analysis/turn-1/model', 'succeeded', 0, 0, Decimal('-7.434356')), ('analysis/turn-1/tool', 'succeeded', 0, 0, Decimal('-5.197008')), ('analysis/turn-2/model', 'succeeded', 0, 0, Decimal('-2.894558'))], [('analysis/save-report', 'retry_wait', 0, 0, Decimal('4.616689')), ('analysis/turn-1/model', 'succeeded', 0, 0, Decimal('-9.795772')), ('analysis/turn-1/tool', 'succeeded', 0, 0, Decimal('-7.558425')), ('analysis/turn-2/model', 'succeeded', 0, 0, Decimal('-5.255974'))], [('analysis/save-report', 'retry_wait', 0, 0, Decimal('2.391040')), ('analysis/turn-1/model', 'succeeded', 0, 0, Decimal('-12.021421')), ('analysis/turn-1/tool', 'succeeded', 0, 0, Decimal('-9.784074')), ('analysis/turn-2/model', 'succeeded', 0, 0, Decimal('-7.481623'))]]
+=========================== short test summary info ============================
+FAILED tests/integration/test_provider_e2e.py::test_openai_cli_process_restart_and_remote_report_reconciliation
+1 failed in 15.88s

@@ -6,7 +6,12 @@ from sqlalchemy import case, func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.sql.elements import ColumnElement
 
-from task_platform.execution_models import CallCost, ExternalCall, ProviderAdmission
+from task_platform.execution_models import (
+    AccountingDecision,
+    CallCost,
+    ExternalCall,
+    ProviderAdmission,
+)
 from task_platform.task_models import Task
 
 
@@ -55,7 +60,19 @@ async def admission_reason(
                 select(
                     func.coalesce(func.sum(charge + CallCost.exposure_cost), 0),
                     func.coalesce(func.sum(usage + CallCost.exposure_tokens), 0),
-                    func.coalesce(func.bool_or(CallCost.overrun), False),
+                    func.coalesce(
+                        func.bool_or(
+                            CallCost.overrun
+                            & ~select(AccountingDecision.call_id)
+                            .where(
+                                AccountingDecision.call_id == CallCost.call_id,
+                                AccountingDecision.kind == "acknowledgement",
+                                AccountingDecision.revision == CallCost.revision,
+                            )
+                            .exists()
+                        ),
+                        False,
+                    ),
                 )
                 .join(ExternalCall, ExternalCall.id == CallCost.call_id)
                 .where(scope)
@@ -68,11 +85,15 @@ async def admission_reason(
     calls = await session.scalar(
         select(func.count())
         .select_from(ExternalCall)
-        .where(ExternalCall.task_id == task.id, ExternalCall.provider == "simulator-v1")
+        .where(
+            ExternalCall.task_id == task.id,
+            ExternalCall.provider.in_(("simulator-v1", "openai-v1")),
+        )
     )
-    if (kind == "simulator-v1" and int(calls or 0) >= int(str(task.limits["llm_calls"]))) or (
-        kind == "demo-v1" and task.tool_calls >= int(str(task.limits["tool_calls"]))
-    ):
+    if (
+        kind in {"simulator-v1", "openai-v1"}
+        and int(calls or 0) >= int(str(task.limits["llm_calls"]))
+    ) or (kind == "demo-v1" and task.tool_calls >= int(str(task.limits["tool_calls"]))):
         return "task_limit"
     active = await session.scalar(
         select(func.count()).select_from(ExternalCall).where(ExternalCall.local_active.is_(True))

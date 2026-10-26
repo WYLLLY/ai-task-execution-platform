@@ -11,30 +11,8 @@ from functools import partial
 from pathlib import Path
 from uuid import UUID
 
-import uvicorn
-from sqlalchemy.exc import SQLAlchemyError
-
-from task_platform.analysis_worker import AnalysisWorker
-from task_platform.catalog import set_admission, set_workflow_availability
-from task_platform.config import load_settings, secret_setting
-from task_platform.db import create_engine, sessions
-from task_platform.execution import Executor
-from task_platform.health import check_database
-from task_platform.identity import (
-    NotFoundError,
-    disable_principal,
-    initialize_platform,
-    issue_key,
-    provision_principal,
-    revoke_key,
-)
-from task_platform.metrics import execution_metrics
 from task_platform.observability import configure_logging
-from task_platform.report_transport import ReportTransport
 from task_platform.supervisor import supervise
-from task_platform.transport import SimulationTransport
-from task_platform.worker import Worker
-from task_platform.workflow import AnalysisExecutor
 
 
 def read_corpus_file(filename: str) -> str:
@@ -43,11 +21,33 @@ def read_corpus_file(filename: str) -> str:
 
 
 async def run_admin(args: argparse.Namespace) -> None:
+    from task_platform.catalog import set_admission, set_workflow_availability
+    from task_platform.config import load_settings
+    from task_platform.db import create_engine, sessions
+    from task_platform.identity import (
+        disable_principal,
+        initialize_platform,
+        issue_key,
+        provision_principal,
+        revoke_key,
+    )
+
     settings = load_settings("admin")
     engine = create_engine(settings)
     factory = sessions(engine)
     try:
         match args.action:
+            case "provider-configure" | "accounting":
+                from task_platform.provider_admin import configure_provider, reconcile
+                from task_platform.provider_commands import read_json_file
+                from task_platform.responses import validate_profile
+
+                value = await asyncio.to_thread(read_json_file, args.file)
+                if args.action == "provider-configure":
+                    await configure_provider(factory, validate_profile(value))
+                else:
+                    await reconcile(factory, args.call, value)
+                print(json.dumps({"applied": True}))
             case "corpus":
                 from task_platform.corpus import import_document, revoke_document
 
@@ -97,6 +97,11 @@ async def run_admin(args: argparse.Namespace) -> None:
 
 
 async def worker_check() -> None:
+    from task_platform.config import load_settings
+    from task_platform.db import create_engine, sessions
+    from task_platform.health import check_database
+    from task_platform.metrics import execution_metrics
+
     settings = load_settings("worker")
     engine = create_engine(settings, control=True)
     try:
@@ -119,6 +124,16 @@ async def worker_check() -> None:
 
 
 async def worker_run(once: bool, analysis_mode: bool = False) -> None:
+    from task_platform.analysis_worker import AnalysisWorker
+    from task_platform.config import load_settings, secret_setting
+    from task_platform.db import create_engine, sessions
+    from task_platform.execution import Executor
+    from task_platform.health import check_database
+    from task_platform.report_transport import ReportTransport
+    from task_platform.transport import SimulationTransport
+    from task_platform.worker import Worker
+    from task_platform.workflow import AnalysisExecutor
+
     settings = load_settings("worker")
     if os.environ.get("ATP_TEST_PROFILE") != "1" or not settings.dispatch_enabled:
         raise ValueError("Simulation requires explicit isolated test profile and dispatch opt-in")
@@ -163,21 +178,34 @@ async def worker_run(once: bool, analysis_mode: bool = False) -> None:
         await control.dispose()
 
 
+async def openai_run(once: bool) -> None:
+    from task_platform.provider_commands import worker_openai
+
+    await worker_openai(once)
+
+
 def main() -> None:
     configure_logging()
     parser = argparse.ArgumentParser(prog="atp")
     commands = parser.add_subparsers(dest="command", required=True)
     commands.add_parser("api")
     commands.add_parser("demo")
+    commands.add_parser("smoke-openai")
     worker = commands.add_parser("worker", help="Durable executor; M3/M4 simulation profiles only")
     worker_mode = worker.add_mutually_exclusive_group(required=True)
     worker_mode.add_argument("--check", action="store_true")
     worker_mode.add_argument("--simulate", action="store_true")
     worker_mode.add_argument("--analysis", action="store_true")
+    worker_mode.add_argument("--openai", action="store_true")
     worker.add_argument("--once", action="store_true")
     admin = commands.add_parser("admin")
     actions = admin.add_subparsers(dest="action", required=True)
     actions.add_parser("init")
+    for action in ("provider-configure", "accounting"):
+        sub = actions.add_parser(action)
+        sub.add_argument("--file", required=True)
+        if action == "accounting":
+            sub.add_argument("--call", required=True)
     create = actions.add_parser("principal-create")
     create.add_argument("--name", required=True)
     for action in ("key-create", "key-revoke", "principal-disable"):
@@ -202,8 +230,25 @@ def main() -> None:
         else:
             sub.add_argument("--version", type=int, required=True)
     args = parser.parse_args()
+    if args.command == "worker" and not args.check:
+        try:
+            if args.openai:
+                raise SystemExit(supervise(partial(openai_run, args.once)))
+            raise SystemExit(supervise(partial(worker_run, args.once, args.analysis)))
+        except ValueError, KeyError, OSError:
+            command_failed()
+    dispatch_command(args)
+
+
+def dispatch_command(args: argparse.Namespace) -> None:
+    from sqlalchemy.exc import SQLAlchemyError
+
+    from task_platform.identity import NotFoundError
+
     try:
         if args.command == "api":
+            import uvicorn
+
             uvicorn.run(
                 "task_platform.api:create_app",
                 factory=True,
@@ -214,6 +259,8 @@ def main() -> None:
                 proxy_headers=False,
             )
         elif args.command == "demo":
+            import uvicorn
+
             uvicorn.run(
                 "task_platform.demo:create_demo_app",
                 factory=True,
@@ -223,17 +270,22 @@ def main() -> None:
                 log_config=None,
                 proxy_headers=False,
             )  # noqa: S104 -- private Compose network only
+        elif args.command == "smoke-openai":
+            from task_platform.provider_commands import smoke_openai
+
+            asyncio.run(smoke_openai())
         elif args.command == "worker":
-            if args.check:
-                asyncio.run(worker_check())
-            else:
-                raise SystemExit(supervise(partial(worker_run, args.once, args.analysis)))
+            asyncio.run(worker_check())
         else:
             asyncio.run(run_admin(args))
     except ValueError, KeyError, OSError, SQLAlchemyError, NotFoundError:
-        logging.getLogger(__name__).error("", extra={"event": "command.failed"})
-        print(
-            "Command failed; check configuration, permissions and service availability.",
-            file=sys.stderr,
-        )
-        raise SystemExit(1) from None
+        command_failed()
+
+
+def command_failed() -> None:
+    logging.getLogger(__name__).error("", extra={"event": "command.failed"})
+    print(
+        "Command failed; check configuration, permissions and service availability.",
+        file=sys.stderr,
+    )
+    raise SystemExit(1) from None

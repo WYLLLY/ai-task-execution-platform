@@ -1,0 +1,2 @@
+/private/tmp/atp-m5-tools/bin/uv run --frozen atp smoke-openai
+SKIPPED: separate paid OpenAI smoke authorization is absent

@@ -259,6 +259,10 @@ class Executor:
     def call_kind(self, step: Step) -> str:
         return "simulator-v1"
 
+    def reservation(self, step: Step, payload: bytes) -> tuple[int, int, str, str]:
+        tokens = len(payload) + 2000 if self.call_kind(step) == "simulator-v1" else 0
+        return tokens * 2, tokens, "simulated-micro-usd-v1", "simulated-bytes-v1"
+
     async def record_authorization(
         self, task: Task, step: Step, payload: bytes, now: datetime
     ) -> None:
@@ -282,8 +286,7 @@ class Executor:
                     return None
                 task, step, attempt = rows
                 kind = self.call_kind(step)
-                reserved_tokens = len(payload) + 2000 if kind == "simulator-v1" else 0
-                reserved_cost = reserved_tokens * 2
+                reserved_cost, reserved_tokens, tariff, tokenizer = self.reservation(step, payload)
                 existing = await session.get(ExternalCall, call_id)
                 if step.selected_call_id is not None or existing is not None:
                     # Re-reading a committed B is never a new permission to send.
@@ -357,8 +360,8 @@ class Executor:
                         reserved_tokens=reserved_tokens,
                         exposure_cost=reserved_cost,
                         exposure_tokens=reserved_tokens,
-                        tariff="simulated-micro-usd-v1",
-                        tokenizer="simulated-bytes-v1",
+                        tariff=tariff,
+                        tokenizer=tokenizer,
                     )
                 )
                 owner.storage_bytes += storage_charge
@@ -385,6 +388,7 @@ class Executor:
         tokens: int | None = None,
         retry_after_seconds: int = 0,
         result: object = None,
+        observation: dict[str, object] | None = None,
     ) -> bool:
         if outcome not in {"succeeded", "unknown", "rejected", "retryable"}:
             raise ValueError("Invalid external outcome")
@@ -411,6 +415,13 @@ class Executor:
                 )
                 if call is None:
                     return False
+                if observation is not None:
+                    if (
+                        call.provider_observation is not None
+                        and call.provider_observation != observation
+                    ):
+                        raise ValueError("Provider observation conflict")
+                    call.provider_observation = observation
                 first_response = call.response_observed_at is None
                 if first_response:
                     call.response_observed_at = await db_now(session)

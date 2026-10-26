@@ -1,0 +1,12 @@
+ Container atp-m1-test-test-run-46d64cfde9fa Creating
+ Container atp-m1-test-test-run-46d64cfde9fa Created
+F                                                                        [100%]
+=================================== FAILURES ===================================
+______ test_missing_tokenizer_asset_fails_closed_without_runtime_download ______
+tests/unit/test_responses.py:279: in test_missing_tokenizer_asset_fails_closed_without_runtime_download
+    with pytest.raises(ValueError, match="tokenizer_asset"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+=========================== short test summary info ============================
+FAILED tests/unit/test_responses.py::test_missing_tokenizer_asset_fails_closed_without_runtime_download
+1 failed, 34 deselected in 1.68s

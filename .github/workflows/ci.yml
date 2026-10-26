@@ -1,8 +1,8 @@
-name: M1 through M4 verification
+name: M1 through M5 verification
 on:
   pull_request:
   push:
-    branches: [main, feature/m1-foundation, feature/m2, feature/m3, feature/m4]
+    branches: [main, feature/m1-foundation, feature/m2, feature/m3, feature/m4, feature/m5]
 permissions:
   contents: read
 concurrency:
@@ -20,9 +20,11 @@ jobs:
         with:
           version: '0.13.1'
       - run: uv sync --frozen
+      - run: make prepare-tokenizer
       - run: make lint typecheck test-unit
       - run: make dev-secrets
       - run: make test-integration
+      - run: make test-accounting test-provider-contracts
       - run: make smoke-compose
       - name: Clean disposable services
         if: always()

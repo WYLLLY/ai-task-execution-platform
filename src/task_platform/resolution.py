@@ -131,12 +131,22 @@ async def resolve_task(
             if (
                 command.action == "regenerate"
                 and old is not None
-                and old.provider != "simulator-v1"
+                and old.provider not in {"simulator-v1", "openai-v1"}
             ):
                 raise CommandError(409, "Report resolution requires remote evidence")
             payload_size = len(old.payload) if old else 2
+            reserve_cost, reserve_tokens = (payload_size + 2000) * 2, payload_size + 2000
+            kind = "simulator-v1"
+            if old is not None and old.provider == "openai-v1":
+                from task_platform.responses import estimate_input, price, validate_profile
+
+                profile = validate_profile(task.versions.get("provider"))
+                count = estimate_input(old.payload)
+                reserve_cost = price(profile, count, profile.output_tokens, 0)
+                reserve_tokens = count + profile.output_tokens
+                kind = "openai-v1"
             if await admission_reason(
-                session, task, provider, now, (payload_size + 2000) * 2, payload_size + 2000
+                session, task, provider, now, reserve_cost, reserve_tokens, kind=kind
             ):
                 raise CommandError(409, "Execution limits unavailable")
             step.selected_call_id = None

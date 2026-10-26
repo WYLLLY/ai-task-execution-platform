@@ -1,0 +1,59 @@
+ Container atp-m1-test-test-run-b49f1b63a3f2 Creating
+ Container atp-m1-test-test-run-b49f1b63a3f2 Created
+FFFFFFF                                                                  [100%]
+=================================== FAILURES ===================================
+________________ test_versioned_registration_and_shared_margin _________________
+tests/integration/test_responses_workflow.py:43: in test_versioned_registration_and_shared_margin
+    await configure_provider(sessions(admin_engine), profile)
+src/task_platform/provider_admin.py:7: in configure_provider
+    raise NotImplementedError("Versioned provider registration is not implemented")
+E   NotImplementedError: Versioned provider registration is not implemented
+________ test_real_reservation_and_protocol_replay_after_worker_restart ________
+tests/integration/test_responses_workflow.py:69: in test_real_reservation_and_protocol_replay_after_worker_restart
+    await configure_provider(sessions(admin_engine), profile)
+src/task_platform/provider_admin.py:7: in configure_provider
+    raise NotImplementedError("Versioned provider registration is not implemented")
+E   NotImplementedError: Versioned provider registration is not implemented
+_________________ test_m4_worker_cannot_substitute_new_handler _________________
+tests/integration/test_responses_workflow.py:120: in test_m4_worker_cannot_substitute_new_handler
+    await configure_provider(sessions(admin_engine), validate_profile(profile_data()))
+src/task_platform/provider_admin.py:7: in configure_provider
+    raise NotImplementedError("Versioned provider registration is not implemented")
+E   NotImplementedError: Versioned provider registration is not implemented
+__________ test_concurrent_repeated_evidence_settles_once_and_audits ___________
+tests/integration/test_accounting_admin.py:56: in test_concurrent_repeated_evidence_settles_once_and_audits
+    assert all(await asyncio.gather(*(reconcile(factory, call, evidence()) for _ in range(4))))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/task_platform/provider_admin.py:11: in reconcile
+    raise NotImplementedError("Evidence-based reconciliation is not implemented")
+E   NotImplementedError: Evidence-based reconciliation is not implemented
+__________ test_partial_and_estimated_final_evidence_remain_distinct ___________
+tests/integration/test_accounting_admin.py:79: in test_partial_and_estimated_final_evidence_remain_distinct
+    assert await reconcile(factory, call, evidence(final=False))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/task_platform/provider_admin.py:11: in reconcile
+    raise NotImplementedError("Evidence-based reconciliation is not implemented")
+E   NotImplementedError: Evidence-based reconciliation is not implemented
+____________ test_overrun_requires_explicit_current_revision_review ____________
+tests/integration/test_accounting_admin.py:105: in test_overrun_requires_explicit_current_revision_review
+    assert await reconcile(factory, call, evidence(cost=9999, tokens=9999))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/task_platform/provider_admin.py:11: in reconcile
+    raise NotImplementedError("Evidence-based reconciliation is not implemented")
+E   NotImplementedError: Evidence-based reconciliation is not implemented
+____________________ test_lost_commit_ack_replay_is_stable _____________________
+tests/integration/test_accounting_admin.py:146: in test_lost_commit_ack_replay_is_stable
+    with pytest.raises(RuntimeError, match="lost acknowledgement"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AssertionError: Regex pattern did not match.
+E     Expected regex: 'lost acknowledgement'
+E     Actual message: 'Evidence-based reconciliation is not implemented'
+=========================== short test summary info ============================
+FAILED tests/integration/test_responses_workflow.py::test_versioned_registration_and_shared_margin
+FAILED tests/integration/test_responses_workflow.py::test_real_reservation_and_protocol_replay_after_worker_restart
+FAILED tests/integration/test_responses_workflow.py::test_m4_worker_cannot_substitute_new_handler
+FAILED tests/integration/test_accounting_admin.py::test_concurrent_repeated_evidence_settles_once_and_audits
+FAILED tests/integration/test_accounting_admin.py::test_partial_and_estimated_final_evidence_remain_distinct
+FAILED tests/integration/test_accounting_admin.py::test_overrun_requires_explicit_current_revision_review
+FAILED tests/integration/test_accounting_admin.py::test_lost_commit_ack_replay_is_stable
+7 failed in 1.01s

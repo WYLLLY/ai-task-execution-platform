@@ -10,7 +10,7 @@ from sqlalchemy.exc import SQLAlchemyError
 
 from task_platform.execution import Executor, Lease
 from task_platform.task_models import Task
-from task_platform.transport import SimulationTransport
+from task_platform.transport import ModelTransport
 
 logger = logging.getLogger(__name__)
 
@@ -19,7 +19,7 @@ class Worker:
     def __init__(
         self,
         executor: Executor,
-        transport: SimulationTransport,
+        transport: ModelTransport,
         *,
         holder: str,
         heartbeat_seconds: float = 10,

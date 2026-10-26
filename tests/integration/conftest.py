@@ -1,3 +1,4 @@
+import asyncio
 import os
 from collections.abc import AsyncIterator
 from pathlib import Path
@@ -7,6 +8,7 @@ import pytest
 from httpx import ASGITransport, AsyncClient
 from pydantic import SecretStr
 from sqlalchemy import text
+from sqlalchemy.exc import OperationalError
 from sqlalchemy.ext.asyncio import AsyncEngine
 
 from task_platform.api import create_app
@@ -59,26 +61,38 @@ async def command_owner(admin_engine: AsyncEngine) -> AsyncIterator[dict[str, st
     # Disposable tests only; preserve all M1 identities and restore the initial closed admission.
     engine = create_engine(settings_for("migrator"))
     try:
-        async with engine.begin() as connection:
-            if await connection.scalar(text("SELECT to_regclass('public.tasks')")):
-                await connection.execute(
-                    text(
-                        "TRUNCATE cost_evidence, call_costs, external_calls, "
-                        "tasks, steps, attempts, task_events, idempotency_records"
+        # Test-only DDL cleanup can contend with the running API health probe.
+        # Retry only a confirmed lock-timeout rollback, never an ambiguous commit.
+        for attempt in range(3):
+            try:
+                async with engine.begin() as connection:
+                    if await connection.scalar(text("SELECT to_regclass('public.tasks')")):
+                        await connection.execute(
+                            text(
+                                "TRUNCATE accounting_decisions, cost_evidence, call_costs, "
+                                "external_calls, "
+                                "tasks, steps, attempts, task_events, idempotency_records"
+                            )
+                        )
+                        await connection.execute(
+                            text("UPDATE principals SET open_tasks=0, storage_bytes=0")
+                        )
+                        await connection.execute(
+                            text(
+                                "UPDATE platform_control SET open_tasks=0, storage_bytes=0, "
+                                "max_open_tasks=100"
+                            )
+                        )
+                        await connection.execute(
+                            text("UPDATE workflow_versions SET available=true")
+                        )
+                    await connection.execute(
+                        text("UPDATE platform_control SET admission_open=false WHERE id=1")
                     )
-                )
-                await connection.execute(
-                    text("UPDATE principals SET open_tasks=0, storage_bytes=0")
-                )
-                await connection.execute(
-                    text(
-                        "UPDATE platform_control SET open_tasks=0, storage_bytes=0, "
-                        "max_open_tasks=100"
-                    )
-                )
-                await connection.execute(text("UPDATE workflow_versions SET available=true"))
-            await connection.execute(
-                text("UPDATE platform_control SET admission_open=false WHERE id=1")
-            )
+                break
+            except OperationalError as error:
+                if getattr(error.orig, "sqlstate", None) != "55P03" or attempt == 2:
+                    raise
+                await asyncio.sleep(0.05)
     finally:
         await engine.dispose()

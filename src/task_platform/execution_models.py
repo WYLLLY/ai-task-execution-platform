@@ -4,6 +4,7 @@ from datetime import datetime
 from uuid import UUID
 
 from sqlalchemy import BigInteger, Boolean, DateTime, Integer, LargeBinary, String
+from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column
 
 from task_platform.models import Base
@@ -25,6 +26,7 @@ class ExternalCall(Base):
     payload_hash: Mapped[str] = mapped_column(String(64))
     provider: Mapped[str] = mapped_column(String(40))
     authorized_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    provider_observation: Mapped[dict[str, object] | None] = mapped_column(JSONB)
     response_observed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     local_active: Mapped[bool] = mapped_column(Boolean)
 
@@ -67,3 +69,13 @@ class ProviderAdmission(Base):
     owner_daily_cost: Mapped[int] = mapped_column(BigInteger)
     global_daily_tokens: Mapped[int] = mapped_column(BigInteger)
     owner_daily_tokens: Mapped[int] = mapped_column(BigInteger)
+
+
+class AccountingDecision(Base):
+    __tablename__ = "accounting_decisions"
+    call_id: Mapped[UUID] = mapped_column(primary_key=True)
+    evidence_id: Mapped[str] = mapped_column(String(100), primary_key=True)
+    kind: Mapped[str] = mapped_column(String(20))
+    revision: Mapped[int] = mapped_column(BigInteger)
+    fingerprint: Mapped[str] = mapped_column(String(64))
+    details: Mapped[dict[str, object]] = mapped_column(JSONB)
