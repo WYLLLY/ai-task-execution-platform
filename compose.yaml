@@ -1,0 +1,147 @@
+name: ai-task-platform
+
+x-app: &app
+  image: ai-task-platform:m1
+  build:
+    context: .
+    target: runtime
+  user: "10001:10001"
+  read_only: true
+  cap_drop: [ALL]
+  security_opt: [no-new-privileges:true]
+  tmpfs: ["/tmp:size=16m,mode=1777"]
+  cpus: 0.50
+  mem_limit: 256m
+  pids_limit: 100
+  networks: [private]
+
+services:
+  postgres:
+    image: postgres:17.11-bookworm@sha256:3645570cccdfa447589da9f57dd740faa29b30938e861289a5574b6ca6b03826
+    user: "999:999"
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    cpus: 1.0
+    mem_limit: 512m
+    pids_limit: 100
+    environment:
+      POSTGRES_DB: atp
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
+      POSTGRES_INITDB_ARGS: --auth-host=scram-sha-256
+    command: [postgres, -c, max_connections=50, -c, shared_buffers=128MB, -c, log_statement=none, -c, log_min_error_statement=panic, -c, log_error_verbosity=terse]
+    secrets: [postgres_password, api_password, worker_password, admin_password, migrator_password]
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./infra/bootstrap.sh:/docker-entrypoint-initdb.d/01-bootstrap.sh:ro
+    networks: [private]
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U postgres -d atp"]
+      interval: 2s
+      timeout: 2s
+      retries: 30
+  redis:
+    image: redis:8.2.2-bookworm@sha256:4521b581dbddea6e7d81f8fe95ede93f5648aaa66a9dacd581611bf6fe7527bd
+    user: "999:999"
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    cpus: 0.25
+    mem_limit: 128m
+    pids_limit: 50
+    command: [redis-server, /run/secrets/redis_config]
+    secrets: [redis_config, redis_password]
+    networks: [private]
+    healthcheck:
+      test: [CMD-SHELL, 'REDISCLI_AUTH=$$(cat /run/secrets/redis_password) redis-cli ping | grep -q PONG']
+      interval: 2s
+      timeout: 2s
+      retries: 30
+  migrate:
+    <<: *app
+    entrypoint: [alembic]
+    command: [upgrade, head]
+    environment:
+      DATABASE_URL_FILE: /run/secrets/migrator_database_url
+      EXECUTION_EPOCH: ${EXECUTION_EPOCH:?Run make dev-secrets first}
+    secrets: [migrator_database_url]
+    depends_on:
+      postgres: {condition: service_healthy}
+  initialize:
+    <<: *app
+    command: [admin, init]
+    environment:
+      DATABASE_URL_FILE: /run/secrets/admin_database_url
+      EXECUTION_EPOCH: ${EXECUTION_EPOCH:?Run make dev-secrets first}
+    secrets: [admin_database_url]
+    depends_on:
+      migrate: {condition: service_completed_successfully}
+  api:
+    <<: *app
+    command: [api]
+    networks: [private, ingress]
+    ports: ["127.0.0.1:${API_PORT:-8000}:8000"]
+    environment:
+      DATABASE_URL_FILE: /run/secrets/api_database_url
+      REDIS_URL_FILE: /run/secrets/redis_url
+      EXECUTION_EPOCH: ${EXECUTION_EPOCH:?Run make dev-secrets first}
+      DISPATCH_ENABLED: "false"
+    secrets: [api_database_url, redis_url]
+    depends_on:
+      initialize: {condition: service_completed_successfully}
+      redis: {condition: service_healthy}
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health/ready', timeout=5)"]
+      interval: 5s
+      timeout: 6s
+      retries: 12
+  admin:
+    <<: *app
+    profiles: [tools]
+    command: [admin, --help]
+    environment:
+      DATABASE_URL_FILE: /run/secrets/admin_database_url
+      EXECUTION_EPOCH: ${EXECUTION_EPOCH:?Run make dev-secrets first}
+    secrets: [admin_database_url]
+  worker:
+    <<: *app
+    profiles: [tools]
+    command: [worker, --check]
+    environment:
+      DATABASE_URL_FILE: /run/secrets/worker_database_url
+      EXECUTION_EPOCH: ${EXECUTION_EPOCH:?Run make dev-secrets first}
+      DISPATCH_ENABLED: "false"
+    secrets: [worker_database_url]
+  test:
+    <<: *app
+    image: ai-task-platform:m1-test
+    build: {context: ., target: test}
+    profiles: [test]
+    mem_limit: 512m
+    cpus: 1.0
+    read_only: false
+    environment:
+      TEST_SECRETS_DIR: /run/secrets
+      EXECUTION_EPOCH: ${EXECUTION_EPOCH:?Run make dev-secrets first}
+    secrets: [api_database_url, worker_database_url, admin_database_url, migrator_database_url, redis_url]
+    depends_on:
+      api: {condition: service_healthy}
+
+networks:
+  private: {internal: true}
+  ingress: {}
+volumes:
+  pgdata:
+secrets:
+  postgres_password: {file: .secrets/postgres_password}
+  api_password: {file: .secrets/api_password}
+  worker_password: {file: .secrets/worker_password}
+  admin_password: {file: .secrets/admin_password}
+  migrator_password: {file: .secrets/migrator_password}
+  api_database_url: {file: .secrets/api_database_url}
+  worker_database_url: {file: .secrets/worker_database_url}
+  admin_database_url: {file: .secrets/admin_database_url}
+  migrator_database_url: {file: .secrets/migrator_database_url}
+  redis_url: {file: .secrets/redis_url}
+  redis_password: {file: .secrets/redis_password}
+  redis_config: {file: .secrets/redis.conf}
