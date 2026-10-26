@@ -89,6 +89,12 @@ async def test_exact_foundation_tables_and_no_role_escalation(admin_engine: Asyn
             "api_keys",
             "platform_control",
             "audit_events",
+            "workflow_versions",
+            "tasks",
+            "steps",
+            "attempts",
+            "task_events",
+            "idempotency_records",
         }
         rows = (
             await connection.execute(

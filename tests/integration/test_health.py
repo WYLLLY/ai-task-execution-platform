@@ -22,7 +22,7 @@ async def test_real_redis_and_postgres_readiness(client: AsyncClient) -> None:
     assert response.json()["schema_compatible"] is True
     assert response.json()["dispatch_available"] is False
     assert response.json()["submission_available"] is False
-    assert (await client.post("/v1/tasks")).status_code == 404
+    assert (await client.post("/v1/tasks")).status_code == 401
 
 
 async def test_redis_unavailable_preserves_authenticated_reads(admin_engine: AsyncEngine) -> None:

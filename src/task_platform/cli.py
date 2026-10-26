@@ -10,6 +10,7 @@ from uuid import UUID
 import uvicorn
 from sqlalchemy.exc import SQLAlchemyError
 
+from task_platform.catalog import set_admission, set_workflow_availability
 from task_platform.config import load_settings
 from task_platform.db import create_engine, sessions
 from task_platform.health import check_database
@@ -37,6 +38,14 @@ async def run_admin(args: argparse.Namespace) -> None:
                         {"initialized": True, "execution_epoch": str(settings.execution_epoch)}
                     )
                 )
+            case "admission":
+                await set_admission(factory, args.enabled == "true")
+                print(json.dumps({"admission_open": args.enabled == "true"}))
+            case "workflow-availability":
+                await set_workflow_availability(
+                    factory, args.name, args.version, args.enabled == "true"
+                )
+                print(json.dumps({"available": args.enabled == "true"}))
             case "principal-create":
                 principal_id = await provision_principal(factory, args.name)
                 print(json.dumps({"principal_id": str(principal_id)}))
@@ -85,6 +94,12 @@ def main() -> None:
         sub.add_argument("--principal", required=True)
         if action == "key-revoke":
             sub.add_argument("--key", required=True)
+    admission = actions.add_parser("admission")
+    admission.add_argument("--enabled", choices=["true", "false"], required=True)
+    workflow = actions.add_parser("workflow-availability")
+    workflow.add_argument("--name", required=True)
+    workflow.add_argument("--version", required=True)
+    workflow.add_argument("--enabled", choices=["true", "false"], required=True)
     args = parser.parse_args()
     try:
         if args.command == "api":
