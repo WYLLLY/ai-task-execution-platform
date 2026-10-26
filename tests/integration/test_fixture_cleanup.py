@@ -44,27 +44,31 @@ async def test_fixture_cleanup_retries_confirmed_lock_timeout(
 
     event.listen(Engine, "handle_error", observed_failure)
     try:
-        async with engine.connect() as blocker:
+        async with engine.connect() as blocker, observer_engine.connect() as observer:
             transaction = await blocker.begin()
             await blocker.execute(text("LOCK TABLE tasks IN ACCESS SHARE MODE"))
+            # Prime the statistics snapshot before the cleanup backend starts waiting.
+            await observer.execute(text("SELECT count(*) FROM pg_stat_activity"))
             cleanup = asyncio.create_task(finish())
             try:
                 # Observe actual PostgreSQL lock contention, not merely task scheduling.
-                async with observer_engine.connect() as observer:
-                    async with asyncio.timeout(3):
-                        for _ in range(300):
-                            blocked = await observer.scalar(
-                                text(
-                                    "SELECT EXISTS (SELECT 1 FROM pg_stat_activity "
-                                    "WHERE cardinality(pg_blocking_pids(pid)) > 0 "
-                                    "AND query LIKE 'TRUNCATE accounting_decisions%')"
-                                )
+                async with asyncio.timeout(3):
+                    for _ in range(300):
+                        blocked = await observer.scalar(
+                            text(
+                                "SELECT EXISTS (SELECT 1 FROM pg_stat_activity "
+                                "WHERE cardinality(pg_blocking_pids(pid)) > 0 "
+                                "AND query LIKE 'TRUNCATE accounting_decisions%')"
                             )
-                            if blocked:
-                                break
-                            await asyncio.sleep(0.01)
-                        else:
-                            raise AssertionError("Expected PostgreSQL lock contention")
+                        )
+                        # pg_stat_activity is cached for the transaction, even at READ COMMITTED.
+                        # Start a new observation transaction before the next sample.
+                        await observer.commit()
+                        if blocked:
+                            break
+                        await asyncio.sleep(0.01)
+                    else:
+                        raise AssertionError("Expected PostgreSQL lock contention")
                 await asyncio.wait_for(timed_out.wait(), 3)
                 if release:
                     await transaction.rollback()
