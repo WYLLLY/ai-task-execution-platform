@@ -29,6 +29,7 @@ from task_platform.identity import (
     owned_key,
 )
 from task_platform.rate_limits import LocalLimits
+from task_platform.resolution import resolve_task
 from task_platform.task_models import Step, Task, WorkflowVersion
 from task_platform.tasks import (
     PINNED_VERSIONS,
@@ -209,6 +210,20 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         key = validate_key(request.headers.get("Idempotency-Key"))
         value, fingerprint = await command_body(request)
         result = await cancel_task(control_factory, credential, task_id, key, value, fingerprint)
+        return Response(
+            content=result.body, status_code=result.status, media_type="application/json"
+        )
+
+    @app.post("/v1/tasks/{task_id}/resolve")
+    async def resolve(
+        task_id: UUID,
+        request: Request,
+        _: Annotated[Identity, Depends(control_identity)],
+        credential: Annotated[str, Depends(token)],
+    ) -> Response:
+        key = validate_key(request.headers.get("Idempotency-Key"))
+        value, fingerprint = await command_body(request)
+        result = await resolve_task(control_factory, credential, task_id, key, value, fingerprint)
         return Response(
             content=result.body, status_code=result.status, media_type="application/json"
         )

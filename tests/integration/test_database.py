@@ -95,6 +95,10 @@ async def test_exact_foundation_tables_and_no_role_escalation(admin_engine: Asyn
             "attempts",
             "task_events",
             "idempotency_records",
+            "external_calls",
+            "call_costs",
+            "cost_evidence",
+            "provider_admission",
         }
         rows = (
             await connection.execute(
