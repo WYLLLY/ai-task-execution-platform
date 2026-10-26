@@ -3,7 +3,7 @@
 from datetime import datetime
 from uuid import UUID
 
-from sqlalchemy import BigInteger, Boolean, DateTime, Integer, String, Text, func
+from sqlalchemy import BigInteger, Boolean, DateTime, Integer, LargeBinary, String, Text, func
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -22,6 +22,7 @@ class Task(Base):
     __tablename__ = "tasks"
     id: Mapped[UUID] = mapped_column(primary_key=True)
     principal_id: Mapped[UUID]
+    tool_calls: Mapped[int] = mapped_column(Integer, default=0)
     key_id: Mapped[UUID]
     workflow_name: Mapped[str] = mapped_column(String(80))
     workflow_version: Mapped[str] = mapped_column(String(40))
@@ -55,6 +56,10 @@ class Step(Base):
     )
     selected_call_id: Mapped[UUID | None]
     result: Mapped[dict[str, object] | None] = mapped_column(JSONB)
+    payload: Mapped[bytes | None] = mapped_column(LargeBinary)
+    operation_key: Mapped[UUID | None]
+    first_authorized_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    probe_count: Mapped[int] = mapped_column(Integer, default=0)
     failures: Mapped[int] = mapped_column(Integer, default=0)
 
 

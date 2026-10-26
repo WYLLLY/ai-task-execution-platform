@@ -16,6 +16,9 @@ from task_platform.transport import SimulationTransport
 
 
 def lose_ack(session: Session) -> None:
+    # RELEASE SAVEPOINT also emits after_commit; only lose the durable outer COMMIT ack.
+    if session.in_nested_transaction():
+        return
     raise DBAPIError("COMMIT", None, ConnectionError("test lost acknowledgement"))
 
 

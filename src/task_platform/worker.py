@@ -82,9 +82,15 @@ class Worker:
                 with suppress(asyncio.CancelledError):
                     child.result()
 
+    def slot_worker(self, holder: str) -> Worker:
+        return Worker(self.executor, self.transport, holder=holder)
+
+    async def maintenance(self) -> None:
+        await self.executor.maintenance()
+
     async def run(self, stop: asyncio.Event) -> None:
         async def slot(index: int) -> None:
-            worker = Worker(self.executor, self.transport, holder=f"{self.holder}/{index}")
+            worker = self.slot_worker(f"{self.holder}/{index}")
             while not stop.is_set():
                 try:
                     worked = await worker.run_once()
@@ -100,7 +106,7 @@ class Worker:
         async def maintenance() -> None:
             while not stop.is_set():
                 try:
-                    await self.executor.maintenance()
+                    await self.maintenance()
                 except SQLAlchemyError, OSError, TimeoutError:
                     logger.error("", extra={"event": "worker.database_unavailable"})
                 try:

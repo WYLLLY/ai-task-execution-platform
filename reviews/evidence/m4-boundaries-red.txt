@@ -1,0 +1,25 @@
+ Container atp-m1-test-test-run-4e6780d758b2 Creating
+ Container atp-m1-test-test-run-4e6780d758b2 Created
+FFF..                                                                    [100%]
+=================================== FAILURES ===================================
+__________ test_unavailable_handler_suspends_at_claim_without_attempt __________
+tests/integration/test_workflow_boundaries.py:33: in test_unavailable_handler_suspends_at_claim_without_attempt
+    assert await worker.claim("missing") is None
+E   AssertionError: assert Lease(task_id=UUID('4feb3a0a-117a-4504-8287-d384f93267d4'), step_id=UUID('f1f4cc14-de26-4407-8cbd-d1b929755d60'), atte...5dfd-797e-4135-a231-41b557e07a60'), holder='missing', generation=1, epoch=UUID('4562a9d6-0dd6-451f-b474-353711aaf204')) is None
+_________ test_report_response_storage_is_bounded_before_continuation __________
+tests/integration/test_workflow_boundaries.py:62: in test_report_response_storage_is_bounded_before_continuation
+    assert await c.scalar(text("SELECT state FROM tasks")) == "failed"
+E   AssertionError: assert 'running' == 'failed'
+E
+E     - failed
+E     + running
+____________ test_report_unknown_cannot_use_llm_regenerate_command _____________
+tests/integration/test_workflow_boundaries.py:94: in test_report_unknown_cannot_use_llm_regenerate_command
+    assert resolved.status_code == 409
+E   assert 200 == 409
+E    +  where 200 = <Response [200 OK]>.status_code
+=========================== short test summary info ============================
+FAILED tests/integration/test_workflow_boundaries.py::test_unavailable_handler_suspends_at_claim_without_attempt
+FAILED tests/integration/test_workflow_boundaries.py::test_report_response_storage_is_bounded_before_continuation
+FAILED tests/integration/test_workflow_boundaries.py::test_report_unknown_cannot_use_llm_regenerate_command
+3 failed, 2 passed in 1.14s

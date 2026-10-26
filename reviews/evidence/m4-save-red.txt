@@ -1,0 +1,16 @@
+ Container atp-m1-test-test-run-87044eb66d8d Creating
+ Container atp-m1-test-test-run-87044eb66d8d Created
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+________ test_final_report_is_frozen_and_only_matching_proof_completes _________
+tests/integration/test_workflow_reports.py:42: in test_final_report_is_frozen_and_only_matching_proof_completes
+    assert payload
+E   assert None
+_______________ test_forged_save_evidence_never_reports_success ________________
+tests/integration/test_workflow_reports.py:95: in test_forged_save_evidence_never_reports_success
+    assert payload
+E   assert None
+=========================== short test summary info ============================
+FAILED tests/integration/test_workflow_reports.py::test_final_report_is_frozen_and_only_matching_proof_completes
+FAILED tests/integration/test_workflow_reports.py::test_forged_save_evidence_never_reports_success
+2 failed in 0.67s

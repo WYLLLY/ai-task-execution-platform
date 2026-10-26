@@ -11,6 +11,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncEngine
 
 from task_platform.config import Settings
+from task_platform.corpus import Document
 from task_platform.execution_models import CallCost, CostEvidence, ExternalCall, ProviderAdmission
 from task_platform.models import APIKey, PlatformControl, Principal
 from task_platform.task_models import (
@@ -22,7 +23,7 @@ from task_platform.task_models import (
     WorkflowVersion,
 )
 
-SCHEMA_REVISION = "0003_execution"
+SCHEMA_REVISION = "0004_workflow"
 
 
 class Health(BaseModel):
@@ -54,6 +55,7 @@ async def check_database(engine: AsyncEngine, settings: Settings) -> tuple[bool,
                 CallCost,
                 CostEvidence,
                 ProviderAdmission,
+                Document,
             ):
                 await connection.execute(select(model).limit(0))
             role = await connection.scalar(text("SELECT current_user"))
@@ -100,8 +102,18 @@ async def check_database(engine: AsyncEngine, settings: Settings) -> tuple[bool,
                 if settings.role == "worker":
                     updates += (
                         ("external_calls", ("response_observed_at",)),
-                        ("tasks", ("result", "storage_bytes")),
-                        ("steps", ("result", "failures")),
+                        ("tasks", ("result", "storage_bytes", "tool_calls")),
+                        (
+                            "steps",
+                            (
+                                "result",
+                                "failures",
+                                "payload",
+                                "operation_key",
+                                "first_authorized_at",
+                                "probe_count",
+                            ),
+                        ),
                         (
                             "call_costs",
                             (

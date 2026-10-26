@@ -7,10 +7,12 @@ from pydantic import Field, ValidationError
 from sqlalchemy import select
 
 from task_platform.accounting import admission_reason
-from task_platform.command_schemas import CommandError, StrictSchema, invalid
+from task_platform.command_schemas import CommandError, StrictSchema, TaskInput, invalid
+from task_platform.corpus import authorized_documents
 from task_platform.execution import db_now, event
 from task_platform.execution_models import ExternalCall, ProviderAdmission
 from task_platform.execution_state import abandon_calls
+from task_platform.identity import NotFoundError
 from task_platform.models import APIKey
 from task_platform.task_models import Attempt, Step, WorkflowVersion
 from task_platform.tasks import (
@@ -118,8 +120,20 @@ async def resolve_task(
                 or not workflow.available
             ):
                 raise CommandError(409, "Execution conditions unavailable")
+            try:
+                await authorized_documents(
+                    session, task.principal_id, TaskInput.model_validate(task.input).documents
+                )
+            except NotFoundError:
+                raise CommandError(409, "Document rights unavailable") from None
             if (command.action == "regenerate") != (step.state == "unknown"):
                 raise CommandError(409, "Resolution action conflict")
+            if (
+                command.action == "regenerate"
+                and old is not None
+                and old.provider != "simulator-v1"
+            ):
+                raise CommandError(409, "Report resolution requires remote evidence")
             payload_size = len(old.payload) if old else 2
             if await admission_reason(
                 session, task, provider, now, (payload_size + 2000) * 2, payload_size + 2000

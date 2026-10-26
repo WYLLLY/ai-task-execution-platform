@@ -1,21 +1,25 @@
 {
   "application_version": "0.1.0",
-  "milestone": "M3",
+  "milestone": "M4",
   "python": "3.14.8",
   "uv": "0.13.1",
   "postgresql": "17.11",
   "redis_server": "8.2.2",
   "schema_revisions": [
-    "0003_execution"
+    "0004_workflow"
   ],
   "workflow_handlers": [
-    "simulation-v1"
+    "simulation-v1",
+    "analysis:1"
   ],
   "commands": [
     "api",
     "admin",
     "worker --check",
-    "worker --simulate [--once]"
+    "worker --simulate [--once]",
+    "worker --analysis [--once]",
+    "admin corpus import/revoke",
+    "demo"
   ],
   "execution_implemented": true,
   "deployment_processes": {
@@ -34,8 +38,14 @@
     "required_total": 38,
     "postgresql_max_connections": 50
   },
-  "notes": "M3 durable execution is available only with explicit ATP_TEST_PROFILE=1 and DISPATCH_ENABLED=true, using the fixed simulated HTTP boundary. The analysis workflow remains unimplemented until M4; synthetic completion is explicitly labeled simulated. Catalogue workflow/prompt/tools/context-builder versions remain pinned to 1.",
+  "notes": "M4 simulated analysis requires explicit ATP_TEST_PROFILE=1 and DISPATCH_ENABLED=true, fixed model/demo destinations and worker-only demo credentials. Catalogue workflow/prompt/tools/context-builder versions remain pinned to 1. OpenAI remains M5.",
   "catalogue_versions": {
     "analysis": "1"
+  },
+  "demo_database": {
+    "postgresql": "17.11",
+    "independent_cluster": true,
+    "runtime_role": "atp_demo",
+    "service_pool": 4
   }
 }

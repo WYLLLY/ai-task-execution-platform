@@ -1,0 +1,15 @@
+ Container atp-m1-test-test-run-cba398d34797 Creating
+ Container atp-m1-test-test-run-cba398d34797 Created
+F                                                                        [100%]
+=================================== FAILURES ===================================
+______ test_cli_process_restart_after_each_unit_and_final_reconciliation _______
+tests/integration/test_workflow_e2e.py:91: in test_cli_process_restart_after_each_unit_and_final_reconciliation
+    assert child.returncode == 0, stderr.decode()
+E   AssertionError: usage: atp worker [-h] (--check | --simulate) [--once]
+E     atp worker: error: one of the arguments --check --simulate is required
+E
+E   assert 2 == 0
+E    +  where 2 = <Process 12>.returncode
+=========================== short test summary info ============================
+FAILED tests/integration/test_workflow_e2e.py::test_cli_process_restart_after_each_unit_and_final_reconciliation
+1 failed, 1 deselected in 3.95s

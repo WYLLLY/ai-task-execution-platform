@@ -106,7 +106,13 @@ class WorkflowReference(StrictSchema):
     version: Annotated[str, Field(min_length=1, max_length=40)]
 
 
+class DocumentReference(StrictSchema):
+    id: str = Field(pattern=r"^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$")
+    version: int = Field(ge=1)
+
+
 class TaskInput(StrictSchema):
+    documents: list[DocumentReference] = Field(default_factory=list, max_length=20)
     texts: Annotated[
         list[Annotated[str, Field(min_length=1, max_length=MAX_BODY)]],
         Field(min_length=1, max_length=20),

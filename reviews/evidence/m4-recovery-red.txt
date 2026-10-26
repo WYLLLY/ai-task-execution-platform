@@ -1,0 +1,17 @@
+ Container atp-m1-test-test-run-d7b540ea98e1 Creating
+ Container atp-m1-test-test-run-d7b540ea98e1 Created
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+________ test_lost_response_reconciles_selected_call_once_after_restart ________
+tests/integration/test_workflow_reports.py:173: in test_lost_response_reconciles_selected_call_once_after_restart
+    assert any(results)
+E   assert False
+E    +  where False = any([False, False])
+____ test_absent_probes_are_bounded_and_resend_keeps_payload_and_operation _____
+tests/integration/test_workflow_reports.py:216: in test_absent_probes_are_bounded_and_resend_keeps_payload_and_operation
+    assert await engine.recover_reports(report_transport)
+E   assert False
+=========================== short test summary info ============================
+FAILED tests/integration/test_workflow_reports.py::test_lost_response_reconciles_selected_call_once_after_restart
+FAILED tests/integration/test_workflow_reports.py::test_absent_probes_are_bounded_and_resend_keeps_payload_and_operation
+2 failed, 2 deselected in 4.40s

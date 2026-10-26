@@ -35,6 +35,33 @@ def serve(journal: Path) -> None:
                 self.connection.close()
                 return
             body = json.dumps({"outcome": "succeeded", "cost": 20, "tokens": 10}).encode()
+            if "history" in data:
+                outputs = [
+                    item for item in data["history"] if item.get("type") == "function_call_output"
+                ]
+                action = (
+                    {
+                        "type": "report",
+                        "title": "Synthetic report",
+                        "summary": "Revenue is 42.",
+                        "citations": outputs[-1]["output"]["excerpts"][:1],
+                    }
+                    if outputs
+                    else {
+                        "type": "function_call",
+                        "call_id": "read-1",
+                        "name": "search_documents",
+                        "arguments": {"query": "Revenue"},
+                    }
+                )
+                body = json.dumps(
+                    {
+                        "outcome": "succeeded",
+                        "cost": 20,
+                        "tokens": 10,
+                        "response": {"status": "completed", "items": [action]},
+                    }
+                ).encode()
             status = 200
             if mode == "redirect":
                 status = 307

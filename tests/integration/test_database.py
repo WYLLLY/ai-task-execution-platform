@@ -99,6 +99,7 @@ async def test_exact_foundation_tables_and_no_role_escalation(admin_engine: Asyn
             "call_costs",
             "cost_evidence",
             "provider_admission",
+            "documents",
         }
         rows = (
             await connection.execute(

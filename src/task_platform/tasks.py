@@ -205,6 +205,9 @@ async def submit_task(
                 or platform.open_tasks >= platform.max_open_tasks
             ):
                 raise CommandError(429, "Open task limit exceeded")
+            from task_platform.corpus import authorized_documents
+
+            await authorized_documents(session, owner.id, command.input.documents)
             # Charge canonical input/effective limits plus a bounded control/event/response reserve.
             stored = command.model_dump(mode="json")
             charge = (

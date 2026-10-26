@@ -8,13 +8,15 @@ import os
 import signal
 import sys
 from functools import partial
+from pathlib import Path
 from uuid import UUID
 
 import uvicorn
 from sqlalchemy.exc import SQLAlchemyError
 
+from task_platform.analysis_worker import AnalysisWorker
 from task_platform.catalog import set_admission, set_workflow_availability
-from task_platform.config import load_settings
+from task_platform.config import load_settings, secret_setting
 from task_platform.db import create_engine, sessions
 from task_platform.execution import Executor
 from task_platform.health import check_database
@@ -28,9 +30,16 @@ from task_platform.identity import (
 )
 from task_platform.metrics import execution_metrics
 from task_platform.observability import configure_logging
+from task_platform.report_transport import ReportTransport
 from task_platform.supervisor import supervise
 from task_platform.transport import SimulationTransport
 from task_platform.worker import Worker
+from task_platform.workflow import AnalysisExecutor
+
+
+def read_corpus_file(filename: str) -> str:
+    with Path(filename).open("rb") as source:
+        return source.read(1048577).decode("utf-8")
 
 
 async def run_admin(args: argparse.Namespace) -> None:
@@ -39,6 +48,20 @@ async def run_admin(args: argparse.Namespace) -> None:
     factory = sessions(engine)
     try:
         match args.action:
+            case "corpus":
+                from task_platform.corpus import import_document, revoke_document
+
+                if args.corpus_action == "import":
+                    content = await asyncio.to_thread(read_corpus_file, args.file)
+                    version = await import_document(
+                        factory, UUID(args.principal), UUID(args.document), content
+                    )
+                    print(json.dumps({"document_id": args.document, "version": version}))
+                else:
+                    await revoke_document(
+                        factory, UUID(args.principal), UUID(args.document), args.version
+                    )
+                    print(json.dumps({"revoked": True}))
             case "init":
                 await initialize_platform(factory, settings.execution_epoch)
                 print(
@@ -95,12 +118,13 @@ async def worker_check() -> None:
         await engine.dispose()
 
 
-async def worker_run(once: bool) -> None:
+async def worker_run(once: bool, analysis_mode: bool = False) -> None:
     settings = load_settings("worker")
     if os.environ.get("ATP_TEST_PROFILE") != "1" or not settings.dispatch_enabled:
         raise ValueError("Simulation requires explicit isolated test profile and dispatch opt-in")
     destination = os.environ.get("SIMULATOR_URL", "http://simulator:8001")
     engine, control = create_engine(settings), create_engine(settings, control=True)
+    reports: ReportTransport | None = None
     stop = asyncio.Event()
     loop = asyncio.get_running_loop()
     for signum in (signal.SIGINT, signal.SIGTERM):
@@ -111,13 +135,28 @@ async def worker_run(once: bool) -> None:
             raise ValueError("Worker preflight failed")
         executor = Executor(sessions(engine), sessions(control), settings.execution_epoch)
         async with SimulationTransport(destination) as transport:
-            worker = Worker(executor, transport, holder=f"worker-{os.getpid()}")
+            worker: Worker
+            if analysis_mode:
+                reports = ReportTransport(
+                    os.environ.get("DEMO_URL", "http://demo:8000"),
+                    secret_setting("DEMO_SERVICE_KEY").get_secret_value(),
+                )
+                workflow_executor = AnalysisExecutor(
+                    sessions(engine), sessions(control), settings.execution_epoch
+                )
+                worker = AnalysisWorker(
+                    workflow_executor, transport, reports, holder=f"analysis-{os.getpid()}"
+                )
+            else:
+                worker = Worker(executor, transport, holder=f"worker-{os.getpid()}")
             if once:
-                await executor.maintenance()
+                await worker.maintenance()
                 await worker.run_once()
             else:
                 await worker.run(stop)
     finally:
+        if reports is not None:
+            await reports.close()
         for signum in (signal.SIGINT, signal.SIGTERM):
             loop.remove_signal_handler(signum)
         await engine.dispose()
@@ -129,10 +168,12 @@ def main() -> None:
     parser = argparse.ArgumentParser(prog="atp")
     commands = parser.add_subparsers(dest="command", required=True)
     commands.add_parser("api")
-    worker = commands.add_parser("worker", help="Durable executor; M3 simulation profile only")
+    commands.add_parser("demo")
+    worker = commands.add_parser("worker", help="Durable executor; M3/M4 simulation profiles only")
     worker_mode = worker.add_mutually_exclusive_group(required=True)
     worker_mode.add_argument("--check", action="store_true")
     worker_mode.add_argument("--simulate", action="store_true")
+    worker_mode.add_argument("--analysis", action="store_true")
     worker.add_argument("--once", action="store_true")
     admin = commands.add_parser("admin")
     actions = admin.add_subparsers(dest="action", required=True)
@@ -150,6 +191,16 @@ def main() -> None:
     workflow.add_argument("--name", required=True)
     workflow.add_argument("--version", required=True)
     workflow.add_argument("--enabled", choices=["true", "false"], required=True)
+    corpus = actions.add_parser("corpus")
+    corpus_actions = corpus.add_subparsers(dest="corpus_action", required=True)
+    for action in ("import", "revoke"):
+        sub = corpus_actions.add_parser(action)
+        sub.add_argument("--principal", required=True)
+        sub.add_argument("--document", required=True)
+        if action == "import":
+            sub.add_argument("--file", required=True)
+        else:
+            sub.add_argument("--version", type=int, required=True)
     args = parser.parse_args()
     try:
         if args.command == "api":
@@ -162,11 +213,21 @@ def main() -> None:
                 log_config=None,
                 proxy_headers=False,
             )
+        elif args.command == "demo":
+            uvicorn.run(
+                "task_platform.demo:create_demo_app",
+                factory=True,
+                host="0.0.0.0",  # noqa: S104 -- private Compose service binding
+                port=8000,
+                access_log=False,
+                log_config=None,
+                proxy_headers=False,
+            )  # noqa: S104 -- private Compose network only
         elif args.command == "worker":
             if args.check:
                 asyncio.run(worker_check())
             else:
-                raise SystemExit(supervise(partial(worker_run, args.once)))
+                raise SystemExit(supervise(partial(worker_run, args.once, args.analysis)))
         else:
             asyncio.run(run_admin(args))
     except ValueError, KeyError, OSError, SQLAlchemyError, NotFoundError:

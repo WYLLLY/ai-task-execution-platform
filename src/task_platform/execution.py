@@ -15,7 +15,7 @@ from task_platform.execution_models import CallCost, CostEvidence, ExternalCall,
 from task_platform.execution_state import valid_usage
 from task_platform.models import APIKey, PlatformControl, Principal
 from task_platform.task_models import Attempt, Step, Task, TaskEvent, WorkflowVersion
-from task_platform.tasks import TERMINAL, Factory, retry_transaction
+from task_platform.tasks import PINNED_VERSIONS, TERMINAL, Factory, retry_transaction
 
 
 @dataclass(frozen=True)
@@ -164,6 +164,16 @@ class Executor:
         self.control = control
         self.epoch = epoch
 
+    def handler_available(self, task: Task, step: Step | None = None) -> bool:
+        # The retained M3 contract fixture cannot execute M4 corpus/continuation work.
+        return (
+            task.workflow_name == "analysis"
+            and task.workflow_version == "1"
+            and task.versions == PINNED_VERSIONS
+            and not task.input.get("documents")
+            and (step is None or step.path == "analysis/turn-1/model")
+        )
+
     async def claim(self, holder: str) -> Lease | None:
         if not holder or len(holder) > 100:
             raise ValueError("Invalid worker identity")
@@ -195,6 +205,12 @@ class Executor:
                 ).one()
                 now = await db_now(session)
                 if now >= task.deadline_at:
+                    return None
+                if not self.handler_available(task, step):
+                    task.state = "suspended"
+                    task.reason = "handler_unavailable"
+                    task.task_version += 1
+                    event(session, task, "task.suspended")
                     return None
                 number = await session.scalar(
                     select(func.coalesce(func.max(Attempt.attempt_number), 0)).where(
@@ -232,6 +248,28 @@ class Executor:
             rows[1].lease_until = await db_now(session) + timedelta(seconds=60)
             return True
 
+    async def authorization_reason(
+        self, session: AsyncSession, task: Task, step: Step, payload: bytes
+    ) -> str | None:
+        return None
+
+    def payload_storage_charge(self, step: Step, payload: bytes) -> int:
+        return len(payload) + 2048
+
+    def call_kind(self, step: Step) -> str:
+        return "simulator-v1"
+
+    async def record_authorization(
+        self, task: Task, step: Step, payload: bytes, now: datetime
+    ) -> None:
+        return None
+
+    async def advance(
+        self, session: AsyncSession, task: Task, step: Step, call: ExternalCall, result: object
+    ) -> None:
+        step.result = {"simulated": True, "call_id": str(call.id)}
+        task.result = step.result
+
     async def authorize(self, lease: Lease, call_id: UUID, payload: bytes) -> Permit | None:
         if not payload:
             raise ValueError("Simulated context limit")
@@ -243,6 +281,9 @@ class Executor:
                 if rows is None or not await owns(session, lease, rows):
                     return None
                 task, step, attempt = rows
+                kind = self.call_kind(step)
+                reserved_tokens = len(payload) + 2000 if kind == "simulator-v1" else 0
+                reserved_cost = reserved_tokens * 2
                 existing = await session.get(ExternalCall, call_id)
                 if step.selected_call_id is not None or existing is not None:
                     # Re-reading a committed B is never a new permission to send.
@@ -264,17 +305,23 @@ class Executor:
                     reason = "permission_revoked"
                 elif workflow is None or not workflow.available:
                     reason = "handler_unavailable"
+                elif kind == "simulator-v1":
+                    reason = await admission_reason(
+                        session, task, provider, now, reserved_cost, reserved_tokens
+                    )
                 else:
                     reason = await admission_reason(
-                        session, task, provider, now, (len(payload) + 2000) * 2, len(payload) + 2000
+                        session, task, provider, now, reserved_cost, reserved_tokens, kind=kind
                     )
-                storage_charge = len(payload) + 2048
+                if reason is None:
+                    reason = await self.authorization_reason(session, task, step, payload)
+                storage_charge = self.payload_storage_charge(step, payload)
                 if (
                     owner.storage_bytes + storage_charge > owner.max_storage_bytes
                     or platform.storage_bytes + storage_charge > platform.max_storage_bytes
                 ):
                     reason = "capacity_wait"
-                if len(payload) > 12000:
+                if len(payload) > (12000 if kind == "simulator-v1" else 65536):
                     stop_before_call(session, rows, platform, owner, now, "task_limit")
                     task.reason = "context_limit"
                     return None
@@ -283,6 +330,7 @@ class Executor:
                     return None
                 if key is None:
                     raise ValueError("Missing authorizing key")
+                await self.record_authorization(task, step, payload, now)
                 call = ExternalCall(
                     id=call_id,
                     task_id=task.id,
@@ -296,7 +344,7 @@ class Executor:
                     state="authorized",
                     payload=payload,
                     payload_hash=hashlib.sha256(payload).hexdigest(),
-                    provider="simulator-v1",
+                    provider=kind,
                     authorized_at=now,
                     local_active=True,
                 )
@@ -305,10 +353,10 @@ class Executor:
                 session.add(
                     CallCost(
                         call_id=call_id,
-                        reserved_cost=(len(payload) + 2000) * 2,
-                        reserved_tokens=len(payload) + 2000,
-                        exposure_cost=(len(payload) + 2000) * 2,
-                        exposure_tokens=len(payload) + 2000,
+                        reserved_cost=reserved_cost,
+                        reserved_tokens=reserved_tokens,
+                        exposure_cost=reserved_cost,
+                        exposure_tokens=reserved_tokens,
                         tariff="simulated-micro-usd-v1",
                         tokenizer="simulated-bytes-v1",
                     )
@@ -336,6 +384,7 @@ class Executor:
         cost: int | None = None,
         tokens: int | None = None,
         retry_after_seconds: int = 0,
+        result: object = None,
     ) -> bool:
         if outcome not in {"succeeded", "unknown", "rejected", "retryable"}:
             raise ValueError("Invalid external outcome")
@@ -403,6 +452,10 @@ class Executor:
                     if outcome != "unknown" and call.state in {"authorized", "unknown"}:
                         call.state = "succeeded" if outcome == "succeeded" else "rejected"
                     return duplicate
+                # Keep accepted usage even if M4 validation crosses the lease/deadline.
+                # Roll back only business progression, including a newly flushed step.
+                deadline, lease_until = task.deadline_at, step.lease_until
+                progression = await session.begin_nested()
                 now = await db_now(session)
                 call.local_active = False
                 call.state = (
@@ -433,12 +486,32 @@ class Executor:
                     task.state = step.state
                     task.reason = None if outcome == "succeeded" else "external_rejected"
                     if outcome == "succeeded":
-                        step.result = {"simulated": True, "call_id": str(call_id)}
-                        task.result = step.result
-                    owner.open_tasks -= 1
-                    platform.open_tasks -= 1
+                        with session.no_autoflush:
+                            await self.advance(session, task, step, call, result)
+                        if step.state == "failed":
+                            attempt.state = "failed"
+                            attempt.reason = task.reason
+                    if task.state in TERMINAL:
+                        owner.open_tasks -= 1
+                        platform.open_tasks -= 1
                     event(session, task, f"step.{step.state}")
-                    event(session, task, f"task.{task.state}")
+                    if task.state in TERMINAL:
+                        event(session, task, f"task.{task.state}")
+                with session.no_autoflush:
+                    finished_at = await db_now(session)
+                if lease_until is None or finished_at >= min(deadline, lease_until):
+                    await progression.rollback()
+                    await session.refresh(call)
+                    call.local_active = False
+                    call.state = (
+                        "unknown"
+                        if outcome == "unknown"
+                        else "succeeded"
+                        if outcome == "succeeded"
+                        else "rejected"
+                    )
+                    return False
+                await progression.commit()
                 return True
 
         return await retry_transaction(operation)

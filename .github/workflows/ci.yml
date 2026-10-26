@@ -1,8 +1,8 @@
-name: M1 through M3 verification
+name: M1 through M4 verification
 on:
   pull_request:
   push:
-    branches: [main, feature/m1-foundation, feature/m2, feature/m3]
+    branches: [main, feature/m1-foundation, feature/m2, feature/m3, feature/m4]
 permissions:
   contents: read
 concurrency:
@@ -28,5 +28,5 @@ jobs:
         if: always()
         run: |
           if [ -f .env ]; then
-            docker compose -p atp-m1-test down --volumes --remove-orphans
+            docker compose -p atp-m1-test -f compose.yaml -f compose.demo.yaml down --volumes --remove-orphans
           fi

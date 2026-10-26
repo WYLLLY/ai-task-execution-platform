@@ -1,0 +1,32 @@
+FF..................FF                                                   [100%]
+=================================== FAILURES ===================================
+_________ test_accepts_one_read_only_call_and_preserves_call_identity __________
+tests/unit/test_agent_protocol.py:26: in test_accepts_one_read_only_call_and_preserves_call_identity
+    assert parse_response(value) == value
+           ^^^^^^^^^^^^^^^^^^^^^
+src/task_platform/agent_protocol.py:5: in parse_response
+    raise ValueError("Protocol not implemented")
+E   ValueError: Protocol not implemented
+___________ test_accepts_structured_report_and_opaque_protocol_item ____________
+tests/unit/test_agent_protocol.py:37: in test_accepts_structured_report_and_opaque_protocol_item
+    assert parse_response(value) == value
+           ^^^^^^^^^^^^^^^^^^^^^
+src/task_platform/agent_protocol.py:5: in parse_response
+    raise ValueError("Protocol not implemented")
+E   ValueError: Protocol not implemented
+____ test_context_keeps_untrusted_data_out_of_system_and_roundtrips_history ____
+tests/unit/test_agent_protocol.py:118: in test_context_keeps_untrusted_data_out_of_system_and_roundtrips_history
+    assert data["history"] == history
+           ^^^^^^^^^^^^^^^
+E   KeyError: 'history'
+_____________ test_context_overflow_is_explicit_without_truncation _____________
+tests/unit/test_agent_protocol.py:127: in test_context_overflow_is_explicit_without_truncation
+    with pytest.raises(ValueError, match="context_limit"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+=========================== short test summary info ============================
+FAILED tests/unit/test_agent_protocol.py::test_accepts_one_read_only_call_and_preserves_call_identity
+FAILED tests/unit/test_agent_protocol.py::test_accepts_structured_report_and_opaque_protocol_item
+FAILED tests/unit/test_agent_protocol.py::test_context_keeps_untrusted_data_out_of_system_and_roundtrips_history
+FAILED tests/unit/test_agent_protocol.py::test_context_overflow_is_explicit_without_truncation
+4 failed, 18 passed in 0.04s
