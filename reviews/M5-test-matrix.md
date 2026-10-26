@@ -8,7 +8,7 @@ The pre-existing AGENTS.md modification is excluded from this milestone.
 |---|---|---|
 | Unit / provider contracts | `test_responses.py`: explicit profile, integer/cached pricing, complete wire context, strict tool names/arguments/cardinality, refusal/incomplete/malformed output, opaque replay, partial usage, actual tier, tokenizer asset | PASS — see M5-verification.md |
 | HTTP boundary / security | `test_provider_contracts.py`: separate process and independent physical request journal, redirects, 429, truncation, slow drip/absolute deadline, expired permit; no implicit retries/proxy | PASS — see M5-verification.md |
-| Workflow / API / E2E | `test_responses_workflow.py`, `test_provider_e2e.py`: registered/pinned version 2, fresh worker processes between turns, opaque checkpoint/call-ID replay, local tool, remote report reconciliation, explicit owner regeneration; inherited M4 permission/security suites | PASS — see M5-verification.md |
+| Workflow / API / E2E | `test_responses_workflow.py`, `test_provider_e2e.py`: registered/pinned version 2, fresh worker processes between turns, opaque checkpoint/call-ID replay, local tool, remote report reconciliation, explicit owner regeneration; authenticated implemented/available workflow catalogue; inherited M4 permission/security suites | PASS — see M5-verification.md |
 | F14 / concurrency | `test_accounting_admin.py`, `test_provider_capacity.py`, `test_execution_calls.py`: concurrent exact evidence, fingerprint/revision conflict, commit acknowledgement loss and pool cleanup, shared task/owner/global accounting and capacity | PASS — see M5-verification.md |
 | F15 / usage and rollover | Existing `test_execution_calls.py` UTC rollover, old exposure, late/partial evidence, immutable calls/evidence; new real-price reservations and unbounded actual overrun, revision-specific administrative acknowledgement | PASS — see M5-verification.md |
 | F16 / restart and quotas | Independent concurrent owners wait behind an observed PostgreSQL lock; tiny shared RPM/active/money/token quotas; persisted 429 cooldown across new executors/configuration replay; deadline terminalization retains exposure | PASS — see M5-verification.md |
@@ -16,7 +16,7 @@ The pre-existing AGENTS.md modification is excluded from this milestone.
 | Migration / privileges | `test_accounting_schema.py`, `test_database.py`, `test_z_migrations.py`: role grants/denials, readiness under revoked grants, empty database and existing-version upgrades, downgrade/re-upgrade | PASS — see M5-verification.md |
 | Smoke controller | `test_openai_smoke.py`, `test_provider_cli.py`: explicit authorization/cap/key gates, forced read-tool then report, exact protocol replay, bounded requests and remaining-cap admission | PASS — see M5-verification.md |
 | Full M1–M5 regression | All tests, Ruff, formatting, mypy, installed Compose smoke and GitHub CI | PASS — see M5-verification.md |
-| Independent review | Separate reviewer using adversarial, execution reliability and agent security skills; six confirmed findings corrected | See M5-review.md |
+| Independent review | Separate reviewer using adversarial, execution reliability and agent security skills; confirmed findings and CI corrections reviewed | See M5-review.md |
 | Paid provider smoke | Separate authorization, synthetic data and explicit cap required | SKIPPED: no paid-call authorization |
 
 All requested test categories apply: unit, integration, API, E2E, concurrency,
@@ -56,6 +56,10 @@ same pytest test path locally or in that test service.
 | Initial `tests/unit/test_openai_smoke.py` | `m5-smoke-controller-red.txt`: 2 / 0, premature PASS and missing second turn | `m5-smoke-cap-green.txt`: 3 passed after both smoke corrections |
 | `test_lost_commit_ack_replay_is_stable` pool assertion | `m5-ack-pool-red.txt`: 1 / 0, connection remained checked out after committed transaction exception | Final unfiltered suite |
 | `test_first_turn_overrun_cannot_spend_the_second_turn_reservation` | `m5-smoke-cap-red.txt`: 1 / 0, two sends despite exhausted remaining reservation | `m5-smoke-cap-green.txt`: 3 passed |
+| `test_catalogue_advertises_implemented_available_workflows[1/2]` | `m5-catalogue-red.txt`: 2 / 0, implemented versions missing or advertised as unimplemented | `m5-catalogue-green.txt`: 7 passed across workflow integration file |
+| `test_worker_readiness_tolerates_bounded_database_round_trip_latency` | `m5-readiness-latency-red.txt`: 1 failed, 10 deselected; healthy PostgreSQL with 80ms/query exceeds the unchanged 4s readiness budget | `m5-readiness-latency-green.txt` and full final suite |
+| `test_fixture_cleanup_retries_confirmed_lock_timeout[True/False]` | `m5-cleanup-red.txt`: 2 failed; transient cleanup aborted and persistent failure was not retried within the defined bound | `m5-cleanup-green.txt`: 2 passed in 4.74s; real blocking observed with `pg_blocking_pids` |
+| `test_cli_parent_does_not_initialize_execution_runtime` | `m5-cli-startup-red.txt`: 4 failed after successful subprocess exits; import journal shows duplicate parent runtime initialization, no import/setup failure | `m5-cli-startup-green.txt`: 4 passed; unchanged five-second worker and Responses E2E: 2 passed in 31.03s |
 
 Refactoring retained the shared M3 reservation/settlement and M4 workflow logic
 through narrow transport/context/reservation hooks, and introduced explicit outer
@@ -72,6 +76,36 @@ runs have no complete test counts. `m5-oom.json` records the test container's
 confirmed OOM; test memory was raised from 512 MiB to 1 GiB. The environment-only
 `m5-workflow-red.txt` is not behavioral RED. These are not hidden or treated as
 successful acceptance evidence. See the final report for final counts.
+
+## Final CI synchronization corrections
+
+The first startup optimization still initialized database/control modules in the
+supervisor parent. Extending the successful-exit import journal produced **4
+behavioral failures in 1.65s** before moving these imports to runtime functions
+(`m5-cli-control-imports-red.txt`). The four cases then passed in 0.32s.
+
+The cleanup observer's first transaction could cache idle activity for later
+polls. Priming `pg_stat_activity` before the cleanup starts reproduced **2 failed
+contention-observation tests in 6.62s** (`m5-cleanup-observer-red.txt`). Each sample
+now ends its observation transaction, retaining the three-second observation
+bound and actual `pg_blocking_pids` assertion. See PostgreSQL's
+[statistics snapshot contract](https://www.postgresql.org/docs/17/monitoring-stats.html).
+
+Faster startup also exposed implicit timing in the existing five-process E2E.
+The synthetic server sends Retry-After:3; after the second model call, the fourth
+process encountered the persisted provider gate and save-report became
+`retry_wait`. The fifth process started before its eligibility. The diagnostic
+retains per-process durable step states (`m5-e2e-schedule-diagnostic.txt`); the
+intermediate **3 passed, 1 failed** runs are retained separately. The test now
+waits on both task-specific eligible steps and the shared provider gate, outside
+a DB connection, within a ten-second total waiting budget. Five processes,
+twenty-second subprocess limits, two physical Responses requests, three durable
+calls, four steps, cost276 and terminal success assertions remain unchanged.
+
+The combined cleanup, unchanged five-second worker subprocess, and Responses
+E2E selection passes **4 tests in 31.64s** (`m5-observer-cli-green.txt`). Final
+unfiltered verification follows these corrections; previous suite results are
+historical, not substituted for this final run.
 
 ## Contract sources (checked 2026-10-23)
 

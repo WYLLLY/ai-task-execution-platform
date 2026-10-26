@@ -1,39 +1,39 @@
 docker-compose -p atp-m1-test -f compose.yaml -f compose.demo.yaml run --rm --no-deps test pytest -p no:cacheprovider tests/integration/test_accounting_admin.py tests/integration/test_accounting_schema.py tests/integration/test_provider_capacity.py tests/integration/test_execution_calls.py
-time="2026-10-24T14:40:38+02:00" level=warning msg="Found orphan containers (atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
- Container atp-m1-test-test-run-e3ef1ab478ec Creating
- Container atp-m1-test-test-run-e3ef1ab478ec Created
+time="2026-10-26T19:14:49+01:00" level=warning msg="Found orphan containers (atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-df9f1b93c50d Creating
+ Container atp-m1-test-test-run-df9f1b93c50d Created
 ============================= test session starts ==============================
 platform linux -- Python 3.14.8, pytest-9.1.1, pluggy-1.7.0
 rootdir: /app
 configfile: pyproject.toml
 plugins: anyio-4.15.1, asyncio-1.4.0
 asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
-collected 53 items
+collected 54 items
 
 tests/integration/test_accounting_admin.py ....                          [  7%]
-tests/integration/test_accounting_schema.py ..........                   [ 26%]
-tests/integration/test_provider_capacity.py .....                        [ 35%]
+tests/integration/test_accounting_schema.py ...........                  [ 27%]
+tests/integration/test_provider_capacity.py .....                        [ 37%]
 tests/integration/test_execution_calls.py .............................. [ 92%]
 ....                                                                     [100%]
 
-============================== 53 passed in 8.14s ==============================
+============================== 54 passed in 9.65s ==============================
 docker-compose -p atp-m1-test -f compose.yaml -f compose.demo.yaml run --rm --no-deps test pytest -p no:cacheprovider tests/unit/test_responses.py tests/unit/test_provider_cli.py tests/unit/test_openai_smoke.py tests/integration/test_provider_contracts.py tests/integration/test_responses_workflow.py tests/integration/test_provider_e2e.py
-time="2026-10-24T14:40:50+02:00" level=warning msg="Found orphan containers (atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
- Container atp-m1-test-test-run-206ad07f128b Creating
- Container atp-m1-test-test-run-206ad07f128b Created
+time="2026-10-26T19:15:02+01:00" level=warning msg="Found orphan containers (atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-6398a51f4714 Creating
+ Container atp-m1-test-test-run-6398a51f4714 Created
 ============================= test session starts ==============================
 platform linux -- Python 3.14.8, pytest-9.1.1, pluggy-1.7.0
 rootdir: /app
 configfile: pyproject.toml
 plugins: anyio-4.15.1, asyncio-1.4.0
 asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
-collected 57 items
+collected 59 items
 
-tests/unit/test_responses.py ...................................         [ 61%]
-tests/unit/test_provider_cli.py .....                                    [ 70%]
-tests/unit/test_openai_smoke.py ...                                      [ 75%]
-tests/integration/test_provider_contracts.py ........                    [ 89%]
-tests/integration/test_responses_workflow.py .....                       [ 98%]
+tests/unit/test_responses.py ...................................         [ 59%]
+tests/unit/test_provider_cli.py .....                                    [ 67%]
+tests/unit/test_openai_smoke.py ...                                      [ 72%]
+tests/integration/test_provider_contracts.py ........                    [ 86%]
+tests/integration/test_responses_workflow.py .......                     [ 98%]
 tests/integration/test_provider_e2e.py .                                 [100%]
 
-============================= 57 passed in 47.14s ==============================
+============================= 59 passed in 40.20s ==============================
