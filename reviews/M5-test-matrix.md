@@ -107,6 +107,22 @@ E2E selection passes **4 tests in 31.64s** (`m5-observer-cli-green.txt`). Final
 unfiltered verification follows these corrections; previous suite results are
 historical, not substituted for this final run.
 
+## Supervised fault-injection barrier
+
+The final documentation PR CI exposed an independent test-fixture race: the
+unresponsive-worker heartbeat could revoke ownership 200ms after startup, before
+the HTTP effect and injected fault. Two added cases introduce 400ms of controlled
+pre-fault setup; both reproduced EOF before fault-ready (**2 failed, 11 deselected,
+8.53s**, `m5-fault-barrier-red.txt`). The fixture now uses an asyncio event so
+ownership loss begins only after the physical HTTP call and explicit fault-ready
+barrier. Both original cases remain and both delayed-setup cases are added.
+
+The four-case GREEN passed **4 tests, 9 deselected in 35.76s**
+(`m5-fault-barrier-green.txt`). The existing ten-second readiness wait, six-second
+fault-grace assertion, product watchdog, nonzero exit and independent physical
+request/effect count assertions are unchanged. This is test synchronization,
+not a change to production lease or supervision behavior.
+
 ## Contract sources (checked 2026-10-23)
 
 - [GPT-5.4 mini](https://developers.openai.com/api/docs/models/gpt-5.4-mini):

@@ -46,18 +46,19 @@ and coverage mapping are in [M5-test-matrix.md](M5-test-matrix.md).
 
 ## Final results
 
-Installed-image regression, independently reviewed: **PASS — 589 passed, 0 failed,
-0 errors, 0 skipped in 189.15s** (134 unit and 455 integration/API/database/failure cases).
-The final image is `963e09240dffa975386dd315795ff3bbbf16f07a5bb5d0fa6c3a07131e408382`;
-reviewed implementation HEAD is `94355047ebd696cf69bd22f5e2f35ccd8c4a430f`.
+Installed-image regression, independently reviewed: **PASS — 591 passed, 0 failed,
+0 errors, 0 skipped in 205.84s** (134 unit and 457 integration/API/database/failure cases).
+The final image is `f81fa9466d0c3430d646406f0a600430b3bba7c67c0468f0ecd0bdac0d8bdf9c`;
+application revision is `94355047ebd696cf69bd22f5e2f35ccd8c4a430f`; the test image
+also includes the explicitly synchronized fault fixture and its two added cases.
 Focused gates and publication checks are recorded separately below.
 
 | Check | PASS | FAIL | ERRORS | SKIPPED | Evidence |
 |---|---:|---:|---:|---:|---|
-| Full unfiltered M1–M5 suite | 589 | 0 | 0 | 0 | `evidence/m5-full-final.txt` |
+| Full unfiltered M1–M5 suite | 591 | 0 | 0 | 0 | `evidence/m5-full-final.txt` |
 | Local unit gate | 134 | 0 | 0 | 0 | `evidence/m5-unit.txt`, 2.17s |
-| Accounting gate | 54 | 0 | 0 | 0 | Author run, independently reviewed; `evidence/m5-gates.txt`, 9.65s |
-| Provider contracts gate | 59 | 0 | 0 | 0 | Author run, independently reviewed; `evidence/m5-gates.txt`, 40.20s |
+| Accounting gate | 54 | 0 | 0 | 0 | Author run, independently reviewed; `evidence/m5-gates.txt`, 9.35s |
+| Provider contracts gate | 59 | 0 | 0 | 0 | Author run, independently reviewed; `evidence/m5-gates.txt`, 39.58s |
 | Smoke cap correction | 3 | 0 | 0 | 0 | `evidence/m5-smoke-cap-green.txt`, 1.77s |
 | Ruff / format / mypy | PASS | 0 | 0 | 0 | `evidence/m5-static.txt`: 122 formatted files, 98 mypy source files |
 | Actionlint | PASS | 0 | 0 | 0 | `evidence/m5-actionlint.txt` |
@@ -189,6 +190,17 @@ RED and the combined four-test GREEN are recorded in the matrix. All original
 product assertions, physical request/effect counts, worker deadlines and cleanup
 retry bounds remain enabled. No performance guarantee is inferred beyond these
 measured environments.
+
+Publication at `3029ba7` passed its push CI
+[40376533417](https://github.com/WYLLLY/ai-task-execution-platform/actions/runs/40376533417),
+but PR CI [40376541947](https://github.com/WYLLLY/ai-task-execution-platform/actions/runs/40376541947)
+had 454 passed, 1 failed, 0 errors, 0 skipped in 254.15s. The supervised fault
+fixture exited before fault-ready. Controlled 400ms pre-fault delay reproduced
+the fixture's premature ownership-loss race in two new cases before correction.
+An explicit post-effect barrier now coordinates injection and ownership loss;
+the original two cases and all timing/effect assertions are retained. Four
+scenarios pass (35.76s), followed by a new complete regression. The previous
+589-pass run is preserved as `m5-full-before-fault-barrier.txt`.
 
 ## Implemented boundaries and remaining limits
 

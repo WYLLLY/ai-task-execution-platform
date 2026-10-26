@@ -89,11 +89,13 @@ async def test_real_process_crash_and_lost_ack(
 
 
 @pytest.mark.parametrize("failure", ["loop", "cleanup"])
+@pytest.mark.parametrize("setup_delay", [0, 0.4])
 async def test_supervisor_stops_unresponsive_worker_process(
     client: AsyncClient,
     command_owner: dict[str, str],
     simulator: Simulator,
     failure: str,
+    setup_delay: float,
 ) -> None:
     await create(client, command_owner)
     env = os.environ.copy()
@@ -103,6 +105,7 @@ async def test_supervisor_stops_unresponsive_worker_process(
         DISPATCH_ENABLED="true",
         SIMULATOR_URL=simulator.url,
         TEST_STALL=failure,
+        TEST_SETUP_DELAY=str(setup_delay),
     )
     process = await asyncio.create_subprocess_exec(
         sys.executable,

@@ -19,10 +19,13 @@ def stall_event_loop() -> None:
 
 async def run_unresponsive() -> None:
     original = SimulationTransport.send
+    fault_ready = asyncio.Event()
 
     async def send(self: SimulationTransport, permit: Permit) -> Outcome:
+        await asyncio.sleep(float(os.environ.get("TEST_SETUP_DELAY", "0")))
         await original(self, permit)
         print("fault-ready", flush=True)
+        fault_ready.set()
         if os.environ["TEST_STALL"] == "loop":
             stall_event_loop()
         else:
@@ -34,6 +37,7 @@ async def run_unresponsive() -> None:
         return Outcome()
 
     async def lose_ownership(self: Worker, lease: Lease) -> bool:
+        await fault_ready.wait()
         await asyncio.sleep(0.2)
         return False
 

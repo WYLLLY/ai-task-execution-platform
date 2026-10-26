@@ -6,27 +6,29 @@ implementation author. Skills: `adversarial-review`,
 
 ## Scope and current verdict
 
-Base: M4 `9b184e111081ace4f8f8a1fd565f458bd8eb3210`. Final reviewed code:
-`94355047ebd696cf69bd22f5e2f35ccd8c4a430f` on `feature/m5`. Its installed image is
-`sha256:963e09240dffa975386dd315795ff3bbbf16f07a5bb5d0fa6c3a07131e408382`.
+Base: M4 `9b184e111081ace4f8f8a1fd565f458bd8eb3210`. Reviewed application code:
+`94355047ebd696cf69bd22f5e2f35ccd8c4a430f` on `feature/m5`, plus the final
+working-tree watchdog fixture/test correction described below. The final installed
+image is `sha256:f81fa9466d0c3430d646406f0a600430b3bba7c67c0468f0ecd0bdac0d8bdf9c`.
 The independent reviewers followed the transport, accounting, workflow, catalogue,
-readiness, fixture-cleanup, CLI initialization and deterministic restart-schedule
-corrections through their commits. The existing local AGENTS.md change was neither
-edited nor staged by a reviewer. Historical revision-specific results are retained
-below and are not presented as tests of this final head.
+readiness, fixture-cleanup, CLI initialization, deterministic restart schedule and
+watchdog fault-ordering corrections. The existing local AGENTS.md change was
+neither edited nor staged by a reviewer. Historical revision-specific results are
+retained below and are not presented as tests of this final image.
 
-**APPROVE — independent code and test review.** No confirmed issue remains open
-in the reviewed implementation. The full post-correction installed-image suite
-passed **589 tests, 0 failures, 0 errors, 0 skips in 189.15 seconds**. The author
-executed this suite exclusively; the independent reviewer inspected its completed
-output, the final unit/static outputs and the correction diffs. These are distinct
-from the historical reviewer-executed 580-test suite.
+**APPROVE — independent application code, test correction and local full-suite
+review.** No confirmed issue remains open in the reviewed implementation or final
+test delta. The complete post-correction installed-image suite passed **591 tests,
+0 failures, 0 errors, 0 skips in 205.84 seconds**. The author executed this suite
+exclusively; the independent reviewer inspected its completed output, the final
+unit/static outputs and the correction diffs. These are distinct from the
+historical reviewer-executed 580-test suite.
 
-The final accounting and provider gates passed (54 and 59 tests respectively).
-The final Compose smoke output also reports PASS. Final-head GitHub CI and
-publication checks remain separate completion requirements until their successful
-outcomes are observed. This is not GitHub PR approval, authorization to merge or
-live OpenAI validation. M6 is outside this review.
+The final accounting/provider gates passed **54 and 59 tests** respectively,
+and the final Compose smoke reports **PASS**. All required local checks are
+complete. Final-publication-head GitHub CI and delivery checks remain separate
+completion requirements until their successful outcomes are observed. This is not GitHub PR approval,
+authorization to merge or live OpenAI validation. M6 is outside this review.
 
 Reviewed boundaries: direct HTTPX Responses transport; pinned model, tokenizer,
 tariff and project configuration; complete context and protocol checkpoint
@@ -582,3 +584,76 @@ final-publication-head CI and delivery. A documentation-only follow-up commit
 does not imply an unreviewed application change; any new application correction
 would require renewed verification. This review authorizes no merge, auto-merge,
 paid provider request or next-milestone implementation.
+
+
+## Watchdog fault-injection ordering correction (2026-10-26)
+
+A later publication CI failure affected the existing unresponsive-worker test: its
+child exited before emitting `fault-ready`, so the intended stall had not yet been
+injected. The independent reviewer inspected the working-tree diff limited to
+`tests/support/unresponsive_worker.py` and
+`tests/integration/test_execution_failures.py`; application supervisor and worker
+code are unchanged.
+
+The old test double returned simulated lease loss 0.2 seconds after heartbeat
+startup, independently of the adapter's database authorization and physical send.
+Under a slower setup, the worker therefore correctly stopped before reaching
+the injected unresponsive state. The new 0.4-second synthetic setup-delay cases
+preserve both original zero-delay loop/cleanup cases and make this race
+reproducible. The retained behavioral RED is **0 passed, 2 failed, 0 errors,
+0 skipped, 11 deselected in 8.53 seconds**
+(`evidence/m5-fault-barrier-red.txt`): both new cases observe EOF instead of
+the fault-ready marker. This is a missing fault-ordering condition, not an
+unavailable service or import error.
+
+The minimal fixture correction uses an asyncio event set after the original
+physical send completes and the marker is emitted; simulated ownership loss
+waits for that event before its original 0.2-second delay. In loop-stall mode,
+the real independent supervisor must terminate the blocked event loop. In
+cleanup-stall mode, lease loss occurs after the transport has entered the
+cancellation-resistant loop, so the original cooperative-cleanup and watchdog
+paths are exercised. The original ten-second startup/readiness wait, six-second
+fault termination bound, five-second product watchdog and exactly one physical
+request/effect assertions remain. The setup-delay environment variable is read
+only by the trusted test support module and creates no production fault hook.
+
+Independent Ruff and format checks passed for both changed test files; the
+configured mypy check passed on 98 source files. No database tests were launched
+by this reviewer. The code correction is coherent and introduces no confirmed
+new issue. The author's completed targeted GREEN was independently inspected:
+**4 passed, 0 failed, 0 errors, 0 skipped, 9 deselected in 35.76 seconds**
+(`evidence/m5-fault-barrier-green.txt`). Both original and both delayed setup
+cases passed. **APPROVE for this test-only correction and targeted evidence.**
+Complete post-correction regression, gates and publication-head CI remain
+pending before milestone completion.
+
+
+## Post-watchdog-correction full verification (2026-10-26)
+
+The independent reviewer inspected the completed unfiltered installed-image output
+for `sha256:f81fa9466d0c3430d646406f0a600430b3bba7c67c0468f0ecd0bdac0d8bdf9c`
+(`evidence/m5-full-final.txt`): **591 passed, 0 failed, 0 errors, 0 skipped in
+205.84 seconds**. Application code remains the reviewed `9435504`; the two
+additional cases are the delayed loop/cleanup fault setup regressions, while
+all earlier cases remain collected. The preceding 589-test run is preserved
+in `evidence/m5-full-before-fault-barrier.txt`. Final static output reports
+Ruff PASS, 122 files already formatted and mypy PASS on 98 source files.
+The unchanged local unit suite reports 134 passed in 2.17 seconds.
+
+**APPROVE for the final application/test scope and complete local regression.**
+Post-correction gate and Compose reruns, final publication commit and that commit's
+GitHub CI are still required. No pending or historical run is presented as a new
+PASS, and no paid provider request was made.
+
+The final post-watchdog-correction gate and Compose outputs were subsequently
+inspected independently: accounting **54 passed, 0 failed, 0 errors, 0 skipped in
+9.35 seconds**; provider contracts **59 passed, 0 failed, 0 errors, 0 skipped in
+39.58 seconds** (`evidence/m5-gates.txt`); Compose smoke **PASS** with pipeline
+exit 0 reported by the author (`evidence/m5-compose-smoke.txt`). Gate selections
+overlap the 591-test complete suite.
+
+**Final independent verdict: APPROVE — code, final test delta, complete local
+regression, accounting/provider gates and Compose smoke.** No confirmed finding
+remains open. Only publication and CI on the final published commit remain for
+the implementation author to verify and report. This verdict is independent
+review evidence, not a GitHub approval or authorization for merge/auto-merge.
