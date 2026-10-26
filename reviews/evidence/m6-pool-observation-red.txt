@@ -1,0 +1,13 @@
+time="2026-10-27T00:19:20+01:00" level=warning msg="Found orphan containers (atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-d20c89bc502f Creating
+ Container atp-m1-test-test-run-d20c89bc502f Created
+F                                                                        [100%]
+=================================== FAILURES ===================================
+______ test_real_pool_wait_is_measured_without_consuming_control_capacity ______
+tests/integration/test_observability.py:89: in test_real_pool_wait_is_measured_without_consuming_control_capacity
+    assert measured >= 1000, "real pool acquisition delay must be observable"
+E   AssertionError: real pool acquisition delay must be observable
+E   assert 0 >= 1000
+=========================== short test summary info ============================
+FAILED tests/integration/test_observability.py::test_real_pool_wait_is_measured_without_consuming_control_capacity
+1 failed, 2 deselected in 1.20s

@@ -1,0 +1,16 @@
+.....F                                                                   [100%]
+=================================== FAILURES ===================================
+_______ test_retention_gap_while_draining_backlog_emits_reset_without_id _______
+tests/unit/test_sse_stream.py:152: in test_retention_gap_while_draining_backlog_emits_reset_without_id
+    await stream({}, receive, send)
+src/task_platform/sse.py:177: in __call__
+    await task
+src/task_platform/sse.py:136: in _run
+    batch = await self.hub.batch(self.identity, self.task, self.position)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/unit/test_sse_stream.py:134: in batch
+    raise HistoryExpired(task)
+E   task_platform.event_cursor.HistoryExpired: Event history expired
+=========================== short test summary info ============================
+FAILED tests/unit/test_sse_stream.py::test_retention_gap_while_draining_backlog_emits_reset_without_id
+1 failed, 5 passed in 0.32s

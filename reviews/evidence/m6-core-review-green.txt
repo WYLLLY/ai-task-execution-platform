@@ -1,0 +1,793 @@
+time="2026-10-27T00:33:36+01:00" level=warning msg="Found orphan containers (atp-m1-test-proxy-1, atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-8a5f5091d7a0 Creating
+ Container atp-m1-test-test-run-8a5f5091d7a0 Created
+F.F.FFFFF...                                                             [100%]
+=================================== FAILURES ===================================
+________ test_usage_distinguishes_estimate_provision_invoice_and_owner _________
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1969: in _exec_single_context
+    self.dialect.do_execute(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/default.py:952: in do_execute
+    cursor.execute(statement, parameters)
+.venv/lib/python3.14/site-packages/sqlalchemy/dialects/postgresql/psycopg.py:642: in execute
+    result = self.await_(self._cursor.execute(query, params, **kw))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py:132: in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py:196: in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/psycopg/cursor_async.py:117: in execute
+    raise ex.with_traceback(None)
+E   psycopg.errors.CheckViolation: new row for relation "attempts" violates check constraint "attempts_trace_context_check"
+E   DETAIL:  Failing row contains (fd76b0fe-aeb1-4f39-8146-dbd2da53e1cd, 2f48d52c-9980-4029-b7cb-3e6427683ef7, 6a1a2e45-3dde-4b7b-822e-554191dfc973, 1, 1, active, 2026-10-26 23:33:38.116983+00, null, null, unknown-worker, 4562a9d6-0dd6-451f-b474-353711aaf204, {"flags": "02", "span_id": "2ab54dd6ecd414ff", "trace_id": "22b6...).
+
+The above exception was the direct cause of the following exception:
+tests/integration/test_m6_projections.py:33: in test_usage_distinguishes_estimate_provision_invoice_and_owner
+    call = await pending(client, command_owner, executor)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/Users/william/Documents/Projet 2/tests/integration/test_accounting_admin.py:43: in pending
+    ???
+src/task_platform/execution.py:250: in claim
+    return await retry_transaction(operation)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/task_platform/tasks.py:83: in retry_transaction
+    return await operation()
+           ^^^^^^^^^^^^^^^^^
+src/task_platform/execution.py:182: in operation
+    async with self.factory.begin() as session:
+               ^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/ext/asyncio/session.py:1804: in __aexit__
+    await asyncio.shield(task)
+.venv/lib/python3.14/site-packages/sqlalchemy/ext/asyncio/session.py:1800: in go
+    await self.trans.__aexit__(type_, value, traceback)
+.venv/lib/python3.14/site-packages/sqlalchemy/ext/asyncio/session.py:1887: in __aexit__
+    await greenlet_spawn(
+.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py:203: in greenlet_spawn
+    result = context.switch(value)
+             ^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/util.py:147: in __exit__
+    with util.safe_reraise():
+         ^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/langhelpers.py:122: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/util.py:145: in __exit__
+    self.commit()
+<string>:2: in commit
+    ???
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/state_changes.py:137: in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py:1316: in commit
+    self._prepare_impl()
+<string>:2: in _prepare_impl
+    ???
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/state_changes.py:137: in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py:1290: in _prepare_impl
+    self.session.flush()
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py:4353: in flush
+    self._flush(objects)
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py:4488: in _flush
+    with util.safe_reraise():
+         ^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/langhelpers.py:122: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py:4449: in _flush
+    flush_context.execute()
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/unitofwork.py:465: in execute
+    rec.execute(self)
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/unitofwork.py:641: in execute
+    util.preloaded.orm_persistence.save_obj(
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/persistence.py:94: in save_obj
+    _emit_insert_statements(
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/persistence.py:1049: in _emit_insert_statements
+    result = connection.execute(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1421: in execute
+    return meth(
+.venv/lib/python3.14/site-packages/sqlalchemy/sql/elements.py:526: in _execute_on_connection
+    return connection._execute_clauseelement(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1643: in _execute_clauseelement
+    ret = self._execute_context(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1848: in _execute_context
+    return self._exec_single_context(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1988: in _exec_single_context
+    self._handle_dbapi_exception(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:2365: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1969: in _exec_single_context
+    self.dialect.do_execute(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/default.py:952: in do_execute
+    cursor.execute(statement, parameters)
+.venv/lib/python3.14/site-packages/sqlalchemy/dialects/postgresql/psycopg.py:642: in execute
+    result = self.await_(self._cursor.execute(query, params, **kw))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py:132: in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py:196: in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/psycopg/cursor_async.py:117: in execute
+    raise ex.with_traceback(None)
+E   sqlalchemy.exc.IntegrityError: (psycopg.errors.CheckViolation) new row for relation "attempts" violates check constraint "attempts_trace_context_check"
+E   DETAIL:  Failing row contains (fd76b0fe-aeb1-4f39-8146-dbd2da53e1cd, 2f48d52c-9980-4029-b7cb-3e6427683ef7, 6a1a2e45-3dde-4b7b-822e-554191dfc973, 1, 1, active, 2026-10-26 23:33:38.116983+00, null, null, unknown-worker, 4562a9d6-0dd6-451f-b474-353711aaf204, {"flags": "02", "span_id": "2ab54dd6ecd414ff", "trace_id": "22b6...).
+E   [SQL: INSERT INTO attempts (id, task_id, step_id, attempt_number, generation, state, started_at, ended_at, reason, worker, execution_epoch, trace_context) VALUES (%(id)s::UUID, %(task_id)s::UUID, %(step_id)s::UUID, %(attempt_number)s::INTEGER, %(generation)s::BIGINT, %(state)s::VARCHAR, %(started_at)s::TIMESTAMP WITH TIME ZONE, %(ended_at)s::TIMESTAMP WITH TIME ZONE, %(reason)s::VARCHAR, %(worker)s::VARCHAR, %(execution_epoch)s::UUID, %(trace_context)s::JSONB)]
+E   [SQL parameters hidden due to hide_parameters=True]
+E   (Background on this error at: https://sqlalche.me/e/20/gkpj)
+_______ test_attempt_trace_context_survives_crash_and_links_replacement ________
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1969: in _exec_single_context
+    self.dialect.do_execute(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/default.py:952: in do_execute
+    cursor.execute(statement, parameters)
+.venv/lib/python3.14/site-packages/sqlalchemy/dialects/postgresql/psycopg.py:642: in execute
+    result = self.await_(self._cursor.execute(query, params, **kw))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py:132: in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py:196: in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/psycopg/cursor_async.py:117: in execute
+    raise ex.with_traceback(None)
+E   psycopg.errors.CheckViolation: new row for relation "attempts" violates check constraint "attempts_trace_context_check"
+E   DETAIL:  Failing row contains (dbb87fde-8944-4a8b-bf6a-9b325349e682, 8896244e-ea48-4750-8bfd-aeed4871859c, 96f7f223-9e9e-4846-a886-a8df42871389, 1, 1, active, 2026-10-26 23:33:38.391742+00, null, null, trace-worker-lost, 4562a9d6-0dd6-451f-b474-353711aaf204, {"flags": "02", "span_id": "bab9a2b519073742", "trace_id": "656b...).
+
+The above exception was the direct cause of the following exception:
+tests/integration/test_m6_projections.py:123: in test_attempt_trace_context_survives_crash_and_links_replacement
+    first = await executor.claim("trace-worker-lost")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/task_platform/execution.py:250: in claim
+    return await retry_transaction(operation)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/task_platform/tasks.py:83: in retry_transaction
+    return await operation()
+           ^^^^^^^^^^^^^^^^^
+src/task_platform/execution.py:182: in operation
+    async with self.factory.begin() as session:
+               ^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/ext/asyncio/session.py:1804: in __aexit__
+    await asyncio.shield(task)
+.venv/lib/python3.14/site-packages/sqlalchemy/ext/asyncio/session.py:1800: in go
+    await self.trans.__aexit__(type_, value, traceback)
+.venv/lib/python3.14/site-packages/sqlalchemy/ext/asyncio/session.py:1887: in __aexit__
+    await greenlet_spawn(
+.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py:203: in greenlet_spawn
+    result = context.switch(value)
+             ^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/util.py:147: in __exit__
+    with util.safe_reraise():
+         ^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/langhelpers.py:122: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/util.py:145: in __exit__
+    self.commit()
+<string>:2: in commit
+    ???
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/state_changes.py:137: in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py:1316: in commit
+    self._prepare_impl()
+<string>:2: in _prepare_impl
+    ???
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/state_changes.py:137: in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py:1290: in _prepare_impl
+    self.session.flush()
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py:4353: in flush
+    self._flush(objects)
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py:4488: in _flush
+    with util.safe_reraise():
+         ^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/langhelpers.py:122: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py:4449: in _flush
+    flush_context.execute()
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/unitofwork.py:465: in execute
+    rec.execute(self)
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/unitofwork.py:641: in execute
+    util.preloaded.orm_persistence.save_obj(
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/persistence.py:94: in save_obj
+    _emit_insert_statements(
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/persistence.py:1049: in _emit_insert_statements
+    result = connection.execute(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1421: in execute
+    return meth(
+.venv/lib/python3.14/site-packages/sqlalchemy/sql/elements.py:526: in _execute_on_connection
+    return connection._execute_clauseelement(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1643: in _execute_clauseelement
+    ret = self._execute_context(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1848: in _execute_context
+    return self._exec_single_context(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1988: in _exec_single_context
+    self._handle_dbapi_exception(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:2365: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1969: in _exec_single_context
+    self.dialect.do_execute(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/default.py:952: in do_execute
+    cursor.execute(statement, parameters)
+.venv/lib/python3.14/site-packages/sqlalchemy/dialects/postgresql/psycopg.py:642: in execute
+    result = self.await_(self._cursor.execute(query, params, **kw))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py:132: in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py:196: in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/psycopg/cursor_async.py:117: in execute
+    raise ex.with_traceback(None)
+E   sqlalchemy.exc.IntegrityError: (psycopg.errors.CheckViolation) new row for relation "attempts" violates check constraint "attempts_trace_context_check"
+E   DETAIL:  Failing row contains (dbb87fde-8944-4a8b-bf6a-9b325349e682, 8896244e-ea48-4750-8bfd-aeed4871859c, 96f7f223-9e9e-4846-a886-a8df42871389, 1, 1, active, 2026-10-26 23:33:38.391742+00, null, null, trace-worker-lost, 4562a9d6-0dd6-451f-b474-353711aaf204, {"flags": "02", "span_id": "bab9a2b519073742", "trace_id": "656b...).
+E   [SQL: INSERT INTO attempts (id, task_id, step_id, attempt_number, generation, state, started_at, ended_at, reason, worker, execution_epoch, trace_context) VALUES (%(id)s::UUID, %(task_id)s::UUID, %(step_id)s::UUID, %(attempt_number)s::INTEGER, %(generation)s::BIGINT, %(state)s::VARCHAR, %(started_at)s::TIMESTAMP WITH TIME ZONE, %(ended_at)s::TIMESTAMP WITH TIME ZONE, %(reason)s::VARCHAR, %(worker)s::VARCHAR, %(execution_epoch)s::UUID, %(trace_context)s::JSONB)]
+E   [SQL parameters hidden due to hide_parameters=True]
+E   (Background on this error at: https://sqlalche.me/e/20/gkpj)
+_ test_trace_metadata_constraint_rejects_missing_invalid_or_zero_ids[context0] _
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1969: in _exec_single_context
+    self.dialect.do_execute(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/default.py:952: in do_execute
+    cursor.execute(statement, parameters)
+.venv/lib/python3.14/site-packages/sqlalchemy/dialects/postgresql/psycopg.py:642: in execute
+    result = self.await_(self._cursor.execute(query, params, **kw))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py:132: in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py:196: in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/psycopg/cursor_async.py:117: in execute
+    raise ex.with_traceback(None)
+E   psycopg.errors.CheckViolation: new row for relation "attempts" violates check constraint "attempts_trace_context_check"
+E   DETAIL:  Failing row contains (8c1c4293-9e12-4e76-b338-8afd818c5cdc, 57573d63-29a4-453e-adb4-97d0f2a7000e, 5bf913f4-4f38-4ced-bf80-7617b3844d08, 1, 1, active, 2026-10-26 23:33:38.600789+00, null, null, trace-constraint, 4562a9d6-0dd6-451f-b474-353711aaf204, {"flags": "02", "span_id": "7b2decc54a83e8d8", "trace_id": "1130...).
+
+The above exception was the direct cause of the following exception:
+tests/integration/test_m6_projections.py:197: in test_trace_metadata_constraint_rejects_missing_invalid_or_zero_ids
+    lease = await executor.claim("trace-constraint")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/task_platform/execution.py:250: in claim
+    return await retry_transaction(operation)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/task_platform/tasks.py:83: in retry_transaction
+    return await operation()
+           ^^^^^^^^^^^^^^^^^
+src/task_platform/execution.py:182: in operation
+    async with self.factory.begin() as session:
+               ^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/ext/asyncio/session.py:1804: in __aexit__
+    await asyncio.shield(task)
+.venv/lib/python3.14/site-packages/sqlalchemy/ext/asyncio/session.py:1800: in go
+    await self.trans.__aexit__(type_, value, traceback)
+.venv/lib/python3.14/site-packages/sqlalchemy/ext/asyncio/session.py:1887: in __aexit__
+    await greenlet_spawn(
+.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py:203: in greenlet_spawn
+    result = context.switch(value)
+             ^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/util.py:147: in __exit__
+    with util.safe_reraise():
+         ^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/langhelpers.py:122: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/util.py:145: in __exit__
+    self.commit()
+<string>:2: in commit
+    ???
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/state_changes.py:137: in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py:1316: in commit
+    self._prepare_impl()
+<string>:2: in _prepare_impl
+    ???
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/state_changes.py:137: in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py:1290: in _prepare_impl
+    self.session.flush()
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py:4353: in flush
+    self._flush(objects)
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py:4488: in _flush
+    with util.safe_reraise():
+         ^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/langhelpers.py:122: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py:4449: in _flush
+    flush_context.execute()
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/unitofwork.py:465: in execute
+    rec.execute(self)
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/unitofwork.py:641: in execute
+    util.preloaded.orm_persistence.save_obj(
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/persistence.py:94: in save_obj
+    _emit_insert_statements(
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/persistence.py:1049: in _emit_insert_statements
+    result = connection.execute(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1421: in execute
+    return meth(
+.venv/lib/python3.14/site-packages/sqlalchemy/sql/elements.py:526: in _execute_on_connection
+    return connection._execute_clauseelement(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1643: in _execute_clauseelement
+    ret = self._execute_context(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1848: in _execute_context
+    return self._exec_single_context(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1988: in _exec_single_context
+    self._handle_dbapi_exception(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:2365: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1969: in _exec_single_context
+    self.dialect.do_execute(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/default.py:952: in do_execute
+    cursor.execute(statement, parameters)
+.venv/lib/python3.14/site-packages/sqlalchemy/dialects/postgresql/psycopg.py:642: in execute
+    result = self.await_(self._cursor.execute(query, params, **kw))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py:132: in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py:196: in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/psycopg/cursor_async.py:117: in execute
+    raise ex.with_traceback(None)
+E   sqlalchemy.exc.IntegrityError: (psycopg.errors.CheckViolation) new row for relation "attempts" violates check constraint "attempts_trace_context_check"
+E   DETAIL:  Failing row contains (8c1c4293-9e12-4e76-b338-8afd818c5cdc, 57573d63-29a4-453e-adb4-97d0f2a7000e, 5bf913f4-4f38-4ced-bf80-7617b3844d08, 1, 1, active, 2026-10-26 23:33:38.600789+00, null, null, trace-constraint, 4562a9d6-0dd6-451f-b474-353711aaf204, {"flags": "02", "span_id": "7b2decc54a83e8d8", "trace_id": "1130...).
+E   [SQL: INSERT INTO attempts (id, task_id, step_id, attempt_number, generation, state, started_at, ended_at, reason, worker, execution_epoch, trace_context) VALUES (%(id)s::UUID, %(task_id)s::UUID, %(step_id)s::UUID, %(attempt_number)s::INTEGER, %(generation)s::BIGINT, %(state)s::VARCHAR, %(started_at)s::TIMESTAMP WITH TIME ZONE, %(ended_at)s::TIMESTAMP WITH TIME ZONE, %(reason)s::VARCHAR, %(worker)s::VARCHAR, %(execution_epoch)s::UUID, %(trace_context)s::JSONB)]
+E   [SQL parameters hidden due to hide_parameters=True]
+E   (Background on this error at: https://sqlalche.me/e/20/gkpj)
+_ test_trace_metadata_constraint_rejects_missing_invalid_or_zero_ids[context1] _
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1969: in _exec_single_context
+    self.dialect.do_execute(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/default.py:952: in do_execute
+    cursor.execute(statement, parameters)
+.venv/lib/python3.14/site-packages/sqlalchemy/dialects/postgresql/psycopg.py:642: in execute
+    result = self.await_(self._cursor.execute(query, params, **kw))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py:132: in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py:196: in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/psycopg/cursor_async.py:117: in execute
+    raise ex.with_traceback(None)
+E   psycopg.errors.CheckViolation: new row for relation "attempts" violates check constraint "attempts_trace_context_check"
+E   DETAIL:  Failing row contains (b7c658e7-352f-45b3-999b-603e55f499b5, d9fe7d76-6659-4873-b000-977aec158d5a, 0e03c0bd-1682-4db0-94b2-f64d8c8a8c50, 1, 1, active, 2026-10-26 23:33:38.794556+00, null, null, trace-constraint, 4562a9d6-0dd6-451f-b474-353711aaf204, {"flags": "02", "span_id": "ccf7e694601f5f8f", "trace_id": "862a...).
+
+The above exception was the direct cause of the following exception:
+tests/integration/test_m6_projections.py:197: in test_trace_metadata_constraint_rejects_missing_invalid_or_zero_ids
+    lease = await executor.claim("trace-constraint")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/task_platform/execution.py:250: in claim
+    return await retry_transaction(operation)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/task_platform/tasks.py:83: in retry_transaction
+    return await operation()
+           ^^^^^^^^^^^^^^^^^
+src/task_platform/execution.py:182: in operation
+    async with self.factory.begin() as session:
+               ^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/ext/asyncio/session.py:1804: in __aexit__
+    await asyncio.shield(task)
+.venv/lib/python3.14/site-packages/sqlalchemy/ext/asyncio/session.py:1800: in go
+    await self.trans.__aexit__(type_, value, traceback)
+.venv/lib/python3.14/site-packages/sqlalchemy/ext/asyncio/session.py:1887: in __aexit__
+    await greenlet_spawn(
+.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py:203: in greenlet_spawn
+    result = context.switch(value)
+             ^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/util.py:147: in __exit__
+    with util.safe_reraise():
+         ^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/langhelpers.py:122: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/util.py:145: in __exit__
+    self.commit()
+<string>:2: in commit
+    ???
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/state_changes.py:137: in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py:1316: in commit
+    self._prepare_impl()
+<string>:2: in _prepare_impl
+    ???
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/state_changes.py:137: in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py:1290: in _prepare_impl
+    self.session.flush()
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py:4353: in flush
+    self._flush(objects)
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py:4488: in _flush
+    with util.safe_reraise():
+         ^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/langhelpers.py:122: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py:4449: in _flush
+    flush_context.execute()
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/unitofwork.py:465: in execute
+    rec.execute(self)
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/unitofwork.py:641: in execute
+    util.preloaded.orm_persistence.save_obj(
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/persistence.py:94: in save_obj
+    _emit_insert_statements(
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/persistence.py:1049: in _emit_insert_statements
+    result = connection.execute(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1421: in execute
+    return meth(
+.venv/lib/python3.14/site-packages/sqlalchemy/sql/elements.py:526: in _execute_on_connection
+    return connection._execute_clauseelement(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1643: in _execute_clauseelement
+    ret = self._execute_context(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1848: in _execute_context
+    return self._exec_single_context(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1988: in _exec_single_context
+    self._handle_dbapi_exception(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:2365: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1969: in _exec_single_context
+    self.dialect.do_execute(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/default.py:952: in do_execute
+    cursor.execute(statement, parameters)
+.venv/lib/python3.14/site-packages/sqlalchemy/dialects/postgresql/psycopg.py:642: in execute
+    result = self.await_(self._cursor.execute(query, params, **kw))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py:132: in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py:196: in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/psycopg/cursor_async.py:117: in execute
+    raise ex.with_traceback(None)
+E   sqlalchemy.exc.IntegrityError: (psycopg.errors.CheckViolation) new row for relation "attempts" violates check constraint "attempts_trace_context_check"
+E   DETAIL:  Failing row contains (b7c658e7-352f-45b3-999b-603e55f499b5, d9fe7d76-6659-4873-b000-977aec158d5a, 0e03c0bd-1682-4db0-94b2-f64d8c8a8c50, 1, 1, active, 2026-10-26 23:33:38.794556+00, null, null, trace-constraint, 4562a9d6-0dd6-451f-b474-353711aaf204, {"flags": "02", "span_id": "ccf7e694601f5f8f", "trace_id": "862a...).
+E   [SQL: INSERT INTO attempts (id, task_id, step_id, attempt_number, generation, state, started_at, ended_at, reason, worker, execution_epoch, trace_context) VALUES (%(id)s::UUID, %(task_id)s::UUID, %(step_id)s::UUID, %(attempt_number)s::INTEGER, %(generation)s::BIGINT, %(state)s::VARCHAR, %(started_at)s::TIMESTAMP WITH TIME ZONE, %(ended_at)s::TIMESTAMP WITH TIME ZONE, %(reason)s::VARCHAR, %(worker)s::VARCHAR, %(execution_epoch)s::UUID, %(trace_context)s::JSONB)]
+E   [SQL parameters hidden due to hide_parameters=True]
+E   (Background on this error at: https://sqlalche.me/e/20/gkpj)
+_ test_trace_metadata_constraint_rejects_missing_invalid_or_zero_ids[context2] _
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1969: in _exec_single_context
+    self.dialect.do_execute(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/default.py:952: in do_execute
+    cursor.execute(statement, parameters)
+.venv/lib/python3.14/site-packages/sqlalchemy/dialects/postgresql/psycopg.py:642: in execute
+    result = self.await_(self._cursor.execute(query, params, **kw))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py:132: in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py:196: in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/psycopg/cursor_async.py:117: in execute
+    raise ex.with_traceback(None)
+E   psycopg.errors.CheckViolation: new row for relation "attempts" violates check constraint "attempts_trace_context_check"
+E   DETAIL:  Failing row contains (3018bfde-6ea6-4fcf-9534-50ca40dbc346, 154932f2-dc4c-4770-9f3f-400c565e078c, 33ccf6ba-9e41-4c6b-90e2-80e37efaf5c5, 1, 1, active, 2026-10-26 23:33:38.994732+00, null, null, trace-constraint, 4562a9d6-0dd6-451f-b474-353711aaf204, {"flags": "02", "span_id": "b2fddcd4f6f37302", "trace_id": "9e27...).
+
+The above exception was the direct cause of the following exception:
+tests/integration/test_m6_projections.py:197: in test_trace_metadata_constraint_rejects_missing_invalid_or_zero_ids
+    lease = await executor.claim("trace-constraint")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/task_platform/execution.py:250: in claim
+    return await retry_transaction(operation)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/task_platform/tasks.py:83: in retry_transaction
+    return await operation()
+           ^^^^^^^^^^^^^^^^^
+src/task_platform/execution.py:182: in operation
+    async with self.factory.begin() as session:
+               ^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/ext/asyncio/session.py:1804: in __aexit__
+    await asyncio.shield(task)
+.venv/lib/python3.14/site-packages/sqlalchemy/ext/asyncio/session.py:1800: in go
+    await self.trans.__aexit__(type_, value, traceback)
+.venv/lib/python3.14/site-packages/sqlalchemy/ext/asyncio/session.py:1887: in __aexit__
+    await greenlet_spawn(
+.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py:203: in greenlet_spawn
+    result = context.switch(value)
+             ^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/util.py:147: in __exit__
+    with util.safe_reraise():
+         ^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/langhelpers.py:122: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/util.py:145: in __exit__
+    self.commit()
+<string>:2: in commit
+    ???
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/state_changes.py:137: in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py:1316: in commit
+    self._prepare_impl()
+<string>:2: in _prepare_impl
+    ???
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/state_changes.py:137: in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py:1290: in _prepare_impl
+    self.session.flush()
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py:4353: in flush
+    self._flush(objects)
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py:4488: in _flush
+    with util.safe_reraise():
+         ^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/langhelpers.py:122: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py:4449: in _flush
+    flush_context.execute()
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/unitofwork.py:465: in execute
+    rec.execute(self)
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/unitofwork.py:641: in execute
+    util.preloaded.orm_persistence.save_obj(
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/persistence.py:94: in save_obj
+    _emit_insert_statements(
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/persistence.py:1049: in _emit_insert_statements
+    result = connection.execute(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1421: in execute
+    return meth(
+.venv/lib/python3.14/site-packages/sqlalchemy/sql/elements.py:526: in _execute_on_connection
+    return connection._execute_clauseelement(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1643: in _execute_clauseelement
+    ret = self._execute_context(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1848: in _execute_context
+    return self._exec_single_context(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1988: in _exec_single_context
+    self._handle_dbapi_exception(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:2365: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1969: in _exec_single_context
+    self.dialect.do_execute(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/default.py:952: in do_execute
+    cursor.execute(statement, parameters)
+.venv/lib/python3.14/site-packages/sqlalchemy/dialects/postgresql/psycopg.py:642: in execute
+    result = self.await_(self._cursor.execute(query, params, **kw))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py:132: in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py:196: in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/psycopg/cursor_async.py:117: in execute
+    raise ex.with_traceback(None)
+E   sqlalchemy.exc.IntegrityError: (psycopg.errors.CheckViolation) new row for relation "attempts" violates check constraint "attempts_trace_context_check"
+E   DETAIL:  Failing row contains (3018bfde-6ea6-4fcf-9534-50ca40dbc346, 154932f2-dc4c-4770-9f3f-400c565e078c, 33ccf6ba-9e41-4c6b-90e2-80e37efaf5c5, 1, 1, active, 2026-10-26 23:33:38.994732+00, null, null, trace-constraint, 4562a9d6-0dd6-451f-b474-353711aaf204, {"flags": "02", "span_id": "b2fddcd4f6f37302", "trace_id": "9e27...).
+E   [SQL: INSERT INTO attempts (id, task_id, step_id, attempt_number, generation, state, started_at, ended_at, reason, worker, execution_epoch, trace_context) VALUES (%(id)s::UUID, %(task_id)s::UUID, %(step_id)s::UUID, %(attempt_number)s::INTEGER, %(generation)s::BIGINT, %(state)s::VARCHAR, %(started_at)s::TIMESTAMP WITH TIME ZONE, %(ended_at)s::TIMESTAMP WITH TIME ZONE, %(reason)s::VARCHAR, %(worker)s::VARCHAR, %(execution_epoch)s::UUID, %(trace_context)s::JSONB)]
+E   [SQL parameters hidden due to hide_parameters=True]
+E   (Background on this error at: https://sqlalche.me/e/20/gkpj)
+_ test_trace_metadata_constraint_rejects_missing_invalid_or_zero_ids[context3] _
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1969: in _exec_single_context
+    self.dialect.do_execute(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/default.py:952: in do_execute
+    cursor.execute(statement, parameters)
+.venv/lib/python3.14/site-packages/sqlalchemy/dialects/postgresql/psycopg.py:642: in execute
+    result = self.await_(self._cursor.execute(query, params, **kw))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py:132: in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py:196: in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/psycopg/cursor_async.py:117: in execute
+    raise ex.with_traceback(None)
+E   psycopg.errors.CheckViolation: new row for relation "attempts" violates check constraint "attempts_trace_context_check"
+E   DETAIL:  Failing row contains (9d53cd6e-6c48-41b6-976a-c91c44633ceb, 63552b5b-296a-4f5e-8dac-65f69f4e9591, 50fdfd6a-880c-46fc-986a-3ce8db99a742, 1, 1, active, 2026-10-26 23:33:39.191301+00, null, null, trace-constraint, 4562a9d6-0dd6-451f-b474-353711aaf204, {"flags": "02", "span_id": "bdf143149dfe7fd9", "trace_id": "ff3b...).
+
+The above exception was the direct cause of the following exception:
+tests/integration/test_m6_projections.py:197: in test_trace_metadata_constraint_rejects_missing_invalid_or_zero_ids
+    lease = await executor.claim("trace-constraint")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/task_platform/execution.py:250: in claim
+    return await retry_transaction(operation)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/task_platform/tasks.py:83: in retry_transaction
+    return await operation()
+           ^^^^^^^^^^^^^^^^^
+src/task_platform/execution.py:182: in operation
+    async with self.factory.begin() as session:
+               ^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/ext/asyncio/session.py:1804: in __aexit__
+    await asyncio.shield(task)
+.venv/lib/python3.14/site-packages/sqlalchemy/ext/asyncio/session.py:1800: in go
+    await self.trans.__aexit__(type_, value, traceback)
+.venv/lib/python3.14/site-packages/sqlalchemy/ext/asyncio/session.py:1887: in __aexit__
+    await greenlet_spawn(
+.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py:203: in greenlet_spawn
+    result = context.switch(value)
+             ^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/util.py:147: in __exit__
+    with util.safe_reraise():
+         ^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/langhelpers.py:122: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/util.py:145: in __exit__
+    self.commit()
+<string>:2: in commit
+    ???
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/state_changes.py:137: in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py:1316: in commit
+    self._prepare_impl()
+<string>:2: in _prepare_impl
+    ???
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/state_changes.py:137: in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py:1290: in _prepare_impl
+    self.session.flush()
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py:4353: in flush
+    self._flush(objects)
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py:4488: in _flush
+    with util.safe_reraise():
+         ^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/langhelpers.py:122: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py:4449: in _flush
+    flush_context.execute()
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/unitofwork.py:465: in execute
+    rec.execute(self)
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/unitofwork.py:641: in execute
+    util.preloaded.orm_persistence.save_obj(
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/persistence.py:94: in save_obj
+    _emit_insert_statements(
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/persistence.py:1049: in _emit_insert_statements
+    result = connection.execute(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1421: in execute
+    return meth(
+.venv/lib/python3.14/site-packages/sqlalchemy/sql/elements.py:526: in _execute_on_connection
+    return connection._execute_clauseelement(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1643: in _execute_clauseelement
+    ret = self._execute_context(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1848: in _execute_context
+    return self._exec_single_context(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1988: in _exec_single_context
+    self._handle_dbapi_exception(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:2365: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1969: in _exec_single_context
+    self.dialect.do_execute(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/default.py:952: in do_execute
+    cursor.execute(statement, parameters)
+.venv/lib/python3.14/site-packages/sqlalchemy/dialects/postgresql/psycopg.py:642: in execute
+    result = self.await_(self._cursor.execute(query, params, **kw))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py:132: in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py:196: in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/psycopg/cursor_async.py:117: in execute
+    raise ex.with_traceback(None)
+E   sqlalchemy.exc.IntegrityError: (psycopg.errors.CheckViolation) new row for relation "attempts" violates check constraint "attempts_trace_context_check"
+E   DETAIL:  Failing row contains (9d53cd6e-6c48-41b6-976a-c91c44633ceb, 63552b5b-296a-4f5e-8dac-65f69f4e9591, 50fdfd6a-880c-46fc-986a-3ce8db99a742, 1, 1, active, 2026-10-26 23:33:39.191301+00, null, null, trace-constraint, 4562a9d6-0dd6-451f-b474-353711aaf204, {"flags": "02", "span_id": "bdf143149dfe7fd9", "trace_id": "ff3b...).
+E   [SQL: INSERT INTO attempts (id, task_id, step_id, attempt_number, generation, state, started_at, ended_at, reason, worker, execution_epoch, trace_context) VALUES (%(id)s::UUID, %(task_id)s::UUID, %(step_id)s::UUID, %(attempt_number)s::INTEGER, %(generation)s::BIGINT, %(state)s::VARCHAR, %(started_at)s::TIMESTAMP WITH TIME ZONE, %(ended_at)s::TIMESTAMP WITH TIME ZONE, %(reason)s::VARCHAR, %(worker)s::VARCHAR, %(execution_epoch)s::UUID, %(trace_context)s::JSONB)]
+E   [SQL parameters hidden due to hide_parameters=True]
+E   (Background on this error at: https://sqlalche.me/e/20/gkpj)
+_ test_trace_metadata_constraint_rejects_missing_invalid_or_zero_ids[context4] _
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1969: in _exec_single_context
+    self.dialect.do_execute(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/default.py:952: in do_execute
+    cursor.execute(statement, parameters)
+.venv/lib/python3.14/site-packages/sqlalchemy/dialects/postgresql/psycopg.py:642: in execute
+    result = self.await_(self._cursor.execute(query, params, **kw))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py:132: in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py:196: in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/psycopg/cursor_async.py:117: in execute
+    raise ex.with_traceback(None)
+E   psycopg.errors.CheckViolation: new row for relation "attempts" violates check constraint "attempts_trace_context_check"
+E   DETAIL:  Failing row contains (bf807692-bf3d-428e-86c9-9834a0b6a712, c67637b7-9ce0-4534-95fd-716517ba4128, 7a5d7584-92c8-407e-b518-762f1fc7810a, 1, 1, active, 2026-10-26 23:33:39.391668+00, null, null, trace-constraint, 4562a9d6-0dd6-451f-b474-353711aaf204, {"flags": "02", "span_id": "9dad10b1b9645dc7", "trace_id": "1b4d...).
+
+The above exception was the direct cause of the following exception:
+tests/integration/test_m6_projections.py:197: in test_trace_metadata_constraint_rejects_missing_invalid_or_zero_ids
+    lease = await executor.claim("trace-constraint")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/task_platform/execution.py:250: in claim
+    return await retry_transaction(operation)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/task_platform/tasks.py:83: in retry_transaction
+    return await operation()
+           ^^^^^^^^^^^^^^^^^
+src/task_platform/execution.py:182: in operation
+    async with self.factory.begin() as session:
+               ^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/ext/asyncio/session.py:1804: in __aexit__
+    await asyncio.shield(task)
+.venv/lib/python3.14/site-packages/sqlalchemy/ext/asyncio/session.py:1800: in go
+    await self.trans.__aexit__(type_, value, traceback)
+.venv/lib/python3.14/site-packages/sqlalchemy/ext/asyncio/session.py:1887: in __aexit__
+    await greenlet_spawn(
+.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py:203: in greenlet_spawn
+    result = context.switch(value)
+             ^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/util.py:147: in __exit__
+    with util.safe_reraise():
+         ^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/langhelpers.py:122: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/util.py:145: in __exit__
+    self.commit()
+<string>:2: in commit
+    ???
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/state_changes.py:137: in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py:1316: in commit
+    self._prepare_impl()
+<string>:2: in _prepare_impl
+    ???
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/state_changes.py:137: in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py:1290: in _prepare_impl
+    self.session.flush()
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py:4353: in flush
+    self._flush(objects)
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py:4488: in _flush
+    with util.safe_reraise():
+         ^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/langhelpers.py:122: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py:4449: in _flush
+    flush_context.execute()
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/unitofwork.py:465: in execute
+    rec.execute(self)
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/unitofwork.py:641: in execute
+    util.preloaded.orm_persistence.save_obj(
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/persistence.py:94: in save_obj
+    _emit_insert_statements(
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/persistence.py:1049: in _emit_insert_statements
+    result = connection.execute(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1421: in execute
+    return meth(
+.venv/lib/python3.14/site-packages/sqlalchemy/sql/elements.py:526: in _execute_on_connection
+    return connection._execute_clauseelement(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1643: in _execute_clauseelement
+    ret = self._execute_context(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1848: in _execute_context
+    return self._exec_single_context(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1988: in _exec_single_context
+    self._handle_dbapi_exception(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:2365: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1969: in _exec_single_context
+    self.dialect.do_execute(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/default.py:952: in do_execute
+    cursor.execute(statement, parameters)
+.venv/lib/python3.14/site-packages/sqlalchemy/dialects/postgresql/psycopg.py:642: in execute
+    result = self.await_(self._cursor.execute(query, params, **kw))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py:132: in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py:196: in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/psycopg/cursor_async.py:117: in execute
+    raise ex.with_traceback(None)
+E   sqlalchemy.exc.IntegrityError: (psycopg.errors.CheckViolation) new row for relation "attempts" violates check constraint "attempts_trace_context_check"
+E   DETAIL:  Failing row contains (bf807692-bf3d-428e-86c9-9834a0b6a712, c67637b7-9ce0-4534-95fd-716517ba4128, 7a5d7584-92c8-407e-b518-762f1fc7810a, 1, 1, active, 2026-10-26 23:33:39.391668+00, null, null, trace-constraint, 4562a9d6-0dd6-451f-b474-353711aaf204, {"flags": "02", "span_id": "9dad10b1b9645dc7", "trace_id": "1b4d...).
+E   [SQL: INSERT INTO attempts (id, task_id, step_id, attempt_number, generation, state, started_at, ended_at, reason, worker, execution_epoch, trace_context) VALUES (%(id)s::UUID, %(task_id)s::UUID, %(step_id)s::UUID, %(attempt_number)s::INTEGER, %(generation)s::BIGINT, %(state)s::VARCHAR, %(started_at)s::TIMESTAMP WITH TIME ZONE, %(ended_at)s::TIMESTAMP WITH TIME ZONE, %(reason)s::VARCHAR, %(worker)s::VARCHAR, %(execution_epoch)s::UUID, %(trace_context)s::JSONB)]
+E   [SQL parameters hidden due to hide_parameters=True]
+E   (Background on this error at: https://sqlalche.me/e/20/gkpj)
+=========================== short test summary info ============================
+FAILED tests/integration/test_m6_projections.py::test_usage_distinguishes_estimate_provision_invoice_and_owner
+FAILED tests/integration/test_m6_projections.py::test_attempt_trace_context_survives_crash_and_links_replacement
+FAILED tests/integration/test_m6_projections.py::test_trace_metadata_constraint_rejects_missing_invalid_or_zero_ids[context0]
+FAILED tests/integration/test_m6_projections.py::test_trace_metadata_constraint_rejects_missing_invalid_or_zero_ids[context1]
+FAILED tests/integration/test_m6_projections.py::test_trace_metadata_constraint_rejects_missing_invalid_or_zero_ids[context2]
+FAILED tests/integration/test_m6_projections.py::test_trace_metadata_constraint_rejects_missing_invalid_or_zero_ids[context3]
+FAILED tests/integration/test_m6_projections.py::test_trace_metadata_constraint_rejects_missing_invalid_or_zero_ids[context4]
+7 failed, 5 passed in 2.27s

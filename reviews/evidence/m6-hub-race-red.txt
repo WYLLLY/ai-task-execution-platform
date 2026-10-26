@@ -1,0 +1,18 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+______ test_poll_invalidation_during_read_does_not_republish_stale_cache _______
+tests/unit/test_event_hub.py:46: in test_poll_invalidation_during_read_does_not_republish_stale_cache
+    assert fresh.watermark == 1
+E   assert 0 == 1
+E    +  where 0 = Batch(position=0, watermark=0, oldest=1, events=()).watermark
+_____________ test_read_ahead_of_poller_does_not_create_busy_wait ______________
+tests/unit/test_event_hub.py:57: in test_read_ahead_of_poller_does_not_create_busy_wait
+    assert not waiting.done(), "older metadata is not a new event"
+E   AssertionError: older metadata is not a new event
+E   assert not True
+E    +  where True = <built-in method done of _asyncio.Task object at 0x10ae6ef90>()
+E    +    where <built-in method done of _asyncio.Task object at 0x10ae6ef90> = <Task finished name='Task-6' coro=<Hub.wait() done, defined at /Users/william/Documents/Projet 2/src/task_platform/event_hub.py:117> result=None>.done
+=========================== short test summary info ============================
+FAILED tests/unit/test_event_hub.py::test_poll_invalidation_during_read_does_not_republish_stale_cache
+FAILED tests/unit/test_event_hub.py::test_read_ahead_of_poller_does_not_create_busy_wait
+2 failed in 0.28s

@@ -1,0 +1,24 @@
+time="2026-10-26T20:03:59+01:00" level=warning msg="Found orphan containers (atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-3a83a4e4be98 Creating
+ Container atp-m1-test-test-run-3a83a4e4be98 Created
+........................................................................ [ 11%]
+........................................................................ [ 22%]
+........................................................................ [ 33%]
+....................F................................................... [ 45%]
+........................................................................ [ 56%]
+........................................................................ [ 67%]
+........................................................................ [ 78%]
+........................................................................ [ 90%]
+................................................................         [100%]
+=================================== FAILURES ===================================
+___ test_unhandled_http_errors_do_not_disclose_exception_or_request_canaries ___
+/Users/william/Documents/Projet 2/tests/integration/test_foundation_adversarial.py:618: in test_unhandled_http_errors_do_not_disclose_exception_or_request_canaries
+    ???
+E   AssertionError: assert 'request.failed' in ''
+E    +  where '' = <built-in method getvalue of _io.StringIO object at 0xff55144543a0>()
+E    +    where <built-in method getvalue of _io.StringIO object at 0xff55144543a0> = <_io.StringIO object at 0xff55144543a0>.getvalue
+------------------------------ Captured log call -------------------------------
+ERROR    task_platform.http_boundary:http_boundary.py:39
+=========================== short test summary info ============================
+FAILED tests/integration/test_foundation_adversarial.py::test_unhandled_http_errors_do_not_disclose_exception_or_request_canaries
+1 failed, 639 passed in 204.97s (0:03:24)

@@ -1,0 +1,14 @@
+time="2026-10-26T20:02:00+01:00" level=warning msg="Found orphan containers (atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-6bc3f661c7a4 Creating
+ Container atp-m1-test-test-run-6bc3f661c7a4 Created
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_________ test_http_middleware_cannot_ack_or_buffer_an_unwritten_event _________
+tests/integration/test_sse.py:153: in test_http_middleware_cannot_ack_or_buffer_an_unwritten_event
+    assert streams[0].position == 0, "cursor advanced before real ASGI send completed"
+E   AssertionError: cursor advanced before real ASGI send completed
+E   assert 1 == 0
+E    +  where 1 = <tests.integration.test_sse.test_http_middleware_cannot_ack_or_buffer_an_unwritten_event.<locals>.ShortWrite object at 0xecd3fe849d30>.position
+=========================== short test summary info ============================
+FAILED tests/integration/test_sse.py::test_http_middleware_cannot_ack_or_buffer_an_unwritten_event
+1 failed, 3 deselected in 0.53s

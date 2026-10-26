@@ -1,0 +1,32 @@
+time="2026-10-26T20:11:51+01:00" level=warning msg="Found orphan containers (atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-a9d37394ac9d Creating
+ Container atp-m1-test-test-run-a9d37394ac9d Created
+FFFF                                                                     [100%]
+=================================== FAILURES ===================================
+________ test_usage_distinguishes_estimate_provision_invoice_and_owner _________
+tests/integration/test_m6_projections.py:35: in test_usage_distinguishes_estimate_provision_invoice_and_owner
+    assert response.status_code == 200, "M6 must expose owner-scoped usage"
+E   AssertionError: M6 must expose owner-scoped usage
+E   assert 404 == 200
+E    +  where 404 = <Response [404 Not Found]>.status_code
+______________ test_m6_tombstone_schema_and_private_owner_lookup _______________
+tests/integration/test_m6_projections.py:73: in test_m6_tombstone_schema_and_private_owner_lookup
+    assert await c.scalar(text("SELECT to_regclass('public.task_tombstones')")), (
+E   AssertionError: missing retained ownership
+E   assert None
+_______ test_attempt_trace_context_survives_crash_and_links_replacement ________
+tests/integration/test_m6_projections.py:120: in test_attempt_trace_context_survives_crash_and_links_replacement
+    assert "trace_context" in columns, "attempt trace must survive process loss"
+E   AssertionError: attempt trace must survive process loss
+E   assert 'trace_context' in ['id', 'task_id', 'step_id', 'attempt_number', 'generation', 'started_at', ...]
+_____________ test_api_cannot_reclassify_cost_or_write_tombstones ______________
+tests/integration/test_m6_projections.py:162: in test_api_cannot_reclassify_cost_or_write_tombstones
+    assert await c.scalar(text("SELECT to_regclass('public.task_tombstones')")), (
+E   AssertionError: missing ownership schema
+E   assert None
+=========================== short test summary info ============================
+FAILED tests/integration/test_m6_projections.py::test_usage_distinguishes_estimate_provision_invoice_and_owner
+FAILED tests/integration/test_m6_projections.py::test_m6_tombstone_schema_and_private_owner_lookup
+FAILED tests/integration/test_m6_projections.py::test_attempt_trace_context_survives_crash_and_links_replacement
+FAILED tests/integration/test_m6_projections.py::test_api_cannot_reclassify_cost_or_write_tombstones
+4 failed in 0.57s

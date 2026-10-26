@@ -1,0 +1,28 @@
+time="2026-10-27T00:17:36+01:00" level=warning msg="Found orphan containers (atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-cecafa05c796 Creating
+ Container atp-m1-test-test-run-cecafa05c796 Created
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+___ test_runtime_metrics_are_bounded_and_event_gap_raises_actionable_signal ____
+tests/integration/test_observability.py:28: in test_runtime_metrics_are_bounded_and_event_gap_raises_actionable_signal
+    assert metric.status_code == 200, "M6 must expose local process metrics"
+E   AssertionError: M6 must expose local process metrics
+E   assert 404 == 200
+E    +  where 404 = <Response [404 Not Found]>.status_code
+_______________ test_admin_operational_command_and_role_boundary _______________
+tests/integration/test_observability.py:53: in test_admin_operational_command_and_role_boundary
+    body = json.loads(result.stdout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.14/json/__init__.py:352: in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.14/json/decoder.py:345: in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.14/json/decoder.py:363: in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+E   json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+=========================== short test summary info ============================
+FAILED tests/integration/test_observability.py::test_runtime_metrics_are_bounded_and_event_gap_raises_actionable_signal
+FAILED tests/integration/test_observability.py::test_admin_operational_command_and_role_boundary
+2 failed in 0.27s

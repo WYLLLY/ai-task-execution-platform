@@ -1,0 +1,19 @@
+time="2026-10-27T00:44:03+01:00" level=warning msg="Found orphan containers (atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-b126042d7a5b Creating
+ Container atp-m1-test-test-run-b126042d7a5b Created
+........................................................................ [ 10%]
+................... Container atp-m1-test-redis-1 Stopping
+ Container atp-m1-test-redis-1 Stopped
+ Container atp-m1-test-redis-1 Starting
+ Container atp-m1-test-redis-1 Started
+..................................................... [ 20%]
+........................................................................ [ 31%]
+........................................................................ [ 41%]
+........................................................................ [ 52%]
+........................................................................ [ 62%]
+........................................................................ [ 73%]
+........................................................................ [ 83%]
+........................................................................ [ 94%]
+........................................                                 [100%]
+688 passed in 163.78s (0:02:43)
+M6_DEGRADED_PROFILE {"streams": 100, "followed_tasks": 20, "reads": 120, "scheduled_reads_per_second": 10, "duration_seconds": 11.975, "read_p95_seconds": 0.0183, "new_creation": 503, "replay": 202, "control": 200, "heartbeat_interval_seconds": 10, "heartbeat_renewed": true, "stream_errors": 0, "physical_requests": 1, "remote_effects": 1, "committed_execution": true}

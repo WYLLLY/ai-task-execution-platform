@@ -1,0 +1,12 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_____ test_safe_correlation_ids_are_retained_without_arbitrary_attributes ______
+tests/unit/test_telemetry.py:17: in test_safe_correlation_ids_are_retained_without_arbitrary_attributes
+    assert value["event"] == "trace.completed"
+E   AssertionError: assert 'diagnostic' == 'trace.completed'
+E
+E     - trace.completed
+E     + diagnostic
+=========================== short test summary info ============================
+FAILED tests/unit/test_telemetry.py::test_safe_correlation_ids_are_retained_without_arbitrary_attributes
+1 failed in 0.01s

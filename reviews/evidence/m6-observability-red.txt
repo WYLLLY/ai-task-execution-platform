@@ -1,0 +1,21 @@
+time="2026-10-27T00:17:52+01:00" level=warning msg="Found orphan containers (atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-67106640316e Creating
+ Container atp-m1-test-test-run-67106640316e Created
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+___ test_runtime_metrics_are_bounded_and_event_gap_raises_actionable_signal ____
+tests/integration/test_observability.py:28: in test_runtime_metrics_are_bounded_and_event_gap_raises_actionable_signal
+    assert metric.status_code == 200, "M6 must expose local process metrics"
+E   AssertionError: M6 must expose local process metrics
+E   assert 404 == 200
+E    +  where 404 = <Response [404 Not Found]>.status_code
+_______________ test_admin_operational_command_and_role_boundary _______________
+tests/integration/test_observability.py:62: in test_admin_operational_command_and_role_boundary
+    assert result.returncode == 0, "administrative operations command is missing"
+E   AssertionError: administrative operations command is missing
+E   assert 2 == 0
+E    +  where 2 = CompletedProcess(args=['/app/.venv/bin/python', '-c', 'from task_platform.cli import main; main()', 'admin', 'operatio...principal-create', 'key-create', 'key-revoke', 'principal-disable', 'admission', 'workflow-availability', 'corpus')\n").returncode
+=========================== short test summary info ============================
+FAILED tests/integration/test_observability.py::test_runtime_metrics_are_bounded_and_event_gap_raises_actionable_signal
+FAILED tests/integration/test_observability.py::test_admin_operational_command_and_role_boundary
+2 failed in 0.26s
