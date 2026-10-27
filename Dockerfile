@@ -11,6 +11,12 @@ FROM python:3.14.8-slim-bookworm@sha256:48b13b003dda20b16f9442b8475aa05fe21bf657
 ENV PATH="/app/.venv/bin:$PATH" PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
 WORKDIR /app
 COPY --from=build /app/.venv /app/.venv
+RUN rm -rf /usr/local/lib/python3.14/ensurepip \
+    /usr/local/lib/python3.14/site-packages/pip \
+    /usr/local/lib/python3.14/site-packages/pip-*.dist-info /usr/local/bin/pip*
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libssl3=3.0.22-1~deb12u2 openssl=3.0.22-1~deb12u2 \
+    && rm -rf /var/lib/apt/lists/*
 COPY --from=build /app/tokenizer-cache /app/tokenizer-cache
 ENV TIKTOKEN_CACHE_DIR=/app/tokenizer-cache
 COPY migrations ./migrations
