@@ -331,6 +331,18 @@ class Executor:
                     )
                 if reason is None:
                     reason = await self.authorization_reason(session, task, step, payload)
+                # Validation may wait on source reads. Authority is time-bounded
+                # even while its identity/permission rows remain locked.
+                if not await owns(session, lease, rows):
+                    return None
+                measured_at = time.monotonic()
+                now = await db_now(session)
+                if key is not None and key.expires_at is not None and key.expires_at <= now:
+                    reason = "permission_revoked"
+                if reason is None:
+                    reason = await admission_reason(
+                        session, task, provider, now, reserved_cost, reserved_tokens, kind=kind
+                    )
                 storage_charge = self.payload_storage_charge(step, payload)
                 if (
                     owner.storage_bytes + storage_charge > owner.max_storage_bytes
@@ -383,6 +395,15 @@ class Executor:
                 step.selected_call_id = call_id
                 task.task_version += 1
                 event(session, task, "call.authorized")
+                # Flush every staged write before the final fresh-clock guard.
+                # If an INSERT/FK wait crossed expiry, roll back B in full.
+                await session.flush()
+                final_now = await db_now(session)
+                if not await owns(session, lease, rows) or (
+                    key.expires_at is not None and key.expires_at <= final_now
+                ):
+                    await session.rollback()
+                    return None
                 return Permit(
                     call_id, payload, (task.deadline_at - now).total_seconds(), measured_at
                 )
