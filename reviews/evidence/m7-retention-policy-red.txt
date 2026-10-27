@@ -1,0 +1,137 @@
+.FFF.F.F...FFFFFFFFF.FFFFFFF                                             [100%]
+=================================== FAILURES ===================================
+_______ test_sensitive_content_waits_30_days_after_termination[30-True] ________
+tests/unit/test_retention_policy.py:17: in test_sensitive_content_waits_30_days_after_termination
+    assert value.content is due
+E   assert False is True
+E    +  where False = Due(content=False, response=False, tombstone=False, financial=False).content
+_______ test_sensitive_content_waits_30_days_after_termination[31-True] ________
+tests/unit/test_retention_policy.py:17: in test_sensitive_content_waits_30_days_after_termination
+    assert value.content is due
+E   assert False is True
+E    +  where False = Due(content=False, response=False, tombstone=False, financial=False).content
+_____ test_nonterminal_content_and_unresolved_finances_never_expire_by_age _____
+tests/unit/test_retention_policy.py:23: in test_nonterminal_content_and_unresolved_finances_never_expire_by_age
+    assert value.response
+E   assert False
+E    +  where False = Due(content=False, response=False, tombstone=False, financial=False).response
+____________ test_response_clock_starts_at_acceptance[2592000-True] ____________
+tests/unit/test_retention_policy.py:28: in test_response_clock_starts_at_acceptance
+    assert retention_due(NOW, accepted_at=NOW - timedelta(seconds=seconds)).response is due
+E   assert False is True
+E    +  where False = Due(content=False, response=False, tombstone=False, financial=False).response
+E    +    where Due(content=False, response=False, tombstone=False, financial=False) = retention_due(datetime.datetime(2026, 10, 27, 0, 0, tzinfo=datetime.timezone.utc), accepted_at=(datetime.datetime(2026, 10, 27, 0, 0, tzinfo=datetime.timezone.utc) - datetime.timedelta(days=30)))
+E    +      where datetime.timedelta(days=30) = timedelta(seconds=2592000)
+___________ test_tombstone_has_its_own_90_day_minimum[7776000-True] ____________
+tests/unit/test_retention_policy.py:36: in test_tombstone_has_its_own_90_day_minimum
+    assert value.tombstone is due
+E   assert False is True
+E    +  where False = Due(content=False, response=False, tombstone=False, financial=False).tombstone
+___________ test_financial_clock_waits_for_resolution[7776000-True] ____________
+tests/unit/test_retention_policy.py:57: in test_financial_clock_waits_for_resolution
+    assert value.financial is due
+E   assert False is True
+E    +  where False = Due(content=False, response=False, tombstone=False, financial=False).financial
+_____________ test_exposure_is_a_bounded_nonnegative_integer[True] _____________
+tests/unit/test_retention_policy.py:62: in test_exposure_is_a_bounded_nonnegative_integer
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+______________ test_exposure_is_a_bounded_nonnegative_integer[-1] ______________
+tests/unit/test_retention_policy.py:62: in test_exposure_is_a_bounded_nonnegative_integer
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+_____ test_exposure_is_a_bounded_nonnegative_integer[9223372036854775808] ______
+tests/unit/test_retention_policy.py:62: in test_exposure_is_a_bounded_nonnegative_integer
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+_____________ test_exposure_is_a_bounded_nonnegative_integer[1.1] ______________
+tests/unit/test_retention_policy.py:62: in test_exposure_is_a_bounded_nonnegative_integer
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+_________ test_naive_and_future_retention_clocks_are_rejected[stamp0] __________
+tests/unit/test_retention_policy.py:68: in test_naive_and_future_retention_clocks_are_rejected
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+_________ test_naive_and_future_retention_clocks_are_rejected[stamp1] __________
+tests/unit/test_retention_policy.py:68: in test_naive_and_future_retention_clocks_are_rejected
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+__________________ test_termination_cannot_precede_acceptance __________________
+tests/unit/test_retention_policy.py:73: in test_termination_cannot_precede_acceptance
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+_______________ test_boundary_is_instant_based_across_timezones ________________
+tests/unit/test_retention_policy.py:81: in test_boundary_is_instant_based_across_timezones
+    assert retention_due(NOW, accepted_at=earlier.astimezone(timezone(timedelta(hours=9)))).response
+E   AssertionError: assert False
+E    +  where False = Due(content=False, response=False, tombstone=False, financial=False).response
+E    +    where Due(content=False, response=False, tombstone=False, financial=False) = retention_due(datetime.datetime(2026, 10, 27, 0, 0, tzinfo=datetime.timezone.utc), accepted_at=datetime.datetime(2026, 9, 27, 9, 0, tzinfo=datetime.timezone(datetime.timedelta(seconds=32400))))
+E    +      where datetime.datetime(2026, 9, 27, 9, 0, tzinfo=datetime.timezone(datetime.timedelta(seconds=32400))) = <built-in method astimezone of datetime.datetime object at 0x10b55bc00>(datetime.timezone(datetime.timedelta(seconds=32400)))
+E    +        where <built-in method astimezone of datetime.datetime object at 0x10b55bc00> = datetime.datetime(2026, 9, 27, 0, 0, tzinfo=datetime.timezone.utc).astimezone
+E    +        and   datetime.timezone(datetime.timedelta(seconds=32400)) = <class 'datetime.timezone'>(datetime.timedelta(seconds=32400))
+E    +          where datetime.timedelta(seconds=32400) = timedelta(hours=9)
+___________ test_every_optional_clock_is_validated[bad0-terminal_at] ___________
+tests/unit/test_retention_policy.py:93: in test_every_optional_clock_is_validated
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+___________ test_every_optional_clock_is_validated[bad0-resolved_at] ___________
+tests/unit/test_retention_policy.py:93: in test_every_optional_clock_is_validated
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+__________ test_every_optional_clock_is_validated[bad0-tombstoned_at] __________
+tests/unit/test_retention_policy.py:93: in test_every_optional_clock_is_validated
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+___________ test_every_optional_clock_is_validated[bad1-terminal_at] ___________
+tests/unit/test_retention_policy.py:93: in test_every_optional_clock_is_validated
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+___________ test_every_optional_clock_is_validated[bad1-resolved_at] ___________
+tests/unit/test_retention_policy.py:93: in test_every_optional_clock_is_validated
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+__________ test_every_optional_clock_is_validated[bad1-tombstoned_at] __________
+tests/unit/test_retention_policy.py:93: in test_every_optional_clock_is_validated
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+_____________________ test_naive_current_time_is_rejected ______________________
+tests/unit/test_retention_policy.py:98: in test_naive_current_time_is_rejected
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+=========================== short test summary info ============================
+FAILED tests/unit/test_retention_policy.py::test_sensitive_content_waits_30_days_after_termination[30-True]
+FAILED tests/unit/test_retention_policy.py::test_sensitive_content_waits_30_days_after_termination[31-True]
+FAILED tests/unit/test_retention_policy.py::test_nonterminal_content_and_unresolved_finances_never_expire_by_age
+FAILED tests/unit/test_retention_policy.py::test_response_clock_starts_at_acceptance[2592000-True]
+FAILED tests/unit/test_retention_policy.py::test_tombstone_has_its_own_90_day_minimum[7776000-True]
+FAILED tests/unit/test_retention_policy.py::test_financial_clock_waits_for_resolution[7776000-True]
+FAILED tests/unit/test_retention_policy.py::test_exposure_is_a_bounded_nonnegative_integer[True]
+FAILED tests/unit/test_retention_policy.py::test_exposure_is_a_bounded_nonnegative_integer[-1]
+FAILED tests/unit/test_retention_policy.py::test_exposure_is_a_bounded_nonnegative_integer[9223372036854775808]
+FAILED tests/unit/test_retention_policy.py::test_exposure_is_a_bounded_nonnegative_integer[1.1]
+FAILED tests/unit/test_retention_policy.py::test_naive_and_future_retention_clocks_are_rejected[stamp0]
+FAILED tests/unit/test_retention_policy.py::test_naive_and_future_retention_clocks_are_rejected[stamp1]
+FAILED tests/unit/test_retention_policy.py::test_termination_cannot_precede_acceptance
+FAILED tests/unit/test_retention_policy.py::test_boundary_is_instant_based_across_timezones
+FAILED tests/unit/test_retention_policy.py::test_every_optional_clock_is_validated[bad0-terminal_at]
+FAILED tests/unit/test_retention_policy.py::test_every_optional_clock_is_validated[bad0-resolved_at]
+FAILED tests/unit/test_retention_policy.py::test_every_optional_clock_is_validated[bad0-tombstoned_at]
+FAILED tests/unit/test_retention_policy.py::test_every_optional_clock_is_validated[bad1-terminal_at]
+FAILED tests/unit/test_retention_policy.py::test_every_optional_clock_is_validated[bad1-resolved_at]
+FAILED tests/unit/test_retention_policy.py::test_every_optional_clock_is_validated[bad1-tombstoned_at]
+FAILED tests/unit/test_retention_policy.py::test_naive_current_time_is_rejected
+21 failed, 7 passed in 0.04s
