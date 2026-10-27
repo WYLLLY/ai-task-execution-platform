@@ -13,6 +13,7 @@ from task_platform.command_schemas import CommandError
 from task_platform.event_cursor import MAX_SEQUENCE, HistoryExpired, event_id, resume_after
 from task_platform.execution_models import CallCost, ExternalCall
 from task_platform.identity import Identity, NotFoundError
+from task_platform.models import Principal
 from task_platform.task_models import Task
 from task_platform.tasks import Factory, snapshot
 
@@ -81,7 +82,7 @@ async def read_events(
                         WHERE task_id=t.id AND principal_id=t.principal_id
                           AND sequence>:position ORDER BY sequence LIMIT 100) limited
                     ) e WHERE e.bytes<=262144), '[]'::jsonb) AS events
-                FROM tasks t WHERE t.id=:task AND t.principal_id=:owner
+                FROM tasks t WHERE t.id=:task AND t.principal_id=:owner AND t.purged_at IS NULL
                 """),
                 {"task": task_id, "owner": identity.principal_id, "position": hint},
             )
@@ -156,7 +157,9 @@ async def task_snapshot(
     row = (
         await session.execute(
             select(Task, costs).where(
-                Task.id == task_id, Task.principal_id == identity.principal_id
+                Task.id == task_id,
+                Task.principal_id == identity.principal_id,
+                Task.purged_at.is_(None),
             )
         )
     ).one_or_none()
@@ -178,10 +181,23 @@ async def missing_task(session: AsyncSession, identity: Identity, task_id: UUID)
 
 
 async def usage(session: AsyncSession, identity: Identity) -> dict[str, object]:
-    costs = await session.scalar(
+    costs_query = (
         select(cost_fields())
         .select_from(CallCost)
         .join(ExternalCall, ExternalCall.id == CallCost.call_id)
         .where(ExternalCall.principal_id == identity.principal_id)
+        .scalar_subquery()
     )
-    return {"costs": costs}
+    costs, reserve_cost, reserve_tokens = (
+        await session.execute(
+            select(costs_query, Principal.reserve_cost, Principal.reserve_tokens).where(
+                Principal.id == identity.principal_id
+            )
+        )
+    ).one()
+    costs["uncertain_micro_usd"] += reserve_cost
+    costs["uncertain_tokens"] += reserve_tokens
+    return {
+        "costs": costs,
+        "disaster_provision": {"micro_usd": reserve_cost, "tokens": reserve_tokens},
+    }

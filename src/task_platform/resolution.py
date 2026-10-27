@@ -35,7 +35,13 @@ class ResolveTask(StrictSchema):
 
 
 async def resolve_task(
-    factory: Factory, token: str, task_id: UUID, key: str, value: object, fingerprint: str
+    factory: Factory,
+    token: str,
+    task_id: UUID,
+    key: str,
+    value: object,
+    fingerprint: str,
+    epoch: str | None = None,
 ) -> CommandResponse:
     route = f"/v1/tasks/{task_id}/resolve"
     identity, existing = await replay(factory, token, route, key, fingerprint)
@@ -56,6 +62,11 @@ async def resolve_task(
             existing = await retained(session, owner.id, route, key, fingerprint)
             if existing is not None:
                 return existing
+            if command.action == "regenerate":
+                if epoch is None:
+                    raise CommandError(428, "Execution epoch required")
+                if epoch != str(platform.execution_epoch):
+                    raise CommandError(409, "Execution epoch mismatch")
             provider = await session.get(ProviderAdmission, 1)
             task = await owned_task(session, identity, task_id, lock=True)
             if task.task_version != command.expected_task_version or task.state != "suspended":

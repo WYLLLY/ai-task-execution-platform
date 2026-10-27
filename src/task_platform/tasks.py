@@ -57,6 +57,26 @@ def supported_workflow(workflow: WorkflowVersion) -> bool:
     return False
 
 
+async def required_workflows(session: AsyncSession) -> list[WorkflowVersion]:
+    """Preflight includes every handler still pinned by nonterminal work."""
+    pinned = (
+        select(Task.id)
+        .where(
+            Task.workflow_name == WorkflowVersion.name,
+            Task.workflow_version == WorkflowVersion.version,
+            Task.state.not_in(TERMINAL),
+        )
+        .exists()
+    )
+    return list(
+        (
+            await session.scalars(
+                select(WorkflowVersion).where(WorkflowVersion.available.is_(True) | pinned)
+            )
+        ).all()
+    )
+
+
 @dataclass(frozen=True)
 class CommandResponse:
     status: int
@@ -94,6 +114,8 @@ async def retained(
     record = await session.get(IdempotencyRecord, (owner, route, key))
     if record is None:
         return None
+    if record.response_status == 410:
+        raise CommandError(410, "Command history expired")
     if record.canonical_version != "v1":
         raise CommandError(503, "Command version unavailable")
     if record.fingerprint != fingerprint:
@@ -292,6 +314,10 @@ async def owned_task(
     task = await session.scalar(query.with_for_update() if lock else query)
     if task is None:
         raise NotFoundError
+    if task.purged_at is not None:
+        from task_platform.event_cursor import HistoryExpired
+
+        raise HistoryExpired(task_id)
     return task
 
 

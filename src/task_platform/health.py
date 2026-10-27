@@ -8,7 +8,7 @@ from redis.asyncio import Redis
 from redis.exceptions import RedisError
 from sqlalchemy import select, text
 from sqlalchemy.exc import SQLAlchemyError
-from sqlalchemy.ext.asyncio import AsyncEngine
+from sqlalchemy.ext.asyncio import AsyncConnection, AsyncEngine
 
 from task_platform.config import Settings
 from task_platform.corpus import Document
@@ -23,7 +23,7 @@ from task_platform.task_models import (
     WorkflowVersion,
 )
 
-SCHEMA_REVISION = "0006_operations"
+SCHEMA_REVISION = "0011_recovery_authority"
 
 
 class Health(BaseModel):
@@ -76,87 +76,7 @@ async def check_database(engine: AsyncEngine, settings: Settings) -> tuple[bool,
             )
             writable = True
             if settings.role in {"api", "worker"}:
-                inserts = (
-                    ("tasks", "steps", "task_events", "idempotency_records")
-                    if settings.role == "api"
-                    else (
-                        "attempts",
-                        "steps",
-                        "task_events",
-                        "external_calls",
-                        "call_costs",
-                        "cost_evidence",
-                    )
-                )
-                updates: tuple[tuple[str, tuple[str, ...]], ...] = (
-                    ("tasks", ("state", "reason", "task_version", "event_sequence")),
-                    ("steps", ("state", "generation", "holder", "lease_until")),
-                    ("attempts", ("state",)),
-                    ("principals", ("open_tasks", "storage_bytes")),
-                    ("platform_control", ("open_tasks", "storage_bytes")),
-                    ("external_calls", ("state", "local_active")),
-                    ("attempts", ("ended_at", "reason")),
-                    ("steps", ("available_at", "selected_call_id")),
-                )
-                if settings.role == "worker":
-                    updates += (
-                        ("external_calls", ("response_observed_at", "provider_observation")),
-                        ("tasks", ("result", "storage_bytes", "tool_calls")),
-                        (
-                            "steps",
-                            (
-                                "result",
-                                "failures",
-                                "payload",
-                                "operation_key",
-                                "first_authorized_at",
-                                "probe_count",
-                                "protocol_items",
-                            ),
-                        ),
-                        (
-                            "call_costs",
-                            (
-                                "confirmed_cost",
-                                "confirmed_tokens",
-                                "exposure_cost",
-                                "exposure_tokens",
-                                "revision",
-                                "overrun",
-                                "estimated",
-                            ),
-                        ),
-                        ("provider_admission", ("next_allowed_at",)),
-                    )
-                # Audit every exact grant in two round trips. A per-column query loop
-                # unnecessarily keeps relation locks and the control connection busy.
-                writable = bool(
-                    await connection.scalar(
-                        text(
-                            "SELECT bool_and(has_table_privilege(current_user, t, 'INSERT')) "
-                            "FROM unnest(CAST(:tables AS text[])) AS t"
-                        ),
-                        {"tables": list(inserts)},
-                    )
-                )
-                columns_to_check = [(table, column) for table, cols in updates for column in cols]
-                writable = (
-                    bool(
-                        await connection.scalar(
-                            text(
-                                "SELECT bool_and(has_column_privilege("
-                                "current_user, t, c, 'UPDATE')) "
-                                "FROM unnest(CAST(:tables AS text[]), CAST(:columns AS text[])) "
-                                "AS required(t, c)"
-                            ),
-                            {
-                                "tables": [table for table, column in columns_to_check],
-                                "columns": [column for table, column in columns_to_check],
-                            },
-                        )
-                    )
-                    and writable
-                )
+                writable = await runtime_privileges(connection, settings.role)
             compatible = revisions == [SCHEMA_REVISION] and writable
             compatible = compatible and role == f"atp_{settings.role}"
             compatible = compatible and capacity >= settings.db_max_connections
@@ -199,3 +119,125 @@ async def health(engine: AsyncEngine, redis: Redis, settings: Settings) -> Healt
         submission_available=postgres and schema and matches and redis_up and admission_open,
         dispatch_available=False,
     )
+
+
+async def runtime_privileges(connection: AsyncConnection, role: str) -> bool:
+    reads = (
+        "platform_control",
+        "principals",
+        "api_keys",
+        "tasks",
+        "steps",
+        "attempts",
+        "task_events",
+        "idempotency_records",
+        "workflow_versions",
+        "external_calls",
+        "call_costs",
+        "cost_evidence",
+        "provider_admission",
+        "documents",
+        "task_tombstones",
+        "alembic_version",
+    )
+    readable = bool(
+        await connection.scalar(
+            text(
+                "SELECT bool_and(has_table_privilege(:role,t,'SELECT')) "
+                "FROM unnest(CAST(:tables AS text[])) AS t"
+            ),
+            {"role": f"atp_{role}", "tables": list(reads)},
+        )
+    )
+    inserts = (
+        ("tasks", "steps", "task_events", "idempotency_records")
+        if role == "api"
+        else (
+            "attempts",
+            "steps",
+            "task_events",
+            "external_calls",
+            "call_costs",
+            "cost_evidence",
+        )
+    )
+    updates: tuple[tuple[str, tuple[str, ...]], ...] = (
+        ("tasks", ("state", "reason", "task_version", "event_sequence")),
+        ("steps", ("state", "generation", "holder", "lease_until")),
+        ("attempts", ("state",)),
+        ("principals", ("open_tasks", "storage_bytes")),
+        ("platform_control", ("open_tasks", "storage_bytes")),
+        ("external_calls", ("state", "local_active")),
+        ("attempts", ("ended_at", "reason")),
+        ("steps", ("available_at", "selected_call_id")),
+    )
+    if role == "worker":
+        updates += (
+            ("external_calls", ("response_observed_at", "provider_observation")),
+            ("tasks", ("result", "storage_bytes", "tool_calls")),
+            (
+                "steps",
+                (
+                    "result",
+                    "failures",
+                    "payload",
+                    "operation_key",
+                    "first_authorized_at",
+                    "probe_count",
+                    "protocol_items",
+                ),
+            ),
+            (
+                "call_costs",
+                (
+                    "confirmed_cost",
+                    "confirmed_tokens",
+                    "exposure_cost",
+                    "exposure_tokens",
+                    "revision",
+                    "overrun",
+                    "estimated",
+                ),
+            ),
+            ("provider_admission", ("next_allowed_at",)),
+        )
+    # Audit every exact grant in two round trips. A per-column query loop
+    # unnecessarily keeps relation locks and the control connection busy.
+    writable = bool(
+        await connection.scalar(
+            text(
+                "SELECT bool_and(has_table_privilege(:role, t, 'INSERT')) "
+                "FROM unnest(CAST(:tables AS text[])) AS t"
+            ),
+            {"role": f"atp_{role}", "tables": list(inserts)},
+        )
+    )
+    columns_to_check = [(table, column) for table, cols in updates for column in cols]
+    writable = (
+        bool(
+            await connection.scalar(
+                text(
+                    "SELECT bool_and(has_column_privilege("
+                    ":role, t, c, 'UPDATE')) "
+                    "FROM unnest(CAST(:tables AS text[]), CAST(:columns AS text[])) "
+                    "AS required(t, c)"
+                ),
+                {
+                    "role": f"atp_{role}",
+                    "tables": [table for table, column in columns_to_check],
+                    "columns": [column for table, column in columns_to_check],
+                },
+            )
+        )
+        and writable
+    )
+    accounting_readable = bool(
+        await connection.scalar(
+            text(
+                "SELECT bool_and(has_column_privilege(:role,'accounting_decisions',c,'SELECT')) "
+                "FROM unnest(ARRAY['call_id','kind','revision']) AS c"
+            ),
+            {"role": f"atp_{role}"},
+        )
+    )
+    return readable and writable and accounting_readable
