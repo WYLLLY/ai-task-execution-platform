@@ -369,6 +369,7 @@ async def overload_campaign() -> dict[str, Any]:
     assert os.environ.get("ATP_LOAD_PROFILE") == "1"
     owners = json.loads(await asyncio.to_thread((ROOT / "owners.json").read_text))
     engine = create_engine(settings_for("admin"))
+    children: list[asyncio.subprocess.Process] = []
     try:
         # A distinct saturation window, with no truncation/reset of durable calls.
         # Let the nominal provider window expire naturally before tiny limits.
@@ -380,6 +381,28 @@ async def overload_campaign() -> dict[str, Any]:
         async with AsyncClient(
             trust_env=False, timeout=15, limits=Limits(max_connections=125)
         ) as client:
+            children.append(
+                await asyncio.create_subprocess_exec(
+                    sys.executable,
+                    "-m",
+                    "tests.support.load_http",
+                    env={**os.environ, "ATP_LOAD_SLOW": "1"},
+                    stdout=asyncio.subprocess.DEVNULL,
+                    stderr=None,
+                )
+            )
+            # HTTP readiness precedes the burst/deadlines and all worker B sends.
+            async with asyncio.timeout(15):
+                for _ in range(150):
+                    try:
+                        ready = await client.get("http://127.0.0.1:18080/openapi.json")
+                        if ready.status_code == 200:
+                            break
+                    except HTTPError:
+                        pass
+                    await asyncio.sleep(0.1)
+                else:
+                    raise TimeoutError("Slow model did not become HTTP ready")
             started = time.monotonic()
             responses = await asyncio.gather(
                 *(
@@ -428,54 +451,47 @@ async def overload_campaign() -> dict[str, Any]:
                         "tokens_per_minute=1200,max_active=1"
                     )
                 )
-            children: list[asyncio.subprocess.Process] = []
-            try:
-                for args in [
-                    ("tests.support.load_http",),
-                    ("tests.support.load_profile", "worker"),
-                    ("tests.support.load_profile", "worker"),
-                ]:
-                    children.append(
-                        await asyncio.create_subprocess_exec(
-                            sys.executable,
-                            "-m",
-                            *args,
-                            env={**os.environ, "ATP_LOAD_SLOW": "1"},
-                            stdout=asyncio.subprocess.DEVNULL,
-                            stderr=None,
-                        )
+            for _ in range(2):
+                children.append(
+                    await asyncio.create_subprocess_exec(
+                        sys.executable,
+                        "-m",
+                        "tests.support.load_profile",
+                        "worker",
+                        stdout=asyncio.subprocess.DEVNULL,
+                        stderr=None,
                     )
-                await asyncio.sleep(9)
-                assert all(child.returncode is None for child in children)
-                async with engine.connect() as c:
-                    remaining = int(
-                        await c.scalar(
-                            text("SELECT count(*) FROM tasks WHERE state IN ('queued','running')")
-                        )
-                        or 0
-                    )
-                    exposure = int(
-                        await c.scalar(
-                            text("SELECT coalesce(sum(exposure_cost),0) FROM call_costs")
-                        )
-                        or 0
-                    )
-                assert remaining == 0
-                assert exposure <= 1000
-                after_calls = len(
-                    (await asyncio.to_thread((ROOT / "model-journal.jsonl").read_text)).splitlines()
                 )
-                assert after_calls - before_calls == 1
-            finally:
-                for child in children:
-                    with suppress(ProcessLookupError):
-                        child.terminate()
-                for child in children:
-                    try:
-                        await asyncio.wait_for(child.wait(), 10)
-                    except TimeoutError:
-                        child.kill()
-                        await child.wait()
+            # Six-second absolute task deadlines plus the normal five-second
+            # maintenance cadence. Poll within a documented fifteen-second bound.
+            async with asyncio.timeout(15):
+                for _ in range(150):
+                    assert all(child.returncode is None for child in children)
+                    async with engine.connect() as c:
+                        remaining = int(
+                            await c.scalar(
+                                text(
+                                    "SELECT count(*) FROM tasks WHERE state IN ('queued','running')"
+                                )
+                            )
+                            or 0
+                        )
+                    if remaining == 0:
+                        break
+                    await asyncio.sleep(0.1)
+                else:
+                    raise TimeoutError("Saturation cleanup exceeded maintenance bound")
+            async with engine.connect() as c:
+                exposure = int(
+                    await c.scalar(text("SELECT coalesce(sum(exposure_cost),0) FROM call_costs"))
+                    or 0
+                )
+            assert remaining == 0
+            assert exposure == 1000
+            after_calls = len(
+                (await asyncio.to_thread((ROOT / "model-journal.jsonl").read_text)).splitlines()
+            )
+            assert after_calls - before_calls == 1
             return {
                 "requests": 120,
                 "statuses": codes,
@@ -490,6 +506,15 @@ async def overload_campaign() -> dict[str, Any]:
                 "provider_tokens_per_minute": 1200,
             }
     finally:
+        for child in children:
+            with suppress(ProcessLookupError):
+                child.terminate()
+        for child in children:
+            try:
+                await asyncio.wait_for(child.wait(), 10)
+            except TimeoutError:
+                child.kill()
+                await child.wait()
         await engine.dispose()
 
 
