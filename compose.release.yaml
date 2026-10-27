@@ -1,0 +1,13 @@
+# Load the reviewed artifact first; use its sha256 image ID or registry@sha256 digest.
+# This overlay never builds application code or resolves a mutable application tag.
+x-release: &release
+  image: ${ATP_RUNTIME_IMAGE:?Set the reviewed immutable runtime image ID or digest}
+  build: !reset null
+  pull_policy: never
+services:
+  api: *release
+  worker: *release
+  admin: *release
+  migrate: *release
+  initialize: *release
+  demo: *release

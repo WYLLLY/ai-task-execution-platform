@@ -1,8 +1,8 @@
-name: M1 through M6 verification
+name: M1 through M7 verification
 on:
   pull_request:
   push:
-    branches: [main, feature/m1-foundation, feature/m2, feature/m3, feature/m4, feature/m5, feature/m6]
+    branches: [main, feature/m1-foundation, feature/m2, feature/m3, feature/m4, feature/m5, feature/m6, feature/m7]
 permissions:
   contents: read
 concurrency:
@@ -11,7 +11,7 @@ concurrency:
 jobs:
   verify:
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1, node24
         with:
@@ -26,7 +26,39 @@ jobs:
       - run: make test-integration
       - run: make test-accounting test-provider-contracts
       - run: make test-sse test-degraded test-observability
+      - name: Install verified age for synthetic isolated restore
+        run: |
+          curl --fail --location --proto '=https' --tlsv1.2 https://github.com/FiloSottile/age/releases/download/v1.3.2/age-v1.3.2-linux-amd64.tar.gz -o /tmp/age.tar.gz
+          echo 'cbe24006683f8eb669266162894b9a522a1af52f2665fbc63a4bb032ed26ac10  /tmp/age.tar.gz' | sha256sum --check
+          tar -xzf /tmp/age.tar.gz -C /tmp
+          echo '/tmp/age' >> "$GITHUB_PATH"
+      - run: make test-retention test-restore test-delivery test-load-contracts verify-release-image
       - run: make smoke-compose
+      - name: Scan locked dependencies and immutable runtime artifact
+        run: |
+          curl --fail --location --proto '=https' --tlsv1.2 https://github.com/aquasecurity/trivy/releases/download/v0.76.1/trivy_0.76.1_Linux-64bit.tar.gz -o /tmp/trivy.tar.gz
+          echo 'c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0  /tmp/trivy.tar.gz' | sha256sum --check
+          mkdir /tmp/trivy-bin /tmp/atp-locked-dependencies
+          tar -xzf /tmp/trivy.tar.gz -C /tmp/trivy-bin trivy
+          cp uv.lock pyproject.toml /tmp/atp-locked-dependencies/
+          /tmp/trivy-bin/trivy fs --scanners vuln --format json --output /tmp/dependencies.json /tmp/atp-locked-dependencies
+          /tmp/trivy-bin/trivy image --scanners vuln --format json --output /tmp/runtime-image.json ai-task-platform:m1
+          python - <<'PY'
+          import json
+          for path in ('/tmp/dependencies.json', '/tmp/runtime-image.json'):
+              result = json.load(open(path))
+              libraries = [v for r in result.get('Results', []) if r.get('Class') == 'lang-pkgs' for v in r.get('Vulnerabilities', [])]
+              assert not [v for v in libraries if v['Severity'] in ('HIGH', 'CRITICAL')], path
+              print(path, 'library gate PASS; raw OS findings retained for operator triage')
+          PY
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: always()
+        with:
+          name: m7-supply-chain-evidence
+          path: |
+            /tmp/dependencies.json
+            /tmp/runtime-image.json
+          if-no-files-found: warn
       - name: Clean disposable services
         if: always()
         run: |

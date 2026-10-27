@@ -64,3 +64,19 @@ test-degraded:
 	$(UV) run --frozen python scripts/run_verification.py tests/integration/test_degraded.py
 test-observability:
 	$(TEST_COMPOSE) run --rm --no-deps test pytest -p no:cacheprovider tests/unit/test_operations.py tests/unit/test_telemetry.py tests/integration/test_observability.py
+
+# M7: ordinary CI stays synthetic. The full reference campaign is explicit and long.
+.PHONY: test-retention test-restore test-delivery test-load-contracts test-load verify-release-image
+test-retention:
+	$(TEST_COMPOSE) run --rm --no-deps test pytest -p no:cacheprovider tests/unit/test_retention_policy.py tests/integration/test_retention.py
+test-restore:
+	$(TEST_COMPOSE) run --rm --no-deps test pytest -p no:cacheprovider tests/unit/test_backup_artifact.py tests/unit/test_recovery_cli.py tests/unit/test_system_status.py tests/integration/test_restore.py tests/integration/test_restore_races.py
+	$(UV) run --frozen python -m scripts.run_restore_drill
+test-delivery:
+	$(TEST_COMPOSE) run --rm --no-deps test pytest -p no:cacheprovider tests/integration/test_delivery.py tests/integration/test_delivery_failure.py
+test-load-contracts:
+	$(TEST_COMPOSE) run --rm --no-deps test pytest -p no:cacheprovider tests/unit/test_load_metrics.py tests/unit/test_semantic_fixtures.py
+test-load:
+	$(UV) run --frozen python -m scripts.run_load_profile
+verify-release-image:
+	$(UV) run --frozen python scripts/verify_release_image.py
