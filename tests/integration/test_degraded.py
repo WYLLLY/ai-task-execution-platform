@@ -8,7 +8,7 @@ from pathlib import Path
 from uuid import UUID, uuid4
 
 import pytest
-from httpx import AsyncClient, Limits
+from httpx import AsyncClient, HTTPError, Limits
 from redis.asyncio import Redis
 from redis.exceptions import RedisError
 from sqlalchemy.ext.asyncio import AsyncEngine
@@ -89,7 +89,7 @@ async def test_f19_real_redis_outage_with_100_sse_and_sustained_reads(
                 async with network.stream(
                     "GET", f"/v1/tasks/{task}/events", headers=owners[index // 5]
                 ) as response:
-                    assert response.status_code == 200
+                    assert response.status_code == 200, (index, response.status_code)
                     async for line in response.aiter_lines():
                         if line.startswith("id: "):
                             assert line == f"id: {task}:{expected}", "gap or cross-owner event"
@@ -101,10 +101,28 @@ async def test_f19_real_redis_outage_with_100_sse_and_sustained_reads(
                             expected += 1
                         assert line != "event: stream.reset"
 
-            streams = [asyncio.create_task(subscribe(index)) for index in range(100)]
             async with asyncio.timeout(25):
-                for _ in range(100):
-                    await ready.get()
+                for index in range(100):
+                    stream = asyncio.create_task(subscribe(index))
+                    streams.append(stream)
+                    initial = asyncio.create_task(ready.get())
+                    try:
+                        done, _ = await asyncio.wait(
+                            (stream, initial), return_when=asyncio.FIRST_COMPLETED
+                        )
+                        if stream in done:
+                            try:
+                                await stream
+                            except HTTPError as error:
+                                raise AssertionError(
+                                    f"SSE startup {index}: {type(error).__name__}"
+                                ) from None
+                            raise AssertionError(f"SSE startup {index}: premature EOF")
+                        await initial
+                    finally:
+                        initial.cancel()
+                        await asyncio.gather(initial, return_exceptions=True)
+                assert len(streams) == 100 and all(not stream.done() for stream in streams)
             # Both admission caps are also exercised deterministically by unit tests.
             rejected = await network.get(f"/v1/tasks/{task_ids[0]}/events", headers=owners[0])
             assert rejected.status_code == 429
