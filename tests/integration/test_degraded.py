@@ -17,6 +17,7 @@ from task_platform.db import sessions
 from task_platform.execution import Executor
 from task_platform.identity import issue_key, provision_principal
 from task_platform.transport import SimulationTransport
+from tests.support.degraded_readiness import wait_for_recovery
 
 from .conftest import settings_for
 from .test_commands import BODY
@@ -191,15 +192,11 @@ async def test_f19_real_redis_outage_with_100_sse_and_sustained_reads(
             )
             await asyncio.to_thread((marker / "resume").touch)
             await wait_file(marker / "recovered", 20)
-            async with asyncio.timeout(5):
-                for _ in range(50):
-                    try:
-                        if await redis.ping():
-                            break
-                    except RedisError, OSError:
-                        await asyncio.sleep(0.1)
-                else:
-                    pytest.fail("Redis did not recover")
+
+            async def ping() -> bool:
+                return bool(await redis.ping())
+
+            await wait_for_recovery(ping, network)
             accepted = await network.post(
                 "/v1/tasks", json=BODY, headers={**owners[0], "Idempotency-Key": "after-recovery"}
             )

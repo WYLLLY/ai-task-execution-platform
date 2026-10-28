@@ -61,7 +61,7 @@ smoke-openai:
 test-sse:
 	$(TEST_COMPOSE) run --rm --no-deps test pytest -p no:cacheprovider tests/unit/test_event_cursor.py tests/unit/test_sse_stream.py tests/unit/test_sse_tcp_lifetime.py tests/unit/test_event_hub.py tests/integration/test_event_reads.py tests/integration/test_sse.py tests/integration/test_sse_network.py tests/integration/test_notifications.py tests/integration/test_m6_projections.py
 test-degraded:
-	$(UV) run --frozen python scripts/run_verification.py tests/integration/test_degraded.py
+	$(UV) run --frozen python scripts/run_verification.py tests/unit/test_degraded_readiness.py tests/integration/test_degraded.py
 test-observability:
 	$(TEST_COMPOSE) run --rm --no-deps test pytest -p no:cacheprovider tests/unit/test_operations.py tests/unit/test_telemetry.py tests/integration/test_observability.py
 
