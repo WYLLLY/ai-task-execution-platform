@@ -18,6 +18,7 @@ services:
       - demo-data:/var/lib/postgresql/data
       - ./infra/demo-bootstrap.sh:/docker-entrypoint-initdb.d/01-bootstrap.sh:ro
       - ./infra/demo-schema.sql:/docker-entrypoint-initdb.d/02-schema.sql:ro
+      - ./infra/demo-retention.sql:/docker-entrypoint-initdb.d/03-retention.sql:ro
     networks: [private]
     healthcheck:
       test: [CMD-SHELL, "pg_isready -U postgres -d demo"]
@@ -49,7 +50,7 @@ services:
       DEMO_SERVICE_KEY_FILE: /run/secrets/demo_service_key
     secrets: [demo_service_key]
   test:
-    secrets: [demo_database_url, demo_service_key]
+    secrets: [demo_database_url, demo_service_key, demo_postgres_password]
     depends_on:
       demo-db: {condition: service_healthy}
 volumes:

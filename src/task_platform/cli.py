@@ -43,6 +43,12 @@ async def run_admin(args: argparse.Namespace) -> None:
                     from task_platform.retention import purge
 
                     print(json.dumps(await purge(factory, limit=args.limit)))
+                case "demo-retention":
+                    from task_platform.demo_retention import erase_demo_content
+                    from task_platform.provider_commands import read_json_file
+
+                    value = await asyncio.to_thread(read_json_file, args.file)
+                    print(json.dumps({"purged": await erase_demo_content(value)}))
                 case "recovery":
                     from task_platform.provider_commands import read_json_file
                     from task_platform.recovery import (
@@ -285,6 +291,7 @@ def main() -> None:
     actions.add_parser("init")
     retention = actions.add_parser("retention")
     retention.add_argument("--limit", type=int, default=100)
+    actions.add_parser("demo-retention").add_argument("--file", required=True)
     recovery = actions.add_parser("recovery")
     recovery_actions = recovery.add_subparsers(dest="recovery_action", required=True)
     for action in ("begin", "reserve", "reopen", "release"):

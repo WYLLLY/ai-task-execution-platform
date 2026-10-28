@@ -1,0 +1,31 @@
+time="2026-10-28T05:50:34+01:00" level=warning msg="Found orphan containers (atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-58e6b612682e Creating
+ Container atp-m1-test-test-run-58e6b612682e Created
+F......F                                                                 [100%]
+=================================== FAILURES ===================================
+____ test_terminal_evidence_erases_demo_payload_and_replays_after_lost_ack _____
+tests/integration/test_demo_retention.py:119: in test_terminal_evidence_erases_demo_payload_and_replays_after_lost_ack
+    assert row[0] == b"", "terminal evidence must erase the independent demo's sensitive payload"
+E   AssertionError: terminal evidence must erase the independent demo's sensitive payload
+E   assert b'synthetic-p...erived-report' == b''
+E
+E     Use -v to get more diff
+_____ test_concurrent_demo_erasure_waits_on_real_row_lock_and_audits_once ______
+tests/integration/test_demo_retention.py:226: in test_concurrent_demo_erasure_waits_on_real_row_lock_and_audits_once
+    await asyncio.sleep(0.01)
+/usr/local/lib/python3.14/asyncio/tasks.py:712: in sleep
+    return await future
+           ^^^^^^^^^^^^
+E   asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+tests/integration/test_demo_retention.py:213: in test_concurrent_demo_erasure_waits_on_real_row_lock_and_audits_once
+    async with asyncio.timeout(5):
+               ^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.14/asyncio/timeouts.py:115: in __aexit__
+    raise TimeoutError from exc_val
+E   TimeoutError
+=========================== short test summary info ============================
+FAILED tests/integration/test_demo_retention.py::test_terminal_evidence_erases_demo_payload_and_replays_after_lost_ack
+FAILED tests/integration/test_demo_retention.py::test_concurrent_demo_erasure_waits_on_real_row_lock_and_audits_once
+2 failed, 6 passed in 17.90s

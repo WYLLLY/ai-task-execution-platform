@@ -68,7 +68,7 @@ test-observability:
 # M7: ordinary CI stays synthetic. The full reference campaign is explicit and long.
 .PHONY: test-retention test-restore test-delivery test-load-contracts test-load verify-release-image
 test-retention:
-	$(TEST_COMPOSE) run --rm --no-deps test pytest -p no:cacheprovider tests/unit/test_retention_policy.py tests/integration/test_retention.py
+	$(TEST_COMPOSE) run --rm --no-deps test pytest -p no:cacheprovider tests/unit/test_retention_policy.py tests/integration/test_retention.py tests/integration/test_demo_retention.py
 test-restore:
 	$(TEST_COMPOSE) run --rm --no-deps test pytest -p no:cacheprovider tests/unit/test_backup_artifact.py tests/unit/test_recovery_cli.py tests/unit/test_system_status.py tests/integration/test_restore.py tests/integration/test_restore_races.py
 	$(UV) run --frozen python -m scripts.run_restore_drill
