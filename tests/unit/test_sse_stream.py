@@ -212,3 +212,36 @@ async def test_lifetime_bounds_a_stalled_source_and_does_not_release_before_fina
     finally:
         running.cancel()
         await asyncio.gather(running, return_exceptions=True)
+
+
+@pytest.mark.parametrize("write_timeout", [0.01, 0.2])
+async def test_normal_lifetime_finishes_asgi_body_within_hard_bound(write_timeout: float) -> None:
+    sent: list[Message] = []
+    released: list[bool] = []
+
+    async def check() -> None:
+        return None
+
+    async def send(message: Message) -> None:
+        assert not released
+        sent.append(message)
+
+    async def receive() -> Message:
+        await asyncio.Event().wait()
+        return {"type": "http.disconnect"}
+
+    stream = Stream(
+        uuid4(),
+        Identity(uuid4(), uuid4()),
+        Batch(0, 1, 1, (Event(1, b"id: 1\n\n"),)),
+        AuthLease(check),
+        None,
+        lambda: released.append(True),
+        lifetime=0.08,
+        write_timeout=write_timeout,
+    )
+    async with asyncio.timeout(0.3):
+        await stream({}, receive, send)
+    assert sent[-1] == {"type": "http.response.body", "body": b"", "more_body": False}
+    assert stream.position == 1
+    assert released == [True]

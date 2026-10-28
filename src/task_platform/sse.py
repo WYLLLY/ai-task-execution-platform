@@ -102,7 +102,8 @@ class Stream(Response):
 
     async def _run(self, send: Send) -> None:
         started = time.monotonic()
-        deadline = started + self.lifetime
+        # Leave room for the final empty frame inside the absolute connection cap.
+        deadline = started + self.lifetime - min(self.write_timeout, self.lifetime / 2)
         last_write = started
 
         async def write(body: bytes | None) -> None:
