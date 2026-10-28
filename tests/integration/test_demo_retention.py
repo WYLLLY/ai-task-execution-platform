@@ -97,9 +97,12 @@ def evidence(owner: UUID, operation: UUID, digest: str, **changes: object) -> di
     }
 
 
-async def invoke(
-    value: dict[str, object], directory: Path, *, runtime_role: bool = False
-) -> tuple[int, str]:
+async def operator_input(
+    value: dict[str, object],
+    directory: Path,
+    *,
+    runtime_role: bool = False,
+) -> tuple[Path, dict[str, str]]:
     path = directory / f"evidence-{uuid4()}.json"
     await asyncio.to_thread(path.write_text, json.dumps(value))
     env = dict(os.environ)
@@ -111,6 +114,16 @@ async def invoke(
             username="postgres", password=(secrets / "demo_postgres_password").read_text().strip()
         )
     env["DEMO_RETENTION_DATABASE_URL"] = url.render_as_string(hide_password=False)
+    return path, env
+
+
+async def invoke(
+    value: dict[str, object],
+    directory: Path,
+    *,
+    runtime_role: bool = False,
+) -> tuple[int, str]:
+    path, env = await operator_input(value, directory, runtime_role=runtime_role)
     process = await asyncio.create_subprocess_exec(
         sys.executable,
         "-c",
@@ -241,14 +254,36 @@ async def test_concurrent_demo_erasure_waits_on_real_row_lock_and_audits_once(
 ) -> None:
     owner, operation, _, digest = await seed(demo_root)
     proof = evidence(owner, operation, digest)
-    jobs: list[asyncio.Task[tuple[int, str]]] = []
-    async with demo_root.begin() as locked:
-        await locked.execute(
-            text("SELECT 1 FROM report_effects WHERE owner=:o AND operation=:p FOR UPDATE"),
-            {"o": owner, "p": operation},
-        )
-        jobs = [asyncio.create_task(invoke(proof, tmp_path)) for _ in range(2)]
-        try:
+    actors: list[asyncio.subprocess.Process] = []
+    try:
+        for _ in range(2):
+            path, env = await operator_input(proof, tmp_path)
+            actors.append(
+                await asyncio.create_subprocess_exec(
+                    sys.executable,
+                    "-m",
+                    "tests.support.demo_gc_actor",
+                    str(path),
+                    env=env,
+                    stdin=asyncio.subprocess.PIPE,
+                    stdout=asyncio.subprocess.PIPE,
+                    stderr=asyncio.subprocess.PIPE,
+                )
+            )
+        async with asyncio.timeout(10):
+            for actor in actors:
+                assert actor.stdout is not None
+                assert await actor.stdout.readline() == b"ready\n"
+        # Imports/configuration finish before either the SQL lock or observation clock.
+        async with demo_root.begin() as locked:
+            await locked.execute(
+                text("SELECT 1 FROM report_effects WHERE owner=:o AND operation=:p FOR UPDATE"),
+                {"o": owner, "p": operation},
+            )
+            for actor in actors:
+                assert actor.stdin is not None
+                actor.stdin.write(b"run\n")
+                await actor.stdin.drain()
             async with asyncio.timeout(5):
                 while True:
                     async with demo_root.connect() as observer:
@@ -263,21 +298,26 @@ async def test_concurrent_demo_erasure_waits_on_real_row_lock_and_audits_once(
                     if waiting == 2:
                         break
                     await asyncio.sleep(0.01)
-        finally:
-            # The context releases the observed lock before waiting for the children.
-            pass
-    results = await asyncio.gather(*jobs)
-    assert all(code == 0 and json.loads(body) == {"purged": True} for code, body in results)
-    async with demo_root.connect() as c:
-        assert (
-            await c.scalar(
-                text(
-                    "SELECT count(*) FROM demo_retention_decisions WHERE owner=:o AND operation=:p"
-                ),
-                {"o": owner, "p": operation},
+        for actor in actors:
+            output, diagnostic = await asyncio.wait_for(actor.communicate(), 8)
+            assert actor.returncode == 0, (actor.returncode, diagnostic.decode())
+            assert json.loads(output) == {"purged": True}
+        async with demo_root.connect() as c:
+            assert (
+                await c.scalar(
+                    text(
+                        "SELECT count(*) FROM demo_retention_decisions "
+                        "WHERE owner=:o AND operation=:p"
+                    ),
+                    {"o": owner, "p": operation},
+                )
+                == 1
             )
-            == 1
-        )
+    finally:
+        for actor in actors:
+            if actor.returncode is None:
+                actor.terminate()
+            await asyncio.wait_for(actor.communicate(), 8)
 
 
 async def test_limited_demo_admin_can_only_erase_via_audited_function(
