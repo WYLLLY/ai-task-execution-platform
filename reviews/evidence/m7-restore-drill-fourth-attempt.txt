@@ -1,0 +1,29 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/william/Documents/Projet 2/scripts/run_restore_drill.py", line 393, in <module>
+    print(json.dumps(Drill().main(), sort_keys=True))
+                     ~~~~~~~~~~~~^^
+  File "/Users/william/Documents/Projet 2/scripts/run_restore_drill.py", line 230, in main
+    self.run([str(self.age.with_name("age-keygen")), "-o", str(self.identity)])
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/william/Documents/Projet 2/scripts/run_restore_drill.py", line 80, in run
+    result = subprocess.run(  # noqa: S603 -- fixed operator-owned commands
+        arguments, input=data, capture_output=True, timeout=timeout, cwd=self.root, check=False
+    )
+  File "/Users/william/.local/share/uv/python/cpython-3.14.8-macos-aarch64-none/lib/python3.14/subprocess.py", line 555, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/william/.local/share/uv/python/cpython-3.14.8-macos-aarch64-none/lib/python3.14/subprocess.py", line 1039, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                        pass_fds, cwd, env,
+                        ^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+                        gid, gids, uid, umask,
+                        ^^^^^^^^^^^^^^^^^^^^^^
+                        start_new_session, process_group)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/william/.local/share/uv/python/cpython-3.14.8-macos-aarch64-none/lib/python3.14/subprocess.py", line 1990, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/atp-m7-tools/age/age-keygen'

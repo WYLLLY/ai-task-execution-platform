@@ -1,0 +1,233 @@
+time="2026-10-27T16:48:07+01:00" level=warning msg="Found orphan containers (atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-migrate-run-6e8bfa273378 Creating
+ Container atp-m1-test-migrate-run-6e8bfa273378 Created
+Traceback (most recent call last):
+  File "/app/.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/app/.venv/lib/python3.14/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.14/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 642, in execute
+    result = self.await_(self._cursor.execute(query, params, **kw))
+  File "/app/.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/app/.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.14/site-packages/psycopg/cursor_async.py", line 117, in execute
+    raise ex.with_traceback(None)
+psycopg.errors.SyntaxError: syntax error at end of input
+LINE 11:             CASE WHEN NEW.state='suspended' THEN 'external_u...
+                                                    ^
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/app/.venv/bin/alembic", line 10, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/app/.venv/lib/python3.14/site-packages/alembic/config.py", line 1039, in main
+    CommandLine(prog=prog).main(argv=argv)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/app/.venv/lib/python3.14/site-packages/alembic/config.py", line 1029, in main
+    self.run_cmd(cfg, options)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.14/site-packages/alembic/config.py", line 963, in run_cmd
+    fn(
+    ~~^
+        config,
+        ^^^^^^^
+        *[getattr(options, k, None) for k in positional],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        **{k: getattr(options, k, None) for k in kwarg},
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/app/.venv/lib/python3.14/site-packages/alembic/command.py", line 487, in upgrade
+    script.run_env()
+    ~~~~~~~~~~~~~~^^
+  File "/app/.venv/lib/python3.14/site-packages/alembic/script/base.py", line 550, in run_env
+    util.load_python_file(self.dir, "env.py")
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.14/site-packages/alembic/util/pyfiles.py", line 114, in load_python_file
+    module = load_module_py(module_id, path)
+  File "/app/.venv/lib/python3.14/site-packages/alembic/util/pyfiles.py", line 132, in load_module_py
+    spec.loader.exec_module(module)  # type: ignore
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "<frozen importlib._bootstrap_external>", line 763, in exec_module
+  File "<frozen importlib._bootstrap>", line 491, in _call_with_frames_removed
+  File "/app/migrations/env.py", line 33, in <module>
+    asyncio.run(online())
+    ~~~~~~~~~~~^^^^^^^^^^
+  File "/usr/local/lib/python3.14/asyncio/runners.py", line 205, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "/usr/local/lib/python3.14/asyncio/runners.py", line 128, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/local/lib/python3.14/asyncio/base_events.py", line 720, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/app/migrations/env.py", line 26, in online
+    await connection.run_sync(migrate)
+  File "/app/.venv/lib/python3.14/site-packages/sqlalchemy/ext/asyncio/engine.py", line 888, in run_sync
+    return await greenlet_spawn(
+           ^^^^^^^^^^^^^^^^^^^^^
+        fn, self._proxied, *arg, _require_await=False, **kw
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/app/.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 203, in greenlet_spawn
+    result = context.switch(value)
+  File "/app/migrations/env.py", line 19, in migrate
+    context.run_migrations()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "<string>", line 8, in run_migrations
+  File "/app/.venv/lib/python3.14/site-packages/alembic/runtime/environment.py", line 970, in run_migrations
+    self.get_context().run_migrations(**kw)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/app/.venv/lib/python3.14/site-packages/alembic/runtime/migration.py", line 616, in run_migrations
+    step.migration_fn(**kw)
+    ~~~~~~~~~~~~~~~~~^^^^^^
+  File "/app/migrations/versions/0011_recovery_authority.py", line 36, in upgrade
+    op.execute(definition.replace("BEGIN", "BEGIN\n" + exception, 1))
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 8, in execute
+  File "<string>", line 3, in execute
+  File "/app/.venv/lib/python3.14/site-packages/alembic/operations/ops.py", line 2645, in execute
+    return operations.invoke(op)
+           ~~~~~~~~~~~~~~~~~^^^^
+  File "/app/.venv/lib/python3.14/site-packages/alembic/operations/base.py", line 448, in invoke
+    return fn(self, operation)
+  File "/app/.venv/lib/python3.14/site-packages/alembic/operations/toimpl.py", line 256, in execute_sql
+    operations.migration_context.impl.execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        operation.sqltext, execution_options=operation.execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/app/.venv/lib/python3.14/site-packages/alembic/ddl/impl.py", line 259, in execute
+    self._exec(sql, execution_options)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.14/site-packages/alembic/ddl/impl.py", line 252, in _exec
+    return conn.execute(construct, params)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py", line 1421, in execute
+    return meth(
+        self,
+        distilled_parameters,
+        execution_options or NO_OPTIONS,
+    )
+  File "/app/.venv/lib/python3.14/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self, distilled_params, execution_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/app/.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+        dialect,
+    ...<8 lines>...
+        cache_hit=cache_hit,
+    )
+  File "/app/.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        dialect, context, statement, parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/app/.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        e, str_statement, effective_parameters, cursor, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/app/.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/app/.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        cursor, str_statement, effective_parameters, context
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/app/.venv/lib/python3.14/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.14/site-packages/sqlalchemy/dialects/postgresql/psycopg.py", line 642, in execute
+    result = self.await_(self._cursor.execute(query, params, **kw))
+  File "/app/.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 132, in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/app/.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py", line 196, in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+  File "/app/.venv/lib/python3.14/site-packages/psycopg/cursor_async.py", line 117, in execute
+    raise ex.with_traceback(None)
+sqlalchemy.exc.ProgrammingError: (psycopg.errors.SyntaxError) syntax error at end of input
+LINE 11:             CASE WHEN NEW.state='suspended' THEN 'external_u...
+                                                    ^
+[SQL: CREATE OR REPLACE FUNCTION public.guard_task()
+ RETURNS trigger
+ LANGUAGE plpgsql
+AS $function$
+        BEGIN
+
+    IF current_user='atp_migrator' AND OLD.restore_uncertain
+        AND OLD.state='suspended' AND OLD.reason='restore_quarantine'
+        AND NEW.state IN('queued','suspended')
+        AND NEW.reason IS NOT DISTINCT FROM
+            CASE WHEN NEW.state='suspended' THEN 'external_unknown'::text ELSE NULL END
+        AND NEW.task_version=OLD.task_version+1 AND NEW.event_sequence=OLD.event_sequence+1
+        AND (to_jsonb(NEW)-ARRAY['key_id','execution_epoch','state','reason',
+                                'task_version','event_sequence'])
+            =(to_jsonb(OLD)-ARRAY['key_id','execution_epoch','state','reason',
+                                'task_version','event_sequence'])
+        AND EXISTS(SELECT 1 FROM public.restore_decisions d WHERE d.epoch=NEW.execution_epoch
+            AND d.kind='release' AND d.details->>'task_id'=OLD.id::text
+            AND d.details->>'key_id'=NEW.key_id::text
+            AND (d.details->>'expected_task_version')::bigint=OLD.task_version
+            AND (d.details->>'no_unrecorded_effect')::boolean IS TRUE)
+    THEN RETURN NEW; END IF;
+
+
+IF current_user='atp_migrator' AND OLD.state IN('succeeded','failed','cancelled','timed_out')
+ AND OLD.terminal_at<=clock_timestamp()-interval '30 days'
+ AND OLD.purged_at IS NULL AND NEW.purged_at IS NOT NULL AND NEW.input='{}'::jsonb
+ AND NEW.result IS NULL AND NEW.oldest_retained_sequence=OLD.event_sequence+1
+ AND NEW.storage_bytes BETWEEN 0 AND OLD.storage_bytes
+ AND (to_jsonb(NEW)-ARRAY['input','result','purged_at','storage_bytes','oldest_retained_sequence'])
+     =(to_jsonb(OLD)-ARRAY['input','result','purged_at','storage_bytes','oldest_retained_sequence'])
+THEN RETURN NEW; END IF;
+
+        IF OLD.state IN ('succeeded', 'failed', 'cancelled', 'timed_out') AND (
+            (to_jsonb(NEW)-'event_sequence') IS DISTINCT FROM
+            (to_jsonb(OLD)-'event_sequence') OR NEW.event_sequence != OLD.event_sequence+1)
+        THEN RAISE EXCEPTION 'Terminal task immutable' USING ERRCODE='23514'; END IF;
+        IF (NEW.id, NEW.principal_id, NEW.key_id, NEW.workflow_name, NEW.workflow_version,
+            NEW.versions, NEW.input, NEW.limits, NEW.execution_epoch)
+        IS DISTINCT FROM (OLD.id, OLD.principal_id, OLD.key_id, OLD.workflow_name,
+            OLD.workflow_version, OLD.versions, OLD.input, OLD.limits, OLD.execution_epoch)
+        THEN RAISE EXCEPTION 'Pinned task identity immutable' USING ERRCODE='23514'; END IF;
+        IF NEW.state IS DISTINCT FROM OLD.state AND (NEW.task_version != OLD.task_version+1 OR
+            NOT (
+        (OLD.state='queued' AND NEW.state IN ('running', 'suspended', 'failed', 'cancelled',
+            'timed_out')) OR
+        (OLD.state='running' AND NEW.state IN ('succeeded', 'failed', 'suspended', 'cancelled',
+            'timed_out')) OR
+        (OLD.state='suspended' AND NEW.state IN ('queued', 'succeeded', 'failed', 'cancelled',
+            'timed_out'))))
+        THEN RAISE EXCEPTION 'Illegal task transition' USING ERRCODE='23514'; END IF;
+        RETURN NEW;
+        END $function$
+]
+(Background on this error at: https://sqlalche.me/e/20/f405)

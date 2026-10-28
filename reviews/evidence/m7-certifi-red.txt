@@ -1,0 +1,13 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_______________ test_locked_certifi_excludes_ghsa_6q48_6c7w_9gw2 _______________
+tests/unit/test_supply_chain.py:10: in test_locked_certifi_excludes_ghsa_6q48_6c7w_9gw2
+    assert tuple(map(int, package["version"].split("."))) >= (2026, 10, 18)
+E   AssertionError: assert (2026, 7, 22) >= (2026, 10, 18)
+E    +  where (2026, 7, 22) = tuple(<map object at 0x10b7a9100>)
+E    +    where <map object at 0x10b7a9100> = map(int, ['2026', '7', '22'])
+E    +      where ['2026', '7', '22'] = <built-in method split of str object at 0x10b7448b0>('.')
+E    +        where <built-in method split of str object at 0x10b7448b0> = '2026.7.22'.split
+=========================== short test summary info ============================
+FAILED tests/unit/test_supply_chain.py::test_locked_certifi_excludes_ghsa_6q48_6c7w_9gw2
+1 failed in 0.03s

@@ -1,0 +1,149 @@
+time="2026-10-27T17:04:39+01:00" level=warning msg="Found orphan containers (atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-454d4012533d Creating
+ Container atp-m1-test-test-run-454d4012533d Created
+F                                                                        [100%]
+=================================== FAILURES ===================================
+___ test_ordinary_worker_transitions_do_not_require_private_restore_evidence ___
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1969: in _exec_single_context
+    self.dialect.do_execute(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/default.py:952: in do_execute
+    cursor.execute(statement, parameters)
+.venv/lib/python3.14/site-packages/sqlalchemy/dialects/postgresql/psycopg.py:642: in execute
+    result = self.await_(self._cursor.execute(query, params, **kw))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py:132: in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py:196: in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/psycopg/cursor_async.py:117: in execute
+    raise ex.with_traceback(None)
+E   psycopg.errors.InsufficientPrivilege: permission denied for table restore_decisions
+E   CONTEXT:  SQL expression "current_user='atp_migrator' AND OLD.restore_uncertain
+E           AND OLD.state='suspended' AND OLD.reason='restore_quarantine'
+E           AND NEW.state IN('queued','suspended')
+E           AND NEW.reason IS NOT DISTINCT FROM
+E               (CASE WHEN NEW.state='suspended' THEN 'external_unknown'::text ELSE NULL END)
+E           AND NEW.task_version=OLD.task_version+1 AND NEW.event_sequence=OLD.event_sequence+1
+E           AND (to_jsonb(NEW)-ARRAY['key_id','execution_epoch','state','reason',
+E                                   'task_version','event_sequence'])
+E               =(to_jsonb(OLD)-ARRAY['key_id','execution_epoch','state','reason',
+E                                   'task_version','event_sequence'])
+E           AND EXISTS(SELECT 1 FROM public.restore_decisions d WHERE d.epoch=NEW.execution_epoch
+E               AND d.kind='release' AND d.details->>'task_id'=OLD.id::text
+E               AND d.details->>'key_id'=NEW.key_id::text
+E               AND (d.details->>'expected_task_version')::bigint=OLD.task_version
+E               AND (d.details->>'no_unrecorded_effect')::boolean IS TRUE)"
+E   PL/pgSQL function guard_task() line 4 at IF
+
+The above exception was the direct cause of the following exception:
+tests/integration/test_restore.py:533: in test_ordinary_worker_transitions_do_not_require_private_restore_evidence
+    lease = await executor.claim("ordinary-worker")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/task_platform/execution.py:250: in claim
+    return await retry_transaction(operation)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/task_platform/tasks.py:103: in retry_transaction
+    return await operation()
+           ^^^^^^^^^^^^^^^^^
+src/task_platform/execution.py:182: in operation
+    async with self.factory.begin() as session:
+               ^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/ext/asyncio/session.py:1804: in __aexit__
+    await asyncio.shield(task)
+.venv/lib/python3.14/site-packages/sqlalchemy/ext/asyncio/session.py:1800: in go
+    await self.trans.__aexit__(type_, value, traceback)
+.venv/lib/python3.14/site-packages/sqlalchemy/ext/asyncio/session.py:1887: in __aexit__
+    await greenlet_spawn(
+.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py:203: in greenlet_spawn
+    result = context.switch(value)
+             ^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/util.py:147: in __exit__
+    with util.safe_reraise():
+         ^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/langhelpers.py:122: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/util.py:145: in __exit__
+    self.commit()
+<string>:2: in commit
+    ???
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/state_changes.py:137: in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py:1316: in commit
+    self._prepare_impl()
+<string>:2: in _prepare_impl
+    ???
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/state_changes.py:137: in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py:1290: in _prepare_impl
+    self.session.flush()
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py:4353: in flush
+    self._flush(objects)
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py:4488: in _flush
+    with util.safe_reraise():
+         ^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/langhelpers.py:122: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/session.py:4449: in _flush
+    flush_context.execute()
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/unitofwork.py:465: in execute
+    rec.execute(self)
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/unitofwork.py:641: in execute
+    util.preloaded.orm_persistence.save_obj(
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/persistence.py:86: in save_obj
+    _emit_update_statements(
+.venv/lib/python3.14/site-packages/sqlalchemy/orm/persistence.py:913: in _emit_update_statements
+    c = connection.execute(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1421: in execute
+    return meth(
+.venv/lib/python3.14/site-packages/sqlalchemy/sql/elements.py:526: in _execute_on_connection
+    return connection._execute_clauseelement(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1643: in _execute_clauseelement
+    ret = self._execute_context(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1848: in _execute_context
+    return self._exec_single_context(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1988: in _exec_single_context
+    self._handle_dbapi_exception(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:2365: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/base.py:1969: in _exec_single_context
+    self.dialect.do_execute(
+.venv/lib/python3.14/site-packages/sqlalchemy/engine/default.py:952: in do_execute
+    cursor.execute(statement, parameters)
+.venv/lib/python3.14/site-packages/sqlalchemy/dialects/postgresql/psycopg.py:642: in execute
+    result = self.await_(self._cursor.execute(query, params, **kw))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py:132: in await_only
+    return current.parent.switch(awaitable)  # type: ignore[no-any-return,attr-defined] # noqa: E501
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/sqlalchemy/util/_concurrency_py3k.py:196: in greenlet_spawn
+    value = await result
+            ^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/psycopg/cursor_async.py:117: in execute
+    raise ex.with_traceback(None)
+E   sqlalchemy.exc.ProgrammingError: (psycopg.errors.InsufficientPrivilege) permission denied for table restore_decisions
+E   CONTEXT:  SQL expression "current_user='atp_migrator' AND OLD.restore_uncertain
+E           AND OLD.state='suspended' AND OLD.reason='restore_quarantine'
+E           AND NEW.state IN('queued','suspended')
+E           AND NEW.reason IS NOT DISTINCT FROM
+E               (CASE WHEN NEW.state='suspended' THEN 'external_unknown'::text ELSE NULL END)
+E           AND NEW.task_version=OLD.task_version+1 AND NEW.event_sequence=OLD.event_sequence+1
+E           AND (to_jsonb(NEW)-ARRAY['key_id','execution_epoch','state','reason',
+E                                   'task_version','event_sequence'])
+E               =(to_jsonb(OLD)-ARRAY['key_id','execution_epoch','state','reason',
+E                                   'task_version','event_sequence'])
+E           AND EXISTS(SELECT 1 FROM public.restore_decisions d WHERE d.epoch=NEW.execution_epoch
+E               AND d.kind='release' AND d.details->>'task_id'=OLD.id::text
+E               AND d.details->>'key_id'=NEW.key_id::text
+E               AND (d.details->>'expected_task_version')::bigint=OLD.task_version
+E               AND (d.details->>'no_unrecorded_effect')::boolean IS TRUE)"
+E   PL/pgSQL function guard_task() line 4 at IF
+E   [SQL: UPDATE tasks SET state=%(state)s::VARCHAR, task_version=%(task_version)s::BIGINT, event_sequence=%(event_sequence)s::BIGINT WHERE tasks.id = %(tasks_id)s::UUID]
+E   [SQL parameters hidden due to hide_parameters=True]
+E   (Background on this error at: https://sqlalche.me/e/20/f405)
+=========================== short test summary info ============================
+FAILED tests/integration/test_restore.py::test_ordinary_worker_transitions_do_not_require_private_restore_evidence
+1 failed, 20 deselected in 0.78s

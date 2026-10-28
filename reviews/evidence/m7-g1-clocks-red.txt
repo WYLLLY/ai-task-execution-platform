@@ -1,6 +1,6 @@
 time="2026-10-27T16:12:03+01:00" level=warning msg="Found orphan containers (atp-m1-test-proxy-1, atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
- Container atp-m1-test-test-run-dab4667a2649 Creating 
- Container atp-m1-test-test-run-dab4667a2649 Created 
+ Container atp-m1-test-test-run-dab4667a2649 Creating
+ Container atp-m1-test-test-run-dab4667a2649 Created
 FFFFFFFF                                                                 [100%]
 =================================== FAILURES ===================================
 ___ test_authorization_rechecks_fresh_authority_after_wait[validation-lease] ___
@@ -53,4 +53,3 @@ FAILED tests/integration/test_dispatch_freshness.py::test_authorization_rechecks
 FAILED tests/integration/test_retention.py::test_retention_records_real_terminal_and_command_clocks
 FAILED tests/integration/test_retention.py::test_final_accounting_records_conservative_resolution_clock
 8 failed in 3.56s
-

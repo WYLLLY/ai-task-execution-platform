@@ -1,0 +1,20 @@
+docker-compose -p atp-m1-test -f compose.yaml -f compose.demo.yaml -f compose.proxy.yaml run --rm --no-deps test pytest -p no:cacheprovider tests/integration/test_execution.py tests/integration/test_execution_calls.py tests/integration/test_execution_resolution.py tests/integration/test_execution_schema.py tests/integration/test_execution_worker.py
+time="2026-10-28T05:28:08+01:00" level=warning msg="Found orphan containers (atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-df79e6875933 Creating
+ Container atp-m1-test-test-run-df79e6875933 Created
+============================= test session starts ==============================
+platform linux -- Python 3.14.8, pytest-9.1.1, pluggy-1.7.0
+rootdir: /app
+configfile: pyproject.toml
+plugins: anyio-4.15.1, asyncio-1.4.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 75 items
+
+tests/integration/test_execution.py .......                              [  9%]
+tests/integration/test_execution_calls.py .............................. [ 49%]
+....                                                                     [ 54%]
+tests/integration/test_execution_resolution.py .......                   [ 64%]
+tests/integration/test_execution_schema.py .............                 [ 81%]
+tests/integration/test_execution_worker.py ..............                [100%]
+
+============================= 75 passed in 17.37s ==============================

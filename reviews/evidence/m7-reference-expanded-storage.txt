@@ -1,0 +1,3 @@
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vdb1        40G   18G   20G  48% /var/lib/docker
+/dev/vdb1        40G   18G   20G  48% /var/lib/containerd

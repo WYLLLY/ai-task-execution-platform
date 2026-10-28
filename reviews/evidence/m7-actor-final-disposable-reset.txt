@@ -1,0 +1,8 @@
+TRUNCATE TABLE
+UPDATE 489
+UPDATE 1
+UPDATE 2
+ count
+-------
+     0
+(1 row)

@@ -1,16 +1,17 @@
 {
   "application_version": "0.1.0",
-  "milestone": "M4",
+  "milestone": "M7",
   "python": "3.14.8",
   "uv": "0.13.1",
   "postgresql": "17.11",
   "redis_server": "8.2.2",
   "schema_revisions": [
-    "0004_workflow"
+    "0011_recovery_authority"
   ],
   "workflow_handlers": [
     "simulation-v1",
-    "analysis:1"
+    "analysis:1",
+    "analysis:2"
   ],
   "commands": [
     "api",
@@ -18,7 +19,14 @@
     "worker --check",
     "worker --simulate [--once]",
     "worker --analysis [--once]",
-    "admin corpus import/revoke",
+    "worker --openai [--once]",
+    "admin corpus import/revoke/delete",
+    "admin provider-configure/accounting",
+    "admin retention",
+    "admin demo-retention --file",
+    "admin recovery begin/reserve/reopen/release",
+    "admin delivery --phase",
+    "admin operations",
     "demo"
   ],
   "execution_implemented": true,
@@ -38,14 +46,38 @@
     "required_total": 38,
     "postgresql_max_connections": 50
   },
-  "notes": "M4 simulated analysis requires explicit ATP_TEST_PROFILE=1 and DISPATCH_ENABLED=true, fixed model/demo destinations and worker-only demo credentials. Catalogue workflow/prompt/tools/context-builder versions remain pinned to 1. OpenAI remains M5.",
+  "notes": "M1-M6 are merged; M7 is a reviewed delivery candidate. Simulation requires explicit ATP_TEST_PROFILE=1 and DISPATCH_ENABLED=true. Responses uses an immutable configured provider profile and worker-only provider credentials; ordinary verification is synthetic and live smoke is separately authorized. Health/delivery accept only the exact current schema/epoch and retained compatible definitions. The demo SQL addition must be applied explicitly to existing volumes.",
   "catalogue_versions": {
-    "analysis": "1"
+    "analysis": [
+      "1",
+      "2"
+    ]
   },
   "demo_database": {
     "postgresql": "17.11",
     "independent_cluster": true,
     "runtime_role": "atp_demo",
-    "service_pool": 4
-  }
+    "service_pool": 4,
+    "retention_schema_addition": "infra/demo-retention.sql",
+    "retention_operator_group": "atp_demo_retention (NOLOGIN)",
+    "retention_operator_pool": 1,
+    "content_clock": "Verified platform terminal_at plus 30 elapsed UTC days; explicit trusted evidence",
+    "minimal_dedup_retention": "At least 90 days, conservatively retained beyond that guarantee"
+  },
+  "workflow_compatibility_templates": {
+    "analysis:1": {
+      "workflow": "1",
+      "prompt": "1",
+      "tools": "1",
+      "context_builder": "1"
+    },
+    "analysis:2": {
+      "workflow": "2",
+      "prompt": "1",
+      "tools": "1",
+      "context_builder": "responses-1",
+      "provider": "Parameterized requirement: full immutable ProviderProfile must exactly match definition(profile); this is not an instantiated provider configuration"
+    }
+  },
+  "configured_production_provider_profile": "NOT_PROVISIONED: ordinary verification uses synthetic fixtures; paid live smoke SKIPPED"
 }

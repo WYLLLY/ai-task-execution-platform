@@ -1,0 +1,14 @@
+time="2026-10-27T16:27:06+01:00" level=warning msg="Found orphan containers (atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-d21e7de31aed Creating
+ Container atp-m1-test-test-run-d21e7de31aed Created
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_____ test_proxy_keeps_the_current_api_target_after_container_replacement ______
+tests/integration/test_sse_network.py:159: in test_proxy_keeps_the_current_api_target_after_container_replacement
+    assert proxied.status_code == direct.status_code
+E   assert 404 == 200
+E    +  where 404 = <Response [404 Not Found]>.status_code
+E    +  and   200 = <Response [200 OK]>.status_code
+=========================== short test summary info ============================
+FAILED tests/integration/test_sse_network.py::test_proxy_keeps_the_current_api_target_after_container_replacement
+1 failed, 4 deselected in 0.20s

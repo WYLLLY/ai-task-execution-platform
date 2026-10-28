@@ -1,0 +1,247 @@
+verify	Run make test-sse test-degraded test-observability	﻿2026-10-28T14:32:44.6990211Z ##[group]Run make test-sse test-degraded test-observability
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:32:44.6990975Z ^[[36;1mmake test-sse test-degraded test-observability^[[0m
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:32:44.7149190Z shell: /usr/bin/bash -e {0}
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:32:44.7149659Z env:
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:32:44.7150140Z   UV_PYTHON_INSTALL_DIR: /home/runner/work/_temp/uv-python-dir
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:32:44.7150805Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:32:44.7151354Z ##[endgroup]
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:32:44.7376955Z docker compose -p atp-m1-test -f compose.yaml -f compose.demo.yaml -f compose.proxy.yaml run --rm --no-deps test pytest -p no:cacheprovider tests/unit/test_event_cursor.py tests/unit/test_sse_stream.py tests/unit/test_sse_tcp_lifetime.py tests/unit/test_event_hub.py tests/integration/test_event_reads.py tests/integration/test_sse.py tests/integration/test_sse_network.py tests/integration/test_notifications.py tests/integration/test_m6_projections.py
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:32:48.6719656Z ============================= test session starts ==============================
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:32:48.6726225Z platform linux -- Python 3.14.8, pytest-9.1.1, pluggy-1.7.0
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:32:48.6741435Z rootdir: /app
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:32:48.6742088Z configfile: pyproject.toml
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:32:48.6742923Z plugins: anyio-4.15.1, asyncio-1.4.0
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:32:48.6744231Z asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:32:49.0844352Z collected 81 items
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:32:49.0850078Z
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:32:49.1177892Z tests/unit/test_event_cursor.py ..................................       [ 41%]
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:32:49.5089076Z tests/unit/test_sse_stream.py ..........                                 [ 54%]
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:32:52.9651954Z tests/unit/test_sse_tcp_lifetime.py .                                    [ 55%]
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:32:53.0711048Z tests/unit/test_event_hub.py ...                                         [ 59%]
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:32:54.6678523Z tests/integration/test_event_reads.py ......                             [ 66%]
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:32:56.5736021Z tests/integration/test_sse.py ....                                       [ 71%]
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:10.5337094Z tests/integration/test_sse_network.py .....                              [ 77%]
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:11.4386516Z tests/integration/test_notifications.py ...                              [ 81%]
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:14.6445119Z tests/integration/test_m6_projections.py ...............                 [100%]
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:14.6446235Z
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:14.6458348Z ============================= 81 passed in 25.97s ==============================
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:15.6758752Z uv run --frozen python scripts/run_verification.py tests/unit/test_degraded_readiness.py tests/integration/test_degraded.py
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:19.6273515Z ============================= test session starts ==============================
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:19.6316964Z platform linux -- Python 3.14.8, pytest-9.1.1, pluggy-1.7.0
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:19.6332333Z rootdir: /app
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:19.6333437Z configfile: pyproject.toml
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:19.6334312Z plugins: anyio-4.15.1, asyncio-1.4.0
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:19.6343622Z asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:19.8906902Z collected 4 items
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:19.8910971Z
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:20.1321419Z tests/unit/test_degraded_readiness.py ...                                [ 75%]
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.4931791Z tests/integration/test_degraded.py F                                     [100%]
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.4956595Z
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.4965802Z =================================== FAILURES ===================================
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.4966825Z _________ test_f19_real_redis_outage_with_100_sse_and_sustained_reads __________
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.4967495Z
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.4973189Z command_owner = {'Authorization': '***', 'X-Execution-Epoch': 'f785e702-968d-4847-9ae8-e536b782bddb'}
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.4974457Z admin_engine = <sqlalchemy.ext.asyncio.engine.AsyncEngine object at 0x7f8f85050e10>
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.4976199Z executor = <task_platform.execution.Executor object at 0x7f8f84d8b230>
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.4977631Z simulator = Simulator(url='http://127.0.0.1:39885', journal=PosixPath('/tmp/pytest-of-unknown/pytest-0/test_f19_real_redis_outage_wit0/remote.jsonl'))
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.4978653Z
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.4978991Z     async def test_f19_real_redis_outage_with_100_sse_and_sustained_reads(
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.4979690Z         command_owner: dict[str, str],
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.4980186Z         admin_engine: AsyncEngine,
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.4980638Z         executor: Executor,
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.4981073Z         simulator: Simulator,
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.4981496Z     ) -> None:
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.4981947Z         root = os.environ.get("ATP_FAULT_COORDINATOR")
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.4982871Z         assert root, "run this gate through scripts/run_verification.py; real fault controller required"
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.4983751Z         marker = Path(root)
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.4984232Z         settings = settings_for("api")
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.4985095Z         assert settings.redis_url is not None
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.4987891Z         redis = Redis.from_url(
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.4988668Z             settings.redis_url.get_secret_value(), socket_connect_timeout=1, socket_timeout=1
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.4989461Z         )
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.4989937Z         ready: asyncio.Queue[None] = asyncio.Queue(maxsize=100)
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.4990552Z         progress = asyncio.Condition()
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.4991043Z         observed: list[int] = [0] * 100
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.4991545Z         task_ids: list[UUID] = []
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.4992019Z         owners: list[dict[str, str]] = []
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5030188Z         streams: list[asyncio.Task[None]] = []
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5030884Z         readers: list[asyncio.Task[None]] = []
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5031453Z         heartbeat: asyncio.Task[bool] | None = None
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5031992Z         latencies: list[float] = []
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5032398Z         try:
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5032733Z             async with AsyncClient(
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5033181Z                 base_url="http://api:8000",
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5033636Z                 trust_env=False,
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5034031Z                 timeout=15,
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5034655Z                 limits=Limits(max_connections=150, max_keepalive_connections=30),
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5036444Z             ) as network:
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5036952Z                 for index in range(20):
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5037781Z                     owner = await provision_principal(sessions(admin_engine), f"F19 synthetic {index}")
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5038738Z                     _, key = await issue_key(sessions(admin_engine), owner)
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5039357Z                     headers = {
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5039988Z                         "Authorization": f"***",
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5040683Z                         "X-Execution-Epoch": command_owner["X-Execution-Epoch"],
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5041354Z                     }
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5041799Z                     response = await network.post(
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5042591Z                         "/v1/tasks", json=BODY, headers={**headers, "Idempotency-Key": "f19-create"}
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5043321Z                     )
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5043808Z                     assert response.status_code == 202, response.text
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5044425Z                     owners.append(headers)
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5045014Z                     task_ids.append(UUID(response.json()["task_id"]))
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5055987Z
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5056425Z                 async def subscribe(index: int) -> None:
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5056992Z                     task = task_ids[index // 5]
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5057477Z                     expected = 1
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5057881Z                     async with network.stream(
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5058446Z                         "GET", f"/v1/tasks/{task}/events", headers=owners[index // 5]
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5059305Z                     ) as response:
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5059783Z                         assert response.status_code == 200
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5060333Z                         async for line in response.aiter_lines():
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5060877Z                             if line.startswith("id: "):
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5061584Z                                 assert line == f"id: {task}:{expected}", "gap or cross-owner event"
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5062254Z                                 observed[index] = expected
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5062760Z                                 async with progress:
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5063275Z                                     progress.notify_all()
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5063761Z                                 if expected == 1:
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5064252Z                                     ready.put_nowait(None)
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5064735Z                                 expected += 1
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5065239Z                             assert line != "event: stream.reset"
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5074822Z
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5075775Z                 streams = [asyncio.create_task(subscribe(index)) for index in range(100)]
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5076547Z                 async with asyncio.timeout(25):
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5077079Z                     for _ in range(100):
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5077575Z >                       await ready.get()
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5077899Z
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5078101Z tests/integration/test_degraded.py:107:
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5078695Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5079148Z
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5079390Z self = <Queue at 0x7f8f8398f4d0 maxsize=100 tasks=99>
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5079798Z
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5079958Z     async def get(self):
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5080420Z         """Remove and return an item from the queue.
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5080934Z
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5081366Z         If queue is empty, wait until an item is available.
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5081929Z
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5082438Z         Raises QueueShutDown if the queue has been shut down and is empty,
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5083205Z         or if the queue has been shut down immediately.
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5083699Z         """
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5084043Z         while self.empty():
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5084498Z             if self._is_shutdown and self.empty():
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5085015Z                 raise QueueShutDown
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5097295Z             getter = self._get_loop().create_future()
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5104249Z             self._getters.append(getter)
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5104751Z             try:
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5108732Z >               await getter
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5109269Z E               asyncio.exceptions.CancelledError
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5115723Z
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5116087Z /usr/local/lib/python3.14/asyncio/queues.py:186: CancelledError
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5116837Z
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5117205Z The above exception was the direct cause of the following exception:
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5117765Z
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5118932Z command_owner = {'Authorization': '***', 'X-Execution-Epoch': 'f785e702-968d-4847-9ae8-e536b782bddb'}
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5120086Z admin_engine = <sqlalchemy.ext.asyncio.engine.AsyncEngine object at 0x7f8f85050e10>
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5121082Z executor = <task_platform.execution.Executor object at 0x7f8f84d8b230>
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5122445Z simulator = Simulator(url='http://127.0.0.1:39885', journal=PosixPath('/tmp/pytest-of-unknown/pytest-0/test_f19_real_redis_outage_wit0/remote.jsonl'))
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5123482Z
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5123850Z     async def test_f19_real_redis_outage_with_100_sse_and_sustained_reads(
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5124560Z         command_owner: dict[str, str],
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5125056Z         admin_engine: AsyncEngine,
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5146176Z         executor: Executor,
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5146654Z         simulator: Simulator,
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5147075Z     ) -> None:
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5147813Z         root = os.environ.get("ATP_FAULT_COORDINATOR")
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5148754Z         assert root, "run this gate through scripts/run_verification.py; real fault controller required"
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5149693Z         marker = Path(root)
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5150172Z         settings = settings_for("api")
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5150723Z         assert settings.redis_url is not None
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5151271Z         redis = Redis.from_url(
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5152022Z             settings.redis_url.get_secret_value(), socket_connect_timeout=1, socket_timeout=1
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5152758Z         )
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5153206Z         ready: asyncio.Queue[None] = asyncio.Queue(maxsize=100)
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5153822Z         progress = asyncio.Condition()
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5154340Z         observed: list[int] = [0] * 100
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5154811Z         task_ids: list[UUID] = []
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5155227Z         owners: list[dict[str, str]] = []
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5166387Z         streams: list[asyncio.Task[None]] = []
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5167245Z         readers: list[asyncio.Task[None]] = []
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5167803Z         heartbeat: asyncio.Task[bool] | None = None
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5168340Z         latencies: list[float] = []
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5169143Z         try:
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5196037Z             async with AsyncClient(
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5196782Z                 base_url="http://api:8000",
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5197480Z                 trust_env=False,
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5198114Z                 timeout=15,
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5198915Z                 limits=Limits(max_connections=150, max_keepalive_connections=30),
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5199776Z             ) as network:
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5200328Z                 for index in range(20):
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5201231Z                     owner = await provision_principal(sessions(admin_engine), f"F19 synthetic {index}")
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5202242Z                     _, key = await issue_key(sessions(admin_engine), owner)
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5203081Z                     headers = {
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5203900Z                         "Authorization": f"***",
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5204716Z                         "X-Execution-Epoch": command_owner["X-Execution-Epoch"],
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5205728Z                     }
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5206388Z                     response = await network.post(
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5207224Z                         "/v1/tasks", json=BODY, headers={**headers, "Idempotency-Key": "f19-create"}
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5208060Z                     )
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5208669Z                     assert response.status_code == 202, response.text
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5225992Z                     owners.append(headers)
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5226895Z                     task_ids.append(UUID(response.json()["task_id"]))
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5227793Z
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5228410Z                 async def subscribe(index: int) -> None:
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5229199Z                     task = task_ids[index // 5]
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5229960Z                     expected = 1
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5230661Z                     async with network.stream(
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5231566Z                         "GET", f"/v1/tasks/{task}/events", headers=owners[index // 5]
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5232493Z                     ) as response:
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5233230Z                         assert response.status_code == 200
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5234072Z                         async for line in response.aiter_lines():
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5234929Z                             if line.startswith("id: "):
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5236199Z                                 assert line == f"id: {task}:{expected}", "gap or cross-owner event"
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5237127Z                                 observed[index] = expected
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5237815Z                                 async with progress:
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5238541Z                                     progress.notify_all()
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5239282Z                                 if expected == 1:
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5240507Z                                     ready.put_nowait(None)
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5250146Z                                 expected += 1
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5250805Z                             assert line != "event: stream.reset"
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5251244Z
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5251700Z                 streams = [asyncio.create_task(subscribe(index)) for index in range(100)]
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5253286Z >               async with asyncio.timeout(25):
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5253988Z                            ^^^^^^^^^^^^^^^^^^^
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5254263Z
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5254434Z tests/integration/test_degraded.py:105:
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5254931Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5255495Z
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5255644Z self = <Timeout [expired]>
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5256083Z exc_type = <class 'asyncio.exceptions.CancelledError'>
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5256722Z exc_val = CancelledError(), exc_tb = <traceback object at 0x7f8f82d9dfc0>
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5257519Z
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5257651Z     async def __aexit__(
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5257966Z         self,
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5258284Z         exc_type: type[BaseException] | None,
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5258731Z         exc_val: BaseException | None,
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5259142Z         exc_tb: TracebackType | None,
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5259532Z     ) -> bool | None:
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5259958Z         assert self._state in (_State.ENTERED, _State.EXPIRING)
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5260450Z
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5260745Z         if self._timeout_handler is not None:
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5261197Z             self._timeout_handler.cancel()
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5261608Z             self._timeout_handler = None
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5261984Z
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5262275Z         if self._state is _State.EXPIRING:
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5262689Z             self._state = _State.EXPIRED
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5263071Z
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5263509Z             if self._task.uncancel() <= self._cancelling and exc_type is not None:
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5264158Z                 # Since there are no new cancel requests, we're
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5264634Z                 # handling this.
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5265099Z                 if issubclass(exc_type, exceptions.CancelledError):
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5265869Z >                   raise TimeoutError from exc_val
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5266317Z E                   TimeoutError
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5266570Z
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5266830Z /usr/local/lib/python3.14/asyncio/timeouts.py:115: TimeoutError
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5267470Z =========================== short test summary info ============================
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5268352Z FAILED tests/integration/test_degraded.py::test_f19_real_redis_outage_with_100_sse_and_sustained_reads
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:46.5269223Z ========================= 1 failed, 3 passed in 26.89s =========================
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:47.2172907Z
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:47.2441258Z make: *** [Makefile:64: test-degraded] Error 1
+verify	Run make test-sse test-degraded test-observability	2026-10-28T14:33:47.2458790Z ##[error]Process completed with exit code 2.

@@ -1,0 +1,38 @@
+{
+  "runtime_oci_manifest": "sha256:d8693ab05363959e257f3a0f7ad73f8a622f2c8a3fb4b45a4ffea6324b8a8007",
+  "scan_configuration_digest": "sha256:12b70c6f18c88b666cff47c3d7917e9bf0b71ff865d443af4bf04d6b36f8feb0",
+  "archive_sha256": "a9c32af73c9a0ed402d0f87aad9809d650c1a29d1296fc3b9eaa1a6b3341bbfb",
+  "source_commit": "c4e129735dc4501af1d0a64462399b380120e748",
+  "schema_revision": "0011_recovery_authority",
+  "demo_schema_addition": "infra/demo-retention.sql",
+  "platform": "linux/arm64",
+  "registry_publication": "SKIPPED: local artifact only",
+  "image_scan": "m7-release-image-scan.json",
+  "archive_committed": false,
+  "compatibility_manifest": "docs/compatibility.json",
+  "compatibility_sha256": "08dd5e28f152db4c61cfc5806a0c706d58386b65baf0e3aa6aa7d41e8addbf76",
+  "demo_schema_sha256": "e33af4e2a9f58aa439d023978e3a99314f0d5b01bcb506d29751b9e6e8a9595e",
+  "workflow_compatibility_templates": {
+    "analysis:1": {
+      "workflow": "1",
+      "prompt": "1",
+      "tools": "1",
+      "context_builder": "1"
+    },
+    "analysis:2": {
+      "workflow": "2",
+      "prompt": "1",
+      "tools": "1",
+      "context_builder": "responses-1",
+      "provider": "Parameterized requirement: full immutable ProviderProfile must exactly match definition(profile); this is not an instantiated provider configuration"
+    }
+  },
+  "configured_production_provider_profile": "NOT_PROVISIONED: ordinary verification uses synthetic fixtures; paid live smoke SKIPPED",
+  "verification_source_commit": "4d3fdafcf34e99ec0ea4471043e63863282d8592",
+  "test_image_oci_manifest": "sha256:68df107a1c86319926bb9232fc09a8c2be43bebb49586cabef81a6360fdd0ad9",
+  "benchmark_test_source_commit": "8c00f11f32fa619fef5abfc4236a3a0b0980ffde",
+  "benchmark_test_image_oci_manifest": "sha256:4e6cc07b2b642941f320292d27af8161cd14174c7ac5bac9ccacb8e66adeccc2",
+  "final_f19_baked_source_sha256": "78094e8141b1d39360e870a68ec6e427d912d5e105de13800096dd1f59a07d58",
+  "verification_uses_source_mounts": false,
+  "verification_profile_env": "unset"
+}

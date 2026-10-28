@@ -1,0 +1,49 @@
+......FFFFF                                                              [100%]
+=================================== FAILURES ===================================
+____ test_reference_gate_rejects_missing_pressure_or_dead_children[errors] _____
+tests/unit/test_load_metrics.py:102: in test_reference_gate_rejects_missing_pressure_or_dead_children
+    assert not all(reference_targets(values).values())
+E   AssertionError: assert not True
+E    +  where True = all(dict_values([True, True, True, True, True]))
+E    +    where dict_values([True, True, True, True, True]) = <built-in method values of dict object at 0x107a00880>()
+E    +      where <built-in method values of dict object at 0x107a00880> = {'all_1000_succeeded': True, 'create_p95_under_300ms': True, 'sse_p95_under_2s': True, 'no_duplicate_effects': True, ...}.values
+E    +        where {'all_1000_succeeded': True, 'create_p95_under_300ms': True, 'sse_p95_under_2s': True, 'no_duplicate_effects': True, ...} = <function reference_targets at 0x1075733d0>({'states': {'succeeded': 1000}, 'admission_seconds': {'p95': 0.01}, 'sse_commit_seconds': {'direct': {'p95': 0.01}, 'proxy': {'p95': 0.02}}, 'remote_effects': 1060, ...})
+_ test_reference_gate_rejects_missing_pressure_or_dead_children[sse_connected_slots] _
+tests/unit/test_load_metrics.py:102: in test_reference_gate_rejects_missing_pressure_or_dead_children
+    assert not all(reference_targets(values).values())
+E   AssertionError: assert not True
+E    +  where True = all(dict_values([True, True, True, True, True]))
+E    +    where dict_values([True, True, True, True, True]) = <built-in method values of dict object at 0x107a284c0>()
+E    +      where <built-in method values of dict object at 0x107a284c0> = {'all_1000_succeeded': True, 'create_p95_under_300ms': True, 'sse_p95_under_2s': True, 'no_duplicate_effects': True, ...}.values
+E    +        where {'all_1000_succeeded': True, 'create_p95_under_300ms': True, 'sse_p95_under_2s': True, 'no_duplicate_effects': True, ...} = <function reference_targets at 0x1075733d0>({'states': {'succeeded': 1000}, 'admission_seconds': {'p95': 0.01}, 'sse_commit_seconds': {'direct': {'p95': 0.01}, 'proxy': {'p95': 0.02}}, 'remote_effects': 1060, ...})
+___ test_reference_gate_rejects_missing_pressure_or_dead_children[sse_peak] ____
+tests/unit/test_load_metrics.py:102: in test_reference_gate_rejects_missing_pressure_or_dead_children
+    assert not all(reference_targets(values).values())
+E   AssertionError: assert not True
+E    +  where True = all(dict_values([True, True, True, True, True]))
+E    +    where dict_values([True, True, True, True, True]) = <built-in method values of dict object at 0x107a251c0>()
+E    +      where <built-in method values of dict object at 0x107a251c0> = {'all_1000_succeeded': True, 'create_p95_under_300ms': True, 'sse_p95_under_2s': True, 'no_duplicate_effects': True, ...}.values
+E    +        where {'all_1000_succeeded': True, 'create_p95_under_300ms': True, 'sse_p95_under_2s': True, 'no_duplicate_effects': True, ...} = <function reference_targets at 0x1075733d0>({'states': {'succeeded': 1000}, 'admission_seconds': {'p95': 0.01}, 'sse_commit_seconds': {'direct': {'p95': 0.01}, 'proxy': {'p95': 0.02}}, 'remote_effects': 1060, ...})
+__ test_reference_gate_rejects_missing_pressure_or_dead_children[read_count] ___
+tests/unit/test_load_metrics.py:102: in test_reference_gate_rejects_missing_pressure_or_dead_children
+    assert not all(reference_targets(values).values())
+E   AssertionError: assert not True
+E    +  where True = all(dict_values([True, True, True, True, True]))
+E    +    where dict_values([True, True, True, True, True]) = <built-in method values of dict object at 0x107a2f080>()
+E    +      where <built-in method values of dict object at 0x107a2f080> = {'all_1000_succeeded': True, 'create_p95_under_300ms': True, 'sse_p95_under_2s': True, 'no_duplicate_effects': True, ...}.values
+E    +        where {'all_1000_succeeded': True, 'create_p95_under_300ms': True, 'sse_p95_under_2s': True, 'no_duplicate_effects': True, ...} = <function reference_targets at 0x1075733d0>({'states': {'succeeded': 1000}, 'admission_seconds': {'p95': 0.01}, 'sse_commit_seconds': {'direct': {'p95': 0.01}, 'proxy': {'p95': 0.02}}, 'remote_effects': 1060, ...})
+_ test_reference_gate_rejects_missing_pressure_or_dead_children[workers_alive] _
+tests/unit/test_load_metrics.py:102: in test_reference_gate_rejects_missing_pressure_or_dead_children
+    assert not all(reference_targets(values).values())
+E   AssertionError: assert not True
+E    +  where True = all(dict_values([True, True, True, True, True]))
+E    +    where dict_values([True, True, True, True, True]) = <built-in method values of dict object at 0x107a0d100>()
+E    +      where <built-in method values of dict object at 0x107a0d100> = {'all_1000_succeeded': True, 'create_p95_under_300ms': True, 'sse_p95_under_2s': True, 'no_duplicate_effects': True, ...}.values
+E    +        where {'all_1000_succeeded': True, 'create_p95_under_300ms': True, 'sse_p95_under_2s': True, 'no_duplicate_effects': True, ...} = <function reference_targets at 0x1075733d0>({'states': {'succeeded': 1000}, 'admission_seconds': {'p95': 0.01}, 'sse_commit_seconds': {'direct': {'p95': 0.01}, 'proxy': {'p95': 0.02}}, 'remote_effects': 1060, ...})
+=========================== short test summary info ============================
+FAILED tests/unit/test_load_metrics.py::test_reference_gate_rejects_missing_pressure_or_dead_children[errors]
+FAILED tests/unit/test_load_metrics.py::test_reference_gate_rejects_missing_pressure_or_dead_children[sse_connected_slots]
+FAILED tests/unit/test_load_metrics.py::test_reference_gate_rejects_missing_pressure_or_dead_children[sse_peak]
+FAILED tests/unit/test_load_metrics.py::test_reference_gate_rejects_missing_pressure_or_dead_children[read_count]
+FAILED tests/unit/test_load_metrics.py::test_reference_gate_rejects_missing_pressure_or_dead_children[workers_alive]
+5 failed, 6 passed in 0.10s

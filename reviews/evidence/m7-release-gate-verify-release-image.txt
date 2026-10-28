@@ -1,0 +1,2 @@
+'/Users/william/Documents/Projet 2/.secrets/m7-tools/uv-env/bin/uv' run --frozen python scripts/verify_release_image.py
+PASS: immutable runtime artifact excludes installer tooling sha256:d8693ab05363959e257f3a0f7ad73f8a622f2c8a3fb4b45a4ffea6324b8a8007

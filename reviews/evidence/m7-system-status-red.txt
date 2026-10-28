@@ -1,0 +1,122 @@
+FFFFFFF                                                                  [100%]
+=================================== FAILURES ===================================
+__ test_system_outage_preserves_structured_unavailable_status[OSError-False] ___
+tests/unit/test_system_status.py:38: in test_system_outage_preserves_structured_unavailable_status
+    assert response.status_code == 503
+E   assert 500 == 503
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+------------------------------ Captured log call -------------------------------
+ERROR    task_platform.api:http_boundary.py:40
+___ test_system_outage_preserves_structured_unavailable_status[OSError-True] ___
+tests/unit/test_system_status.py:38: in test_system_outage_preserves_structured_unavailable_status
+    assert response.status_code == 503
+E   assert 500 == 503
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+------------------------------ Captured log call -------------------------------
+ERROR    task_platform.api:http_boundary.py:40
+_ test_system_outage_preserves_structured_unavailable_status[TimeoutError-False] _
+tests/unit/test_system_status.py:38: in test_system_outage_preserves_structured_unavailable_status
+    assert response.status_code == 503
+E   assert 500 == 503
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+------------------------------ Captured log call -------------------------------
+ERROR    task_platform.api:http_boundary.py:40
+_ test_system_outage_preserves_structured_unavailable_status[TimeoutError-True] _
+tests/unit/test_system_status.py:38: in test_system_outage_preserves_structured_unavailable_status
+    assert response.status_code == 503
+E   assert 500 == 503
+E    +  where 500 = <Response [500 Internal Server Error]>.status_code
+------------------------------ Captured log call -------------------------------
+ERROR    task_platform.api:http_boundary.py:40
+_ test_system_outage_preserves_structured_unavailable_status[SQLAlchemyError-False] _
+tests/unit/test_system_status.py:39: in test_system_outage_preserves_structured_unavailable_status
+    assert response.json()["ready"] is False
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'ready'
+_ test_system_outage_preserves_structured_unavailable_status[SQLAlchemyError-True] _
+tests/unit/test_system_status.py:39: in test_system_outage_preserves_structured_unavailable_status
+    assert response.json()["ready"] is False
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'ready'
+________________ test_system_recovery_read_has_absolute_timeout ________________
+tests/unit/test_system_status.py:63: in test_system_recovery_read_has_absolute_timeout
+    response = await client.get("/v1/system")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/httpx/_client.py:1768: in get
+    return await self.request(
+.venv/lib/python3.14/site-packages/httpx/_client.py:1540: in request
+    return await self.send(request, auth=auth, follow_redirects=follow_redirects)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/httpx/_client.py:1629: in send
+    response = await self._send_handling_auth(
+.venv/lib/python3.14/site-packages/httpx/_client.py:1657: in _send_handling_auth
+    response = await self._send_handling_redirects(
+.venv/lib/python3.14/site-packages/httpx/_client.py:1694: in _send_handling_redirects
+    response = await self._send_single_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/httpx/_client.py:1730: in _send_single_request
+    response = await transport.handle_async_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/httpx/_transports/asgi.py:170: in handle_async_request
+    await self.app(scope, receive, send)
+.venv/lib/python3.14/site-packages/fastapi/applications.py:1216: in __call__
+    await super().__call__(scope, receive, send)
+.venv/lib/python3.14/site-packages/starlette/applications.py:96: in __call__
+    await self.middleware_stack(scope, receive, send)
+.venv/lib/python3.14/site-packages/starlette/middleware/errors.py:164: in __call__
+    await self.app(scope, receive, _send)
+.venv/lib/python3.14/site-packages/fastapi/telemetry/_asgi.py:151: in __call__
+    await self.app(scope, receive, send)
+src/task_platform/http_boundary.py:38: in __call__
+    await self.app(scope, receive, forward)
+.venv/lib/python3.14/site-packages/starlette/middleware/exceptions.py:63: in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+.venv/lib/python3.14/site-packages/starlette/_exception_handler.py:42: in wrapped_app
+    await app(scope, receive, sender)
+.venv/lib/python3.14/site-packages/fastapi/middleware/asyncexitstack.py:18: in __call__
+    await self.app(scope, receive, send)
+.venv/lib/python3.14/site-packages/starlette/routing.py:676: in __call__
+    await self.middleware_stack(scope, receive, send)
+.venv/lib/python3.14/site-packages/fastapi/routing.py:2788: in app
+    await route.handle(scope, receive, send)
+.venv/lib/python3.14/site-packages/fastapi/routing.py:1310: in handle
+    await super().handle(scope, receive, send)
+.venv/lib/python3.14/site-packages/starlette/routing.py:282: in handle
+    await self.app(scope, receive, send)
+.venv/lib/python3.14/site-packages/fastapi/routing.py:165: in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+.venv/lib/python3.14/site-packages/starlette/_exception_handler.py:42: in wrapped_app
+    await app(scope, receive, sender)
+.venv/lib/python3.14/site-packages/fastapi/routing.py:151: in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+.venv/lib/python3.14/site-packages/fastapi/routing.py:727: in app
+    raw_response = await run_endpoint_function(
+.venv/lib/python3.14/site-packages/fastapi/routing.py:360: in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/task_platform/api.py:395: in system
+    payload["recovery"] = await recovery_status(control_factory)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests/unit/test_system_status.py:49: in stalled
+    await asyncio.Event().wait()
+../../.local/share/uv/python/cpython-3.14.8-macos-aarch64-none/lib/python3.14/asyncio/locks.py:213: in wait
+    await fut
+E   asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+tests/unit/test_system_status.py:62: in test_system_recovery_read_has_absolute_timeout
+    async with asyncio.timeout(5):
+               ^^^^^^^^^^^^^^^^^^
+../../.local/share/uv/python/cpython-3.14.8-macos-aarch64-none/lib/python3.14/asyncio/timeouts.py:115: in __aexit__
+    raise TimeoutError from exc_val
+E   TimeoutError
+=========================== short test summary info ============================
+FAILED tests/unit/test_system_status.py::test_system_outage_preserves_structured_unavailable_status[OSError-False]
+FAILED tests/unit/test_system_status.py::test_system_outage_preserves_structured_unavailable_status[OSError-True]
+FAILED tests/unit/test_system_status.py::test_system_outage_preserves_structured_unavailable_status[TimeoutError-False]
+FAILED tests/unit/test_system_status.py::test_system_outage_preserves_structured_unavailable_status[TimeoutError-True]
+FAILED tests/unit/test_system_status.py::test_system_outage_preserves_structured_unavailable_status[SQLAlchemyError-False]
+FAILED tests/unit/test_system_status.py::test_system_outage_preserves_structured_unavailable_status[SQLAlchemyError-True]
+FAILED tests/unit/test_system_status.py::test_system_recovery_read_has_absolute_timeout
+7 failed in 5.87s

@@ -1,0 +1,30 @@
+docker-compose -p atp-m1-test -f compose.yaml -f compose.demo.yaml -f compose.proxy.yaml run --rm --no-deps test pytest -p no:cacheprovider tests/integration -k 'concurrent or serialization or waits or waiting or revocation_committed or lock_wait or lock_contention or skip_locked'
+time="2026-10-28T15:28:53+01:00" level=warning msg="Found orphan containers (atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-c3564d3450be Creating
+ Container atp-m1-test-test-run-c3564d3450be Created
+============================= test session starts ==============================
+platform linux -- Python 3.14.8, pytest-9.1.1, pluggy-1.7.0
+rootdir: /app
+configfile: pyproject.toml
+plugins: anyio-4.15.1, asyncio-1.4.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 560 items / 525 deselected / 35 selected
+
+tests/integration/test_accounting_admin.py .                             [  2%]
+tests/integration/test_command_regressions.py .                          [  5%]
+tests/integration/test_command_resilience.py .....                       [ 20%]
+tests/integration/test_commands.py ..                                    [ 25%]
+tests/integration/test_demo_retention.py .                               [ 28%]
+tests/integration/test_event_reads.py ..                                 [ 34%]
+tests/integration/test_execution.py ...                                  [ 42%]
+tests/integration/test_execution_calls.py ......                         [ 60%]
+tests/integration/test_execution_resolution.py .                         [ 62%]
+tests/integration/test_foundation_adversarial.py ..                      [ 68%]
+tests/integration/test_provider_capacity.py .....                        [ 82%]
+tests/integration/test_restore_races.py .                                [ 85%]
+tests/integration/test_retention.py .                                    [ 88%]
+tests/integration/test_sse.py .                                          [ 91%]
+tests/integration/test_tools_demo.py .                                   [ 94%]
+tests/integration/test_workflow_boundaries.py ..                         [100%]
+
+===================== 35 passed, 525 deselected in 12.29s ======================

@@ -1,0 +1,92 @@
+time="2026-10-27T22:06:46+01:00" level=warning msg="Found orphan containers (atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-e86faaa13196 Creating
+ Container atp-m1-test-test-run-e86faaa13196 Created
+.F                                                                       [100%]
+=================================== FAILURES ===================================
+____ test_concurrent_reserve_revision_and_lost_ack_replay_are_one_decision _____
+tests/integration/test_restore_races.py:57: in test_concurrent_reserve_revision_and_lost_ack_replay_are_one_decision
+    pytest.fail("two independent admin reserve transactions must contend")
+E   Failed: two independent admin reserve transactions must contend
+=========================== short test summary info ============================
+FAILED tests/integration/test_restore_races.py::test_concurrent_reserve_revision_and_lost_ack_replay_are_one_decision
+1 failed, 1 passed in 2.58s
+Task exception was never retrieved
+future: <Task finished name='Task-33' coro=<revise_reserve() done, defined at /app/src/task_platform/recovery.py:143> exception=4 validation errors for ReserveEvidence
+revision
+  Field required [type=missing]
+    For further information visit https://errors.pydantic.dev/2.14/v/missing
+owners
+  Input should be a valid list [type=list_type]
+    For further information visit https://errors.pydantic.dev/2.14/v/list_type
+reason
+  Field required [type=missing]
+    For further information visit https://errors.pydantic.dev/2.14/v/missing
+expected_revision
+  Extra inputs are not permitted [type=extra_forbidden]
+    For further information visit https://errors.pydantic.dev/2.14/v/extra_forbidden>
+Traceback (most recent call last):
+  File "/app/src/task_platform/recovery.py", line 144, in revise_reserve
+    value = ReserveEvidence.model_validate(evidence)
+  File "/app/.venv/lib/python3.14/site-packages/pydantic/main.py", line 790, in model_validate
+    return cls.__pydantic_validator__.validate_python(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        obj,
+        ^^^^
+    ...<5 lines>...
+        by_name=by_name,
+        ^^^^^^^^^^^^^^^^
+    )
+    ^
+pydantic_core._pydantic_core.ValidationError: 4 validation errors for ReserveEvidence
+revision
+  Field required [type=missing]
+    For further information visit https://errors.pydantic.dev/2.14/v/missing
+owners
+  Input should be a valid list [type=list_type]
+    For further information visit https://errors.pydantic.dev/2.14/v/list_type
+reason
+  Field required [type=missing]
+    For further information visit https://errors.pydantic.dev/2.14/v/missing
+expected_revision
+  Extra inputs are not permitted [type=extra_forbidden]
+    For further information visit https://errors.pydantic.dev/2.14/v/extra_forbidden
+Task exception was never retrieved
+future: <Task finished name='Task-34' coro=<revise_reserve() done, defined at /app/src/task_platform/recovery.py:143> exception=4 validation errors for ReserveEvidence
+revision
+  Field required [type=missing]
+    For further information visit https://errors.pydantic.dev/2.14/v/missing
+owners
+  Input should be a valid list [type=list_type]
+    For further information visit https://errors.pydantic.dev/2.14/v/list_type
+reason
+  Field required [type=missing]
+    For further information visit https://errors.pydantic.dev/2.14/v/missing
+expected_revision
+  Extra inputs are not permitted [type=extra_forbidden]
+    For further information visit https://errors.pydantic.dev/2.14/v/extra_forbidden>
+Traceback (most recent call last):
+  File "/app/src/task_platform/recovery.py", line 144, in revise_reserve
+    value = ReserveEvidence.model_validate(evidence)
+  File "/app/.venv/lib/python3.14/site-packages/pydantic/main.py", line 790, in model_validate
+    return cls.__pydantic_validator__.validate_python(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        obj,
+        ^^^^
+    ...<5 lines>...
+        by_name=by_name,
+        ^^^^^^^^^^^^^^^^
+    )
+    ^
+pydantic_core._pydantic_core.ValidationError: 4 validation errors for ReserveEvidence
+revision
+  Field required [type=missing]
+    For further information visit https://errors.pydantic.dev/2.14/v/missing
+owners
+  Input should be a valid list [type=list_type]
+    For further information visit https://errors.pydantic.dev/2.14/v/list_type
+reason
+  Field required [type=missing]
+    For further information visit https://errors.pydantic.dev/2.14/v/missing
+expected_revision
+  Extra inputs are not permitted [type=extra_forbidden]
+    For further information visit https://errors.pydantic.dev/2.14/v/extra_forbidden

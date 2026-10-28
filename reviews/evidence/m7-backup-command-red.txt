@@ -1,0 +1,60 @@
+FFFF.....                                                                [100%]
+=================================== FAILURES ===================================
+___________ test_backup_streams_to_exclusive_ciphertext_and_manifest ___________
+tests/unit/test_backup_artifact.py:30: in test_backup_streams_to_exclusive_ciphertext_and_manifest
+    manifest = encrypted_backup(
+scripts/backup_artifact.py:63: in encrypted_backup
+    encrypt = subprocess.Popen(  # noqa: S603 -- operator-owned binary, explicit recipient
+../../.local/share/uv/python/cpython-3.14.8-macos-aarch64-none/lib/python3.14/subprocess.py:1039: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+../../.local/share/uv/python/cpython-3.14.8-macos-aarch64-none/lib/python3.14/subprocess.py:1861: in _execute_child
+    and os.path.dirname(executable)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen posixpath>:178: in dirname
+    ???
+E   TypeError: expected str, bytes or os.PathLike object, not list
+_________ test_backup_never_publishes_failed_or_timed_out_stream[dump] _________
+tests/unit/test_backup_artifact.py:66: in test_backup_never_publishes_failed_or_timed_out_stream
+    encrypted_backup(dump, "age1" + "q" * 58, target, age_command=age, timeout=0.1)
+scripts/backup_artifact.py:63: in encrypted_backup
+    encrypt = subprocess.Popen(  # noqa: S603 -- operator-owned binary, explicit recipient
+../../.local/share/uv/python/cpython-3.14.8-macos-aarch64-none/lib/python3.14/subprocess.py:1039: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+../../.local/share/uv/python/cpython-3.14.8-macos-aarch64-none/lib/python3.14/subprocess.py:1861: in _execute_child
+    and os.path.dirname(executable)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen posixpath>:178: in dirname
+    ???
+E   TypeError: expected str, bytes or os.PathLike object, not list
+_______ test_backup_never_publishes_failed_or_timed_out_stream[encrypt] ________
+tests/unit/test_backup_artifact.py:66: in test_backup_never_publishes_failed_or_timed_out_stream
+    encrypted_backup(dump, "age1" + "q" * 58, target, age_command=age, timeout=0.1)
+scripts/backup_artifact.py:63: in encrypted_backup
+    encrypt = subprocess.Popen(  # noqa: S603 -- operator-owned binary, explicit recipient
+../../.local/share/uv/python/cpython-3.14.8-macos-aarch64-none/lib/python3.14/subprocess.py:1039: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+../../.local/share/uv/python/cpython-3.14.8-macos-aarch64-none/lib/python3.14/subprocess.py:1861: in _execute_child
+    and os.path.dirname(executable)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen posixpath>:178: in dirname
+    ???
+E   TypeError: expected str, bytes or os.PathLike object, not list
+_______ test_backup_never_publishes_failed_or_timed_out_stream[timeout] ________
+tests/unit/test_backup_artifact.py:66: in test_backup_never_publishes_failed_or_timed_out_stream
+    encrypted_backup(dump, "age1" + "q" * 58, target, age_command=age, timeout=0.1)
+scripts/backup_artifact.py:63: in encrypted_backup
+    encrypt = subprocess.Popen(  # noqa: S603 -- operator-owned binary, explicit recipient
+../../.local/share/uv/python/cpython-3.14.8-macos-aarch64-none/lib/python3.14/subprocess.py:1039: in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+../../.local/share/uv/python/cpython-3.14.8-macos-aarch64-none/lib/python3.14/subprocess.py:1861: in _execute_child
+    and os.path.dirname(executable)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<frozen posixpath>:178: in dirname
+    ???
+E   TypeError: expected str, bytes or os.PathLike object, not list
+=========================== short test summary info ============================
+FAILED tests/unit/test_backup_artifact.py::test_backup_streams_to_exclusive_ciphertext_and_manifest
+FAILED tests/unit/test_backup_artifact.py::test_backup_never_publishes_failed_or_timed_out_stream[dump]
+FAILED tests/unit/test_backup_artifact.py::test_backup_never_publishes_failed_or_timed_out_stream[encrypt]
+FAILED tests/unit/test_backup_artifact.py::test_backup_never_publishes_failed_or_timed_out_stream[timeout]
+4 failed, 5 passed in 0.18s

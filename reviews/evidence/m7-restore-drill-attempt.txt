@@ -1,0 +1,28 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/william/Documents/Projet 2/scripts/run_restore_drill.py", line 382, in <module>
+    if __name__ == "__main__":
+                         ^^^^^
+  File "/Users/william/Documents/Projet 2/scripts/run_restore_drill.py", line 320, in main
+    results = [
+        ^^^^^^^
+  File "/Users/william/Documents/Projet 2/scripts/run_restore_drill.py", line 207, in restore
+    incident = datetime.now(UTC).isoformat()
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<10 lines>...
+        ],
+
+  File "/Users/william/Documents/Projet 2/scripts/run_restore_drill.py", line 132, in phase
+    options = ["-e", "EXECUTION_EPOCH=" + epoch] if epoch else []
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<10 lines>...
+        *(arguments or []),
+
+  File "/Users/william/Documents/Projet 2/scripts/run_restore_drill.py", line 106, in compose
+    def compose(self, *arguments: str, data: bytes | None = None) -> bytes:
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/william/Documents/Projet 2/scripts/run_restore_drill.py", line 102, in run
+    log.chmod(0o600)
+    ~~~~~~~~~^^^^^^^
+RuntimeError: Isolated restore command failed; sanitized diagnostic: /Users/william/Documents/Projet 2/.secrets/m7-restore-bda25d74aeba42cba190e638d232da43/diagnostic.txt

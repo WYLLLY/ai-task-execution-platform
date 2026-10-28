@@ -1,0 +1,37 @@
+'/Users/william/Documents/Projet 2/.secrets/m7-tools/uv-env/bin/uv' run --frozen pytest tests/unit
+============================= test session starts ==============================
+platform darwin -- Python 3.14.8, pytest-9.1.1, pluggy-1.7.0
+rootdir: /Users/william/Documents/Projet 2
+configfile: pyproject.toml
+plugins: asyncio-1.4.0, anyio-4.15.1
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 268 items
+
+tests/unit/test_agent_protocol.py ......................                 [  8%]
+tests/unit/test_backup_artifact.py .........                             [ 11%]
+tests/unit/test_cli_startup.py ....                                      [ 13%]
+tests/unit/test_command_boundaries.py ..........                         [ 16%]
+tests/unit/test_degraded_readiness.py ...                                [ 17%]
+tests/unit/test_event_cursor.py ..................................       [ 30%]
+tests/unit/test_event_hub.py ...                                         [ 31%]
+tests/unit/test_foundation.py ..........                                 [ 35%]
+tests/unit/test_load_metrics.py ............                             [ 39%]
+tests/unit/test_load_orchestration.py .                                  [ 40%]
+tests/unit/test_openai_smoke.py ...                                      [ 41%]
+tests/unit/test_operations.py ............                               [ 45%]
+tests/unit/test_provider_cli.py .....                                    [ 47%]
+tests/unit/test_rate_limits.py ...                                       [ 48%]
+tests/unit/test_recovery_cli.py .......                                  [ 51%]
+tests/unit/test_responses.py ...................................         [ 64%]
+tests/unit/test_retention_policy.py ..............................       [ 75%]
+tests/unit/test_secret_creation_race.py ..                               [ 76%]
+tests/unit/test_semantic_fixtures.py ................................... [ 89%]
+.....                                                                    [ 91%]
+tests/unit/test_sse_stream.py ..........                                 [ 95%]
+tests/unit/test_sse_tcp_lifetime.py .                                    [ 95%]
+tests/unit/test_supply_chain.py .                                        [ 95%]
+tests/unit/test_system_status.py .......                                 [ 98%]
+tests/unit/test_telemetry.py ..                                          [ 99%]
+tests/unit/test_transport_environment.py ..                              [100%]
+
+============================= 268 passed in 9.11s ==============================

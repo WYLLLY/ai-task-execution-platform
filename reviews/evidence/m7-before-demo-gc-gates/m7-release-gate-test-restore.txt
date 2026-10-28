@@ -1,0 +1,21 @@
+docker-compose -p atp-m1-test -f compose.yaml -f compose.demo.yaml -f compose.proxy.yaml run --rm --no-deps test pytest -p no:cacheprovider tests/unit/test_backup_artifact.py tests/unit/test_recovery_cli.py tests/unit/test_system_status.py tests/integration/test_restore.py tests/integration/test_restore_races.py
+time="2026-10-28T05:44:45+01:00" level=warning msg="Found orphan containers (atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-5cca1efa7859 Creating
+ Container atp-m1-test-test-run-5cca1efa7859 Created
+============================= test session starts ==============================
+platform linux -- Python 3.14.8, pytest-9.1.1, pluggy-1.7.0
+rootdir: /app
+configfile: pyproject.toml
+plugins: anyio-4.15.1, asyncio-1.4.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 46 items
+
+tests/unit/test_backup_artifact.py .........                             [ 19%]
+tests/unit/test_recovery_cli.py .......                                  [ 34%]
+tests/unit/test_system_status.py .......                                 [ 50%]
+tests/integration/test_restore.py ......................                 [ 97%]
+tests/integration/test_restore_races.py .                                [100%]
+
+============================= 46 passed in 13.70s ==============================
+'/Users/william/Documents/Projet 2/.secrets/m7-tools/uv-env/bin/uv' run --frozen python -m scripts.run_restore_drill
+{"age_tamper_rejected": true, "backups": [{"bytes": 118796, "completed_at": "2026-10-28T04:45:12.152870+00:00", "format": "postgres-custom+age-v1", "sha256": "1d464c15048d512194bb07e41ddb9c0d48827a97bc537dcc03e7c3ff50a0a545", "started_at": "2026-10-28T04:45:11.977351+00:00"}, {"bytes": 122412, "completed_at": "2026-10-28T04:45:15.504843+00:00", "format": "postgres-custom+age-v1", "sha256": "d24e63b53b0cc6b18d3c4cc352f4f4e922b4bde21b6a27b3aadb04ebe15debe5", "started_at": "2026-10-28T04:45:15.370399+00:00"}], "credential_isolation_seconds": 0.851, "demo_physical_writes": 1, "incident_at": "2026-10-28T04:45:18.326559+00:00", "live_provider_credentials": "N/A: synthetic private destinations only", "model_physical_requests": 2, "off_host_delivery": "SKIPPED: no external destination or credentials configured", "remote_effects": 1, "restores": [{"blind_resume": false, "database": "atp_restore_before_b", "live_egress_blocked": true, "lost_accepted_task": false, "old_api_key_rejected": true, "old_demo_key_rejected": true, "old_worker_rejected": true, "quarantined": 1, "rpo_potential_loss_seconds": 2.956, "rto_safe_reopening_seconds": 4.347, "safe_reopen_verified": true, "verification_seconds": 1.405294}, {"blind_resume": false, "database": "atp_restore_before_creation", "live_egress_blocked": true, "lost_accepted_task": true, "old_api_key_rejected": true, "old_demo_key_rejected": true, "old_worker_rejected": true, "quarantined": 0, "rpo_potential_loss_seconds": 6.349, "rto_safe_reopening_seconds": 3.365, "safe_reopen_verified": true, "verification_seconds": 0.412741}], "status": "PASS"}

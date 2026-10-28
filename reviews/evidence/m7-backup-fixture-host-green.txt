@@ -1,0 +1,22 @@
+.FFF.....                                                                [100%]
+=================================== FAILURES ===================================
+_________ test_backup_never_publishes_failed_or_timed_out_stream[dump] _________
+Fixture "fake_age" called directly. Fixtures are not meant to be called directly,
+but are created automatically when test functions request them as parameters.
+See https://docs.pytest.org/en/stable/explanation/fixtures.html for more information about fixtures, and
+https://docs.pytest.org/en/stable/deprecations.html#calling-fixtures-directly
+_______ test_backup_never_publishes_failed_or_timed_out_stream[encrypt] ________
+Fixture "fake_age" called directly. Fixtures are not meant to be called directly,
+but are created automatically when test functions request them as parameters.
+See https://docs.pytest.org/en/stable/explanation/fixtures.html for more information about fixtures, and
+https://docs.pytest.org/en/stable/deprecations.html#calling-fixtures-directly
+_______ test_backup_never_publishes_failed_or_timed_out_stream[timeout] ________
+Fixture "fake_age" called directly. Fixtures are not meant to be called directly,
+but are created automatically when test functions request them as parameters.
+See https://docs.pytest.org/en/stable/explanation/fixtures.html for more information about fixtures, and
+https://docs.pytest.org/en/stable/deprecations.html#calling-fixtures-directly
+=========================== short test summary info ============================
+FAILED tests/unit/test_backup_artifact.py::test_backup_never_publishes_failed_or_timed_out_stream[dump]
+FAILED tests/unit/test_backup_artifact.py::test_backup_never_publishes_failed_or_timed_out_stream[encrypt]
+FAILED tests/unit/test_backup_artifact.py::test_backup_never_publishes_failed_or_timed_out_stream[timeout]
+3 failed, 6 passed in 0.23s

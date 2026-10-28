@@ -4,7 +4,7 @@ _______ test_normal_lifetime_finishes_asgi_body_within_hard_bound[0.01] ________
 tests/unit/test_sse_stream.py:245: in test_normal_lifetime_finishes_asgi_body_within_hard_bound
     assert sent[-1] == {"type": "http.response.body", "body": b"", "more_body": False}
 E   AssertionError: assert {'type': 'htt...e_body': True} == {'type': 'htt..._body': False}
-E     
+E
 E     Omitting 1 identical items, use -vv to show
 E     Differing items:
 E     {'more_body': True} != {'more_body': False}
@@ -14,7 +14,7 @@ ________ test_normal_lifetime_finishes_asgi_body_within_hard_bound[0.2] ________
 tests/unit/test_sse_stream.py:245: in test_normal_lifetime_finishes_asgi_body_within_hard_bound
     assert sent[-1] == {"type": "http.response.body", "body": b"", "more_body": False}
 E   AssertionError: assert {'type': 'htt...e_body': True} == {'type': 'htt..._body': False}
-E     
+E
 E     Omitting 1 identical items, use -vv to show
 E     Differing items:
 E     {'more_body': True} != {'more_body': False}

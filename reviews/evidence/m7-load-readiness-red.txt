@@ -1,0 +1,9 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+___________ test_saturation_waits_for_model_before_burst_and_workers ___________
+tests/unit/test_load_orchestration.py:83: in test_saturation_waits_for_model_before_burst_and_workers
+    assert 'worker_too_early' not in events
+E   AssertionError: assert 'worker_too_early' not in ['submission', 'submission', 'submission', 'submission', 'submission', 'submission', ...]
+=========================== short test summary info ============================
+FAILED tests/unit/test_load_orchestration.py::test_saturation_waits_for_model_before_burst_and_workers
+1 failed in 0.44s

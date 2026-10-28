@@ -1,0 +1,8 @@
+Collecting uv==0.13.1
+  Using cached uv-0.13.1-py3-none-macosx_11_0_arm64.whl.metadata (11 kB)
+Using cached uv-0.13.1-py3-none-macosx_11_0_arm64.whl (14.4 MB)
+Installing collected packages: uv
+Successfully installed uv-0.13.1
+
+[notice] A new release of pip is available: 26.2.1 -> 26.2.2
+[notice] To update, run: /Users/william/Documents/Projet 2/.secrets/m7-tools/uv-env/bin/python -m pip install --upgrade pip

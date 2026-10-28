@@ -1,0 +1,22 @@
+docker-compose -p atp-m1-test -f compose.yaml -f compose.demo.yaml -f compose.proxy.yaml run --rm --no-deps test pytest -p no:cacheprovider tests/unit/test_backup_artifact.py tests/unit/test_recovery_cli.py tests/unit/test_system_status.py tests/integration/test_restore.py tests/integration/test_restore_races.py
+time="2026-10-27T22:18:13+01:00" level=warning msg="Found orphan containers (atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-b6e496c7adf2 Creating
+ Container atp-m1-test-test-run-b6e496c7adf2 Created
+============================= test session starts ==============================
+platform linux -- Python 3.14.8, pytest-9.1.1, pluggy-1.7.0
+rootdir: /app
+configfile: pyproject.toml
+plugins: anyio-4.15.1, asyncio-1.4.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 46 items
+
+tests/unit/test_backup_artifact.py .........                             [ 19%]
+tests/unit/test_recovery_cli.py .......                                  [ 34%]
+tests/unit/test_system_status.py .......                                 [ 50%]
+tests/integration/test_restore.py ......................                 [ 97%]
+tests/integration/test_restore_races.py .                                [100%]
+
+============================= 46 passed in 13.67s ==============================
+/Users/william/Documents/Projet 2/.secrets/m7-tools/uv-env/bin/uv run --frozen python -m scripts.run_restore_drill
+make: /Users/william/Documents/Projet: No such file or directory
+make: *** [test-restore] Error 1

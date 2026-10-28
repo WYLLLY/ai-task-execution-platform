@@ -1,0 +1,13 @@
+time="2026-10-27T17:05:51+01:00" level=warning msg="Found orphan containers (atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-9b293998da11 Creating
+ Container atp-m1-test-test-run-9b293998da11 Created
+F                                                                        [100%]
+=================================== FAILURES ===================================
+__________ test_reopen_checks_global_budget_when_backup_has_no_owners __________
+tests/integration/test_restore.py:595: in test_reopen_checks_global_budget_when_backup_has_no_owners
+    with pytest.raises(ValueError, match="budget|capacity"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+=========================== short test summary info ============================
+FAILED tests/integration/test_restore.py::test_reopen_checks_global_budget_when_backup_has_no_owners
+1 failed, 21 deselected in 0.33s

@@ -1,0 +1,51 @@
+time="2026-10-27T16:20:14+01:00" level=warning msg="Found orphan containers (atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-d8d5485ab20b Creating
+ Container atp-m1-test-test-run-d8d5485ab20b Created
+........................................................................ [  9%]
+................... Container atp-m1-test-redis-1 Stopping
+ Container atp-m1-test-redis-1 Stopped
+ Container atp-m1-test-redis-1 Starting
+ Container atp-m1-test-redis-1 Started
+..................................................... [ 19%]
+........................................................................ [ 29%]
+........................................................................ [ 39%]
+.......................F.FF....FF....................................... [ 49%]
+........................................................................ [ 59%]
+........................................................................ [ 69%]
+........................................................................ [ 78%]
+........................................................................ [ 88%]
+........................................................................ [ 98%]
+..........                                                               [100%]
+=================================== FAILURES ===================================
+__________ test_purge_preserves_unknown_exposure_and_late_settlement ___________
+tests/integration/test_retention.py:115: in test_purge_preserves_unknown_exposure_and_late_settlement
+    assert (await purge(sessions(admin_engine)))["tasks"] == 1
+E   assert 0 == 1
+____ test_only_admin_can_invoke_purge_and_runtime_cannot_edit_payloads[api] ____
+tests/integration/test_retention.py:168: in test_only_admin_can_invoke_purge_and_runtime_cannot_edit_payloads
+    with pytest.raises((DBAPIError, ValueError)):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE any of (DBAPIError, ValueError)
+__ test_only_admin_can_invoke_purge_and_runtime_cannot_edit_payloads[worker] ___
+tests/integration/test_retention.py:168: in test_only_admin_can_invoke_purge_and_runtime_cannot_edit_payloads
+    with pytest.raises((DBAPIError, ValueError)):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE any of (DBAPIError, ValueError)
+__ test_real_proxy_flushes_contiguous_replay_and_reconnect_without_redis_hint __
+tests/integration/test_sse_network.py:66: in test_real_proxy_flushes_contiguous_replay_and_reconnect_without_redis_hint
+    assert response.status_code == 200
+E   assert 404 == 200
+E    +  where 404 = <Response [404 Not Found]>.status_code
+________ test_real_proxy_retention_during_stream_resets_without_new_id _________
+tests/integration/test_sse_network.py:96: in test_real_proxy_retention_during_stream_resets_without_new_id
+    assert f"id: {task}:1" in await frame(lines)
+E   assert 'id: 8ea6c0b5-4484-412e-a996-e4b20f97b6f3:1' in ['{"detail":"Not Found"}']
+=========================== short test summary info ============================
+FAILED tests/integration/test_retention.py::test_purge_preserves_unknown_exposure_and_late_settlement
+FAILED tests/integration/test_retention.py::test_only_admin_can_invoke_purge_and_runtime_cannot_edit_payloads[api]
+FAILED tests/integration/test_retention.py::test_only_admin_can_invoke_purge_and_runtime_cannot_edit_payloads[worker]
+FAILED tests/integration/test_sse_network.py::test_real_proxy_flushes_contiguous_replay_and_reconnect_without_redis_hint
+FAILED tests/integration/test_sse_network.py::test_real_proxy_retention_during_stream_resets_without_new_id
+5 failed, 725 passed in 260.21s (0:04:20)
+
+M6_DEGRADED_PROFILE {"streams": 100, "followed_tasks": 20, "reads": 120, "scheduled_reads_per_second": 10, "duration_seconds": 12.017, "read_p95_seconds": 0.0159, "new_creation": 503, "replay": 202, "control": 200, "heartbeat_interval_seconds": 10, "heartbeat_renewed": true, "stream_errors": 0, "physical_requests": 1, "remote_effects": 1, "committed_execution": true}

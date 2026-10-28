@@ -1,0 +1,30 @@
+time="2026-10-27T21:56:10+01:00" level=warning msg="Found orphan containers (atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-51b9fd52e4f2 Creating
+ Container atp-m1-test-test-run-51b9fd52e4f2 Created
+........................................................................ [  9%]
+................... Container atp-m1-test-redis-1 Stopping
+ Container atp-m1-test-redis-1 Stopped
+ Container atp-m1-test-redis-1 Starting
+ Container atp-m1-test-redis-1 Started
+..................................................... [ 18%]
+........................................F............................... [ 27%]
+........................................................................ [ 36%]
+........................................................................ [ 45%]
+........................................................................ [ 54%]
+........................................................................ [ 63%]
+........................................................................ [ 72%]
+........................................................................ [ 81%]
+........................................................................ [ 91%]
+.......................................................................  [100%]
+=================================== FAILURES ===================================
+____ test_transport_bounds_and_independent_physical_counts[drop-unknown-1] _____
+tests/integration/test_execution_transport.py:80: in test_transport_bounds_and_independent_physical_counts
+    assert simulator.count("request") == 1
+E   AssertionError: assert 0 == 1
+E    +  where 0 = count('request')
+E    +    where count = Simulator(url='http://127.0.0.1:39717', journal=PosixPath('/tmp/pytest-of-unknown/pytest-0/test_transport_bounds_and_inde1/remote.jsonl')).count
+=========================== short test summary info ============================
+FAILED tests/integration/test_execution_transport.py::test_transport_bounds_and_independent_physical_counts[drop-unknown-1]
+1 failed, 790 passed in 279.52s (0:04:39)
+
+M6_DEGRADED_PROFILE {"streams": 100, "followed_tasks": 20, "reads": 120, "scheduled_reads_per_second": 10, "duration_seconds": 11.997, "read_p95_seconds": 0.0162, "new_creation": 503, "replay": 202, "control": 200, "heartbeat_interval_seconds": 10, "heartbeat_renewed": true, "stream_errors": 0, "physical_requests": 1, "remote_effects": 1, "committed_execution": true}

@@ -1,0 +1,8 @@
+{
+  "physical_model_posts_including_overload": 2121,
+  "distinct_transmission_ids": 2121,
+  "journal_sha256": "7436d9cb8c544552e0f44e35bf7f39544dc18cdf171f3f4a8819f987f0b1f1c7",
+  "nominal_plus_warmup_posts": 2120,
+  "separate_saturation_posts": 1,
+  "raw_journal": "Retained privately outside Git; no call IDs or credentials published"
+}

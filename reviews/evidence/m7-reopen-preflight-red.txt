@@ -1,0 +1,36 @@
+time="2026-10-27T16:53:59+01:00" level=warning msg="Found orphan containers (atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-e4cfa4e20d41 Creating
+ Container atp-m1-test-test-run-e4cfa4e20d41 Created
+................FFFF..F..........                                        [100%]
+=================================== FAILURES ===================================
+_ test_recovery_reopen_checks_restored_budgets_before_accepting_new_work[global_cost] _
+tests/integration/test_restore.py:486: in test_recovery_reopen_checks_restored_budgets_before_accepting_new_work
+    with pytest.raises(ValueError, match="budget|capacity"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+_ test_recovery_reopen_checks_restored_budgets_before_accepting_new_work[owner_cost] _
+tests/integration/test_restore.py:486: in test_recovery_reopen_checks_restored_budgets_before_accepting_new_work
+    with pytest.raises(ValueError, match="budget|capacity"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+_ test_recovery_reopen_checks_restored_budgets_before_accepting_new_work[global_tokens] _
+tests/integration/test_restore.py:486: in test_recovery_reopen_checks_restored_budgets_before_accepting_new_work
+    with pytest.raises(ValueError, match="budget|capacity"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+_ test_recovery_reopen_checks_restored_budgets_before_accepting_new_work[owner_tokens] _
+tests/integration/test_restore.py:486: in test_recovery_reopen_checks_restored_budgets_before_accepting_new_work
+    with pytest.raises(ValueError, match="budget|capacity"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+_ test_preflight_includes_withdrawn_versions_still_pinned_by_nonterminal_tasks _
+tests/integration/test_delivery.py:122: in test_preflight_includes_withdrawn_versions_still_pinned_by_nonterminal_tasks
+    assert (await delivery_phase(factory, settings_for("admin"), "preflight"))["ready"] is False
+E   assert True is False
+=========================== short test summary info ============================
+FAILED tests/integration/test_restore.py::test_recovery_reopen_checks_restored_budgets_before_accepting_new_work[global_cost]
+FAILED tests/integration/test_restore.py::test_recovery_reopen_checks_restored_budgets_before_accepting_new_work[owner_cost]
+FAILED tests/integration/test_restore.py::test_recovery_reopen_checks_restored_budgets_before_accepting_new_work[global_tokens]
+FAILED tests/integration/test_restore.py::test_recovery_reopen_checks_restored_budgets_before_accepting_new_work[owner_tokens]
+FAILED tests/integration/test_delivery.py::test_preflight_includes_withdrawn_versions_still_pinned_by_nonterminal_tasks
+5 failed, 28 passed in 3.78s

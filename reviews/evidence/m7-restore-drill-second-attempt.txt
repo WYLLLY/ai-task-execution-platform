@@ -1,0 +1,27 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/william/Documents/Projet 2/scripts/run_restore_drill.py", line 383, in <module>
+    print(json.dumps(Drill().main(), sort_keys=True))
+                     ~~~~~~~~~~~~^^
+  File "/Users/william/Documents/Projet 2/scripts/run_restore_drill.py", line 321, in main
+    self.restore("atp_restore_" + name, *snapshots[name])
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/william/Documents/Projet 2/scripts/run_restore_drill.py", line 208, in restore
+    checked = self.phase(
+        "check",
+    ...<8 lines>...
+        ],
+    )
+  File "/Users/william/Documents/Projet 2/scripts/run_restore_drill.py", line 133, in phase
+    output = self.compose(
+        "run",
+    ...<8 lines>...
+        *(arguments or []),
+    )
+  File "/Users/william/Documents/Projet 2/scripts/run_restore_drill.py", line 107, in compose
+    return self.run([*self.prefix, *arguments], data=data)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/william/Documents/Projet 2/scripts/run_restore_drill.py", line 103, in run
+    raise RuntimeError("Isolated restore command failed; sanitized diagnostic: " + str(log))
+RuntimeError: Isolated restore command failed; sanitized diagnostic: /Users/william/Documents/Projet 2/.secrets/m7-restore-43fb4dbbcba842029110c24f14a2132b/diagnostic.txt
