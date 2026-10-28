@@ -1,0 +1,1059 @@
+verify	Run make test-integration	﻿2026-10-28T05:04:22.3873563Z ##[group]Run make test-integration
+verify	Run make test-integration	2026-10-28T05:04:22.3874008Z ^[[36;1mmake test-integration^[[0m
+verify	Run make test-integration	2026-10-28T05:04:22.3945468Z shell: /usr/bin/bash -e {0}
+verify	Run make test-integration	2026-10-28T05:04:22.3945744Z env:
+verify	Run make test-integration	2026-10-28T05:04:22.3946007Z   UV_PYTHON_INSTALL_DIR: /home/runner/work/_temp/uv-python-dir
+verify	Run make test-integration	2026-10-28T05:04:22.3946543Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+verify	Run make test-integration	2026-10-28T05:04:22.3946908Z ##[endgroup]
+verify	Run make test-integration	2026-10-28T05:04:22.4044039Z docker compose -p atp-m1-test -f compose.yaml -f compose.demo.yaml -f compose.proxy.yaml up --build --wait api demo proxy
+verify	Run make test-integration	2026-10-28T05:04:22.8247875Z  postgres Pulling
+verify	Run make test-integration	2026-10-28T05:04:22.8248919Z  redis Pulling
+verify	Run make test-integration	2026-10-28T05:04:22.8249610Z  proxy Pulling
+verify	Run make test-integration	2026-10-28T05:04:22.8250131Z  demo-db Pulling
+verify	Run make test-integration	2026-10-28T05:04:23.5981635Z  7fd1ebe418b5 Pulling fs layer
+verify	Run make test-integration	2026-10-28T05:04:23.5982400Z  a74c50568115 Pulling fs layer
+verify	Run make test-integration	2026-10-28T05:04:23.5983150Z  017b31e4ff27 Pulling fs layer
+verify	Run make test-integration	2026-10-28T05:04:23.5983653Z  146d06bcb573 Pulling fs layer
+verify	Run make test-integration	2026-10-28T05:04:23.5984151Z  e7e8da52359d Pulling fs layer
+verify	Run make test-integration	2026-10-28T05:04:23.5984718Z  d01ea4064291 Pulling fs layer
+verify	Run make test-integration	2026-10-28T05:04:23.5985218Z  6d0eb3c6cdb9 Pulling fs layer
+verify	Run make test-integration	2026-10-28T05:04:23.5985720Z  b1cc6947b8a6 Pulling fs layer
+verify	Run make test-integration	2026-10-28T05:04:23.5986204Z  e96ba86f00e5 Pulling fs layer
+verify	Run make test-integration	2026-10-28T05:04:23.5986841Z  a219b7b9b5d4 Pulling fs layer
+verify	Run make test-integration	2026-10-28T05:04:23.5987307Z  584b3a82e541 Pulling fs layer
+verify	Run make test-integration	2026-10-28T05:04:23.5987793Z  d254c075f128 Pulling fs layer
+verify	Run make test-integration	2026-10-28T05:04:23.5988292Z  fb616fac62de Pulling fs layer
+verify	Run make test-integration	2026-10-28T05:04:23.5997664Z  7f82c3d75427 Pulling fs layer
+verify	Run make test-integration	2026-10-28T05:04:23.5998297Z  146d06bcb573 Waiting
+verify	Run make test-integration	2026-10-28T05:04:23.5998841Z  e7e8da52359d Waiting
+verify	Run make test-integration	2026-10-28T05:04:23.5999300Z  d01ea4064291 Waiting
+verify	Run make test-integration	2026-10-28T05:04:23.5999765Z  6d0eb3c6cdb9 Waiting
+verify	Run make test-integration	2026-10-28T05:04:23.6000226Z  b1cc6947b8a6 Waiting
+verify	Run make test-integration	2026-10-28T05:04:23.6000685Z  e96ba86f00e5 Waiting
+verify	Run make test-integration	2026-10-28T05:04:23.6001127Z  a219b7b9b5d4 Waiting
+verify	Run make test-integration	2026-10-28T05:04:23.6001565Z  584b3a82e541 Waiting
+verify	Run make test-integration	2026-10-28T05:04:23.6002007Z  d254c075f128 Waiting
+verify	Run make test-integration	2026-10-28T05:04:23.6002471Z  fb616fac62de Waiting
+verify	Run make test-integration	2026-10-28T05:04:23.6002916Z  7f82c3d75427 Waiting
+verify	Run make test-integration	2026-10-28T05:04:23.6073728Z  abe1fea37542 Pulling fs layer
+verify	Run make test-integration	2026-10-28T05:04:23.6075220Z  3db098501f01 Pulling fs layer
+verify	Run make test-integration	2026-10-28T05:04:23.6075963Z  ca19d868f352 Pulling fs layer
+verify	Run make test-integration	2026-10-28T05:04:23.6077011Z  b89fb5fc7ff7 Pulling fs layer
+verify	Run make test-integration	2026-10-28T05:04:23.6077691Z  4b4668b306bc Pulling fs layer
+verify	Run make test-integration	2026-10-28T05:04:23.6078191Z  4f4fb700ef54 Pulling fs layer
+verify	Run make test-integration	2026-10-28T05:04:23.6078818Z  71e796aaa0ba Pulling fs layer
+verify	Run make test-integration	2026-10-28T05:04:23.6079172Z  abe1fea37542 Waiting
+verify	Run make test-integration	2026-10-28T05:04:23.6079499Z  3db098501f01 Waiting
+verify	Run make test-integration	2026-10-28T05:04:23.6079804Z  ca19d868f352 Waiting
+verify	Run make test-integration	2026-10-28T05:04:23.6080123Z  b89fb5fc7ff7 Waiting
+verify	Run make test-integration	2026-10-28T05:04:23.6080438Z  4b4668b306bc Waiting
+verify	Run make test-integration	2026-10-28T05:04:23.6080742Z  4f4fb700ef54 Waiting
+verify	Run make test-integration	2026-10-28T05:04:23.6081050Z  71e796aaa0ba Waiting
+verify	Run make test-integration	2026-10-28T05:04:23.6484056Z  589002ba0eae Pulling fs layer
+verify	Run make test-integration	2026-10-28T05:04:23.6485118Z  1d9cbdb003be Pulling fs layer
+verify	Run make test-integration	2026-10-28T05:04:23.6485884Z  e914c6e98e37 Pulling fs layer
+verify	Run make test-integration	2026-10-28T05:04:23.6486582Z  d631a49fb4f7 Pulling fs layer
+verify	Run make test-integration	2026-10-28T05:04:23.6487095Z  8f7c784e2471 Pulling fs layer
+verify	Run make test-integration	2026-10-28T05:04:23.6487560Z  44fa0a5a779f Pulling fs layer
+verify	Run make test-integration	2026-10-28T05:04:23.6488016Z  98104829f3fe Pulling fs layer
+verify	Run make test-integration	2026-10-28T05:04:23.6488447Z  0151c82f84a9 Pulling fs layer
+verify	Run make test-integration	2026-10-28T05:04:23.6488887Z  589002ba0eae Waiting
+verify	Run make test-integration	2026-10-28T05:04:23.6489294Z  1d9cbdb003be Waiting
+verify	Run make test-integration	2026-10-28T05:04:23.6489750Z  e914c6e98e37 Waiting
+verify	Run make test-integration	2026-10-28T05:04:23.6490088Z  d631a49fb4f7 Waiting
+verify	Run make test-integration	2026-10-28T05:04:23.6490522Z  8f7c784e2471 Waiting
+verify	Run make test-integration	2026-10-28T05:04:23.6490844Z  44fa0a5a779f Waiting
+verify	Run make test-integration	2026-10-28T05:04:23.6498045Z  98104829f3fe Waiting
+verify	Run make test-integration	2026-10-28T05:04:23.6502483Z  0151c82f84a9 Waiting
+verify	Run make test-integration	2026-10-28T05:04:23.6675102Z  7fd1ebe418b5 Pulling fs layer
+verify	Run make test-integration	2026-10-28T05:04:23.6675608Z  a74c50568115 Pulling fs layer
+verify	Run make test-integration	2026-10-28T05:04:23.6675913Z  017b31e4ff27 Pulling fs layer
+verify	Run make test-integration	2026-10-28T05:04:23.6676203Z  146d06bcb573 Pulling fs layer
+verify	Run make test-integration	2026-10-28T05:04:23.6677272Z  e7e8da52359d Pulling fs layer
+verify	Run make test-integration	2026-10-28T05:04:23.6677604Z  d01ea4064291 Pulling fs layer
+verify	Run make test-integration	2026-10-28T05:04:23.6677929Z  6d0eb3c6cdb9 Pulling fs layer
+verify	Run make test-integration	2026-10-28T05:04:23.6678256Z  b1cc6947b8a6 Pulling fs layer
+verify	Run make test-integration	2026-10-28T05:04:23.6678579Z  e96ba86f00e5 Pulling fs layer
+verify	Run make test-integration	2026-10-28T05:04:23.6678885Z  a219b7b9b5d4 Pulling fs layer
+verify	Run make test-integration	2026-10-28T05:04:23.6679395Z  584b3a82e541 Pulling fs layer
+verify	Run make test-integration	2026-10-28T05:04:23.6679960Z  d254c075f128 Pulling fs layer
+verify	Run make test-integration	2026-10-28T05:04:23.6680267Z  fb616fac62de Pulling fs layer
+verify	Run make test-integration	2026-10-28T05:04:23.6680587Z  7f82c3d75427 Pulling fs layer
+verify	Run make test-integration	2026-10-28T05:04:23.6680881Z  7f82c3d75427 Waiting
+verify	Run make test-integration	2026-10-28T05:04:23.6681141Z  146d06bcb573 Waiting
+verify	Run make test-integration	2026-10-28T05:04:23.6681435Z  e7e8da52359d Waiting
+verify	Run make test-integration	2026-10-28T05:04:23.6681712Z  d01ea4064291 Waiting
+verify	Run make test-integration	2026-10-28T05:04:23.6681985Z  6d0eb3c6cdb9 Waiting
+verify	Run make test-integration	2026-10-28T05:04:23.6682259Z  b1cc6947b8a6 Waiting
+verify	Run make test-integration	2026-10-28T05:04:23.6682534Z  e96ba86f00e5 Waiting
+verify	Run make test-integration	2026-10-28T05:04:23.6682792Z  a219b7b9b5d4 Waiting
+verify	Run make test-integration	2026-10-28T05:04:23.6683084Z  584b3a82e541 Waiting
+verify	Run make test-integration	2026-10-28T05:04:23.6683348Z  d254c075f128 Waiting
+verify	Run make test-integration	2026-10-28T05:04:23.6683631Z  fb616fac62de Waiting
+verify	Run make test-integration	2026-10-28T05:04:23.8081221Z  a74c50568115 Downloading [==================================================>]  1.167kB/1.167kB
+verify	Run make test-integration	2026-10-28T05:04:23.8082521Z  a74c50568115 Verifying Checksum
+verify	Run make test-integration	2026-10-28T05:04:23.8082888Z  a74c50568115 Download complete
+verify	Run make test-integration	2026-10-28T05:04:23.8083711Z  a74c50568115 Downloading [==================================================>]  1.167kB/1.167kB
+verify	Run make test-integration	2026-10-28T05:04:23.8084660Z  a74c50568115 Download complete
+verify	Run make test-integration	2026-10-28T05:04:23.8148769Z  017b31e4ff27 Downloading [>                                                  ]  49.15kB/4.534MB
+verify	Run make test-integration	2026-10-28T05:04:23.8149606Z  017b31e4ff27 Downloading [>                                                  ]  49.15kB/4.534MB
+verify	Run make test-integration	2026-10-28T05:04:23.8354254Z  7fd1ebe418b5 Downloading [>                                                  ]  294.3kB/28.25MB
+verify	Run make test-integration	2026-10-28T05:04:23.8355018Z  7fd1ebe418b5 Downloading [>                                                  ]  294.3kB/28.25MB
+verify	Run make test-integration	2026-10-28T05:04:23.9008040Z  017b31e4ff27 Verifying Checksum
+verify	Run make test-integration	2026-10-28T05:04:23.9008626Z  017b31e4ff27 Download complete
+verify	Run make test-integration	2026-10-28T05:04:23.9009327Z  017b31e4ff27 Verifying Checksum
+verify	Run make test-integration	2026-10-28T05:04:23.9010068Z  017b31e4ff27 Download complete
+verify	Run make test-integration	2026-10-28T05:04:23.9359960Z  7fd1ebe418b5 Downloading [===========================>                       ]  15.33MB/28.25MB
+verify	Run make test-integration	2026-10-28T05:04:23.9360546Z  7fd1ebe418b5 Downloading [===========================>                       ]  15.33MB/28.25MB
+verify	Run make test-integration	2026-10-28T05:04:23.9677111Z  7fd1ebe418b5 Download complete
+verify	Run make test-integration	2026-10-28T05:04:23.9677541Z  7fd1ebe418b5 Download complete
+verify	Run make test-integration	2026-10-28T05:04:24.0170278Z  146d06bcb573 Downloading [>                                                  ]  15.79kB/1.25MB
+verify	Run make test-integration	2026-10-28T05:04:24.0171003Z  146d06bcb573 Downloading [>                                                  ]  15.79kB/1.25MB
+verify	Run make test-integration	2026-10-28T05:04:24.0815295Z  146d06bcb573 Verifying Checksum
+verify	Run make test-integration	2026-10-28T05:04:24.0815899Z  146d06bcb573 Download complete
+verify	Run make test-integration	2026-10-28T05:04:24.0823734Z  146d06bcb573 Verifying Checksum
+verify	Run make test-integration	2026-10-28T05:04:24.0824541Z  146d06bcb573 Download complete
+verify	Run make test-integration	2026-10-28T05:04:24.1335120Z  e7e8da52359d Downloading [>                                                  ]  81.92kB/8.066MB
+verify	Run make test-integration	2026-10-28T05:04:24.1335639Z  e7e8da52359d Downloading [>                                                  ]  81.92kB/8.066MB
+verify	Run make test-integration	2026-10-28T05:04:24.1749356Z  d01ea4064291 Downloading [>                                                  ]  16.38kB/1.196MB
+verify	Run make test-integration	2026-10-28T05:04:24.1750105Z  d01ea4064291 Downloading [>                                                  ]  16.38kB/1.196MB
+verify	Run make test-integration	2026-10-28T05:04:24.2337725Z  e7e8da52359d Downloading [==================================>                ]  5.574MB/8.066MB
+verify	Run make test-integration	2026-10-28T05:04:24.2348266Z  e7e8da52359d Downloading [==================================>                ]  5.574MB/8.066MB
+verify	Run make test-integration	2026-10-28T05:04:24.2435230Z  e7e8da52359d Verifying Checksum
+verify	Run make test-integration	2026-10-28T05:04:24.2447654Z  e7e8da52359d Verifying Checksum
+verify	Run make test-integration	2026-10-28T05:04:24.2452980Z  e7e8da52359d Download complete
+verify	Run make test-integration	2026-10-28T05:04:24.2459411Z  e7e8da52359d Download complete
+verify	Run make test-integration	2026-10-28T05:04:24.2528048Z  d01ea4064291 Verifying Checksum
+verify	Run make test-integration	2026-10-28T05:04:24.2529675Z  d01ea4064291 Download complete
+verify	Run make test-integration	2026-10-28T05:04:24.2530177Z  d01ea4064291 Verifying Checksum
+verify	Run make test-integration	2026-10-28T05:04:24.2530537Z  d01ea4064291 Download complete
+verify	Run make test-integration	2026-10-28T05:04:24.2663130Z  7fd1ebe418b5 Extracting [>                                                  ]  294.9kB/28.25MB
+verify	Run make test-integration	2026-10-28T05:04:24.2664711Z  7fd1ebe418b5 Extracting [>                                                  ]  294.9kB/28.25MB
+verify	Run make test-integration	2026-10-28T05:04:24.3012217Z  6d0eb3c6cdb9 Downloading [==================================================>]     116B/116B
+verify	Run make test-integration	2026-10-28T05:04:24.3012976Z  6d0eb3c6cdb9 Downloading [==================================================>]     116B/116B
+verify	Run make test-integration	2026-10-28T05:04:24.3022445Z  6d0eb3c6cdb9 Verifying Checksum
+verify	Run make test-integration	2026-10-28T05:04:24.3023350Z  6d0eb3c6cdb9 Verifying Checksum
+verify	Run make test-integration	2026-10-28T05:04:24.3024057Z  6d0eb3c6cdb9 Download complete
+verify	Run make test-integration	2026-10-28T05:04:24.3024438Z  6d0eb3c6cdb9 Download complete
+verify	Run make test-integration	2026-10-28T05:04:24.3673179Z  7fd1ebe418b5 Extracting [=========>                                         ]  5.308MB/28.25MB
+verify	Run make test-integration	2026-10-28T05:04:24.3675545Z  7fd1ebe418b5 Extracting [=========>                                         ]  5.308MB/28.25MB
+verify	Run make test-integration	2026-10-28T05:04:24.4519698Z  b1cc6947b8a6 Downloading [==================================================>]  3.144kB/3.144kB
+verify	Run make test-integration	2026-10-28T05:04:24.4520786Z  b1cc6947b8a6 Downloading [==================================================>]  3.144kB/3.144kB
+verify	Run make test-integration	2026-10-28T05:04:24.4525699Z  b1cc6947b8a6 Verifying Checksum
+verify	Run make test-integration	2026-10-28T05:04:24.4526824Z  b1cc6947b8a6 Download complete
+verify	Run make test-integration	2026-10-28T05:04:24.4527410Z  b1cc6947b8a6 Verifying Checksum
+verify	Run make test-integration	2026-10-28T05:04:24.4530399Z  b1cc6947b8a6 Download complete
+verify	Run make test-integration	2026-10-28T05:04:24.4711623Z  7fd1ebe418b5 Extracting [================>                                  ]  9.437MB/28.25MB
+verify	Run make test-integration	2026-10-28T05:04:24.4712677Z  7fd1ebe418b5 Extracting [================>                                  ]  9.437MB/28.25MB
+verify	Run make test-integration	2026-10-28T05:04:24.4990279Z  e96ba86f00e5 Downloading [>                                                  ]  536.2kB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:24.4992940Z  e96ba86f00e5 Downloading [>                                                  ]  536.2kB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:24.5103380Z  a219b7b9b5d4 Downloading [================>                                  ]    3.5kB/10.36kB
+verify	Run make test-integration	2026-10-28T05:04:24.5104642Z  a219b7b9b5d4 Downloading [================>                                  ]    3.5kB/10.36kB
+verify	Run make test-integration	2026-10-28T05:04:24.5106828Z  a219b7b9b5d4 Downloading [==================================================>]  10.36kB/10.36kB
+verify	Run make test-integration	2026-10-28T05:04:24.5107763Z  a219b7b9b5d4 Downloading [==================================================>]  10.36kB/10.36kB
+verify	Run make test-integration	2026-10-28T05:04:24.5112923Z  a219b7b9b5d4 Verifying Checksum
+verify	Run make test-integration	2026-10-28T05:04:24.5117143Z  a219b7b9b5d4 Verifying Checksum
+verify	Run make test-integration	2026-10-28T05:04:24.5117706Z  a219b7b9b5d4 Download complete
+verify	Run make test-integration	2026-10-28T05:04:24.5118168Z  a219b7b9b5d4 Download complete
+verify	Run make test-integration	2026-10-28T05:04:24.5750898Z  7fd1ebe418b5 Extracting [======================>                            ]  12.68MB/28.25MB
+verify	Run make test-integration	2026-10-28T05:04:24.5752147Z  7fd1ebe418b5 Extracting [======================>                            ]  12.68MB/28.25MB
+verify	Run make test-integration	2026-10-28T05:04:24.6028374Z  e96ba86f00e5 Downloading [======>                                            ]  15.48MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:24.6031466Z  e96ba86f00e5 Downloading [======>                                            ]  15.48MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:24.6659146Z  584b3a82e541 Downloading [==================================================>]     128B/128B
+verify	Run make test-integration	2026-10-28T05:04:24.6663713Z  584b3a82e541 Downloading [==================================================>]     128B/128B
+verify	Run make test-integration	2026-10-28T05:04:24.6666779Z  584b3a82e541 Verifying Checksum
+verify	Run make test-integration	2026-10-28T05:04:24.6669104Z  584b3a82e541 Verifying Checksum
+verify	Run make test-integration	2026-10-28T05:04:24.6670932Z  584b3a82e541 Download complete
+verify	Run make test-integration	2026-10-28T05:04:24.6673912Z  584b3a82e541 Download complete
+verify	Run make test-integration	2026-10-28T05:04:24.6766237Z  7fd1ebe418b5 Extracting [=============================>                     ]  16.52MB/28.25MB
+verify	Run make test-integration	2026-10-28T05:04:24.6768424Z  7fd1ebe418b5 Extracting [=============================>                     ]  16.52MB/28.25MB
+verify	Run make test-integration	2026-10-28T05:04:24.7034797Z  e96ba86f00e5 Downloading [===================>                               ]  44.67MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:24.7036877Z  e96ba86f00e5 Downloading [===================>                               ]  44.67MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:24.7138643Z  d254c075f128 Downloading [==================================================>]     168B/168B
+verify	Run make test-integration	2026-10-28T05:04:24.7139627Z  d254c075f128 Downloading [==================================================>]     168B/168B
+verify	Run make test-integration	2026-10-28T05:04:24.7144087Z  d254c075f128 Verifying Checksum
+verify	Run make test-integration	2026-10-28T05:04:24.7146708Z  d254c075f128 Verifying Checksum
+verify	Run make test-integration	2026-10-28T05:04:24.7147251Z  d254c075f128 Download complete
+verify	Run make test-integration	2026-10-28T05:04:24.7153930Z  d254c075f128 Download complete
+verify	Run make test-integration	2026-10-28T05:04:24.7855086Z  7fd1ebe418b5 Extracting [====================================>              ]  20.64MB/28.25MB
+verify	Run make test-integration	2026-10-28T05:04:24.7855923Z  7fd1ebe418b5 Extracting [====================================>              ]  20.64MB/28.25MB
+verify	Run make test-integration	2026-10-28T05:04:24.8018805Z  e96ba86f00e5 Downloading [==============================>                    ]  70.64MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:24.8033700Z  e96ba86f00e5 Downloading [==============================>                    ]  70.64MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:24.8909128Z  fb616fac62de Downloading [==================================================>]  6.109kB/6.109kB
+verify	Run make test-integration	2026-10-28T05:04:24.8909989Z  fb616fac62de Downloading [==================================================>]  6.109kB/6.109kB
+verify	Run make test-integration	2026-10-28T05:04:24.8930676Z  fb616fac62de Verifying Checksum
+verify	Run make test-integration	2026-10-28T05:04:24.8932644Z  fb616fac62de Verifying Checksum
+verify	Run make test-integration	2026-10-28T05:04:24.8933248Z  fb616fac62de Download complete
+verify	Run make test-integration	2026-10-28T05:04:24.8933837Z  fb616fac62de Download complete
+verify	Run make test-integration	2026-10-28T05:04:24.9022638Z  e96ba86f00e5 Downloading [==========================================>        ]  98.72MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:24.9097941Z  7fd1ebe418b5 Extracting [=========================================>         ]  23.59MB/28.25MB
+verify	Run make test-integration	2026-10-28T05:04:24.9102207Z  7fd1ebe418b5 Extracting [=========================================>         ]  23.59MB/28.25MB
+verify	Run make test-integration	2026-10-28T05:04:24.9126985Z  e96ba86f00e5 Downloading [==========================================>        ]  98.72MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:24.9418747Z  7f82c3d75427 Downloading [==================================================>]     186B/186B
+verify	Run make test-integration	2026-10-28T05:04:24.9419837Z  7f82c3d75427 Downloading [==================================================>]     186B/186B
+verify	Run make test-integration	2026-10-28T05:04:24.9438434Z  7f82c3d75427 Verifying Checksum
+verify	Run make test-integration	2026-10-28T05:04:24.9438986Z  7f82c3d75427 Download complete
+verify	Run make test-integration	2026-10-28T05:04:24.9439425Z  7f82c3d75427 Verifying Checksum
+verify	Run make test-integration	2026-10-28T05:04:24.9439780Z  7f82c3d75427 Download complete
+verify	Run make test-integration	2026-10-28T05:04:24.9552517Z  e96ba86f00e5 Verifying Checksum
+verify	Run make test-integration	2026-10-28T05:04:24.9554508Z  e96ba86f00e5 Download complete
+verify	Run make test-integration	2026-10-28T05:04:24.9555725Z  e96ba86f00e5 Verifying Checksum
+verify	Run make test-integration	2026-10-28T05:04:24.9556296Z  e96ba86f00e5 Download complete
+verify	Run make test-integration	2026-10-28T05:04:25.0159706Z  7fd1ebe418b5 Extracting [==========================================>        ]  23.89MB/28.25MB
+verify	Run make test-integration	2026-10-28T05:04:25.0160453Z  7fd1ebe418b5 Extracting [==========================================>        ]  23.89MB/28.25MB
+verify	Run make test-integration	2026-10-28T05:04:25.1233416Z  7fd1ebe418b5 Extracting [===============================================>   ]  26.84MB/28.25MB
+verify	Run make test-integration	2026-10-28T05:04:25.1234007Z  7fd1ebe418b5 Extracting [===============================================>   ]  26.84MB/28.25MB
+verify	Run make test-integration	2026-10-28T05:04:25.1424037Z  abe1fea37542 Downloading [>                                                  ]  294.3kB/28.23MB
+verify	Run make test-integration	2026-10-28T05:04:25.1581481Z  3db098501f01 Downloading [==================================================>]  1.102kB/1.102kB
+verify	Run make test-integration	2026-10-28T05:04:25.1586275Z  3db098501f01 Verifying Checksum
+verify	Run make test-integration	2026-10-28T05:04:25.1588016Z  3db098501f01 Download complete
+verify	Run make test-integration	2026-10-28T05:04:25.1826999Z  ca19d868f352 Downloading [==================================================>]     874B/874B
+verify	Run make test-integration	2026-10-28T05:04:25.1832111Z  ca19d868f352 Verifying Checksum
+verify	Run make test-integration	2026-10-28T05:04:25.1832637Z  ca19d868f352 Download complete
+verify	Run make test-integration	2026-10-28T05:04:25.2439227Z  abe1fea37542 Downloading [=========================>                         ]  14.45MB/28.23MB
+verify	Run make test-integration	2026-10-28T05:04:25.2826174Z  abe1fea37542 Verifying Checksum
+verify	Run make test-integration	2026-10-28T05:04:25.2827857Z  abe1fea37542 Download complete
+verify	Run make test-integration	2026-10-28T05:04:25.3566143Z  abe1fea37542 Extracting [>                                                  ]  294.9kB/28.23MB
+verify	Run make test-integration	2026-10-28T05:04:25.4023485Z  4b4668b306bc Downloading [==================================================>]      95B/95B
+verify	Run make test-integration	2026-10-28T05:04:25.4034667Z  4b4668b306bc Verifying Checksum
+verify	Run make test-integration	2026-10-28T05:04:25.4038923Z  4b4668b306bc Download complete
+verify	Run make test-integration	2026-10-28T05:04:25.4238910Z  b89fb5fc7ff7 Downloading [>                                                  ]  242.9kB/24.21MB
+verify	Run make test-integration	2026-10-28T05:04:25.4647949Z  abe1fea37542 Extracting [=======>                                           ]  4.424MB/28.23MB
+verify	Run make test-integration	2026-10-28T05:04:25.4820125Z  7fd1ebe418b5 Extracting [================================================>  ]  27.43MB/28.25MB
+verify	Run make test-integration	2026-10-28T05:04:25.4834759Z  7fd1ebe418b5 Extracting [================================================>  ]  27.43MB/28.25MB
+verify	Run make test-integration	2026-10-28T05:04:25.5110362Z  4f4fb700ef54 Downloading [==================================================>]      32B/32B
+verify	Run make test-integration	2026-10-28T05:04:25.5125054Z  4f4fb700ef54 Verifying Checksum
+verify	Run make test-integration	2026-10-28T05:04:25.5135169Z  4f4fb700ef54 Download complete
+verify	Run make test-integration	2026-10-28T05:04:25.5257505Z  b89fb5fc7ff7 Downloading [=======>                                           ]  3.455MB/24.21MB
+verify	Run make test-integration	2026-10-28T05:04:25.5737423Z  abe1fea37542 Extracting [==============>                                    ]  7.963MB/28.23MB
+verify	Run make test-integration	2026-10-28T05:04:25.6207595Z  71e796aaa0ba Downloading [==================================================>]  2.112kB/2.112kB
+verify	Run make test-integration	2026-10-28T05:04:25.6226242Z  71e796aaa0ba Verifying Checksum
+verify	Run make test-integration	2026-10-28T05:04:25.6229466Z  71e796aaa0ba Download complete
+verify	Run make test-integration	2026-10-28T05:04:25.6304978Z  b89fb5fc7ff7 Downloading [==========================>                        ]  12.65MB/24.21MB
+verify	Run make test-integration	2026-10-28T05:04:25.6839153Z  7fd1ebe418b5 Extracting [==================================================>]  28.25MB/28.25MB
+verify	Run make test-integration	2026-10-28T05:04:25.6840119Z  7fd1ebe418b5 Extracting [==================================================>]  28.25MB/28.25MB
+verify	Run make test-integration	2026-10-28T05:04:25.6995774Z  abe1fea37542 Extracting [================>                                  ]  9.437MB/28.23MB
+verify	Run make test-integration	2026-10-28T05:04:25.7265614Z  b89fb5fc7ff7 Verifying Checksum
+verify	Run make test-integration	2026-10-28T05:04:25.7266129Z  b89fb5fc7ff7 Download complete
+verify	Run make test-integration	2026-10-28T05:04:25.7291253Z  7fd1ebe418b5 Pull complete
+verify	Run make test-integration	2026-10-28T05:04:25.7291730Z  7fd1ebe418b5 Pull complete
+verify	Run make test-integration	2026-10-28T05:04:25.7380991Z  a74c50568115 Extracting [==================================================>]  1.167kB/1.167kB
+verify	Run make test-integration	2026-10-28T05:04:25.7381937Z  a74c50568115 Extracting [==================================================>]  1.167kB/1.167kB
+verify	Run make test-integration	2026-10-28T05:04:25.7396031Z  a74c50568115 Extracting [==================================================>]  1.167kB/1.167kB
+verify	Run make test-integration	2026-10-28T05:04:25.7733851Z  589002ba0eae Downloading [>                                                  ]  48.51kB/3.862MB
+verify	Run make test-integration	2026-10-28T05:04:25.7976706Z  abe1fea37542 Extracting [====================>                              ]   11.5MB/28.23MB
+verify	Run make test-integration	2026-10-28T05:04:25.8403102Z  1d9cbdb003be Downloading [>                                                  ]  32.13kB/1.834MB
+verify	Run make test-integration	2026-10-28T05:04:25.8615148Z  589002ba0eae Verifying Checksum
+verify	Run make test-integration	2026-10-28T05:04:25.8616993Z  589002ba0eae Download complete
+verify	Run make test-integration	2026-10-28T05:04:25.8654719Z  589002ba0eae Extracting [>                                                  ]  65.54kB/3.862MB
+verify	Run make test-integration	2026-10-28T05:04:25.9290131Z  e914c6e98e37 Downloading [==================================================>]     626B/626B
+verify	Run make test-integration	2026-10-28T05:04:25.9291062Z  e914c6e98e37 Download complete
+verify	Run make test-integration	2026-10-28T05:04:25.9371813Z  abe1fea37542 Extracting [=============================>                     ]  16.81MB/28.23MB
+verify	Run make test-integration	2026-10-28T05:04:25.9422954Z  1d9cbdb003be Downloading [============================>                      ]  1.048MB/1.834MB
+verify	Run make test-integration	2026-10-28T05:04:25.9629775Z  1d9cbdb003be Downloading [==================================================>]  1.834MB/1.834MB
+verify	Run make test-integration	2026-10-28T05:04:25.9650477Z  1d9cbdb003be Verifying Checksum
+verify	Run make test-integration	2026-10-28T05:04:25.9655902Z  1d9cbdb003be Download complete
+verify	Run make test-integration	2026-10-28T05:04:25.9672321Z  589002ba0eae Extracting [==========>                                        ]  786.4kB/3.862MB
+verify	Run make test-integration	2026-10-28T05:04:26.0473883Z  abe1fea37542 Extracting [======================================>            ]  21.82MB/28.23MB
+verify	Run make test-integration	2026-10-28T05:04:26.0661681Z  589002ba0eae Extracting [==================================================>]  3.862MB/3.862MB
+verify	Run make test-integration	2026-10-28T05:04:26.0807755Z  d631a49fb4f7 Downloading [==================================================>]     956B/956B
+verify	Run make test-integration	2026-10-28T05:04:26.0820030Z  d631a49fb4f7 Verifying Checksum
+verify	Run make test-integration	2026-10-28T05:04:26.0822849Z  d631a49fb4f7 Download complete
+verify	Run make test-integration	2026-10-28T05:04:26.1408196Z  8f7c784e2471 Downloading [==================================================>]     405B/405B
+verify	Run make test-integration	2026-10-28T05:04:26.1413073Z  8f7c784e2471 Verifying Checksum
+verify	Run make test-integration	2026-10-28T05:04:26.1415387Z  8f7c784e2471 Download complete
+verify	Run make test-integration	2026-10-28T05:04:26.1754938Z  44fa0a5a779f Downloading [==================================================>]   1.21kB/1.21kB
+verify	Run make test-integration	2026-10-28T05:04:26.1755809Z  44fa0a5a779f Verifying Checksum
+verify	Run make test-integration	2026-10-28T05:04:26.1757552Z  44fa0a5a779f Download complete
+verify	Run make test-integration	2026-10-28T05:04:26.2151058Z  abe1fea37542 Extracting [==========================================>        ]  23.89MB/28.23MB
+verify	Run make test-integration	2026-10-28T05:04:26.2886098Z  98104829f3fe Downloading [==================================================>]  1.398kB/1.398kB
+verify	Run make test-integration	2026-10-28T05:04:26.2888407Z  98104829f3fe Verifying Checksum
+verify	Run make test-integration	2026-10-28T05:04:26.2895610Z  98104829f3fe Download complete
+verify	Run make test-integration	2026-10-28T05:04:26.3513997Z  abe1fea37542 Extracting [===============================================>   ]  26.84MB/28.23MB
+verify	Run make test-integration	2026-10-28T05:04:26.3689883Z  0151c82f84a9 Downloading [>                                                  ]  209.8kB/20.25MB
+verify	Run make test-integration	2026-10-28T05:04:26.4695949Z  0151c82f84a9 Downloading [=============================>                     ]  11.84MB/20.25MB
+verify	Run make test-integration	2026-10-28T05:04:26.4950803Z  0151c82f84a9 Verifying Checksum
+verify	Run make test-integration	2026-10-28T05:04:26.4951869Z  0151c82f84a9 Download complete
+verify	Run make test-integration	2026-10-28T05:04:26.7426540Z  abe1fea37542 Extracting [================================================>  ]  27.43MB/28.23MB
+verify	Run make test-integration	2026-10-28T05:04:26.8361284Z  abe1fea37542 Extracting [==================================================>]  28.23MB/28.23MB
+verify	Run make test-integration	2026-10-28T05:04:27.2071326Z  589002ba0eae Pull complete
+verify	Run make test-integration	2026-10-28T05:04:27.5294339Z  1d9cbdb003be Extracting [>                                                  ]  32.77kB/1.834MB
+verify	Run make test-integration	2026-10-28T05:04:27.6233267Z  abe1fea37542 Pull complete
+verify	Run make test-integration	2026-10-28T05:04:28.0475603Z  3db098501f01 Extracting [==================================================>]  1.102kB/1.102kB
+verify	Run make test-integration	2026-10-28T05:04:28.0489228Z  3db098501f01 Extracting [==================================================>]  1.102kB/1.102kB
+verify	Run make test-integration	2026-10-28T05:04:28.1402563Z  1d9cbdb003be Extracting [======>                                            ]  229.4kB/1.834MB
+verify	Run make test-integration	2026-10-28T05:04:28.5233661Z  1d9cbdb003be Extracting [=======>                                           ]  262.1kB/1.834MB
+verify	Run make test-integration	2026-10-28T05:04:28.7080586Z  1d9cbdb003be Extracting [=================>                                 ]  655.4kB/1.834MB
+verify	Run make test-integration	2026-10-28T05:04:28.7239182Z  1d9cbdb003be Extracting [==================================================>]  1.834MB/1.834MB
+verify	Run make test-integration	2026-10-28T05:04:28.7240057Z  1d9cbdb003be Extracting [==================================================>]  1.834MB/1.834MB
+verify	Run make test-integration	2026-10-28T05:04:31.3044262Z  a74c50568115 Pull complete
+verify	Run make test-integration	2026-10-28T05:04:31.3045205Z  a74c50568115 Pull complete
+verify	Run make test-integration	2026-10-28T05:04:31.3045780Z  3db098501f01 Pull complete
+verify	Run make test-integration	2026-10-28T05:04:31.3051426Z  1d9cbdb003be Pull complete
+verify	Run make test-integration	2026-10-28T05:04:31.3074346Z  017b31e4ff27 Extracting [>                                                  ]  65.54kB/4.534MB
+verify	Run make test-integration	2026-10-28T05:04:31.3075358Z  017b31e4ff27 Extracting [>                                                  ]  65.54kB/4.534MB
+verify	Run make test-integration	2026-10-28T05:04:31.3108385Z  ca19d868f352 Extracting [==================================================>]     874B/874B
+verify	Run make test-integration	2026-10-28T05:04:31.3113156Z  ca19d868f352 Extracting [==================================================>]     874B/874B
+verify	Run make test-integration	2026-10-28T05:04:31.3333686Z  e914c6e98e37 Extracting [==================================================>]     626B/626B
+verify	Run make test-integration	2026-10-28T05:04:31.3338636Z  e914c6e98e37 Extracting [==================================================>]     626B/626B
+verify	Run make test-integration	2026-10-28T05:04:31.7243176Z  e914c6e98e37 Pull complete
+verify	Run make test-integration	2026-10-28T05:04:31.7298603Z  d631a49fb4f7 Extracting [==================================================>]     956B/956B
+verify	Run make test-integration	2026-10-28T05:04:31.7301265Z  d631a49fb4f7 Extracting [==================================================>]     956B/956B
+verify	Run make test-integration	2026-10-28T05:04:31.7303711Z  017b31e4ff27 Extracting [==>                                                ]  262.1kB/4.534MB
+verify	Run make test-integration	2026-10-28T05:04:31.7306021Z  017b31e4ff27 Extracting [==>                                                ]  262.1kB/4.534MB
+verify	Run make test-integration	2026-10-28T05:04:31.7459385Z  ca19d868f352 Pull complete
+verify	Run make test-integration	2026-10-28T05:04:31.7650997Z  d631a49fb4f7 Pull complete
+verify	Run make test-integration	2026-10-28T05:04:31.7729537Z  8f7c784e2471 Extracting [==================================================>]     405B/405B
+verify	Run make test-integration	2026-10-28T05:04:31.7731925Z  8f7c784e2471 Extracting [==================================================>]     405B/405B
+verify	Run make test-integration	2026-10-28T05:04:31.8133859Z  b89fb5fc7ff7 Extracting [>                                                  ]  262.1kB/24.21MB
+verify	Run make test-integration	2026-10-28T05:04:31.8314049Z  017b31e4ff27 Extracting [==================>                                ]  1.638MB/4.534MB
+verify	Run make test-integration	2026-10-28T05:04:31.8315028Z  017b31e4ff27 Extracting [==================>                                ]  1.638MB/4.534MB
+verify	Run make test-integration	2026-10-28T05:04:31.9428579Z  017b31e4ff27 Extracting [==============================>                    ]  2.753MB/4.534MB
+verify	Run make test-integration	2026-10-28T05:04:31.9429649Z  017b31e4ff27 Extracting [==============================>                    ]  2.753MB/4.534MB
+verify	Run make test-integration	2026-10-28T05:04:31.9440913Z  8f7c784e2471 Pull complete
+verify	Run make test-integration	2026-10-28T05:04:31.9488418Z  44fa0a5a779f Extracting [==================================================>]   1.21kB/1.21kB
+verify	Run make test-integration	2026-10-28T05:04:31.9490098Z  44fa0a5a779f Extracting [==================================================>]   1.21kB/1.21kB
+verify	Run make test-integration	2026-10-28T05:04:31.9493401Z  b89fb5fc7ff7 Extracting [====>                                              ]  2.359MB/24.21MB
+verify	Run make test-integration	2026-10-28T05:04:32.0720822Z  017b31e4ff27 Extracting [====================================>              ]  3.277MB/4.534MB
+verify	Run make test-integration	2026-10-28T05:04:32.0724394Z  017b31e4ff27 Extracting [====================================>              ]  3.277MB/4.534MB
+verify	Run make test-integration	2026-10-28T05:04:32.0739276Z  b89fb5fc7ff7 Extracting [=====>                                             ]  2.884MB/24.21MB
+verify	Run make test-integration	2026-10-28T05:04:32.1152531Z  44fa0a5a779f Pull complete
+verify	Run make test-integration	2026-10-28T05:04:32.1198496Z  98104829f3fe Extracting [==================================================>]  1.398kB/1.398kB
+verify	Run make test-integration	2026-10-28T05:04:32.1199153Z  98104829f3fe Extracting [==================================================>]  1.398kB/1.398kB
+verify	Run make test-integration	2026-10-28T05:04:32.3724035Z  b89fb5fc7ff7 Extracting [=========>                                         ]  4.719MB/24.21MB
+verify	Run make test-integration	2026-10-28T05:04:32.3744445Z  017b31e4ff27 Extracting [==================================================>]  4.534MB/4.534MB
+verify	Run make test-integration	2026-10-28T05:04:32.3747840Z  017b31e4ff27 Extracting [==================================================>]  4.534MB/4.534MB
+verify	Run make test-integration	2026-10-28T05:04:32.3749579Z  98104829f3fe Pull complete
+verify	Run make test-integration	2026-10-28T05:04:32.4290092Z  0151c82f84a9 Extracting [>                                                  ]  229.4kB/20.25MB
+verify	Run make test-integration	2026-10-28T05:04:32.5157465Z  b89fb5fc7ff7 Extracting [==============>                                    ]  7.078MB/24.21MB
+verify	Run make test-integration	2026-10-28T05:04:32.5391258Z  017b31e4ff27 Pull complete
+verify	Run make test-integration	2026-10-28T05:04:32.5392949Z  017b31e4ff27 Pull complete
+verify	Run make test-integration	2026-10-28T05:04:32.5449723Z  146d06bcb573 Extracting [=>                                                 ]  32.77kB/1.25MB
+verify	Run make test-integration	2026-10-28T05:04:32.5649515Z  146d06bcb573 Extracting [=>                                                 ]  32.77kB/1.25MB
+verify	Run make test-integration	2026-10-28T05:04:32.6153239Z  0151c82f84a9 Extracting [=>                                                 ]  458.8kB/20.25MB
+verify	Run make test-integration	2026-10-28T05:04:32.6194201Z  b89fb5fc7ff7 Extracting [================>                                  ]  8.126MB/24.21MB
+verify	Run make test-integration	2026-10-28T05:04:32.6394660Z  146d06bcb573 Extracting [=========================================>         ]  1.049MB/1.25MB
+verify	Run make test-integration	2026-10-28T05:04:32.6396276Z  146d06bcb573 Extracting [=========================================>         ]  1.049MB/1.25MB
+verify	Run make test-integration	2026-10-28T05:04:32.6530272Z  146d06bcb573 Extracting [==================================================>]   1.25MB/1.25MB
+verify	Run make test-integration	2026-10-28T05:04:32.6534210Z  146d06bcb573 Extracting [==================================================>]   1.25MB/1.25MB
+verify	Run make test-integration	2026-10-28T05:04:32.7164487Z  0151c82f84a9 Extracting [====>                                              ]  1.835MB/20.25MB
+verify	Run make test-integration	2026-10-28T05:04:32.7205666Z  b89fb5fc7ff7 Extracting [====================>                              ]  9.961MB/24.21MB
+verify	Run make test-integration	2026-10-28T05:04:32.8179297Z  0151c82f84a9 Extracting [===============>                                   ]  6.423MB/20.25MB
+verify	Run make test-integration	2026-10-28T05:04:32.8240521Z  b89fb5fc7ff7 Extracting [==============================>                    ]  14.68MB/24.21MB
+verify	Run make test-integration	2026-10-28T05:04:32.9206669Z  0151c82f84a9 Extracting [======================>                            ]  9.175MB/20.25MB
+verify	Run make test-integration	2026-10-28T05:04:32.9266865Z  b89fb5fc7ff7 Extracting [==================================>                ]  16.78MB/24.21MB
+verify	Run make test-integration	2026-10-28T05:04:33.0211272Z  0151c82f84a9 Extracting [================================>                  ]  13.07MB/20.25MB
+verify	Run make test-integration	2026-10-28T05:04:33.0310744Z  b89fb5fc7ff7 Extracting [=============================================>     ]  22.02MB/24.21MB
+verify	Run make test-integration	2026-10-28T05:04:33.2087371Z  0151c82f84a9 Extracting [=================================>                 ]  13.76MB/20.25MB
+verify	Run make test-integration	2026-10-28T05:04:33.2372138Z  b89fb5fc7ff7 Extracting [==============================================>    ]  22.28MB/24.21MB
+verify	Run make test-integration	2026-10-28T05:04:33.2454443Z  146d06bcb573 Pull complete
+verify	Run make test-integration	2026-10-28T05:04:33.2456863Z  146d06bcb573 Pull complete
+verify	Run make test-integration	2026-10-28T05:04:33.2488516Z  e7e8da52359d Extracting [>                                                  ]   98.3kB/8.066MB
+verify	Run make test-integration	2026-10-28T05:04:33.2490981Z  e7e8da52359d Extracting [>                                                  ]   98.3kB/8.066MB
+verify	Run make test-integration	2026-10-28T05:04:33.2521918Z  b89fb5fc7ff7 Extracting [==================================================>]  24.21MB/24.21MB
+verify	Run make test-integration	2026-10-28T05:04:33.4449655Z  0151c82f84a9 Extracting [=======================================>           ]  15.83MB/20.25MB
+verify	Run make test-integration	2026-10-28T05:04:33.5518441Z  e7e8da52359d Extracting [=======>                                           ]   1.18MB/8.066MB
+verify	Run make test-integration	2026-10-28T05:04:33.5519554Z  e7e8da52359d Extracting [=======>                                           ]   1.18MB/8.066MB
+verify	Run make test-integration	2026-10-28T05:04:33.5532386Z  0151c82f84a9 Extracting [=======================================>           ]  16.06MB/20.25MB
+verify	Run make test-integration	2026-10-28T05:04:33.6624204Z  e7e8da52359d Extracting [========>                                          ]  1.376MB/8.066MB
+verify	Run make test-integration	2026-10-28T05:04:33.6625729Z  0151c82f84a9 Extracting [========================================>          ]  16.29MB/20.25MB
+verify	Run make test-integration	2026-10-28T05:04:33.6628967Z  e7e8da52359d Extracting [========>                                          ]  1.376MB/8.066MB
+verify	Run make test-integration	2026-10-28T05:04:33.7451727Z  b89fb5fc7ff7 Pull complete
+verify	Run make test-integration	2026-10-28T05:04:33.7590073Z  4b4668b306bc Extracting [==================================================>]      95B/95B
+verify	Run make test-integration	2026-10-28T05:04:33.7592839Z  4b4668b306bc Extracting [==================================================>]      95B/95B
+verify	Run make test-integration	2026-10-28T05:04:33.7639077Z  0151c82f84a9 Extracting [=================================================> ]  20.19MB/20.25MB
+verify	Run make test-integration	2026-10-28T05:04:33.7692847Z  e7e8da52359d Extracting [====================>                              ]  3.342MB/8.066MB
+verify	Run make test-integration	2026-10-28T05:04:33.7693888Z  e7e8da52359d Extracting [====================>                              ]  3.342MB/8.066MB
+verify	Run make test-integration	2026-10-28T05:04:33.9147022Z  0151c82f84a9 Extracting [==================================================>]  20.25MB/20.25MB
+verify	Run make test-integration	2026-10-28T05:04:33.9210696Z  4b4668b306bc Pull complete
+verify	Run make test-integration	2026-10-28T05:04:33.9241036Z  e7e8da52359d Extracting [=======================>                           ]  3.834MB/8.066MB
+verify	Run make test-integration	2026-10-28T05:04:33.9241881Z  e7e8da52359d Extracting [=======================>                           ]  3.834MB/8.066MB
+verify	Run make test-integration	2026-10-28T05:04:33.9914490Z  4f4fb700ef54 Extracting [==================================================>]      32B/32B
+verify	Run make test-integration	2026-10-28T05:04:33.9915223Z  4f4fb700ef54 Extracting [==================================================>]      32B/32B
+verify	Run make test-integration	2026-10-28T05:04:34.0245435Z  e7e8da52359d Extracting [===============================>                   ]  5.112MB/8.066MB
+verify	Run make test-integration	2026-10-28T05:04:34.0246125Z  e7e8da52359d Extracting [===============================>                   ]  5.112MB/8.066MB
+verify	Run make test-integration	2026-10-28T05:04:34.1387283Z  e7e8da52359d Extracting [================================================>  ]  7.766MB/8.066MB
+verify	Run make test-integration	2026-10-28T05:04:34.1388083Z  e7e8da52359d Extracting [================================================>  ]  7.766MB/8.066MB
+verify	Run make test-integration	2026-10-28T05:04:34.1470114Z  e7e8da52359d Extracting [==================================================>]  8.066MB/8.066MB
+verify	Run make test-integration	2026-10-28T05:04:34.1470860Z  e7e8da52359d Extracting [==================================================>]  8.066MB/8.066MB
+verify	Run make test-integration	2026-10-28T05:04:34.4269823Z  e7e8da52359d Pull complete
+verify	Run make test-integration	2026-10-28T05:04:34.4270672Z  e7e8da52359d Pull complete
+verify	Run make test-integration	2026-10-28T05:04:34.4292763Z  d01ea4064291 Extracting [=>                                                 ]  32.77kB/1.196MB
+verify	Run make test-integration	2026-10-28T05:04:34.4295266Z  d01ea4064291 Extracting [=>                                                 ]  32.77kB/1.196MB
+verify	Run make test-integration	2026-10-28T05:04:34.4327925Z  4f4fb700ef54 Pull complete
+verify	Run make test-integration	2026-10-28T05:04:34.4332645Z  0151c82f84a9 Pull complete
+verify	Run make test-integration	2026-10-28T05:04:34.4347848Z  71e796aaa0ba Extracting [==================================================>]  2.112kB/2.112kB
+verify	Run make test-integration	2026-10-28T05:04:34.4357556Z  71e796aaa0ba Extracting [==================================================>]  2.112kB/2.112kB
+verify	Run make test-integration	2026-10-28T05:04:34.4471096Z  proxy Pulled
+verify	Run make test-integration	2026-10-28T05:04:34.4503050Z  71e796aaa0ba Pull complete
+verify	Run make test-integration	2026-10-28T05:04:34.4555215Z  redis Pulled
+verify	Run make test-integration	2026-10-28T05:04:34.8460615Z  d01ea4064291 Extracting [=================================================> ]   1.18MB/1.196MB
+verify	Run make test-integration	2026-10-28T05:04:34.8462175Z  d01ea4064291 Extracting [=================================================> ]   1.18MB/1.196MB
+verify	Run make test-integration	2026-10-28T05:04:34.8518014Z  d01ea4064291 Extracting [==================================================>]  1.196MB/1.196MB
+verify	Run make test-integration	2026-10-28T05:04:34.8518780Z  d01ea4064291 Extracting [==================================================>]  1.196MB/1.196MB
+verify	Run make test-integration	2026-10-28T05:04:34.8570383Z  d01ea4064291 Extracting [==================================================>]  1.196MB/1.196MB
+verify	Run make test-integration	2026-10-28T05:04:34.8571456Z  d01ea4064291 Extracting [==================================================>]  1.196MB/1.196MB
+verify	Run make test-integration	2026-10-28T05:04:34.9382393Z  d01ea4064291 Pull complete
+verify	Run make test-integration	2026-10-28T05:04:34.9383349Z  d01ea4064291 Pull complete
+verify	Run make test-integration	2026-10-28T05:04:35.0686632Z  6d0eb3c6cdb9 Extracting [==================================================>]     116B/116B
+verify	Run make test-integration	2026-10-28T05:04:35.0687841Z  6d0eb3c6cdb9 Extracting [==================================================>]     116B/116B
+verify	Run make test-integration	2026-10-28T05:04:35.0688641Z  6d0eb3c6cdb9 Extracting [==================================================>]     116B/116B
+verify	Run make test-integration	2026-10-28T05:04:35.0689626Z  6d0eb3c6cdb9 Extracting [==================================================>]     116B/116B
+verify	Run make test-integration	2026-10-28T05:04:35.0777758Z  6d0eb3c6cdb9 Pull complete
+verify	Run make test-integration	2026-10-28T05:04:35.0778498Z  6d0eb3c6cdb9 Pull complete
+verify	Run make test-integration	2026-10-28T05:04:35.0786317Z  b1cc6947b8a6 Extracting [==================================================>]  3.144kB/3.144kB
+verify	Run make test-integration	2026-10-28T05:04:35.0794173Z  b1cc6947b8a6 Extracting [==================================================>]  3.144kB/3.144kB
+verify	Run make test-integration	2026-10-28T05:04:35.0795084Z  b1cc6947b8a6 Extracting [==================================================>]  3.144kB/3.144kB
+verify	Run make test-integration	2026-10-28T05:04:35.0795889Z  b1cc6947b8a6 Extracting [==================================================>]  3.144kB/3.144kB
+verify	Run make test-integration	2026-10-28T05:04:35.0949368Z  b1cc6947b8a6 Pull complete
+verify	Run make test-integration	2026-10-28T05:04:35.0950309Z  b1cc6947b8a6 Pull complete
+verify	Run make test-integration	2026-10-28T05:04:35.1452103Z  e96ba86f00e5 Extracting [>                                                  ]  557.1kB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:35.1455349Z  e96ba86f00e5 Extracting [>                                                  ]  557.1kB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:35.2455123Z  e96ba86f00e5 Extracting [==>                                                ]  5.014MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:35.2457549Z  e96ba86f00e5 Extracting [==>                                                ]  5.014MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:35.3594682Z  e96ba86f00e5 Extracting [====>                                              ]  10.58MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:35.3597149Z  e96ba86f00e5 Extracting [====>                                              ]  10.58MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:35.4647720Z  e96ba86f00e5 Extracting [======>                                            ]  14.48MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:35.4648473Z  e96ba86f00e5 Extracting [======>                                            ]  14.48MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:35.5673915Z  e96ba86f00e5 Extracting [========>                                          ]  18.94MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:35.5674459Z  e96ba86f00e5 Extracting [========>                                          ]  18.94MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:35.7392247Z  e96ba86f00e5 Extracting [==========>                                        ]  23.95MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:35.7393024Z  e96ba86f00e5 Extracting [==========>                                        ]  23.95MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:35.8417415Z  e96ba86f00e5 Extracting [=============>                                     ]   31.2MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:35.8423138Z  e96ba86f00e5 Extracting [=============>                                     ]   31.2MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:35.9485222Z  e96ba86f00e5 Extracting [=================>                                 ]  40.67MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:35.9486015Z  e96ba86f00e5 Extracting [=================>                                 ]  40.67MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:36.0523206Z  e96ba86f00e5 Extracting [=====================>                             ]  49.58MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:36.0523960Z  e96ba86f00e5 Extracting [=====================>                             ]  49.58MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:36.1573331Z  e96ba86f00e5 Extracting [========================>                          ]  56.26MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:36.1574423Z  e96ba86f00e5 Extracting [========================>                          ]  56.26MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:36.2648650Z  e96ba86f00e5 Extracting [===========================>                       ]  62.39MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:36.2649724Z  e96ba86f00e5 Extracting [===========================>                       ]  62.39MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:36.3682836Z  e96ba86f00e5 Extracting [==============================>                    ]  70.75MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:36.3683567Z  e96ba86f00e5 Extracting [==============================>                    ]  70.75MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:36.4691314Z  e96ba86f00e5 Extracting [==================================>                ]   79.1MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:36.4692002Z  e96ba86f00e5 Extracting [==================================>                ]   79.1MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:36.5743901Z  e96ba86f00e5 Extracting [=====================================>             ]   86.9MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:36.5747819Z  e96ba86f00e5 Extracting [=====================================>             ]   86.9MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:36.6783396Z  e96ba86f00e5 Extracting [=========================================>         ]  95.81MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:36.6796033Z  e96ba86f00e5 Extracting [=========================================>         ]  95.81MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:36.7801542Z  e96ba86f00e5 Extracting [==========================================>        ]   98.6MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:36.7802078Z  e96ba86f00e5 Extracting [==========================================>        ]   98.6MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:36.8825009Z  e96ba86f00e5 Extracting [============================================>      ]  101.9MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:36.8825530Z  e96ba86f00e5 Extracting [============================================>      ]  101.9MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:37.0740611Z  e96ba86f00e5 Extracting [============================================>      ]  103.1MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:37.0741301Z  e96ba86f00e5 Extracting [============================================>      ]  103.1MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:37.1808754Z  e96ba86f00e5 Extracting [==============================================>    ]    107MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:37.1809495Z  e96ba86f00e5 Extracting [==============================================>    ]    107MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:37.2953309Z  e96ba86f00e5 Extracting [===============================================>   ]  109.7MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:37.2954029Z  e96ba86f00e5 Extracting [===============================================>   ]  109.7MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:37.4389953Z  e96ba86f00e5 Extracting [================================================>  ]    112MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:37.4392342Z  e96ba86f00e5 Extracting [================================================>  ]    112MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:37.6648219Z  e96ba86f00e5 Extracting [=================================================> ]  113.6MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:37.6650782Z  e96ba86f00e5 Extracting [=================================================> ]  113.6MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:37.7851740Z  e96ba86f00e5 Extracting [==================================================>]  115.2MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:37.7854840Z  e96ba86f00e5 Extracting [==================================================>]  115.2MB/115.2MB
+verify	Run make test-integration	2026-10-28T05:04:38.0233872Z  e96ba86f00e5 Pull complete
+verify	Run make test-integration	2026-10-28T05:04:38.0234756Z  e96ba86f00e5 Pull complete
+verify	Run make test-integration	2026-10-28T05:04:38.0993148Z  a219b7b9b5d4 Extracting [==================================================>]  10.36kB/10.36kB
+verify	Run make test-integration	2026-10-28T05:04:38.0995991Z  a219b7b9b5d4 Extracting [==================================================>]  10.36kB/10.36kB
+verify	Run make test-integration	2026-10-28T05:04:38.0999013Z  a219b7b9b5d4 Extracting [==================================================>]  10.36kB/10.36kB
+verify	Run make test-integration	2026-10-28T05:04:38.1001776Z  a219b7b9b5d4 Extracting [==================================================>]  10.36kB/10.36kB
+verify	Run make test-integration	2026-10-28T05:04:39.1692521Z  a219b7b9b5d4 Pull complete
+verify	Run make test-integration	2026-10-28T05:04:39.1692985Z  a219b7b9b5d4 Pull complete
+verify	Run make test-integration	2026-10-28T05:04:39.6317388Z  584b3a82e541 Extracting [==================================================>]     128B/128B
+verify	Run make test-integration	2026-10-28T05:04:39.6322843Z  584b3a82e541 Extracting [==================================================>]     128B/128B
+verify	Run make test-integration	2026-10-28T05:04:39.6323504Z  584b3a82e541 Extracting [==================================================>]     128B/128B
+verify	Run make test-integration	2026-10-28T05:04:39.6324154Z  584b3a82e541 Extracting [==================================================>]     128B/128B
+verify	Run make test-integration	2026-10-28T05:04:40.6603640Z  584b3a82e541 Pull complete
+verify	Run make test-integration	2026-10-28T05:04:40.6604133Z  584b3a82e541 Pull complete
+verify	Run make test-integration	2026-10-28T05:04:40.6853850Z  d254c075f128 Extracting [==================================================>]     168B/168B
+verify	Run make test-integration	2026-10-28T05:04:40.6856248Z  d254c075f128 Extracting [==================================================>]     168B/168B
+verify	Run make test-integration	2026-10-28T05:04:40.6859102Z  d254c075f128 Extracting [==================================================>]     168B/168B
+verify	Run make test-integration	2026-10-28T05:04:41.0943942Z  d254c075f128 Pull complete
+verify	Run make test-integration	2026-10-28T05:04:41.0944517Z  d254c075f128 Pull complete
+verify	Run make test-integration	2026-10-28T05:04:41.1882294Z  fb616fac62de Extracting [==================================================>]  6.109kB/6.109kB
+verify	Run make test-integration	2026-10-28T05:04:41.1883506Z  fb616fac62de Extracting [==================================================>]  6.109kB/6.109kB
+verify	Run make test-integration	2026-10-28T05:04:41.1884549Z  fb616fac62de Extracting [==================================================>]  6.109kB/6.109kB
+verify	Run make test-integration	2026-10-28T05:04:41.1885341Z  fb616fac62de Extracting [==================================================>]  6.109kB/6.109kB
+verify	Run make test-integration	2026-10-28T05:04:41.3240291Z  fb616fac62de Pull complete
+verify	Run make test-integration	2026-10-28T05:04:41.3240719Z  fb616fac62de Pull complete
+verify	Run make test-integration	2026-10-28T05:04:41.3252450Z  7f82c3d75427 Extracting [==================================================>]     186B/186B
+verify	Run make test-integration	2026-10-28T05:04:41.3253571Z  7f82c3d75427 Extracting [==================================================>]     186B/186B
+verify	Run make test-integration	2026-10-28T05:04:41.3256287Z  7f82c3d75427 Extracting [==================================================>]     186B/186B
+verify	Run make test-integration	2026-10-28T05:04:41.3262231Z  7f82c3d75427 Extracting [==================================================>]     186B/186B
+verify	Run make test-integration	2026-10-28T05:04:41.3367770Z  7f82c3d75427 Pull complete
+verify	Run make test-integration	2026-10-28T05:04:41.3368503Z  7f82c3d75427 Pull complete
+verify	Run make test-integration	2026-10-28T05:04:41.3416897Z  postgres Pulled
+verify	Run make test-integration	2026-10-28T05:04:41.3427154Z  demo-db Pulled
+verify	Run make test-integration	2026-10-28T05:04:41.5269779Z #1 [internal] load local bake definitions
+verify	Run make test-integration	2026-10-28T05:04:41.6818905Z #1 reading from stdin 1.65kB done
+verify	Run make test-integration	2026-10-28T05:04:41.6819976Z #1 DONE 0.0s
+verify	Run make test-integration	2026-10-28T05:04:41.6820381Z
+verify	Run make test-integration	2026-10-28T05:04:41.6820801Z #2 [demo internal] load build definition from Dockerfile
+verify	Run make test-integration	2026-10-28T05:04:41.6821398Z #2 transferring dockerfile:
+verify	Run make test-integration	2026-10-28T05:04:41.8515986Z #2 transferring dockerfile: 1.46kB done
+verify	Run make test-integration	2026-10-28T05:04:41.8516624Z #2 DONE 0.1s
+verify	Run make test-integration	2026-10-28T05:04:41.8516793Z
+verify	Run make test-integration	2026-10-28T05:04:41.8517440Z #3 [migrate internal] load metadata for docker.io/library/python:3.14.8-slim-bookworm@sha256:48b13b003dda20b16f9442b8475aa05fe21bf6579a8c881db92ffb4d8fd20f83
+verify	Run make test-integration	2026-10-28T05:04:42.0237538Z #3 ...
+verify	Run make test-integration	2026-10-28T05:04:42.0237881Z
+verify	Run make test-integration	2026-10-28T05:04:42.0238141Z #4 [auth] library/python:pull token for registry-1.docker.io
+verify	Run make test-integration	2026-10-28T05:04:42.0238583Z #4 DONE 0.0s
+verify	Run make test-integration	2026-10-28T05:04:42.1740319Z
+verify	Run make test-integration	2026-10-28T05:04:42.1741487Z #3 [migrate internal] load metadata for docker.io/library/python:3.14.8-slim-bookworm@sha256:48b13b003dda20b16f9442b8475aa05fe21bf6579a8c881db92ffb4d8fd20f83
+verify	Run make test-integration	2026-10-28T05:04:42.4504245Z #3 ...
+verify	Run make test-integration	2026-10-28T05:04:42.4505078Z
+verify	Run make test-integration	2026-10-28T05:04:42.4505919Z #5 [migrate internal] load .dockerignore
+verify	Run make test-integration	2026-10-28T05:04:42.4507695Z #5 DONE 0.0s
+verify	Run make test-integration	2026-10-28T05:04:42.4508052Z
+verify	Run make test-integration	2026-10-28T05:04:42.4509169Z #3 [migrate internal] load metadata for docker.io/library/python:3.14.8-slim-bookworm@sha256:48b13b003dda20b16f9442b8475aa05fe21bf6579a8c881db92ffb4d8fd20f83
+verify	Run make test-integration	2026-10-28T05:04:42.5717631Z #3 DONE 0.8s
+verify	Run make test-integration	2026-10-28T05:04:42.5718133Z
+verify	Run make test-integration	2026-10-28T05:04:42.5718536Z #5 [demo internal] load .dockerignore
+verify	Run make test-integration	2026-10-28T05:04:42.5719062Z #5 transferring context: 135B done
+verify	Run make test-integration	2026-10-28T05:04:42.5719515Z #5 DONE 0.0s
+verify	Run make test-integration	2026-10-28T05:04:42.5719707Z
+verify	Run make test-integration	2026-10-28T05:04:42.5719851Z #6 [migrate internal] load build context
+verify	Run make test-integration	2026-10-28T05:04:42.5720226Z #6 transferring context: 510.06kB 0.0s done
+verify	Run make test-integration	2026-10-28T05:04:42.5720578Z #6 DONE 0.0s
+verify	Run make test-integration	2026-10-28T05:04:42.5720728Z
+verify	Run make test-integration	2026-10-28T05:04:42.5721273Z #7 [api build 1/7] FROM docker.io/library/python:3.14.8-slim-bookworm@sha256:48b13b003dda20b16f9442b8475aa05fe21bf6579a8c881db92ffb4d8fd20f83
+verify	Run make test-integration	2026-10-28T05:04:42.5722404Z #7 resolve docker.io/library/python:3.14.8-slim-bookworm@sha256:48b13b003dda20b16f9442b8475aa05fe21bf6579a8c881db92ffb4d8fd20f83 done
+verify	Run make test-integration	2026-10-28T05:04:42.5723049Z #7 sha256:48b13b003dda20b16f9442b8475aa05fe21bf6579a8c881db92ffb4d8fd20f83 6.54kB / 6.54kB done
+verify	Run make test-integration	2026-10-28T05:04:42.5723557Z #7 sha256:a66d3a463d0be3cc537c269b0d3418746dda512417a975559a0eaa8a6406baaf 1.75kB / 1.75kB done
+verify	Run make test-integration	2026-10-28T05:04:42.5724064Z #7 sha256:82cd6bca489be723b62b192752c133eb7c6acbcecaeca797628725d994998c5b 4.96kB / 4.96kB done
+verify	Run make test-integration	2026-10-28T05:04:42.5724569Z #7 sha256:ea95d2ab382ff97ec2d6ac25327d00c3f08fe2877dfa8ab6cb9cfb7e4245185a 3.34MB / 3.34MB 0.1s
+verify	Run make test-integration	2026-10-28T05:04:42.5725338Z #7 sha256:902d5fe0cd9225c8c113f6af022b926275f3c1851e7c81a0ab561f11580230eb 0B / 15.34MB 0.1s
+verify	Run make test-integration	2026-10-28T05:04:42.5725943Z #7 sha256:496c1a902b3a93cea3e54b90b79dbcaa0e58ad90c3fe9dd0a43c9557dc47f17d 0B / 250B 0.1s
+verify	Run make test-integration	2026-10-28T05:04:42.6719131Z #7 sha256:48b13b003dda20b16f9442b8475aa05fe21bf6579a8c881db92ffb4d8fd20f83 6.54kB / 6.54kB done
+verify	Run make test-integration	2026-10-28T05:04:42.6720126Z #7 sha256:a66d3a463d0be3cc537c269b0d3418746dda512417a975559a0eaa8a6406baaf 1.75kB / 1.75kB done
+verify	Run make test-integration	2026-10-28T05:04:42.6721485Z #7 sha256:82cd6bca489be723b62b192752c133eb7c6acbcecaeca797628725d994998c5b 4.96kB / 4.96kB done
+verify	Run make test-integration	2026-10-28T05:04:42.6722501Z #7 sha256:ea95d2ab382ff97ec2d6ac25327d00c3f08fe2877dfa8ab6cb9cfb7e4245185a 3.34MB / 3.34MB 0.1s done
+verify	Run make test-integration	2026-10-28T05:04:42.6723491Z #7 sha256:902d5fe0cd9225c8c113f6af022b926275f3c1851e7c81a0ab561f11580230eb 15.34MB / 15.34MB 0.2s
+verify	Run make test-integration	2026-10-28T05:04:42.6724416Z #7 extracting sha256:ea95d2ab382ff97ec2d6ac25327d00c3f08fe2877dfa8ab6cb9cfb7e4245185a
+verify	Run make test-integration	2026-10-28T05:04:42.7727867Z #7 sha256:ea95d2ab382ff97ec2d6ac25327d00c3f08fe2877dfa8ab6cb9cfb7e4245185a 3.34MB / 3.34MB 0.1s done
+verify	Run make test-integration	2026-10-28T05:04:42.7728993Z #7 sha256:496c1a902b3a93cea3e54b90b79dbcaa0e58ad90c3fe9dd0a43c9557dc47f17d 250B / 250B 0.3s
+verify	Run make test-integration	2026-10-28T05:04:43.0202989Z #7 sha256:902d5fe0cd9225c8c113f6af022b926275f3c1851e7c81a0ab561f11580230eb 15.34MB / 15.34MB 0.3s done
+verify	Run make test-integration	2026-10-28T05:04:43.0203906Z #7 sha256:496c1a902b3a93cea3e54b90b79dbcaa0e58ad90c3fe9dd0a43c9557dc47f17d 250B / 250B 0.3s done
+verify	Run make test-integration	2026-10-28T05:04:43.0204872Z #7 extracting sha256:ea95d2ab382ff97ec2d6ac25327d00c3f08fe2877dfa8ab6cb9cfb7e4245185a 0.3s done
+verify	Run make test-integration	2026-10-28T05:04:43.0205519Z #7 extracting sha256:902d5fe0cd9225c8c113f6af022b926275f3c1851e7c81a0ab561f11580230eb
+verify	Run make test-integration	2026-10-28T05:04:43.9547084Z #7 extracting sha256:902d5fe0cd9225c8c113f6af022b926275f3c1851e7c81a0ab561f11580230eb 0.8s done
+verify	Run make test-integration	2026-10-28T05:04:44.4476042Z #7 extracting sha256:496c1a902b3a93cea3e54b90b79dbcaa0e58ad90c3fe9dd0a43c9557dc47f17d
+verify	Run make test-integration	2026-10-28T05:04:44.6497663Z #7 extracting sha256:496c1a902b3a93cea3e54b90b79dbcaa0e58ad90c3fe9dd0a43c9557dc47f17d done
+verify	Run make test-integration	2026-10-28T05:04:44.6498668Z #7 DONE 2.0s
+verify	Run make test-integration	2026-10-28T05:04:44.6499052Z
+verify	Run make test-integration	2026-10-28T05:04:44.6499370Z #8 [migrate build 2/7] WORKDIR /app
+verify	Run make test-integration	2026-10-28T05:04:44.6499891Z #8 DONE 0.0s
+verify	Run make test-integration	2026-10-28T05:04:44.6500217Z
+verify	Run make test-integration	2026-10-28T05:04:44.6500610Z #9 [demo build 3/7] RUN pip install --no-cache-dir uv==0.13.1
+verify	Run make test-integration	2026-10-28T05:04:46.1898384Z #9 1.690 Collecting uv==0.13.1
+verify	Run make test-integration	2026-10-28T05:04:46.4348633Z #9 1.771   Downloading uv-0.13.1-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (11 kB)
+verify	Run make test-integration	2026-10-28T05:04:46.4349559Z #9 1.785 Downloading uv-0.13.1-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (17.3 MB)
+verify	Run make test-integration	2026-10-28T05:04:46.8938197Z #9 2.244    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 17.3/17.3 MB 40.6 MB/s  0:00:00
+verify	Run make test-integration	2026-10-28T05:04:47.1528069Z #9 2.503 Installing collected packages: uv
+verify	Run make test-integration	2026-10-28T05:04:47.3050261Z #9 2.654 Successfully installed uv-0.13.1
+verify	Run make test-integration	2026-10-28T05:04:47.3052553Z #9 2.654 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+verify	Run make test-integration	2026-10-28T05:04:47.3058887Z #9 2.656
+verify	Run make test-integration	2026-10-28T05:04:47.3059278Z #9 2.656 [notice] A new release of pip is available: 26.2.1 -> 26.2.2
+verify	Run make test-integration	2026-10-28T05:04:47.3059835Z #9 2.656 [notice] To update, run: pip install --upgrade pip
+verify	Run make test-integration	2026-10-28T05:04:47.9927460Z #9 DONE 3.3s
+verify	Run make test-integration	2026-10-28T05:04:47.9928283Z
+verify	Run make test-integration	2026-10-28T05:04:47.9928691Z #10 [api build 4/7] COPY pyproject.toml uv.lock ./
+verify	Run make test-integration	2026-10-28T05:04:47.9929294Z #10 DONE 0.0s
+verify	Run make test-integration	2026-10-28T05:04:47.9929491Z
+verify	Run make test-integration	2026-10-28T05:04:47.9929639Z #11 [initialize build 5/7] COPY src ./src
+verify	Run make test-integration	2026-10-28T05:04:47.9929989Z #11 DONE 0.0s
+verify	Run make test-integration	2026-10-28T05:04:47.9930134Z
+verify	Run make test-integration	2026-10-28T05:04:47.9930361Z #12 [demo build 6/7] RUN uv sync --frozen --no-dev --no-editable
+verify	Run make test-integration	2026-10-28T05:04:48.2296008Z #12 0.163 Using CPython 3.14.8 interpreter at: /usr/local/bin/python3
+verify	Run make test-integration	2026-10-28T05:04:48.2297686Z #12 0.164 Creating virtual environment at: .venv
+verify	Run make test-integration	2026-10-28T05:04:48.2298446Z #12 0.177    Building ai-task-execution-platform @ file:///app
+verify	Run make test-integration	2026-10-28T05:04:48.2299069Z #12 0.243 Downloading psycopg-binary (5.0MiB)
+verify	Run make test-integration	2026-10-28T05:04:48.2299605Z #12 0.243 Downloading tiktoken (1.1MiB)
+verify	Run make test-integration	2026-10-28T05:04:48.2300119Z #12 0.243 Downloading sqlalchemy (3.2MiB)
+verify	Run make test-integration	2026-10-28T05:04:48.2300960Z #12 0.243 Downloading pydantic-core (2.1MiB)
+verify	Run make test-integration	2026-10-28T05:04:48.4454544Z #12 0.388  Downloaded tiktoken
+verify	Run make test-integration	2026-10-28T05:04:48.4455214Z #12 0.419  Downloaded pydantic-core
+verify	Run make test-integration	2026-10-28T05:04:48.4455667Z #12 0.451  Downloaded sqlalchemy
+verify	Run make test-integration	2026-10-28T05:04:48.4456075Z #12 0.453  Downloaded psycopg-binary
+verify	Run make test-integration	2026-10-28T05:04:48.7672227Z #12 0.768       Built ai-task-execution-platform @ file:///app
+verify	Run make test-integration	2026-10-28T05:04:48.7672848Z #12 0.774 Prepared 34 packages in 608ms
+verify	Run make test-integration	2026-10-28T05:04:49.7861820Z #12 1.793 Installed 34 packages in 1.01s
+verify	Run make test-integration	2026-10-28T05:04:49.7862465Z #12 1.793  + ai-task-execution-platform==0.1.0 (from file:///app)
+verify	Run make test-integration	2026-10-28T05:04:49.7862931Z #12 1.793  + alembic==1.20.0
+verify	Run make test-integration	2026-10-28T05:04:49.7863251Z #12 1.793  + annotated-doc==0.0.5
+verify	Run make test-integration	2026-10-28T05:04:49.7863588Z #12 1.793  + annotated-types==0.8.0
+verify	Run make test-integration	2026-10-28T05:04:49.7863928Z #12 1.793  + anyio==4.15.1
+verify	Run make test-integration	2026-10-28T05:04:49.7864245Z #12 1.793  + certifi==2026.10.23
+verify	Run make test-integration	2026-10-28T05:04:49.7864578Z #12 1.793  + charset-normalizer==3.5.2
+verify	Run make test-integration	2026-10-28T05:04:49.7864940Z #12 1.793  + click==8.5.0
+verify	Run make test-integration	2026-10-28T05:04:49.7865235Z #12 1.793  + fastapi==0.143.1
+verify	Run make test-integration	2026-10-28T05:04:49.7865493Z #12 1.793  + greenlet==3.5.6
+verify	Run make test-integration	2026-10-28T05:04:49.7865692Z #12 1.793  + h11==0.16.0
+verify	Run make test-integration	2026-10-28T05:04:49.7865880Z #12 1.793  + httpcore==1.0.9
+verify	Run make test-integration	2026-10-28T05:04:49.7866075Z #12 1.793  + httpx==0.28.1
+verify	Run make test-integration	2026-10-28T05:04:49.7866270Z #12 1.793  + idna==3.20
+verify	Run make test-integration	2026-10-28T05:04:49.7866681Z #12 1.793  + mako==1.4.3
+verify	Run make test-integration	2026-10-28T05:04:49.7866874Z #12 1.793  + markupsafe==3.0.4
+verify	Run make test-integration	2026-10-28T05:04:49.7867098Z #12 1.793  + opentelemetry-api==1.45.1
+verify	Run make test-integration	2026-10-28T05:04:49.7867325Z #12 1.793  + opentelemetry-sdk==1.45.1
+verify	Run make test-integration	2026-10-28T05:04:49.7867594Z #12 1.793  + opentelemetry-semantic-conventions==0.66b1
+verify	Run make test-integration	2026-10-28T05:04:49.7867872Z #12 1.793  + prometheus-client==0.26.0
+verify	Run make test-integration	2026-10-28T05:04:49.7868099Z #12 1.793  + psycopg==3.3.6
+verify	Run make test-integration	2026-10-28T05:04:49.7868307Z #12 1.793  + psycopg-binary==3.3.6
+verify	Run make test-integration	2026-10-28T05:04:49.7868533Z #12 1.793  + pydantic==2.14.1
+verify	Run make test-integration	2026-10-28T05:04:49.7868746Z #12 1.793  + pydantic-core==2.50.1
+verify	Run make test-integration	2026-10-28T05:04:49.7868953Z #12 1.793  + redis==8.1.0
+verify	Run make test-integration	2026-10-28T05:04:49.7869145Z #12 1.793  + regex==2026.9.29
+verify	Run make test-integration	2026-10-28T05:04:49.7869343Z #12 1.793  + requests==2.34.2
+verify	Run make test-integration	2026-10-28T05:04:49.7869539Z #12 1.793  + sqlalchemy==2.0.54
+verify	Run make test-integration	2026-10-28T05:04:49.7869740Z #12 1.793  + starlette==1.8.0
+verify	Run make test-integration	2026-10-28T05:04:49.7869929Z #12 1.793  + tiktoken==0.14.0
+verify	Run make test-integration	2026-10-28T05:04:49.7870139Z #12 1.793  + typing-extensions==4.16.0
+verify	Run make test-integration	2026-10-28T05:04:49.7870368Z #12 1.793  + typing-inspection==0.4.4
+verify	Run make test-integration	2026-10-28T05:04:49.7870596Z #12 1.793  + urllib3==2.8.0
+verify	Run make test-integration	2026-10-28T05:04:49.7870792Z #12 1.793  + uvicorn==0.54.0
+verify	Run make test-integration	2026-10-28T05:04:50.7479966Z #12 DONE 2.8s
+verify	Run make test-integration	2026-10-28T05:04:50.7480445Z
+verify	Run make test-integration	2026-10-28T05:04:50.7480986Z #13 [api build 7/7] RUN .venv/bin/python -c 'import tiktoken; tiktoken.get_encoding("o200k_base")'
+verify	Run make test-integration	2026-10-28T05:04:52.6285745Z #13 DONE 1.9s
+verify	Run make test-integration	2026-10-28T05:04:52.6873119Z
+verify	Run make test-integration	2026-10-28T05:04:52.6875049Z #14 [api runtime 3/8] COPY --from=build /app/.venv /app/.venv
+verify	Run make test-integration	2026-10-28T05:04:53.8096147Z #14 DONE 1.0s
+verify	Run make test-integration	2026-10-28T05:04:53.8096803Z
+verify	Run make test-integration	2026-10-28T05:04:53.8100693Z #15 [initialize runtime 4/8] RUN rm -rf /usr/local/lib/python3.14/ensurepip     /usr/local/lib/python3.14/site-packages/pip     /usr/local/lib/python3.14/site-packages/pip-*.dist-info /usr/local/bin/pip*
+verify	Run make test-integration	2026-10-28T05:04:54.2461484Z #15 DONE 0.4s
+verify	Run make test-integration	2026-10-28T05:04:54.2461752Z
+verify	Run make test-integration	2026-10-28T05:04:54.2462449Z #16 [demo runtime 5/8] RUN apt-get update && apt-get install -y --no-install-recommends     libssl3=3.0.22-1~deb12u2 openssl=3.0.22-1~deb12u2     && rm -rf /var/lib/apt/lists/*
+verify	Run make test-integration	2026-10-28T05:04:54.3079373Z #16 0.213 Get:1 http://deb.debian.org/debian bookworm InRelease [151 kB]
+verify	Run make test-integration	2026-10-28T05:04:54.4280238Z #16 0.229 Get:2 http://deb.debian.org/debian bookworm-updates InRelease [55.4 kB]
+verify	Run make test-integration	2026-10-28T05:04:54.4281055Z #16 0.230 Get:3 http://deb.debian.org/debian-security bookworm-security InRelease [34.8 kB]
+verify	Run make test-integration	2026-10-28T05:04:54.4281787Z #16 0.277 Get:4 http://deb.debian.org/debian bookworm/main amd64 Packages [8790 kB]
+verify	Run make test-integration	2026-10-28T05:04:54.6187175Z #16 0.333 Get:5 http://deb.debian.org/debian bookworm-updates/main amd64 Packages [6924 B]
+verify	Run make test-integration	2026-10-28T05:04:54.6188744Z #16 0.373 Get:6 http://deb.debian.org/debian-security bookworm-security/main amd64 Packages [358 kB]
+verify	Run make test-integration	2026-10-28T05:04:55.2577999Z #16 1.012 Fetched 9397 kB in 1s (11.6 MB/s)
+verify	Run make test-integration	2026-10-28T05:04:55.6301408Z #16 1.012 Reading package lists...
+verify	Run make test-integration	2026-10-28T05:04:55.9466621Z #16 1.385 Reading package lists...
+verify	Run make test-integration	2026-10-28T05:04:56.0475514Z #16 1.747 Building dependency tree...
+verify	Run make test-integration	2026-10-28T05:04:56.0476616Z #16 1.851 Reading state information...
+verify	Run make test-integration	2026-10-28T05:04:56.1510035Z #16 1.952 The following packages will be upgraded:
+verify	Run make test-integration	2026-10-28T05:04:56.1511132Z #16 1.953   libssl3 openssl
+verify	Run make test-integration	2026-10-28T05:04:56.1511703Z #16 1.982 2 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.
+verify	Run make test-integration	2026-10-28T05:04:56.1512185Z #16 1.982 Need to get 3482 kB of archives.
+verify	Run make test-integration	2026-10-28T05:04:56.1512667Z #16 1.982 After this operation, 2048 B of additional disk space will be used.
+verify	Run make test-integration	2026-10-28T05:04:56.1513557Z #16 1.982 Get:1 http://deb.debian.org/debian-security bookworm-security/main amd64 libssl3 amd64 3.0.22-1~deb12u2 [2040 kB]
+verify	Run make test-integration	2026-10-28T05:04:56.3022765Z #16 2.056 Get:2 http://deb.debian.org/debian-security bookworm-security/main amd64 openssl amd64 3.0.22-1~deb12u2 [1442 kB]
+verify	Run make test-integration	2026-10-28T05:04:56.5071548Z #16 2.221 debconf: delaying package configuration, since apt-utils is not installed
+verify	Run make test-integration	2026-10-28T05:04:56.5072242Z #16 2.238 Fetched 3482 kB in 0s (31.6 MB/s)
+verify	Run make test-integration	2026-10-28T05:04:56.5072608Z #16 2.251 (Reading database ...
+verify	Run make test-integration	2026-10-28T05:04:56.5072988Z (Reading database ... 5%
+verify	Run make test-integration	2026-10-28T05:04:56.5073307Z (Reading database ... 10%
+verify	Run make test-integration	2026-10-28T05:04:56.5073613Z (Reading database ... 15%
+verify	Run make test-integration	2026-10-28T05:04:56.5073902Z (Reading database ... 20%
+verify	Run make test-integration	2026-10-28T05:04:56.5074189Z (Reading database ... 25%
+verify	Run make test-integration	2026-10-28T05:04:56.5074472Z (Reading database ... 30%
+verify	Run make test-integration	2026-10-28T05:04:56.5074661Z (Reading database ... 35%
+verify	Run make test-integration	2026-10-28T05:04:56.5074853Z (Reading database ... 40%
+verify	Run make test-integration	2026-10-28T05:04:56.5075040Z (Reading database ... 45%
+verify	Run make test-integration	2026-10-28T05:04:56.5075261Z (Reading database ... 50%
+verify	Run make test-integration	2026-10-28T05:04:56.5075480Z (Reading database ... 55%
+verify	Run make test-integration	2026-10-28T05:04:56.5075681Z (Reading database ... 60%
+verify	Run make test-integration	2026-10-28T05:04:56.5075871Z (Reading database ... 65%
+verify	Run make test-integration	2026-10-28T05:04:56.5076060Z (Reading database ... 70%
+verify	Run make test-integration	2026-10-28T05:04:56.5076258Z (Reading database ... 75%
+verify	Run make test-integration	2026-10-28T05:04:56.5076681Z (Reading database ... 80%
+verify	Run make test-integration	2026-10-28T05:04:56.5076871Z (Reading database ... 85%
+verify	Run make test-integration	2026-10-28T05:04:56.5077056Z (Reading database ... 90%
+verify	Run make test-integration	2026-10-28T05:04:56.5077252Z (Reading database ... 95%
+verify	Run make test-integration	2026-10-28T05:04:56.5077450Z (Reading database ... 100%
+verify	Run make test-integration	2026-10-28T05:04:56.5077732Z (Reading database ... 6648 files and directories currently installed.)
+verify	Run make test-integration	2026-10-28T05:04:56.5078111Z #16 2.260 Preparing to unpack .../libssl3_3.0.22-1~deb12u2_amd64.deb ...
+verify	Run make test-integration	2026-10-28T05:04:56.5078497Z #16 2.262 Unpacking libssl3:amd64 (3.0.22-1~deb12u2) over (3.0.22-1~deb12u1) ...
+verify	Run make test-integration	2026-10-28T05:04:56.9707344Z #16 2.724 Preparing to unpack .../openssl_3.0.22-1~deb12u2_amd64.deb ...
+verify	Run make test-integration	2026-10-28T05:04:56.9708050Z #16 2.725 Unpacking openssl (3.0.22-1~deb12u2) over (3.0.22-1~deb12u1) ...
+verify	Run make test-integration	2026-10-28T05:04:57.2657368Z #16 3.015 Setting up libssl3:amd64 (3.0.22-1~deb12u2) ...
+verify	Run make test-integration	2026-10-28T05:04:57.2657792Z #16 3.017 Setting up openssl (3.0.22-1~deb12u2) ...
+verify	Run make test-integration	2026-10-28T05:04:57.2658319Z #16 3.021 Processing triggers for libc-bin (2.36-9+deb12u14) ...
+verify	Run make test-integration	2026-10-28T05:04:57.5516067Z #16 DONE 3.4s
+verify	Run make test-integration	2026-10-28T05:04:57.5516483Z
+verify	Run make test-integration	2026-10-28T05:04:57.5516803Z #17 [api runtime 6/8] COPY --from=build /app/tokenizer-cache /app/tokenizer-cache
+verify	Run make test-integration	2026-10-28T05:04:57.5517597Z #17 DONE 0.1s
+verify	Run make test-integration	2026-10-28T05:04:57.5517752Z
+verify	Run make test-integration	2026-10-28T05:04:57.5517909Z #18 [api runtime 7/8] COPY migrations ./migrations
+verify	Run make test-integration	2026-10-28T05:04:57.5518266Z #18 DONE 0.0s
+verify	Run make test-integration	2026-10-28T05:04:57.5518404Z
+verify	Run make test-integration	2026-10-28T05:04:57.5518553Z #19 [demo runtime 8/8] COPY alembic.ini ./
+verify	Run make test-integration	2026-10-28T05:04:57.7108126Z #19 DONE 0.0s
+verify	Run make test-integration	2026-10-28T05:04:57.7108412Z
+verify	Run make test-integration	2026-10-28T05:04:57.7108691Z #20 [initialize] exporting to image
+verify	Run make test-integration	2026-10-28T05:04:57.7109139Z #20 exporting layers
+verify	Run make test-integration	2026-10-28T05:04:59.1300383Z #20 exporting layers 1.4s done
+verify	Run make test-integration	2026-10-28T05:04:59.1302251Z #20 writing image sha256:a98e2caf5dca25b38a5a1cf986ad260a1e890835304bcc6f35399df8d18ee3d8 done
+verify	Run make test-integration	2026-10-28T05:04:59.1302953Z #20 naming to docker.io/library/ai-task-platform:m1 done
+verify	Run make test-integration	2026-10-28T05:04:59.1303414Z #20 DONE 1.4s
+verify	Run make test-integration	2026-10-28T05:04:59.1305998Z
+verify	Run make test-integration	2026-10-28T05:04:59.1307492Z #21 [migrate] exporting to image
+verify	Run make test-integration	2026-10-28T05:04:59.1308151Z #21 exporting layers 1.4s done
+verify	Run make test-integration	2026-10-28T05:04:59.1308761Z #21 writing image sha256:a98e2caf5dca25b38a5a1cf986ad260a1e890835304bcc6f35399df8d18ee3d8 done
+verify	Run make test-integration	2026-10-28T05:04:59.1309457Z #21 naming to docker.io/library/ai-task-platform:m1 done
+verify	Run make test-integration	2026-10-28T05:04:59.1309888Z #21 DONE 1.4s
+verify	Run make test-integration	2026-10-28T05:04:59.1310053Z
+verify	Run make test-integration	2026-10-28T05:04:59.1310183Z #22 [api] exporting to image
+verify	Run make test-integration	2026-10-28T05:04:59.1310531Z #22 exporting layers 1.4s done
+verify	Run make test-integration	2026-10-28T05:04:59.1311089Z #22 writing image sha256:a98e2caf5dca25b38a5a1cf986ad260a1e890835304bcc6f35399df8d18ee3d8 done
+verify	Run make test-integration	2026-10-28T05:04:59.1311753Z #22 naming to docker.io/library/ai-task-platform:m1 done
+verify	Run make test-integration	2026-10-28T05:04:59.1312148Z #22 DONE 1.4s
+verify	Run make test-integration	2026-10-28T05:04:59.1312300Z
+verify	Run make test-integration	2026-10-28T05:04:59.1312430Z #23 [demo] exporting to image
+verify	Run make test-integration	2026-10-28T05:04:59.1312729Z #23 exporting layers 1.4s done
+verify	Run make test-integration	2026-10-28T05:04:59.1313067Z #23 writing image sha256:a98e2caf5dca25b38a5a1cf986ad260a1e890835304bcc6f35399df8d18ee3d8 done
+verify	Run make test-integration	2026-10-28T05:04:59.1313822Z #23 naming to docker.io/library/ai-task-platform:m1 done
+verify	Run make test-integration	2026-10-28T05:04:59.1314890Z #23 DONE 1.4s
+verify	Run make test-integration	2026-10-28T05:04:59.1315019Z
+verify	Run make test-integration	2026-10-28T05:04:59.1315160Z #24 [migrate] resolving provenance for metadata file
+verify	Run make test-integration	2026-10-28T05:04:59.1501398Z #24 DONE 0.0s
+verify	Run make test-integration	2026-10-28T05:04:59.1501880Z
+verify	Run make test-integration	2026-10-28T05:04:59.1504822Z  demo  Built
+verify	Run make test-integration	2026-10-28T05:04:59.1505150Z #25 [demo] resolving provenance for metadata file
+verify	Run make test-integration	2026-10-28T05:04:59.1507824Z  migrate  Built
+verify	Run make test-integration	2026-10-28T05:04:59.1508211Z #25 DONE 0.0s
+verify	Run make test-integration	2026-10-28T05:04:59.1508375Z
+verify	Run make test-integration	2026-10-28T05:04:59.1508542Z #26 [api] resolving provenance for metadata file
+verify	Run make test-integration	2026-10-28T05:04:59.1508936Z #26 DONE 0.0s
+verify	Run make test-integration	2026-10-28T05:04:59.1509086Z
+verify	Run make test-integration	2026-10-28T05:04:59.1509271Z #27 [initialize] resolving provenance for metadata file
+verify	Run make test-integration	2026-10-28T05:04:59.1509667Z #27 DONE 0.0s
+verify	Run make test-integration	2026-10-28T05:04:59.1510239Z  initialize  Built
+verify	Run make test-integration	2026-10-28T05:04:59.1510798Z  api  Built
+verify	Run make test-integration	2026-10-28T05:04:59.1522388Z  Network atp-m1-test_ingress  Creating
+verify	Run make test-integration	2026-10-28T05:04:59.1878203Z  Network atp-m1-test_ingress  Created
+verify	Run make test-integration	2026-10-28T05:04:59.1889720Z  Network atp-m1-test_private  Creating
+verify	Run make test-integration	2026-10-28T05:04:59.2114143Z  Network atp-m1-test_private  Created
+verify	Run make test-integration	2026-10-28T05:04:59.2129867Z  Volume "atp-m1-test_demo-data"  Creating
+verify	Run make test-integration	2026-10-28T05:04:59.2142930Z  Volume "atp-m1-test_demo-data"  Created
+verify	Run make test-integration	2026-10-28T05:04:59.2146037Z  Volume "atp-m1-test_pgdata"  Creating
+verify	Run make test-integration	2026-10-28T05:04:59.2154697Z  Volume "atp-m1-test_pgdata"  Created
+verify	Run make test-integration	2026-10-28T05:04:59.2162242Z  Container atp-m1-test-postgres-1  Creating
+verify	Run make test-integration	2026-10-28T05:04:59.2163956Z  Container atp-m1-test-redis-1  Creating
+verify	Run make test-integration	2026-10-28T05:04:59.2166578Z  Container atp-m1-test-demo-db-1  Creating
+verify	Run make test-integration	2026-10-28T05:04:59.3873928Z  Container atp-m1-test-demo-db-1  Created
+verify	Run make test-integration	2026-10-28T05:04:59.3877192Z  Container atp-m1-test-demo-1  Creating
+verify	Run make test-integration	2026-10-28T05:04:59.3884008Z  Container atp-m1-test-redis-1  Created
+verify	Run make test-integration	2026-10-28T05:04:59.3884583Z  Container atp-m1-test-postgres-1  Created
+verify	Run make test-integration	2026-10-28T05:04:59.3885020Z  Container atp-m1-test-migrate-1  Creating
+verify	Run make test-integration	2026-10-28T05:04:59.4217911Z  Container atp-m1-test-demo-1  Created
+verify	Run make test-integration	2026-10-28T05:04:59.4222582Z  Container atp-m1-test-migrate-1  Created
+verify	Run make test-integration	2026-10-28T05:04:59.4223443Z  Container atp-m1-test-initialize-1  Creating
+verify	Run make test-integration	2026-10-28T05:04:59.4441202Z  Container atp-m1-test-initialize-1  Created
+verify	Run make test-integration	2026-10-28T05:04:59.4442071Z  Container atp-m1-test-api-1  Creating
+verify	Run make test-integration	2026-10-28T05:04:59.4623003Z  Container atp-m1-test-api-1  Created
+verify	Run make test-integration	2026-10-28T05:04:59.4625295Z  Container atp-m1-test-proxy-1  Creating
+verify	Run make test-integration	2026-10-28T05:04:59.4811477Z  Container atp-m1-test-proxy-1  Created
+verify	Run make test-integration	2026-10-28T05:04:59.4829818Z  Container atp-m1-test-postgres-1  Starting
+verify	Run make test-integration	2026-10-28T05:04:59.4840226Z  Container atp-m1-test-redis-1  Starting
+verify	Run make test-integration	2026-10-28T05:04:59.4840974Z  Container atp-m1-test-demo-db-1  Starting
+verify	Run make test-integration	2026-10-28T05:04:59.6902764Z  Container atp-m1-test-demo-db-1  Started
+verify	Run make test-integration	2026-10-28T05:04:59.6903540Z  Container atp-m1-test-demo-db-1  Waiting
+verify	Run make test-integration	2026-10-28T05:04:59.7449583Z  Container atp-m1-test-redis-1  Started
+verify	Run make test-integration	2026-10-28T05:04:59.7477245Z  Container atp-m1-test-postgres-1  Started
+verify	Run make test-integration	2026-10-28T05:04:59.7478156Z  Container atp-m1-test-postgres-1  Waiting
+verify	Run make test-integration	2026-10-28T05:05:02.2490909Z  Container atp-m1-test-postgres-1  Healthy
+verify	Run make test-integration	2026-10-28T05:05:02.5682361Z  Container atp-m1-test-migrate-1  Starting
+verify	Run make test-integration	2026-10-28T05:05:02.5682894Z  Container atp-m1-test-migrate-1  Started
+verify	Run make test-integration	2026-10-28T05:05:02.5683745Z  Container atp-m1-test-migrate-1  Waiting
+verify	Run make test-integration	2026-10-28T05:05:04.1912530Z  Container atp-m1-test-demo-db-1  Healthy
+verify	Run make test-integration	2026-10-28T05:05:04.1913299Z  Container atp-m1-test-demo-1  Starting
+verify	Run make test-integration	2026-10-28T05:05:04.6252546Z  Container atp-m1-test-demo-1  Started
+verify	Run make test-integration	2026-10-28T05:05:07.5702525Z  Container atp-m1-test-migrate-1  Exited
+verify	Run make test-integration	2026-10-28T05:05:07.5703137Z  Container atp-m1-test-initialize-1  Starting
+verify	Run make test-integration	2026-10-28T05:05:07.6888626Z  Container atp-m1-test-initialize-1  Started
+verify	Run make test-integration	2026-10-28T05:05:07.6907470Z  Container atp-m1-test-initialize-1  Waiting
+verify	Run make test-integration	2026-10-28T05:05:07.6908034Z  Container atp-m1-test-redis-1  Waiting
+verify	Run make test-integration	2026-10-28T05:05:08.1939723Z  Container atp-m1-test-redis-1  Healthy
+verify	Run make test-integration	2026-10-28T05:05:13.1885424Z  Container atp-m1-test-initialize-1  Exited
+verify	Run make test-integration	2026-10-28T05:05:13.1886082Z  Container atp-m1-test-api-1  Starting
+verify	Run make test-integration	2026-10-28T05:05:13.5405378Z  Container atp-m1-test-api-1  Started
+verify	Run make test-integration	2026-10-28T05:05:13.5406153Z  Container atp-m1-test-api-1  Waiting
+verify	Run make test-integration	2026-10-28T05:05:19.5417575Z  Container atp-m1-test-api-1  Healthy
+verify	Run make test-integration	2026-10-28T05:05:19.5422946Z  Container atp-m1-test-proxy-1  Starting
+verify	Run make test-integration	2026-10-28T05:05:19.6480642Z  Container atp-m1-test-proxy-1  Started
+verify	Run make test-integration	2026-10-28T05:05:19.6481522Z  Container atp-m1-test-demo-db-1  Waiting
+verify	Run make test-integration	2026-10-28T05:05:19.6482069Z  Container atp-m1-test-initialize-1  Waiting
+verify	Run make test-integration	2026-10-28T05:05:19.6482678Z  Container atp-m1-test-redis-1  Waiting
+verify	Run make test-integration	2026-10-28T05:05:19.6483317Z  Container atp-m1-test-migrate-1  Waiting
+verify	Run make test-integration	2026-10-28T05:05:19.6483862Z  Container atp-m1-test-api-1  Waiting
+verify	Run make test-integration	2026-10-28T05:05:19.6484376Z  Container atp-m1-test-proxy-1  Waiting
+verify	Run make test-integration	2026-10-28T05:05:19.6484906Z  Container atp-m1-test-postgres-1  Waiting
+verify	Run make test-integration	2026-10-28T05:05:19.6485448Z  Container atp-m1-test-demo-1  Waiting
+verify	Run make test-integration	2026-10-28T05:05:20.1507043Z  Container atp-m1-test-initialize-1  Exited
+verify	Run make test-integration	2026-10-28T05:05:20.1509645Z  Container atp-m1-test-demo-1  Healthy
+verify	Run make test-integration	2026-10-28T05:05:20.1518761Z  Container atp-m1-test-redis-1  Healthy
+verify	Run make test-integration	2026-10-28T05:05:20.1519264Z  Container atp-m1-test-postgres-1  Healthy
+verify	Run make test-integration	2026-10-28T05:05:20.1519762Z  Container atp-m1-test-migrate-1  Exited
+verify	Run make test-integration	2026-10-28T05:05:20.1520189Z  Container atp-m1-test-api-1  Healthy
+verify	Run make test-integration	2026-10-28T05:05:20.1520681Z  Container atp-m1-test-demo-db-1  Healthy
+verify	Run make test-integration	2026-10-28T05:05:22.1498658Z  Container atp-m1-test-proxy-1  Healthy
+verify	Run make test-integration	2026-10-28T05:05:22.1538550Z docker compose -p atp-m1-test -f compose.yaml -f compose.demo.yaml -f compose.proxy.yaml build test
+verify	Run make test-integration	2026-10-28T05:05:22.4014888Z #1 [internal] load local bake definitions
+verify	Run make test-integration	2026-10-28T05:05:22.6329547Z #1 reading from stdin 1.59kB done
+verify	Run make test-integration	2026-10-28T05:05:22.6331303Z #1 DONE 0.0s
+verify	Run make test-integration	2026-10-28T05:05:22.6331544Z
+verify	Run make test-integration	2026-10-28T05:05:22.6331858Z #2 [internal] load build definition from Dockerfile
+verify	Run make test-integration	2026-10-28T05:05:22.6332382Z #2 transferring dockerfile: 1.46kB done
+verify	Run make test-integration	2026-10-28T05:05:22.6332791Z #2 DONE 0.0s
+verify	Run make test-integration	2026-10-28T05:05:22.6333000Z
+verify	Run make test-integration	2026-10-28T05:05:22.6333630Z #3 [internal] load metadata for docker.io/library/python:3.14.8-slim-bookworm@sha256:48b13b003dda20b16f9442b8475aa05fe21bf6579a8c881db92ffb4d8fd20f83
+verify	Run make test-integration	2026-10-28T05:05:22.6334845Z #3 DONE 0.0s
+verify	Run make test-integration	2026-10-28T05:05:22.6335062Z
+verify	Run make test-integration	2026-10-28T05:05:22.6335265Z #4 [internal] load .dockerignore
+verify	Run make test-integration	2026-10-28T05:05:22.6335658Z #4 transferring context: 135B done
+verify	Run make test-integration	2026-10-28T05:05:22.6336036Z #4 DONE 0.0s
+verify	Run make test-integration	2026-10-28T05:05:22.6336245Z
+verify	Run make test-integration	2026-10-28T05:05:22.6336994Z #5 [build 1/7] FROM docker.io/library/python:3.14.8-slim-bookworm@sha256:48b13b003dda20b16f9442b8475aa05fe21bf6579a8c881db92ffb4d8fd20f83
+verify	Run make test-integration	2026-10-28T05:05:22.6337946Z #5 DONE 0.0s
+verify	Run make test-integration	2026-10-28T05:05:22.6338168Z
+verify	Run make test-integration	2026-10-28T05:05:22.6338354Z #6 [internal] load build context
+verify	Run make test-integration	2026-10-28T05:05:22.6338761Z #6 transferring context: 736.81kB 0.0s done
+verify	Run make test-integration	2026-10-28T05:05:22.6339162Z #6 DONE 0.0s
+verify	Run make test-integration	2026-10-28T05:05:22.6339372Z
+verify	Run make test-integration	2026-10-28T05:05:22.6339617Z #7 [build 6/7] RUN uv sync --frozen --no-dev --no-editable
+verify	Run make test-integration	2026-10-28T05:05:22.6340055Z #7 CACHED
+verify	Run make test-integration	2026-10-28T05:05:22.6340263Z
+verify	Run make test-integration	2026-10-28T05:05:22.6340484Z #8 [build 4/7] COPY pyproject.toml uv.lock ./
+verify	Run make test-integration	2026-10-28T05:05:22.6340897Z #8 CACHED
+verify	Run make test-integration	2026-10-28T05:05:22.6341102Z
+verify	Run make test-integration	2026-10-28T05:05:22.6341291Z #9 [build 5/7] COPY src ./src
+verify	Run make test-integration	2026-10-28T05:05:22.6341659Z #9 CACHED
+verify	Run make test-integration	2026-10-28T05:05:22.6341863Z
+verify	Run make test-integration	2026-10-28T05:05:22.6342057Z #10 [build 2/7] WORKDIR /app
+verify	Run make test-integration	2026-10-28T05:05:22.6342423Z #10 CACHED
+verify	Run make test-integration	2026-10-28T05:05:22.6342631Z
+verify	Run make test-integration	2026-10-28T05:05:22.6342878Z #11 [build 3/7] RUN pip install --no-cache-dir uv==0.13.1
+verify	Run make test-integration	2026-10-28T05:05:22.6343319Z #11 CACHED
+verify	Run make test-integration	2026-10-28T05:05:22.6343525Z
+verify	Run make test-integration	2026-10-28T05:05:22.6343885Z #12 [build 7/7] RUN .venv/bin/python -c 'import tiktoken; tiktoken.get_encoding("o200k_base")'
+verify	Run make test-integration	2026-10-28T05:05:22.6344454Z #12 CACHED
+verify	Run make test-integration	2026-10-28T05:05:22.6344654Z
+verify	Run make test-integration	2026-10-28T05:05:22.6344879Z #13 [test 1/2] RUN uv sync --frozen --no-editable
+verify	Run make test-integration	2026-10-28T05:05:23.0846500Z #13 0.450 Downloading ast-serialize (1.3MiB)
+verify	Run make test-integration	2026-10-28T05:05:23.0847639Z #13 0.450 Downloading pygments (1.2MiB)
+verify	Run make test-integration	2026-10-28T05:05:23.0848151Z #13 0.450 Downloading mypy (14.7MiB)
+verify	Run make test-integration	2026-10-28T05:05:23.0848681Z #13 0.451 Downloading ruff (9.9MiB)
+verify	Run make test-integration	2026-10-28T05:05:23.0849143Z #13 0.522  Downloaded ast-serialize
+verify	Run make test-integration	2026-10-28T05:05:23.0849598Z #13 0.534  Downloaded pygments
+verify	Run make test-integration	2026-10-28T05:05:23.0850022Z #13 0.603  Downloaded ruff
+verify	Run make test-integration	2026-10-28T05:05:23.3208171Z #13 0.688  Downloaded mypy
+verify	Run make test-integration	2026-10-28T05:05:23.3208523Z #13 0.688 Prepared 9 packages in 342ms
+verify	Run make test-integration	2026-10-28T05:05:24.7710500Z #13 2.288 Installed 12 packages in 1.59s
+verify	Run make test-integration	2026-10-28T05:05:24.7711314Z #13 2.288  + ast-serialize==0.13.0
+verify	Run make test-integration	2026-10-28T05:05:24.7711857Z #13 2.288  + iniconfig==2.3.1
+verify	Run make test-integration	2026-10-28T05:05:24.7712390Z #13 2.288  + librt==0.16.0
+verify	Run make test-integration	2026-10-28T05:05:24.7712990Z #13 2.288  + mypy==2.4.0
+verify	Run make test-integration	2026-10-28T05:05:24.7713627Z #13 2.288  + mypy-extensions==1.1.0
+verify	Run make test-integration	2026-10-28T05:05:24.7714088Z #13 2.288  + packaging==26.3
+verify	Run make test-integration	2026-10-28T05:05:24.7714424Z #13 2.288  + pathspec==1.1.1
+verify	Run make test-integration	2026-10-28T05:05:24.7714726Z #13 2.288  + pluggy==1.7.0
+verify	Run make test-integration	2026-10-28T05:05:24.9224403Z #13 2.288  + pygments==2.21.0
+verify	Run make test-integration	2026-10-28T05:05:24.9225095Z #13 2.289  + pytest==9.1.1
+verify	Run make test-integration	2026-10-28T05:05:24.9225951Z #13 2.289  + pytest-asyncio==1.4.0
+verify	Run make test-integration	2026-10-28T05:05:24.9226595Z #13 2.289  + ruff==0.17.0
+verify	Run make test-integration	2026-10-28T05:05:25.9493932Z #13 DONE 3.5s
+verify	Run make test-integration	2026-10-28T05:05:26.0846175Z
+verify	Run make test-integration	2026-10-28T05:05:26.0847793Z #14 [test 2/2] COPY . .
+verify	Run make test-integration	2026-10-28T05:05:26.0848359Z #14 DONE 0.1s
+verify	Run make test-integration	2026-10-28T05:05:26.1989334Z
+verify	Run make test-integration	2026-10-28T05:05:26.1990127Z #15 exporting to image
+verify	Run make test-integration	2026-10-28T05:05:26.1990528Z #15 exporting layers
+verify	Run make test-integration	2026-10-28T05:05:28.6868395Z #15 exporting layers 2.5s done
+verify	Run make test-integration	2026-10-28T05:05:28.7092823Z  test  Built
+verify	Run make test-integration	2026-10-28T05:05:28.7093531Z #15 writing image sha256:8c86d8592011fc051ad6a07f712b40d1d6c3aa776184a4ea0fbad9f760a81776 done
+verify	Run make test-integration	2026-10-28T05:05:28.7094573Z #15 naming to docker.io/library/ai-task-platform:m1-test done
+verify	Run make test-integration	2026-10-28T05:05:28.7095287Z #15 DONE 2.5s
+verify	Run make test-integration	2026-10-28T05:05:28.7097805Z
+verify	Run make test-integration	2026-10-28T05:05:28.7098461Z #16 resolving provenance for metadata file
+verify	Run make test-integration	2026-10-28T05:05:28.7098944Z #16 DONE 0.0s
+verify	Run make test-integration	2026-10-28T05:05:28.7135990Z uv run --frozen python scripts/run_verification.py tests/integration
+verify	Run make test-integration	2026-10-28T05:05:31.9616162Z ============================= test session starts ==============================
+verify	Run make test-integration	2026-10-28T05:05:31.9627588Z platform linux -- Python 3.14.8, pytest-9.1.1, pluggy-1.7.0
+verify	Run make test-integration	2026-10-28T05:05:31.9630577Z rootdir: /app
+verify	Run make test-integration	2026-10-28T05:05:31.9631399Z configfile: pyproject.toml
+verify	Run make test-integration	2026-10-28T05:05:31.9632033Z plugins: anyio-4.15.1, asyncio-1.4.0
+verify	Run make test-integration	2026-10-28T05:05:31.9632969Z asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+verify	Run make test-integration	2026-10-28T05:05:32.7421910Z collected 560 items
+verify	Run make test-integration	2026-10-28T05:05:32.7445688Z
+verify	Run make test-integration	2026-10-28T05:05:34.6249913Z tests/integration/test_accounting_admin.py ....                          [  0%]
+verify	Run make test-integration	2026-10-28T05:05:36.8721544Z tests/integration/test_accounting_schema.py ...........                  [  2%]
+verify	Run make test-integration	2026-10-28T05:05:49.4074007Z tests/integration/test_command_cli.py .                                  [  2%]
+verify	Run make test-integration	2026-10-28T05:05:50.8373637Z tests/integration/test_command_regressions.py ......                     [  3%]
+verify	Run make test-integration	2026-10-28T05:05:52.6359786Z tests/integration/test_command_resilience.py ...........                 [  5%]
+verify	Run make test-integration	2026-10-28T05:05:53.0938758Z tests/integration/test_command_transport.py ...                          [  6%]
+verify	Run make test-integration	2026-10-28T05:05:56.3098546Z tests/integration/test_commands.py ........................              [ 10%]
+verify	Run make test-integration	2026-10-28T05:05:56.8734408Z tests/integration/test_database.py ...............................       [ 16%]
+verify	Run make test-integration	2026-10-28T05:05:59.4319421Z  Container atp-m1-test-redis-1  Stopping
+verify	Run make test-integration	2026-10-28T05:05:59.6290809Z  Container atp-m1-test-redis-1  Stopped
+verify	Run make test-integration	2026-10-28T05:06:11.8287768Z  Container atp-m1-test-redis-1  Starting
+verify	Run make test-integration	2026-10-28T05:06:11.9367776Z  Container atp-m1-test-redis-1  Started
+verify	Run make test-integration	2026-10-28T05:06:12.1059234Z tests/integration/test_degraded.py .                                     [ 16%]
+verify	Run make test-integration	2026-10-28T05:06:13.3668504Z tests/integration/test_delivery.py .......                               [ 17%]
+verify	Run make test-integration	2026-10-28T05:06:15.3499645Z tests/integration/test_delivery_failure.py .                             [ 17%]
+verify	Run make test-integration	2026-10-28T05:06:53.9866930Z tests/integration/test_demo_retention.py .........F......                [ 20%]
+verify	Run make test-integration	2026-10-28T05:06:57.1871215Z tests/integration/test_dispatch_freshness.py ......                      [ 21%]
+verify	Run make test-integration	2026-10-28T05:06:58.2432257Z tests/integration/test_event_reads.py ......                             [ 22%]
+verify	Run make test-integration	2026-10-28T05:07:00.1941115Z tests/integration/test_execution.py .......                              [ 24%]
+verify	Run make test-integration	2026-10-28T05:07:07.7659602Z tests/integration/test_execution_calls.py .............................. [ 29%]
+verify	Run make test-integration	2026-10-28T05:07:09.1224300Z ....                                                                     [ 30%]
+verify	Run make test-integration	2026-10-28T05:08:01.7770658Z tests/integration/test_execution_failures.py .............               [ 32%]
+verify	Run make test-integration	2026-10-28T05:08:03.5611502Z tests/integration/test_execution_resolution.py .......                   [ 33%]
+verify	Run make test-integration	2026-10-28T05:08:03.7619824Z tests/integration/test_execution_schema.py .............                 [ 36%]
+verify	Run make test-integration	2026-10-28T05:08:05.1933927Z tests/integration/test_execution_transport.py ...........                [ 38%]
+verify	Run make test-integration	2026-10-28T05:08:17.0026180Z tests/integration/test_execution_worker.py ..............                [ 40%]
+verify	Run make test-integration	2026-10-28T05:08:21.5443008Z tests/integration/test_fixture_cleanup.py ..                             [ 40%]
+verify	Run make test-integration	2026-10-28T05:08:24.1448498Z tests/integration/test_foundation_adversarial.py ....................... [ 45%]
+verify	Run make test-integration	2026-10-28T05:08:32.4095205Z ......................                                                   [ 48%]
+verify	Run make test-integration	2026-10-28T05:08:32.6096271Z tests/integration/test_health.py ....                                    [ 49%]
+verify	Run make test-integration	2026-10-28T05:08:39.5461570Z tests/integration/test_identity.py ............                          [ 51%]
+verify	Run make test-integration	2026-10-28T05:08:42.5370402Z tests/integration/test_m6_projections.py ...............                 [ 54%]
+verify	Run make test-integration	2026-10-28T05:08:43.3500746Z tests/integration/test_notifications.py ...                              [ 55%]
+verify	Run make test-integration	2026-10-28T05:08:50.2364056Z tests/integration/test_observability.py .....                            [ 55%]
+verify	Run make test-integration	2026-10-28T05:08:52.3930882Z tests/integration/test_provider_capacity.py .....                        [ 56%]
+verify	Run make test-integration	2026-10-28T05:09:09.5786803Z tests/integration/test_provider_contracts.py ........                    [ 58%]
+verify	Run make test-integration	2026-10-28T05:09:35.8137089Z tests/integration/test_provider_e2e.py .                                 [ 58%]
+verify	Run make test-integration	2026-10-28T05:09:37.3223386Z tests/integration/test_responses_workflow.py .......                     [ 59%]
+verify	Run make test-integration	2026-10-28T05:09:45.9568335Z tests/integration/test_restore.py ......................                 [ 63%]
+verify	Run make test-integration	2026-10-28T05:09:46.0899208Z tests/integration/test_restore_races.py .                                [ 63%]
+verify	Run make test-integration	2026-10-28T05:09:47.5648501Z tests/integration/test_retention.py ..........                           [ 65%]
+verify	Run make test-integration	2026-10-28T05:09:49.5041813Z tests/integration/test_sse.py ....                                       [ 66%]
+verify	Run make test-integration	2026-10-28T05:10:03.2660983Z tests/integration/test_sse_network.py .....                              [ 67%]
+verify	Run make test-integration	2026-10-28T05:10:08.7084477Z tests/integration/test_state_matrix.py ................................. [ 73%]
+verify	Run make test-integration	2026-10-28T05:10:20.5118746Z ........................................................................ [ 85%]
+verify	Run make test-integration	2026-10-28T05:10:22.9299094Z ................                                                         [ 88%]
+verify	Run make test-integration	2026-10-28T05:10:27.3088857Z tests/integration/test_task_states.py ....................               [ 92%]
+verify	Run make test-integration	2026-10-28T05:10:29.6452585Z tests/integration/test_tools_demo.py ..                                  [ 92%]
+verify	Run make test-integration	2026-10-28T05:10:35.3102865Z tests/integration/test_workflow_boundaries.py ...................        [ 96%]
+verify	Run make test-integration	2026-10-28T05:10:39.6481145Z tests/integration/test_workflow_corpus.py ..                             [ 96%]
+verify	Run make test-integration	2026-10-28T05:11:13.2680330Z tests/integration/test_workflow_e2e.py ...                               [ 96%]
+verify	Run make test-integration	2026-10-28T05:11:22.4565200Z tests/integration/test_workflow_reports.py .....                         [ 97%]
+verify	Run make test-integration	2026-10-28T05:11:24.4929081Z tests/integration/test_workflows.py ........                             [ 99%]
+verify	Run make test-integration	2026-10-28T05:11:44.3274107Z tests/integration/test_z_migrations.py ....                              [100%]
+verify	Run make test-integration	2026-10-28T05:11:44.3280323Z
+verify	Run make test-integration	2026-10-28T05:11:44.3280781Z =================================== FAILURES ===================================
+verify	Run make test-integration	2026-10-28T05:11:44.3281594Z _____ test_concurrent_demo_erasure_waits_on_real_row_lock_and_audits_once ______
+verify	Run make test-integration	2026-10-28T05:11:44.3282135Z
+verify	Run make test-integration	2026-10-28T05:11:44.3282454Z demo_root = <sqlalchemy.ext.asyncio.engine.AsyncEngine object at 0x7ff1d8569010>
+verify	Run make test-integration	2026-10-28T05:11:44.3283164Z tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_concurrent_demo_erasure_w0')
+verify	Run make test-integration	2026-10-28T05:11:44.3283566Z
+verify	Run make test-integration	2026-10-28T05:11:44.3283843Z     async def test_concurrent_demo_erasure_waits_on_real_row_lock_and_audits_once(
+verify	Run make test-integration	2026-10-28T05:11:44.3284315Z         demo_root: AsyncEngine,
+verify	Run make test-integration	2026-10-28T05:11:44.3284628Z         tmp_path: Path,
+verify	Run make test-integration	2026-10-28T05:11:44.3284944Z     ) -> None:
+verify	Run make test-integration	2026-10-28T05:11:44.3285263Z         owner, operation, _, digest = await seed(demo_root)
+verify	Run make test-integration	2026-10-28T05:11:44.3285690Z         proof = evidence(owner, operation, digest)
+verify	Run make test-integration	2026-10-28T05:11:44.3286104Z         jobs: list[asyncio.Task[tuple[int, str]]] = []
+verify	Run make test-integration	2026-10-28T05:11:44.3286815Z         async with demo_root.begin() as locked:
+verify	Run make test-integration	2026-10-28T05:11:44.3287193Z             await locked.execute(
+verify	Run make test-integration	2026-10-28T05:11:44.3287701Z                 text("SELECT 1 FROM report_effects WHERE owner=:o AND operation=:p FOR UPDATE"),
+verify	Run make test-integration	2026-10-28T05:11:44.3288256Z                 {"o": owner, "p": operation},
+verify	Run make test-integration	2026-10-28T05:11:44.3288599Z             )
+verify	Run make test-integration	2026-10-28T05:11:44.3288981Z             jobs = [asyncio.create_task(invoke(proof, tmp_path)) for _ in range(2)]
+verify	Run make test-integration	2026-10-28T05:11:44.3289442Z             try:
+verify	Run make test-integration	2026-10-28T05:11:44.3289724Z                 async with asyncio.timeout(5):
+verify	Run make test-integration	2026-10-28T05:11:44.3290081Z                     while True:
+verify	Run make test-integration	2026-10-28T05:11:44.3290441Z                         async with demo_root.connect() as observer:
+verify	Run make test-integration	2026-10-28T05:11:44.3290871Z                             waiting = await observer.scalar(
+verify	Run make test-integration	2026-10-28T05:11:44.3291569Z                                 text(
+verify	Run make test-integration	2026-10-28T05:11:44.3292022Z                                     "SELECT count(*) FROM pg_stat_activity WHERE datname='demo' "
+verify	Run make test-integration	2026-10-28T05:11:44.3292531Z                                     "AND wait_event_type='Lock' "
+verify	Run make test-integration	2026-10-28T05:11:44.3292974Z                                     "AND cardinality(pg_blocking_pids(pid))>0 "
+verify	Run make test-integration	2026-10-28T05:11:44.3293449Z                                     "AND query ILIKE '%purge_demo_content%'"
+verify	Run make test-integration	2026-10-28T05:11:44.3294041Z                                 )
+verify	Run make test-integration	2026-10-28T05:11:44.3294346Z                             )
+verify	Run make test-integration	2026-10-28T05:11:44.3294659Z                         if waiting == 2:
+verify	Run make test-integration	2026-10-28T05:11:44.3294989Z                             break
+verify	Run make test-integration	2026-10-28T05:11:44.3295311Z >                       await asyncio.sleep(0.01)
+verify	Run make test-integration	2026-10-28T05:11:44.3295531Z
+verify	Run make test-integration	2026-10-28T05:11:44.3295693Z tests/integration/test_demo_retention.py:265:
+verify	Run make test-integration	2026-10-28T05:11:44.3296163Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+verify	Run make test-integration	2026-10-28T05:11:44.3304094Z
+verify	Run make test-integration	2026-10-28T05:11:44.3304333Z delay = 0.01, result = None
+verify	Run make test-integration	2026-10-28T05:11:44.3304536Z
+verify	Run make test-integration	2026-10-28T05:11:44.3304670Z     async def sleep(delay, result=None):
+verify	Run make test-integration	2026-10-28T05:11:44.3305102Z         """Coroutine that completes after a given time (in seconds)."""
+verify	Run make test-integration	2026-10-28T05:11:44.3305554Z         if delay <= 0:
+verify	Run make test-integration	2026-10-28T05:11:44.3305853Z             await __sleep0()
+verify	Run make test-integration	2026-10-28T05:11:44.3306162Z             return result
+verify	Run make test-integration	2026-10-28T05:11:44.3306573Z
+verify	Run make test-integration	2026-10-28T05:11:44.3306809Z         if math.isnan(delay):
+verify	Run make test-integration	2026-10-28T05:11:44.3307210Z             raise ValueError("Invalid delay: NaN (not a number)")
+verify	Run make test-integration	2026-10-28T05:11:44.3307596Z
+verify	Run make test-integration	2026-10-28T05:11:44.3307828Z         loop = events.get_running_loop()
+verify	Run make test-integration	2026-10-28T05:11:44.3308175Z         future = loop.create_future()
+verify	Run make test-integration	2026-10-28T05:11:44.3308489Z         h = loop.call_later(delay,
+verify	Run make test-integration	2026-10-28T05:11:44.3308834Z                             futures._set_result_unless_cancelled,
+verify	Run make test-integration	2026-10-28T05:11:44.3309215Z                             future, result)
+verify	Run make test-integration	2026-10-28T05:11:44.3309519Z         try:
+verify	Run make test-integration	2026-10-28T05:11:44.3309757Z >           return await future
+verify	Run make test-integration	2026-10-28T05:11:44.3310041Z                    ^^^^^^^^^^^^
+verify	Run make test-integration	2026-10-28T05:11:44.3310353Z E           asyncio.exceptions.CancelledError
+verify	Run make test-integration	2026-10-28T05:11:44.3310603Z
+verify	Run make test-integration	2026-10-28T05:11:44.3310798Z /usr/local/lib/python3.14/asyncio/tasks.py:712: CancelledError
+verify	Run make test-integration	2026-10-28T05:11:44.3311114Z
+verify	Run make test-integration	2026-10-28T05:11:44.3311333Z The above exception was the direct cause of the following exception:
+verify	Run make test-integration	2026-10-28T05:11:44.3311656Z
+verify	Run make test-integration	2026-10-28T05:11:44.3311929Z demo_root = <sqlalchemy.ext.asyncio.engine.AsyncEngine object at 0x7ff1d8569010>
+verify	Run make test-integration	2026-10-28T05:11:44.3312571Z tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_concurrent_demo_erasure_w0')
+verify	Run make test-integration	2026-10-28T05:11:44.3312970Z
+verify	Run make test-integration	2026-10-28T05:11:44.3313224Z     async def test_concurrent_demo_erasure_waits_on_real_row_lock_and_audits_once(
+verify	Run make test-integration	2026-10-28T05:11:44.3313682Z         demo_root: AsyncEngine,
+verify	Run make test-integration	2026-10-28T05:11:44.3313975Z         tmp_path: Path,
+verify	Run make test-integration	2026-10-28T05:11:44.3314240Z     ) -> None:
+verify	Run make test-integration	2026-10-28T05:11:44.3314536Z         owner, operation, _, digest = await seed(demo_root)
+verify	Run make test-integration	2026-10-28T05:11:44.3314936Z         proof = evidence(owner, operation, digest)
+verify	Run make test-integration	2026-10-28T05:11:44.3315309Z         jobs: list[asyncio.Task[tuple[int, str]]] = []
+verify	Run make test-integration	2026-10-28T05:11:44.3315673Z         async with demo_root.begin() as locked:
+verify	Run make test-integration	2026-10-28T05:11:44.3315999Z             await locked.execute(
+verify	Run make test-integration	2026-10-28T05:11:44.3316654Z                 text("SELECT 1 FROM report_effects WHERE owner=:o AND operation=:p FOR UPDATE"),
+verify	Run make test-integration	2026-10-28T05:11:44.3317157Z                 {"o": owner, "p": operation},
+verify	Run make test-integration	2026-10-28T05:11:44.3317463Z             )
+verify	Run make test-integration	2026-10-28T05:11:44.3317813Z             jobs = [asyncio.create_task(invoke(proof, tmp_path)) for _ in range(2)]
+verify	Run make test-integration	2026-10-28T05:11:44.3318243Z             try:
+verify	Run make test-integration	2026-10-28T05:11:44.3318498Z >               async with asyncio.timeout(5):
+verify	Run make test-integration	2026-10-28T05:11:44.3318824Z                            ^^^^^^^^^^^^^^^^^^
+verify	Run make test-integration	2026-10-28T05:11:44.3319401Z
+verify	Run make test-integration	2026-10-28T05:11:44.3319544Z tests/integration/test_demo_retention.py:252:
+verify	Run make test-integration	2026-10-28T05:11:44.3319938Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+verify	Run make test-integration	2026-10-28T05:11:44.3320213Z
+verify	Run make test-integration	2026-10-28T05:11:44.3320327Z self = <Timeout [expired]>
+verify	Run make test-integration	2026-10-28T05:11:44.3320660Z exc_type = <class 'asyncio.exceptions.CancelledError'>
+verify	Run make test-integration	2026-10-28T05:11:44.3324044Z exc_val = CancelledError(), exc_tb = <traceback object at 0x7ff1d8580440>
+verify	Run make test-integration	2026-10-28T05:11:44.3324931Z
+verify	Run make test-integration	2026-10-28T05:11:44.3325208Z     async def __aexit__(
+verify	Run make test-integration	2026-10-28T05:11:44.3325614Z         self,
+verify	Run make test-integration	2026-10-28T05:11:44.3326011Z         exc_type: type[BaseException] | None,
+verify	Run make test-integration	2026-10-28T05:11:44.3326643Z         exc_val: BaseException | None,
+verify	Run make test-integration	2026-10-28T05:11:44.3327106Z         exc_tb: TracebackType | None,
+verify	Run make test-integration	2026-10-28T05:11:44.3327555Z     ) -> bool | None:
+verify	Run make test-integration	2026-10-28T05:11:44.3328025Z         assert self._state in (_State.ENTERED, _State.EXPIRING)
+verify	Run make test-integration	2026-10-28T05:11:44.3328530Z
+verify	Run make test-integration	2026-10-28T05:11:44.3328908Z         if self._timeout_handler is not None:
+verify	Run make test-integration	2026-10-28T05:11:44.3329408Z             self._timeout_handler.cancel()
+verify	Run make test-integration	2026-10-28T05:11:44.3329892Z             self._timeout_handler = None
+verify	Run make test-integration	2026-10-28T05:11:44.3330323Z
+verify	Run make test-integration	2026-10-28T05:11:44.3330687Z         if self._state is _State.EXPIRING:
+verify	Run make test-integration	2026-10-28T05:11:44.3331152Z             self._state = _State.EXPIRED
+verify	Run make test-integration	2026-10-28T05:11:44.3331602Z
+verify	Run make test-integration	2026-10-28T05:11:44.3332075Z             if self._task.uncancel() <= self._cancelling and exc_type is not None:
+verify	Run make test-integration	2026-10-28T05:11:44.3332705Z                 # Since there are no new cancel requests, we're
+verify	Run make test-integration	2026-10-28T05:11:44.3333205Z                 # handling this.
+verify	Run make test-integration	2026-10-28T05:11:44.3333705Z                 if issubclass(exc_type, exceptions.CancelledError):
+verify	Run make test-integration	2026-10-28T05:11:44.3334240Z >                   raise TimeoutError from exc_val
+verify	Run make test-integration	2026-10-28T05:11:44.3334708Z E                   TimeoutError
+verify	Run make test-integration	2026-10-28T05:11:44.3335012Z
+verify	Run make test-integration	2026-10-28T05:11:44.3335346Z /usr/local/lib/python3.14/asyncio/timeouts.py:115: TimeoutError
+verify	Run make test-integration	2026-10-28T05:11:44.3335984Z =========================== short test summary info ============================
+verify	Run make test-integration	2026-10-28T05:11:44.3337040Z FAILED tests/integration/test_demo_retention.py::test_concurrent_demo_erasure_waits_on_real_row_lock_and_audits_once
+verify	Run make test-integration	2026-10-28T05:11:44.3337906Z ================== 1 failed, 559 passed in 372.37s (0:06:12) ===================
+verify	Run make test-integration	2026-10-28T05:11:48.3940241Z
+verify	Run make test-integration	2026-10-28T05:11:48.4101953Z M6_DEGRADED_PROFILE {"streams": 100, "followed_tasks": 20, "reads": 120, "scheduled_reads_per_second": 10, "duration_seconds": 12.028, "read_p95_seconds": 0.0245, "new_creation": 503, "replay": 202, "control": 200, "heartbeat_interval_seconds": 10, "heartbeat_renewed": true, "stream_errors": 0, "physical_requests": 1, "remote_effects": 1, "committed_execution": true}
+verify	Run make test-integration	2026-10-28T05:11:48.4164967Z make: *** [Makefile:25: test-integration] Error 1
+verify	Run make test-integration	2026-10-28T05:11:48.4181629Z ##[error]Process completed with exit code 2.

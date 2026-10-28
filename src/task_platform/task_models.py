@@ -39,6 +39,9 @@ class Task(Base):
     deadline_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
     result: Mapped[dict[str, object] | None] = mapped_column(JSONB)
     storage_bytes: Mapped[int] = mapped_column(BigInteger)
+    restore_uncertain: Mapped[bool] = mapped_column(Boolean, default=False)
+    terminal_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    purged_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
 
 
 class Step(Base):

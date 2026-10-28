@@ -1,0 +1,27 @@
+Test-only correction after observed CI failure, 2026-10-28.
+
+Source 8c00f11: PR CI 40705143167 passed. Push CI 40705153980 passed its
+complete integration stage, then the focused F19 command recorded 3 unit PASS
+and 1 integration FAIL while waiting for all initial SSE handshakes. The precise
+missing subscriber failure was not surfaced by the old parent queue wait.
+This is retained as harness regression evidence, not a proven product defect.
+
+The independently reviewed plan requires 100 simultaneously held streams during
+the outage, rather than 100 simultaneous initial handshakes. The correction
+establishes one stream at a time inside the SAME global 25-second bound, with
+ONE attempt per stream and all earlier streams kept open. It races a subscriber
+against its initial event, reports a safe index/status or HTTP exception class,
+cleans the readiness waiter, and verifies 100 live subscriptions before fault.
+Every previous stream-cap/outage/read/replay/control/heartbeat/effect assertion
+and every application timeout is preserved. No POST retry was added.
+
+No application, SQL, production runtime or exact benchmark harness changed.
+No retrospective application RED or mirrored mock test was manufactured.
+
+Connected GREEN: make test-degraded, 4 PASS / 0 FAIL / 0 ERRORS / 0 SKIPPED,
+14.45 seconds. Actual profile: 100 streams, 20 tasks, 120 reads over 12.017s,
+read p95 0.0149s, new creation 503, replay 202, control 200, heartbeat renewed,
+zero stream errors, one physical request and one independent effect.
+
+The complete post-correction unfiltered suite is retained separately in
+m7-final-regression-after-sse-startup.txt. Ruff/format and strict mypy pass.

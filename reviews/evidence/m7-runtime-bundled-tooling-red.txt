@@ -1,0 +1,24 @@
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import importlib.util; assert importlib.util.find_spec("pip") is None; assert importlib.util.find_spec("ensurepip") is None, "runtime bundles installer wheels"
+                                                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: runtime bundles installer wheels
+Traceback (most recent call last):
+  File "/Users/william/Documents/Projet 2/scripts/verify_release_image.py", line 21, in <module>
+    main()
+    ~~~~^^
+  File "/Users/william/Documents/Projet 2/scripts/verify_release_image.py", line 12, in main
+    subprocess.run(  # noqa: S603 -- fixed read-only artifact assertion
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        ['docker', 'run', '--rm', '--entrypoint', 'python', identity, '-c',
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+         'import importlib.util; assert importlib.util.find_spec("pip") is None; assert importlib.util.find_spec("ensurepip") is None, "runtime bundles installer wheels"'],
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        check=True,
+        ^^^^^^^^^^^
+    )
+    ^
+  File "/Users/william/.local/share/uv/python/cpython-3.14.8-macos-aarch64-none/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['docker', 'run', '--rm', '--entrypoint', 'python', 'sha256:f786149b006688bc65ee177855112637fd80c45d5337865b05b5f40448c88534', '-c', 'import importlib.util; assert importlib.util.find_spec("pip") is None; assert importlib.util.find_spec("ensurepip") is None, "runtime bundles installer wheels"']' returned non-zero exit status 1.

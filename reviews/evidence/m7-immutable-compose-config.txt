@@ -1,0 +1,352 @@
+name: atp-m1-test
+services:
+  api:
+    cap_drop:
+      - ALL
+    cpus: 0.5
+    command:
+      - api
+    environment:
+      DATABASE_URL_FILE: /run/secrets/api_database_url
+      DISPATCH_ENABLED: "false"
+      EXECUTION_EPOCH: 4562a9d6-0dd6-451f-b474-353711aaf204
+      REDIS_URL_FILE: /run/secrets/redis_url
+    image: sha256:599c377eff3414eeebb334cfdddbf7e3ce9242e37294b62ccf9e92067b61f60f
+    mem_limit: "268435456"
+    networks:
+      ingress: null
+      private: null
+    pids_limit: 100
+    pull_policy: never
+    read_only: true
+    secrets:
+      - source: api_database_url
+        target: /run/secrets/api_database_url
+      - source: redis_url
+        target: /run/secrets/redis_url
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+    user: 10001:10001
+    depends_on:
+      initialize:
+        condition: service_completed_successfully
+        required: true
+      redis:
+        condition: service_healthy
+        required: true
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health/ready',
+          timeout=5)
+      timeout: 6s
+      interval: 5s
+      retries: 12
+    ports:
+      - mode: ingress
+        host_ip: 127.0.0.1
+        target: 8000
+        published: "8000"
+        protocol: tcp
+  demo:
+    cap_drop:
+      - ALL
+    cpus: 0.5
+    command:
+      - demo
+    environment:
+      DEMO_DATABASE_URL_FILE: /run/secrets/demo_database_url
+      DEMO_SERVICE_KEY_FILE: /run/secrets/demo_service_key
+    image: sha256:599c377eff3414eeebb334cfdddbf7e3ce9242e37294b62ccf9e92067b61f60f
+    mem_limit: "268435456"
+    networks:
+      private: null
+    pids_limit: 100
+    pull_policy: never
+    read_only: true
+    secrets:
+      - source: demo_database_url
+        target: /run/secrets/demo_database_url
+      - source: demo_service_key
+        target: /run/secrets/demo_service_key
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+    user: 10001:10001
+    depends_on:
+      demo-db:
+        condition: service_healthy
+        required: true
+  demo-db:
+    cap_drop:
+      - ALL
+    cpus: 0.5
+    environment:
+      POSTGRES_DB: demo
+      POSTGRES_INITDB_ARGS: --auth-host=scram-sha-256
+      POSTGRES_PASSWORD_FILE: /run/secrets/demo_postgres_password
+      POSTGRES_USER: postgres
+    image: postgres:17.11-bookworm@sha256:3645570cccdfa447589da9f57dd740faa29b30938e861289a5574b6ca6b03826
+    mem_limit: "268435456"
+    networks:
+      private: null
+    pids_limit: 100
+    secrets:
+      - source: demo_postgres_password
+        target: /run/secrets/demo_postgres_password
+      - source: demo_password
+        target: /run/secrets/demo_password
+    security_opt:
+      - no-new-privileges:true
+    user: 999:999
+    volumes:
+      - type: volume
+        source: demo-data
+        target: /var/lib/postgresql/data
+        volume: {}
+      - type: bind
+        source: /Users/william/Documents/Projet 2/infra/demo-bootstrap.sh
+        target: /docker-entrypoint-initdb.d/01-bootstrap.sh
+        read_only: true
+        bind: {}
+      - type: bind
+        source: /Users/william/Documents/Projet 2/infra/demo-schema.sql
+        target: /docker-entrypoint-initdb.d/02-schema.sql
+        read_only: true
+        bind: {}
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - pg_isready -U postgres -d demo
+      timeout: 2s
+      interval: 2s
+      retries: 30
+  initialize:
+    cap_drop:
+      - ALL
+    cpus: 0.5
+    command:
+      - admin
+      - init
+    environment:
+      DATABASE_URL_FILE: /run/secrets/admin_database_url
+      EXECUTION_EPOCH: 4562a9d6-0dd6-451f-b474-353711aaf204
+    image: sha256:599c377eff3414eeebb334cfdddbf7e3ce9242e37294b62ccf9e92067b61f60f
+    mem_limit: "268435456"
+    networks:
+      private: null
+    pids_limit: 100
+    pull_policy: never
+    read_only: true
+    secrets:
+      - source: admin_database_url
+        target: /run/secrets/admin_database_url
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+    user: 10001:10001
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+        required: true
+  migrate:
+    cap_drop:
+      - ALL
+    cpus: 0.5
+    command:
+      - upgrade
+      - head
+    entrypoint:
+      - alembic
+    environment:
+      DATABASE_URL_FILE: /run/secrets/migrator_database_url
+      EXECUTION_EPOCH: 4562a9d6-0dd6-451f-b474-353711aaf204
+    image: sha256:599c377eff3414eeebb334cfdddbf7e3ce9242e37294b62ccf9e92067b61f60f
+    mem_limit: "268435456"
+    networks:
+      private: null
+    pids_limit: 100
+    pull_policy: never
+    read_only: true
+    secrets:
+      - source: migrator_database_url
+        target: /run/secrets/migrator_database_url
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+    user: 10001:10001
+    depends_on:
+      postgres:
+        condition: service_healthy
+        required: true
+  postgres:
+    cap_drop:
+      - ALL
+    cpus: 1
+    command:
+      - postgres
+      - -c
+      - max_connections=50
+      - -c
+      - shared_buffers=128MB
+      - -c
+      - log_statement=none
+      - -c
+      - log_min_error_statement=panic
+      - -c
+      - log_error_verbosity=terse
+    environment:
+      POSTGRES_DB: atp
+      POSTGRES_INITDB_ARGS: --auth-host=scram-sha-256
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
+      POSTGRES_USER: postgres
+    image: postgres:17.11-bookworm@sha256:3645570cccdfa447589da9f57dd740faa29b30938e861289a5574b6ca6b03826
+    mem_limit: "536870912"
+    networks:
+      private: null
+    pids_limit: 100
+    secrets:
+      - source: postgres_password
+        target: /run/secrets/postgres_password
+      - source: api_password
+        target: /run/secrets/api_password
+      - source: worker_password
+        target: /run/secrets/worker_password
+      - source: admin_password
+        target: /run/secrets/admin_password
+      - source: migrator_password
+        target: /run/secrets/migrator_password
+    security_opt:
+      - no-new-privileges:true
+    user: 999:999
+    volumes:
+      - type: volume
+        source: pgdata
+        target: /var/lib/postgresql/data
+        volume: {}
+      - type: bind
+        source: /Users/william/Documents/Projet 2/infra/bootstrap.sh
+        target: /docker-entrypoint-initdb.d/01-bootstrap.sh
+        read_only: true
+        bind: {}
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - pg_isready -U postgres -d atp
+      timeout: 2s
+      interval: 2s
+      retries: 30
+  redis:
+    cap_drop:
+      - ALL
+    cpus: 0.25
+    command:
+      - redis-server
+      - /run/secrets/redis_config
+    image: redis:8.2.2-bookworm@sha256:4521b581dbddea6e7d81f8fe95ede93f5648aaa66a9dacd581611bf6fe7527bd
+    mem_limit: "134217728"
+    networks:
+      private: null
+    pids_limit: 50
+    read_only: true
+    secrets:
+      - source: redis_config
+        target: /run/secrets/redis_config
+      - source: redis_password
+        target: /run/secrets/redis_password
+    security_opt:
+      - no-new-privileges:true
+    user: 999:999
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - REDISCLI_AUTH=$$(cat /run/secrets/redis_password) redis-cli ping | grep -q
+          PONG
+      timeout: 2s
+      interval: 2s
+      retries: 30
+networks:
+  ingress:
+    name: atp-m1-test_ingress
+  private:
+    name: atp-m1-test_private
+    internal: true
+volumes:
+  demo-data:
+    name: atp-m1-test_demo-data
+  pgdata:
+    name: atp-m1-test_pgdata
+secrets:
+  admin_database_url:
+    name: atp-m1-test_admin_database_url
+    file: /Users/william/Documents/Projet 2/.secrets/admin_database_url
+  admin_password:
+    name: atp-m1-test_admin_password
+    file: /Users/william/Documents/Projet 2/.secrets/admin_password
+  api_database_url:
+    name: atp-m1-test_api_database_url
+    file: /Users/william/Documents/Projet 2/.secrets/api_database_url
+  api_password:
+    name: atp-m1-test_api_password
+    file: /Users/william/Documents/Projet 2/.secrets/api_password
+  demo_database_url:
+    name: atp-m1-test_demo_database_url
+    file: /Users/william/Documents/Projet 2/.secrets/demo_database_url
+  demo_password:
+    name: atp-m1-test_demo_password
+    file: /Users/william/Documents/Projet 2/.secrets/demo_password
+  demo_postgres_password:
+    name: atp-m1-test_demo_postgres_password
+    file: /Users/william/Documents/Projet 2/.secrets/demo_postgres_password
+  demo_service_key:
+    name: atp-m1-test_demo_service_key
+    file: /Users/william/Documents/Projet 2/.secrets/demo_service_key
+  migrator_database_url:
+    name: atp-m1-test_migrator_database_url
+    file: /Users/william/Documents/Projet 2/.secrets/migrator_database_url
+  migrator_password:
+    name: atp-m1-test_migrator_password
+    file: /Users/william/Documents/Projet 2/.secrets/migrator_password
+  postgres_password:
+    name: atp-m1-test_postgres_password
+    file: /Users/william/Documents/Projet 2/.secrets/postgres_password
+  redis_config:
+    name: atp-m1-test_redis_config
+    file: /Users/william/Documents/Projet 2/.secrets/redis.conf
+  redis_password:
+    name: atp-m1-test_redis_password
+    file: /Users/william/Documents/Projet 2/.secrets/redis_password
+  redis_url:
+    name: atp-m1-test_redis_url
+    file: /Users/william/Documents/Projet 2/.secrets/redis_url
+  worker_password:
+    name: atp-m1-test_worker_password
+    file: /Users/william/Documents/Projet 2/.secrets/worker_password
+x-app:
+  build:
+    context: .
+    target: runtime
+  cap_drop:
+    - ALL
+  cpus: 0.5
+  image: ai-task-platform:m1
+  mem_limit: 256m
+  networks:
+    - private
+  pids_limit: 100
+  read_only: true
+  security_opt:
+    - no-new-privileges:true
+  tmpfs:
+    - /tmp:size=16m,mode=1777
+  user: 10001:10001
+x-release:
+  image: sha256:599c377eff3414eeebb334cfdddbf7e3ce9242e37294b62ccf9e92067b61f60f
+  pull_policy: never

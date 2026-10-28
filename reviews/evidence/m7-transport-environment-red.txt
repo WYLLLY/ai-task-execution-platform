@@ -1,0 +1,26 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+__ test_explicit_transport_ignores_valid_environment_trust_bundle[simulation] __
+tests/unit/test_transport_environment.py:35: in test_explicit_transport_ignores_valid_environment_trust_bundle
+    assert context.cert_store_stats() == expected
+E   AssertionError: assert {'x509': 1, '... 'x509_ca': 1} == {'x509': 118,...x509_ca': 118}
+E
+E     Omitting 1 identical items, use -vv to show
+E     Differing items:
+E     {'x509': 1} != {'x509': 118}
+E     {'x509_ca': 1} != {'x509_ca': 118}
+E     Use -v to get more diff
+____ test_explicit_transport_ignores_valid_environment_trust_bundle[report] ____
+tests/unit/test_transport_environment.py:35: in test_explicit_transport_ignores_valid_environment_trust_bundle
+    assert context.cert_store_stats() == expected
+E   AssertionError: assert {'x509': 1, '... 'x509_ca': 1} == {'x509': 118,...x509_ca': 118}
+E
+E     Omitting 1 identical items, use -vv to show
+E     Differing items:
+E     {'x509': 1} != {'x509': 118}
+E     {'x509_ca': 1} != {'x509_ca': 118}
+E     Use -v to get more diff
+=========================== short test summary info ============================
+FAILED tests/unit/test_transport_environment.py::test_explicit_transport_ignores_valid_environment_trust_bundle[simulation]
+FAILED tests/unit/test_transport_environment.py::test_explicit_transport_ignores_valid_environment_trust_bundle[report]
+2 failed in 0.36s

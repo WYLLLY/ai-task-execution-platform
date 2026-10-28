@@ -1,0 +1,1455 @@
+verify	UNKNOWN STEP	﻿2026-10-28T05:03:49.6005076Z Current runner version: '2.338.0'
+verify	UNKNOWN STEP	2026-10-28T05:03:49.6053721Z ##[group]Runner Image Provisioner
+verify	UNKNOWN STEP	2026-10-28T05:03:49.6054712Z Hosted Compute Agent
+verify	UNKNOWN STEP	2026-10-28T05:03:49.6055448Z Version: 20261021.618
+verify	UNKNOWN STEP	2026-10-28T05:03:49.6056287Z Commit: 21505ad2541d5be6135ed84fc33697146cf75b8e
+verify	UNKNOWN STEP	2026-10-28T05:03:49.6057174Z Build Date: 2026-10-21T00:45:21Z
+verify	UNKNOWN STEP	2026-10-28T05:03:49.6057999Z Worker ID: {ae0cdd85-cc42-427f-ba35-331f8e72376f}
+verify	UNKNOWN STEP	2026-10-28T05:03:49.6059199Z Region: eastus
+verify	UNKNOWN STEP	2026-10-28T05:03:49.6059962Z Cloud: Azure
+verify	UNKNOWN STEP	2026-10-28T05:03:49.6060705Z ##[endgroup]
+verify	UNKNOWN STEP	2026-10-28T05:03:49.6062422Z ##[group]Operating System
+verify	UNKNOWN STEP	2026-10-28T05:03:49.6063202Z Ubuntu
+verify	UNKNOWN STEP	2026-10-28T05:03:49.6063991Z 24.04.5
+verify	UNKNOWN STEP	2026-10-28T05:03:49.6064664Z LTS
+verify	UNKNOWN STEP	2026-10-28T05:03:49.6065407Z ##[endgroup]
+verify	UNKNOWN STEP	2026-10-28T05:03:49.6066128Z ##[group]Runner Image
+verify	UNKNOWN STEP	2026-10-28T05:03:49.6066866Z Image: ubuntu-24.04
+verify	UNKNOWN STEP	2026-10-28T05:03:49.6068087Z Version: 20261012.334.1
+verify	UNKNOWN STEP	2026-10-28T05:03:49.6090275Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261012.334/images/ubuntu/Ubuntu2404-Readme.md
+verify	UNKNOWN STEP	2026-10-28T05:03:49.6092396Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261012.334
+verify	UNKNOWN STEP	2026-10-28T05:03:49.6093599Z ##[endgroup]
+verify	UNKNOWN STEP	2026-10-28T05:03:49.6095085Z ##[group]GITHUB_TOKEN Permissions
+verify	UNKNOWN STEP	2026-10-28T05:03:49.6097405Z Contents: read
+verify	UNKNOWN STEP	2026-10-28T05:03:49.6098246Z Metadata: read
+verify	UNKNOWN STEP	2026-10-28T05:03:49.6099173Z ##[endgroup]
+verify	UNKNOWN STEP	2026-10-28T05:03:49.6101658Z Secret source: Actions
+verify	UNKNOWN STEP	2026-10-28T05:03:49.6102804Z Cache mode: write
+verify	UNKNOWN STEP	2026-10-28T05:03:49.6104084Z Prepare workflow directory
+verify	UNKNOWN STEP	2026-10-28T05:03:49.8038534Z Prepare all required actions
+verify	UNKNOWN STEP	2026-10-28T05:03:49.8094489Z Getting action download info
+verify	UNKNOWN STEP	2026-10-28T05:03:49.9603681Z Download action repository 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+verify	UNKNOWN STEP	2026-10-28T05:03:50.3666149Z Download action repository 'astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884' (SHA:1c37ad07a6a961277cf70c0d37d6f313000f5884)
+verify	UNKNOWN STEP	2026-10-28T05:03:50.6721524Z Download action repository 'actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9' (SHA:cf430e030ddbb5b0abf93d22962f4752f3646cd9)
+verify	UNKNOWN STEP	2026-10-28T05:03:50.9772408Z Complete job name: verify
+verify	UNKNOWN STEP	2026-10-28T05:03:51.0509390Z ##[group]Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+verify	UNKNOWN STEP	2026-10-28T05:03:51.0510228Z with:
+verify	UNKNOWN STEP	2026-10-28T05:03:51.0510579Z   persist-credentials: false
+verify	UNKNOWN STEP	2026-10-28T05:03:51.0511028Z   repository: WYLLLY/ai-task-execution-platform
+verify	UNKNOWN STEP	2026-10-28T05:03:51.0514005Z   token: ***
+verify	UNKNOWN STEP	2026-10-28T05:03:51.0514350Z   ssh-strict: true
+verify	UNKNOWN STEP	2026-10-28T05:03:51.0514699Z   ssh-user: git
+verify	UNKNOWN STEP	2026-10-28T05:03:51.0515029Z   clean: true
+verify	UNKNOWN STEP	2026-10-28T05:03:51.0515418Z   sparse-checkout-cone-mode: true
+verify	UNKNOWN STEP	2026-10-28T05:03:51.0515827Z   fetch-depth: 1
+verify	UNKNOWN STEP	2026-10-28T05:03:51.0516163Z   fetch-tags: false
+verify	UNKNOWN STEP	2026-10-28T05:03:51.0516507Z   show-progress: true
+verify	UNKNOWN STEP	2026-10-28T05:03:51.0516863Z   lfs: false
+verify	UNKNOWN STEP	2026-10-28T05:03:51.0517182Z   submodules: false
+verify	UNKNOWN STEP	2026-10-28T05:03:51.0517530Z   set-safe-directory: true
+verify	UNKNOWN STEP	2026-10-28T05:03:51.0517921Z   allow-unsafe-pr-checkout: false
+verify	UNKNOWN STEP	2026-10-28T05:03:51.0518486Z ##[endgroup]
+verify	UNKNOWN STEP	2026-10-28T05:03:51.2630504Z Syncing repository: WYLLLY/ai-task-execution-platform
+verify	UNKNOWN STEP	2026-10-28T05:03:51.2633228Z ##[group]Getting Git version info
+verify	UNKNOWN STEP	2026-10-28T05:03:51.2634402Z Working directory is '/home/runner/work/ai-task-execution-platform/ai-task-execution-platform'
+verify	UNKNOWN STEP	2026-10-28T05:03:51.2636034Z [command]/usr/bin/git version
+verify	UNKNOWN STEP	2026-10-28T05:03:51.2736305Z git version 2.55.0
+verify	UNKNOWN STEP	2026-10-28T05:03:51.2771330Z ##[endgroup]
+verify	UNKNOWN STEP	2026-10-28T05:03:51.2786805Z Temporarily overriding HOME='/home/runner/work/_temp/191ff7df-3a1f-4deb-8acd-93cf5739d7f0' before making global git config changes
+verify	UNKNOWN STEP	2026-10-28T05:03:51.2795454Z Adding repository directory to the temporary git global config as a safe directory
+verify	UNKNOWN STEP	2026-10-28T05:03:51.2797444Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/ai-task-execution-platform/ai-task-execution-platform
+verify	UNKNOWN STEP	2026-10-28T05:03:51.2852153Z Deleting the contents of '/home/runner/work/ai-task-execution-platform/ai-task-execution-platform'
+verify	UNKNOWN STEP	2026-10-28T05:03:51.2854612Z ##[group]Determining repository object format
+verify	UNKNOWN STEP	2026-10-28T05:03:51.2856102Z ##[endgroup]
+verify	UNKNOWN STEP	2026-10-28T05:03:51.2857278Z ##[group]Initializing the repository
+verify	UNKNOWN STEP	2026-10-28T05:03:51.2859148Z [command]/usr/bin/git init /home/runner/work/ai-task-execution-platform/ai-task-execution-platform
+verify	UNKNOWN STEP	2026-10-28T05:03:51.3387637Z hint: Using 'master' as the name for the initial branch. This default branch name
+verify	UNKNOWN STEP	2026-10-28T05:03:51.3389936Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+verify	UNKNOWN STEP	2026-10-28T05:03:51.3391317Z hint: to use in all of your new repositories, which will suppress this warning,
+verify	UNKNOWN STEP	2026-10-28T05:03:51.3392365Z hint: call:
+verify	UNKNOWN STEP	2026-10-28T05:03:51.3392953Z hint:
+verify	UNKNOWN STEP	2026-10-28T05:03:51.3393808Z hint: 	git config --global init.defaultBranch <name>
+verify	UNKNOWN STEP	2026-10-28T05:03:51.3394785Z hint:
+verify	UNKNOWN STEP	2026-10-28T05:03:51.3397844Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+verify	UNKNOWN STEP	2026-10-28T05:03:51.3399381Z hint: 'development'. The just-created branch can be renamed via this command:
+verify	UNKNOWN STEP	2026-10-28T05:03:51.3400503Z hint:
+verify	UNKNOWN STEP	2026-10-28T05:03:51.3401170Z hint: 	git branch -m <name>
+verify	UNKNOWN STEP	2026-10-28T05:03:51.3401881Z hint:
+verify	UNKNOWN STEP	2026-10-28T05:03:51.3402822Z hint: Disable this message with "git config set advice.defaultBranchName false"
+verify	UNKNOWN STEP	2026-10-28T05:03:51.3404946Z Initialized empty Git repository in /home/runner/work/ai-task-execution-platform/ai-task-execution-platform/.git/
+verify	UNKNOWN STEP	2026-10-28T05:03:51.3407982Z [command]/usr/bin/git remote add origin https://github.com/WYLLLY/ai-task-execution-platform
+verify	UNKNOWN STEP	2026-10-28T05:03:51.3457410Z ##[endgroup]
+verify	UNKNOWN STEP	2026-10-28T05:03:51.3458241Z ##[group]Disabling automatic garbage collection
+verify	UNKNOWN STEP	2026-10-28T05:03:51.3459104Z [command]/usr/bin/git config --local gc.auto 0
+verify	UNKNOWN STEP	2026-10-28T05:03:51.3494085Z ##[endgroup]
+verify	UNKNOWN STEP	2026-10-28T05:03:51.3495539Z ##[group]Setting up auth
+verify	UNKNOWN STEP	2026-10-28T05:03:51.3496491Z Removing SSH command configuration
+verify	UNKNOWN STEP	2026-10-28T05:03:51.3500187Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+verify	UNKNOWN STEP	2026-10-28T05:03:51.3539332Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+verify	UNKNOWN STEP	2026-10-28T05:03:51.3831681Z Removing HTTP extra header
+verify	UNKNOWN STEP	2026-10-28T05:03:51.3833387Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+verify	UNKNOWN STEP	2026-10-28T05:03:51.3865543Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+verify	UNKNOWN STEP	2026-10-28T05:03:51.4059899Z Removing includeIf entries pointing to credentials config files
+verify	UNKNOWN STEP	2026-10-28T05:03:51.4072482Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+verify	UNKNOWN STEP	2026-10-28T05:03:51.4106375Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+verify	UNKNOWN STEP	2026-10-28T05:03:51.4306880Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-5959886a-6518-4493-848d-de554c1b3b9d.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+verify	UNKNOWN STEP	2026-10-28T05:03:51.4345310Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/ai-task-execution-platform/ai-task-execution-platform/.git.path /home/runner/work/_temp/git-credentials-5959886a-6518-4493-848d-de554c1b3b9d.config
+verify	UNKNOWN STEP	2026-10-28T05:03:51.4377302Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/ai-task-execution-platform/ai-task-execution-platform/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-5959886a-6518-4493-848d-de554c1b3b9d.config
+verify	UNKNOWN STEP	2026-10-28T05:03:51.4476244Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-5959886a-6518-4493-848d-de554c1b3b9d.config
+verify	UNKNOWN STEP	2026-10-28T05:03:51.4508483Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-5959886a-6518-4493-848d-de554c1b3b9d.config
+verify	UNKNOWN STEP	2026-10-28T05:03:51.4538954Z ##[endgroup]
+verify	UNKNOWN STEP	2026-10-28T05:03:51.4540115Z ##[group]Fetching the repository
+verify	UNKNOWN STEP	2026-10-28T05:03:51.4545587Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +c4e129735dc4501af1d0a64462399b380120e748:refs/remotes/origin/feature/m7
+verify	UNKNOWN STEP	2026-10-28T05:03:52.0945358Z From https://github.com/WYLLLY/ai-task-execution-platform
+verify	UNKNOWN STEP	2026-10-28T05:03:52.0947592Z  * [new ref]         c4e129735dc4501af1d0a64462399b380120e748 -> origin/feature/m7
+verify	UNKNOWN STEP	2026-10-28T05:03:52.0952862Z [command]/usr/bin/git branch --list --remote origin/feature/m7
+verify	UNKNOWN STEP	2026-10-28T05:03:52.0955507Z   origin/feature/m7
+verify	UNKNOWN STEP	2026-10-28T05:03:52.0964744Z [command]/usr/bin/git rev-parse refs/remotes/origin/feature/m7
+verify	UNKNOWN STEP	2026-10-28T05:03:52.0994487Z c4e129735dc4501af1d0a64462399b380120e748
+verify	UNKNOWN STEP	2026-10-28T05:03:52.1006043Z ##[endgroup]
+verify	UNKNOWN STEP	2026-10-28T05:03:52.1007909Z ##[group]Determining the checkout info
+verify	UNKNOWN STEP	2026-10-28T05:03:52.1009987Z ##[endgroup]
+verify	UNKNOWN STEP	2026-10-28T05:03:52.1011806Z [command]/usr/bin/git sparse-checkout disable
+verify	UNKNOWN STEP	2026-10-28T05:03:52.1389489Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+verify	UNKNOWN STEP	2026-10-28T05:03:52.1392934Z ##[group]Checking out the ref
+verify	UNKNOWN STEP	2026-10-28T05:03:52.1394378Z [command]/usr/bin/git checkout --progress --force -B feature/m7 refs/remotes/origin/feature/m7
+verify	UNKNOWN STEP	2026-10-28T05:03:52.2978778Z Switched to a new branch 'feature/m7'
+verify	UNKNOWN STEP	2026-10-28T05:03:52.2980063Z branch 'feature/m7' set up to track 'origin/feature/m7'.
+verify	UNKNOWN STEP	2026-10-28T05:03:52.2982379Z ##[endgroup]
+verify	UNKNOWN STEP	2026-10-28T05:03:52.3007206Z [command]/usr/bin/git log -1 --format=%H
+verify	UNKNOWN STEP	2026-10-28T05:03:52.3033552Z c4e129735dc4501af1d0a64462399b380120e748
+verify	UNKNOWN STEP	2026-10-28T05:03:52.3043222Z ##[group]Removing auth
+verify	UNKNOWN STEP	2026-10-28T05:03:52.3043942Z Removing SSH command configuration
+verify	UNKNOWN STEP	2026-10-28T05:03:52.3050227Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+verify	UNKNOWN STEP	2026-10-28T05:03:52.3081171Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+verify	UNKNOWN STEP	2026-10-28T05:03:52.3282415Z Removing HTTP extra header
+verify	UNKNOWN STEP	2026-10-28T05:03:52.3284985Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+verify	UNKNOWN STEP	2026-10-28T05:03:52.3316923Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+verify	UNKNOWN STEP	2026-10-28T05:03:52.3534165Z Removing includeIf entries pointing to credentials config files
+verify	UNKNOWN STEP	2026-10-28T05:03:52.3535274Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+verify	UNKNOWN STEP	2026-10-28T05:03:52.3562004Z includeif.gitdir:/home/runner/work/ai-task-execution-platform/ai-task-execution-platform/.git.path
+verify	UNKNOWN STEP	2026-10-28T05:03:52.3564437Z includeif.gitdir:/home/runner/work/ai-task-execution-platform/ai-task-execution-platform/.git/worktrees/*.path
+verify	UNKNOWN STEP	2026-10-28T05:03:52.3565776Z includeif.gitdir:/github/workspace/.git.path
+verify	UNKNOWN STEP	2026-10-28T05:03:52.3566576Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+verify	UNKNOWN STEP	2026-10-28T05:03:52.3571934Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/ai-task-execution-platform/ai-task-execution-platform/.git.path
+verify	UNKNOWN STEP	2026-10-28T05:03:52.3597846Z /home/runner/work/_temp/git-credentials-5959886a-6518-4493-848d-de554c1b3b9d.config
+verify	UNKNOWN STEP	2026-10-28T05:03:52.3607902Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/ai-task-execution-platform/ai-task-execution-platform/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-5959886a\-6518\-4493\-848d\-de554c1b3b9d\.config
+verify	UNKNOWN STEP	2026-10-28T05:03:52.3645524Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/ai-task-execution-platform/ai-task-execution-platform/.git/worktrees/*.path
+verify	UNKNOWN STEP	2026-10-28T05:03:52.3669425Z /home/runner/work/_temp/git-credentials-5959886a-6518-4493-848d-de554c1b3b9d.config
+verify	UNKNOWN STEP	2026-10-28T05:03:52.3678426Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/ai-task-execution-platform/ai-task-execution-platform/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-5959886a\-6518\-4493\-848d\-de554c1b3b9d\.config
+verify	UNKNOWN STEP	2026-10-28T05:03:52.3728509Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+verify	UNKNOWN STEP	2026-10-28T05:03:52.3745449Z /github/runner_temp/git-credentials-5959886a-6518-4493-848d-de554c1b3b9d.config
+verify	UNKNOWN STEP	2026-10-28T05:03:52.3755020Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-5959886a\-6518\-4493\-848d\-de554c1b3b9d\.config
+verify	UNKNOWN STEP	2026-10-28T05:03:52.3787289Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+verify	UNKNOWN STEP	2026-10-28T05:03:52.3810872Z /github/runner_temp/git-credentials-5959886a-6518-4493-848d-de554c1b3b9d.config
+verify	UNKNOWN STEP	2026-10-28T05:03:52.3819586Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-5959886a\-6518\-4493\-848d\-de554c1b3b9d\.config
+verify	UNKNOWN STEP	2026-10-28T05:03:52.3851045Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+verify	UNKNOWN STEP	2026-10-28T05:03:52.4044887Z Removing credentials config '/home/runner/work/_temp/git-credentials-5959886a-6518-4493-848d-de554c1b3b9d.config'
+verify	UNKNOWN STEP	2026-10-28T05:03:52.4053883Z ##[endgroup]
+verify	UNKNOWN STEP	2026-10-28T05:03:52.4285110Z ##[group]Run astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884
+verify	UNKNOWN STEP	2026-10-28T05:03:52.4285462Z with:
+verify	UNKNOWN STEP	2026-10-28T05:03:52.4285660Z   version: 0.13.1
+verify	UNKNOWN STEP	2026-10-28T05:03:52.4285890Z   activate-environment: false
+verify	UNKNOWN STEP	2026-10-28T05:03:52.4286128Z   no-project: false
+verify	UNKNOWN STEP	2026-10-28T05:03:52.4286483Z   working-directory: /home/runner/work/ai-task-execution-platform/ai-task-execution-platform
+verify	UNKNOWN STEP	2026-10-28T05:03:52.4288620Z   github-token: ***
+verify	UNKNOWN STEP	2026-10-28T05:03:52.4288961Z   enable-cache: auto
+verify	UNKNOWN STEP	2026-10-28T05:03:52.4289462Z   cache-dependency-glob: **/*requirements*.txt
+verify	UNKNOWN STEP	**/*requirements*.in
+verify	UNKNOWN STEP	**/*constraints*.txt
+verify	UNKNOWN STEP	**/*constraints*.in
+verify	UNKNOWN STEP	**/pyproject.toml
+verify	UNKNOWN STEP	**/uv.lock
+verify	UNKNOWN STEP	**/*.py.lock
+verify	UNKNOWN STEP
+verify	UNKNOWN STEP	2026-10-28T05:03:52.4289969Z   restore-cache: true
+verify	UNKNOWN STEP	2026-10-28T05:03:52.4290180Z   save-cache: auto
+verify	UNKNOWN STEP	2026-10-28T05:03:52.4290384Z   prune-cache: false
+verify	UNKNOWN STEP	2026-10-28T05:03:52.4290596Z   cache-python: false
+verify	UNKNOWN STEP	2026-10-28T05:03:52.4290811Z   ignore-nothing-to-cache: false
+verify	UNKNOWN STEP	2026-10-28T05:03:52.4291054Z   ignore-empty-workdir: false
+verify	UNKNOWN STEP	2026-10-28T05:03:52.4291340Z   download-from-astral-mirror: true
+verify	UNKNOWN STEP	2026-10-28T05:03:52.4291595Z   add-problem-matchers: true
+verify	UNKNOWN STEP	2026-10-28T05:03:52.4291817Z   quiet: false
+verify	UNKNOWN STEP	2026-10-28T05:03:52.4292027Z   resolution-strategy: highest
+verify	UNKNOWN STEP	2026-10-28T05:03:52.4292257Z ##[endgroup]
+verify	UNKNOWN STEP	2026-10-28T05:03:52.7130364Z Fetching manifest data from https://raw.githubusercontent.com/astral-sh/versions/main/v1/uv.ndjson ...
+verify	UNKNOWN STEP	2026-10-28T05:03:52.7457725Z Downloading uv from "https://releases.astral.sh/github/uv/releases/download/0.13.1/uv-x86_64-unknown-linux-gnu.tar.gz" ...
+verify	UNKNOWN STEP	2026-10-28T05:04:10.5422744Z [command]/usr/bin/tar xz --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/4bee427e-3315-4a91-af4e-de0d913372cc -f /home/runner/work/_temp/a7bfcbc2-3361-46ad-8835-293f39f42823
+verify	UNKNOWN STEP	2026-10-28T05:04:11.0709513Z Added /home/runner/.local/bin to the path
+verify	UNKNOWN STEP	2026-10-28T05:04:11.0714858Z Added /opt/hostedtoolcache/uv/0.13.1/x86_64 to the path
+verify	UNKNOWN STEP	2026-10-28T05:04:11.0715583Z Set UV_PYTHON_INSTALL_DIR to /home/runner/work/_temp/uv-python-dir
+verify	UNKNOWN STEP	2026-10-28T05:04:11.0729972Z Added /home/runner/work/_temp/uv-python-dir to the path
+verify	UNKNOWN STEP	2026-10-28T05:04:11.0748724Z Set UV_CACHE_DIR to /home/runner/work/_temp/setup-uv-cache
+verify	UNKNOWN STEP	2026-10-28T05:04:11.0796232Z Successfully installed uv version 0.13.1
+verify	UNKNOWN STEP	2026-10-28T05:04:11.1652159Z Searching files using cache dependency glob: /home/runner/work/ai-task-execution-platform/ai-task-execution-platform/**/*requirements*.txt,/home/runner/work/ai-task-execution-platform/ai-task-execution-platform/**/*requirements*.in,/home/runner/work/ai-task-execution-platform/ai-task-execution-platform/**/*constraints*.txt,/home/runner/work/ai-task-execution-platform/ai-task-execution-platform/**/*constraints*.in,/home/runner/work/ai-task-execution-platform/ai-task-execution-platform/**/pyproject.toml,/home/runner/work/ai-task-execution-platform/ai-task-execution-platform/**/uv.lock,/home/runner/work/ai-task-execution-platform/ai-task-execution-platform/**/*.py.lock
+verify	UNKNOWN STEP	2026-10-28T05:04:11.1976200Z /home/runner/work/ai-task-execution-platform/ai-task-execution-platform/pyproject.toml
+verify	UNKNOWN STEP	2026-10-28T05:04:11.2347616Z /home/runner/work/ai-task-execution-platform/ai-task-execution-platform/uv.lock
+verify	UNKNOWN STEP	2026-10-28T05:04:11.2354530Z Found 2 files to hash.
+verify	UNKNOWN STEP	2026-10-28T05:04:11.2413013Z Trying to restore cache from GitHub Actions cache with key: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-24.04-unknown-25690da11155021fb5cb391718be3fd022c9580039ea4ae847032fba049fc92c
+verify	UNKNOWN STEP	2026-10-28T05:04:11.2842928Z Cache hit for: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-24.04-unknown-25690da11155021fb5cb391718be3fd022c9580039ea4ae847032fba049fc92c
+verify	UNKNOWN STEP	2026-10-28T05:04:11.6434617Z Received 43615316 of 43615316 (100.0%), 134.2 MBs/sec
+verify	UNKNOWN STEP	2026-10-28T05:04:11.6435643Z Cache Size: ~42 MB (43615316 B)
+verify	UNKNOWN STEP	2026-10-28T05:04:11.6477652Z [command]/usr/bin/tar -xf /home/runner/work/_temp/cd7f174a-c0e3-4710-91a8-e606dd0bea0b/cache.tzst -P -C /home/runner/work/ai-task-execution-platform/ai-task-execution-platform --use-compress-program unzstd
+verify	UNKNOWN STEP	2026-10-28T05:04:11.9929460Z Cache restored successfully
+verify	UNKNOWN STEP	2026-10-28T05:04:11.9951305Z cache restored from GitHub Actions cache with key: setup-uv-2-x86_64-unknown-linux-gnu-ubuntu-24.04-unknown-25690da11155021fb5cb391718be3fd022c9580039ea4ae847032fba049fc92c
+verify	UNKNOWN STEP	2026-10-28T05:04:12.1094651Z ##[group]Run uv sync --frozen
+verify	UNKNOWN STEP	2026-10-28T05:04:12.1094948Z ^[[36;1muv sync --frozen^[[0m
+verify	UNKNOWN STEP	2026-10-28T05:04:12.1291404Z shell: /usr/bin/bash -e {0}
+verify	UNKNOWN STEP	2026-10-28T05:04:12.1291643Z env:
+verify	UNKNOWN STEP	2026-10-28T05:04:12.1291890Z   UV_PYTHON_INSTALL_DIR: /home/runner/work/_temp/uv-python-dir
+verify	UNKNOWN STEP	2026-10-28T05:04:12.1292242Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+verify	UNKNOWN STEP	2026-10-28T05:04:12.1292510Z ##[endgroup]
+verify	UNKNOWN STEP	2026-10-28T05:04:12.2865993Z Downloading cpython-3.14.8-linux-x86_64-gnu (download) (34.6MiB)
+verify	UNKNOWN STEP	2026-10-28T05:04:19.1935672Z  Downloaded cpython-3.14.8-linux-x86_64-gnu (download)
+verify	UNKNOWN STEP	2026-10-28T05:04:19.3322029Z Using CPython 3.14.8
+verify	UNKNOWN STEP	2026-10-28T05:04:19.3322628Z Creating virtual environment at: .venv
+verify	UNKNOWN STEP	2026-10-28T05:04:19.3351144Z    Building ai-task-execution-platform @ file:///home/runner/work/ai-task-execution-platform/ai-task-execution-platform
+verify	UNKNOWN STEP	2026-10-28T05:04:19.8902344Z       Built ai-task-execution-platform @ file:///home/runner/work/ai-task-execution-platform/ai-task-execution-platform
+verify	UNKNOWN STEP	2026-10-28T05:04:19.9356713Z Prepared 1 package in 599ms
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0759857Z Installed 46 packages in 1.14s
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0770148Z  + ai-task-execution-platform==0.1.0 (from file:///home/runner/work/ai-task-execution-platform/ai-task-execution-platform)
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0770648Z  + alembic==1.20.0
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0771049Z  + annotated-doc==0.0.5
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0772822Z  + annotated-types==0.8.0
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0773106Z  + anyio==4.15.1
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0773285Z  + ast-serialize==0.13.0
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0773472Z  + certifi==2026.10.23
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0773662Z  + charset-normalizer==3.5.2
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0774037Z  + click==8.5.0
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0774282Z  + fastapi==0.143.1
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0774533Z  + greenlet==3.5.6
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0774776Z  + h11==0.16.0
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0775027Z  + httpcore==1.0.9
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0775283Z  + httpx==0.28.1
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0775524Z  + idna==3.20
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0775762Z  + iniconfig==2.3.1
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0776017Z  + librt==0.16.0
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0776261Z  + mako==1.4.3
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0776502Z  + markupsafe==3.0.4
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0776880Z  + mypy==2.4.0
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0777145Z  + mypy-extensions==1.1.0
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0789694Z  + opentelemetry-api==1.45.1
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0790182Z  + opentelemetry-sdk==1.45.1
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0790889Z  + opentelemetry-semantic-conventions==0.66b1
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0791421Z  + packaging==26.3
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0791801Z  + pathspec==1.1.1
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0792127Z  + pluggy==1.7.0
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0792501Z  + prometheus-client==0.26.0
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0792891Z  + psycopg==3.3.6
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0793268Z  + psycopg-binary==3.3.6
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0793628Z  + pydantic==2.14.1
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0794003Z  + pydantic-core==2.50.1
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0794362Z  + pygments==2.21.0
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0794728Z  + pytest==9.1.1
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0795058Z  + pytest-asyncio==1.4.0
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0795433Z  + redis==8.1.0
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0795767Z  + regex==2026.9.29
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0796125Z  + requests==2.34.2
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0796450Z  + ruff==0.17.0
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0796802Z  + sqlalchemy==2.0.54
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0797273Z  + starlette==1.8.0
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0797524Z  + tiktoken==0.14.0
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0799087Z  + typing-extensions==4.16.0
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0799463Z  + typing-inspection==0.4.4
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0799758Z  + urllib3==2.8.0
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0800003Z  + uvicorn==0.54.0
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0865030Z ##[group]Run make prepare-tokenizer
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0865307Z ^[[36;1mmake prepare-tokenizer^[[0m
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0923815Z shell: /usr/bin/bash -e {0}
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0924015Z env:
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0924249Z   UV_PYTHON_INSTALL_DIR: /home/runner/work/_temp/uv-python-dir
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0924565Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+verify	UNKNOWN STEP	2026-10-28T05:04:21.0924811Z ##[endgroup]
+verify	UNKNOWN STEP	2026-10-28T05:04:21.1015721Z uv run --frozen python -c 'import tiktoken; tiktoken.get_encoding("o200k_base")'
+verify	UNKNOWN STEP	2026-10-28T05:04:22.3120851Z ##[group]Run make lint typecheck test-unit
+verify	UNKNOWN STEP	2026-10-28T05:04:22.3121268Z ^[[36;1mmake lint typecheck test-unit^[[0m
+verify	UNKNOWN STEP	2026-10-28T05:04:22.3181110Z shell: /usr/bin/bash -e {0}
+verify	UNKNOWN STEP	2026-10-28T05:04:22.3181322Z env:
+verify	UNKNOWN STEP	2026-10-28T05:04:22.3181551Z   UV_PYTHON_INSTALL_DIR: /home/runner/work/_temp/uv-python-dir
+verify	UNKNOWN STEP	2026-10-28T05:04:22.3181871Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+verify	UNKNOWN STEP	2026-10-28T05:04:22.3182120Z ##[endgroup]
+verify	UNKNOWN STEP	2026-10-28T05:04:22.3266011Z uv run --frozen ruff check .
+verify	UNKNOWN STEP	2026-10-28T05:04:22.3758731Z All checks passed!
+verify	UNKNOWN STEP	2026-10-28T05:04:22.3774182Z uv run --frozen ruff format --check .
+verify	UNKNOWN STEP	2026-10-28T05:04:22.4182037Z 193 files already formatted
+verify	UNKNOWN STEP	2026-10-28T05:04:22.4209708Z uv run --frozen mypy
+verify	UNKNOWN STEP	2026-10-28T05:04:29.1749157Z Success: no issues found in 158 source files
+verify	UNKNOWN STEP	2026-10-28T05:04:29.2014663Z uv run --frozen pytest tests/unit
+verify	UNKNOWN STEP	2026-10-28T05:04:31.5186681Z ============================= test session starts ==============================
+verify	UNKNOWN STEP	2026-10-28T05:04:31.5187666Z platform linux -- Python 3.14.8, pytest-9.1.1, pluggy-1.7.0
+verify	UNKNOWN STEP	2026-10-28T05:04:31.5189814Z rootdir: /home/runner/work/ai-task-execution-platform/ai-task-execution-platform
+verify	UNKNOWN STEP	2026-10-28T05:04:31.5190622Z configfile: pyproject.toml
+verify	UNKNOWN STEP	2026-10-28T05:04:31.5192842Z plugins: asyncio-1.4.0, anyio-4.15.1
+verify	UNKNOWN STEP	2026-10-28T05:04:31.5193872Z asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+verify	UNKNOWN STEP	2026-10-28T05:04:31.5194883Z collected 268 items
+verify	UNKNOWN STEP	2026-10-28T05:04:31.5208670Z
+verify	UNKNOWN STEP	2026-10-28T05:04:31.5340027Z tests/unit/test_agent_protocol.py ......................                 [  8%]
+verify	UNKNOWN STEP	2026-10-28T05:04:31.8039187Z tests/unit/test_backup_artifact.py .........                             [ 11%]
+verify	UNKNOWN STEP	2026-10-28T05:04:32.0860221Z tests/unit/test_cli_startup.py ....                                      [ 13%]
+verify	UNKNOWN STEP	2026-10-28T05:04:32.0906447Z tests/unit/test_command_boundaries.py ..........                         [ 16%]
+verify	UNKNOWN STEP	2026-10-28T05:04:32.3278048Z tests/unit/test_degraded_readiness.py ...                                [ 17%]
+verify	UNKNOWN STEP	2026-10-28T05:04:32.3478431Z tests/unit/test_event_cursor.py ..................................       [ 30%]
+verify	UNKNOWN STEP	2026-10-28T05:04:32.4515903Z tests/unit/test_event_hub.py ...                                         [ 31%]
+verify	UNKNOWN STEP	2026-10-28T05:04:32.4604159Z tests/unit/test_foundation.py ..........                                 [ 35%]
+verify	UNKNOWN STEP	2026-10-28T05:04:32.4707995Z tests/unit/test_load_metrics.py ............                             [ 39%]
+verify	UNKNOWN STEP	2026-10-28T05:04:32.4804304Z tests/unit/test_load_orchestration.py .                                  [ 40%]
+verify	UNKNOWN STEP	2026-10-28T05:04:32.6940915Z tests/unit/test_openai_smoke.py ...                                      [ 41%]
+verify	UNKNOWN STEP	2026-10-28T05:04:32.7004344Z tests/unit/test_operations.py ............                               [ 45%]
+verify	UNKNOWN STEP	2026-10-28T05:04:33.7660941Z tests/unit/test_provider_cli.py .....                                    [ 47%]
+verify	UNKNOWN STEP	2026-10-28T05:04:33.7810830Z tests/unit/test_rate_limits.py ...                                       [ 48%]
+verify	UNKNOWN STEP	2026-10-28T05:04:34.2163798Z tests/unit/test_recovery_cli.py .......                                  [ 51%]
+verify	UNKNOWN STEP	2026-10-28T05:04:34.2469800Z tests/unit/test_responses.py ...................................         [ 64%]
+verify	UNKNOWN STEP	2026-10-28T05:04:34.2599076Z tests/unit/test_retention_policy.py ..............................       [ 75%]
+verify	UNKNOWN STEP	2026-10-28T05:04:34.2634103Z tests/unit/test_secret_creation_race.py ..                               [ 76%]
+verify	UNKNOWN STEP	2026-10-28T05:04:34.3175867Z tests/unit/test_semantic_fixtures.py ................................... [ 89%]
+verify	UNKNOWN STEP	2026-10-28T05:04:34.3247564Z .....                                                                    [ 91%]
+verify	UNKNOWN STEP	2026-10-28T05:04:34.7083781Z tests/unit/test_sse_stream.py ..........                                 [ 95%]
+verify	UNKNOWN STEP	2026-10-28T05:04:35.7503626Z tests/unit/test_sse_tcp_lifetime.py .                                    [ 95%]
+verify	UNKNOWN STEP	2026-10-28T05:04:35.7613624Z tests/unit/test_supply_chain.py .                                        [ 95%]
+verify	UNKNOWN STEP	2026-10-28T05:04:39.9703871Z tests/unit/test_system_status.py .......                                 [ 98%]
+verify	UNKNOWN STEP	2026-10-28T05:04:39.9720557Z tests/unit/test_telemetry.py ..                                          [ 99%]
+verify	UNKNOWN STEP	2026-10-28T05:04:40.1197536Z tests/unit/test_transport_environment.py ..                              [100%]
+verify	UNKNOWN STEP	2026-10-28T05:04:40.1198155Z
+verify	UNKNOWN STEP	2026-10-28T05:04:40.1198566Z ============================= 268 passed in 10.20s =============================
+verify	UNKNOWN STEP	2026-10-28T05:04:40.4220003Z ##[group]Run make dev-secrets
+verify	UNKNOWN STEP	2026-10-28T05:04:40.4220257Z ^[[36;1mmake dev-secrets^[[0m
+verify	UNKNOWN STEP	2026-10-28T05:04:40.4276603Z shell: /usr/bin/bash -e {0}
+verify	UNKNOWN STEP	2026-10-28T05:04:40.4276820Z env:
+verify	UNKNOWN STEP	2026-10-28T05:04:40.4277052Z   UV_PYTHON_INSTALL_DIR: /home/runner/work/_temp/uv-python-dir
+verify	UNKNOWN STEP	2026-10-28T05:04:40.4277375Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+verify	UNKNOWN STEP	2026-10-28T05:04:40.4277628Z ##[endgroup]
+verify	UNKNOWN STEP	2026-10-28T05:04:40.4359728Z uv run --frozen python scripts/dev_secrets.py
+verify	UNKNOWN STEP	2026-10-28T05:04:40.4622734Z Created local secrets and execution epoch; no credential values displayed.
+verify	UNKNOWN STEP	2026-10-28T05:04:40.4665143Z uv run --frozen python scripts/demo_secrets.py
+verify	UNKNOWN STEP	2026-10-28T05:04:40.4983949Z ##[group]Run make test-integration
+verify	UNKNOWN STEP	2026-10-28T05:04:40.4984213Z ^[[36;1mmake test-integration^[[0m
+verify	UNKNOWN STEP	2026-10-28T05:04:40.5040957Z shell: /usr/bin/bash -e {0}
+verify	UNKNOWN STEP	2026-10-28T05:04:40.5041166Z env:
+verify	UNKNOWN STEP	2026-10-28T05:04:40.5041402Z   UV_PYTHON_INSTALL_DIR: /home/runner/work/_temp/uv-python-dir
+verify	UNKNOWN STEP	2026-10-28T05:04:40.5041730Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+verify	UNKNOWN STEP	2026-10-28T05:04:40.5041978Z ##[endgroup]
+verify	UNKNOWN STEP	2026-10-28T05:04:40.5125254Z docker compose -p atp-m1-test -f compose.yaml -f compose.demo.yaml -f compose.proxy.yaml up --build --wait api demo proxy
+verify	UNKNOWN STEP	2026-10-28T05:04:41.0849347Z  demo-db Pulling
+verify	UNKNOWN STEP	2026-10-28T05:04:41.0850901Z  redis Pulling
+verify	UNKNOWN STEP	2026-10-28T05:04:41.0855660Z  postgres Pulling
+verify	UNKNOWN STEP	2026-10-28T05:04:41.0856316Z  proxy Pulling
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3293764Z  abe1fea37542 Pulling fs layer
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3294445Z  3db098501f01 Pulling fs layer
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3294859Z  ca19d868f352 Pulling fs layer
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3295522Z  b89fb5fc7ff7 Pulling fs layer
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3296338Z  4b4668b306bc Pulling fs layer
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3296792Z  4f4fb700ef54 Pulling fs layer
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3297110Z  71e796aaa0ba Pulling fs layer
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3297538Z  b89fb5fc7ff7 Waiting
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3297942Z  4b4668b306bc Waiting
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3298626Z  4f4fb700ef54 Waiting
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3299935Z  71e796aaa0ba Waiting
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3334101Z  7fd1ebe418b5 Pulling fs layer
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3338772Z  a74c50568115 Pulling fs layer
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3339539Z  017b31e4ff27 Pulling fs layer
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3340072Z  146d06bcb573 Pulling fs layer
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3340554Z  e7e8da52359d Pulling fs layer
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3341111Z  d01ea4064291 Pulling fs layer
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3341858Z  6d0eb3c6cdb9 Pulling fs layer
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3342878Z  b1cc6947b8a6 Pulling fs layer
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3343754Z  e96ba86f00e5 Pulling fs layer
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3344478Z  a219b7b9b5d4 Pulling fs layer
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3345041Z  584b3a82e541 Pulling fs layer
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3345376Z  d254c075f128 Pulling fs layer
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3345702Z  fb616fac62de Pulling fs layer
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3346032Z  7f82c3d75427 Pulling fs layer
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3346355Z  7fd1ebe418b5 Waiting
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3346676Z  a74c50568115 Waiting
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3346975Z  017b31e4ff27 Waiting
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3347267Z  b1cc6947b8a6 Waiting
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3347566Z  e96ba86f00e5 Waiting
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3347866Z  a219b7b9b5d4 Waiting
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3348170Z  584b3a82e541 Waiting
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3348469Z  d254c075f128 Waiting
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3348761Z  146d06bcb573 Waiting
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3349303Z  fb616fac62de Waiting
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3349582Z  e7e8da52359d Waiting
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3349827Z  7f82c3d75427 Waiting
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3350070Z  d01ea4064291 Waiting
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3350298Z  6d0eb3c6cdb9 Waiting
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3365926Z  7fd1ebe418b5 Pulling fs layer
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3374510Z  a74c50568115 Pulling fs layer
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3375492Z  017b31e4ff27 Pulling fs layer
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3375819Z  146d06bcb573 Pulling fs layer
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3376129Z  e7e8da52359d Pulling fs layer
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3376788Z  d01ea4064291 Pulling fs layer
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3377003Z  6d0eb3c6cdb9 Pulling fs layer
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3377317Z  b1cc6947b8a6 Pulling fs layer
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3377533Z  e96ba86f00e5 Pulling fs layer
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3377784Z  a219b7b9b5d4 Pulling fs layer
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3378098Z  584b3a82e541 Pulling fs layer
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3378393Z  d254c075f128 Pulling fs layer
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3378635Z  fb616fac62de Pulling fs layer
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3379220Z  7f82c3d75427 Pulling fs layer
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3379521Z  7f82c3d75427 Waiting
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3379792Z  7fd1ebe418b5 Waiting
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3380055Z  a74c50568115 Waiting
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3380308Z  017b31e4ff27 Waiting
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3380796Z  146d06bcb573 Waiting
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3381070Z  e7e8da52359d Waiting
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3381326Z  d01ea4064291 Waiting
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3381592Z  6d0eb3c6cdb9 Waiting
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3381860Z  b1cc6947b8a6 Waiting
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3382126Z  e96ba86f00e5 Waiting
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3382389Z  584b3a82e541 Waiting
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3382645Z  a219b7b9b5d4 Waiting
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3382968Z  d254c075f128 Waiting
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3383323Z  fb616fac62de Waiting
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3403689Z  589002ba0eae Pulling fs layer
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3404240Z  1d9cbdb003be Pulling fs layer
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3404660Z  e914c6e98e37 Pulling fs layer
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3405040Z  d631a49fb4f7 Pulling fs layer
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3405451Z  8f7c784e2471 Pulling fs layer
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3405829Z  44fa0a5a779f Pulling fs layer
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3406249Z  98104829f3fe Pulling fs layer
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3406633Z  0151c82f84a9 Pulling fs layer
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3407040Z  589002ba0eae Waiting
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3407423Z  1d9cbdb003be Waiting
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3407818Z  e914c6e98e37 Waiting
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3408182Z  d631a49fb4f7 Waiting
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3408566Z  8f7c784e2471 Waiting
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3409183Z  44fa0a5a779f Waiting
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3409908Z  98104829f3fe Waiting
+verify	UNKNOWN STEP	2026-10-28T05:04:41.3410279Z  0151c82f84a9 Waiting
+verify	UNKNOWN STEP	2026-10-28T05:04:41.4220363Z  3db098501f01 Downloading [==================================================>]  1.102kB/1.102kB
+verify	UNKNOWN STEP	2026-10-28T05:04:41.4222137Z  3db098501f01 Verifying Checksum
+verify	UNKNOWN STEP	2026-10-28T05:04:41.4225616Z  3db098501f01 Download complete
+verify	UNKNOWN STEP	2026-10-28T05:04:41.4241884Z  ca19d868f352 Downloading [==================================================>]     874B/874B
+verify	UNKNOWN STEP	2026-10-28T05:04:41.4245677Z  ca19d868f352 Verifying Checksum
+verify	UNKNOWN STEP	2026-10-28T05:04:41.4246182Z  ca19d868f352 Download complete
+verify	UNKNOWN STEP	2026-10-28T05:04:41.4298266Z  abe1fea37542 Downloading [>                                                  ]  294.3kB/28.23MB
+verify	UNKNOWN STEP	2026-10-28T05:04:41.4570374Z  4b4668b306bc Downloading [==================================================>]      95B/95B
+verify	UNKNOWN STEP	2026-10-28T05:04:41.4575513Z  4b4668b306bc Verifying Checksum
+verify	UNKNOWN STEP	2026-10-28T05:04:41.4580615Z  4b4668b306bc Download complete
+verify	UNKNOWN STEP	2026-10-28T05:04:41.4609533Z  b89fb5fc7ff7 Downloading [>                                                  ]  243.1kB/24.21MB
+verify	UNKNOWN STEP	2026-10-28T05:04:41.4879502Z  4f4fb700ef54 Downloading [==================================================>]      32B/32B
+verify	UNKNOWN STEP	2026-10-28T05:04:41.4887277Z  4f4fb700ef54 Verifying Checksum
+verify	UNKNOWN STEP	2026-10-28T05:04:41.4890422Z  4f4fb700ef54 Download complete
+verify	UNKNOWN STEP	2026-10-28T05:04:41.5231348Z  71e796aaa0ba Downloading [==================================================>]  2.112kB/2.112kB
+verify	UNKNOWN STEP	2026-10-28T05:04:41.5236867Z  71e796aaa0ba Verifying Checksum
+verify	UNKNOWN STEP	2026-10-28T05:04:41.5238772Z  71e796aaa0ba Download complete
+verify	UNKNOWN STEP	2026-10-28T05:04:41.5289263Z  abe1fea37542 Verifying Checksum
+verify	UNKNOWN STEP	2026-10-28T05:04:41.5289785Z  abe1fea37542 Download complete
+verify	UNKNOWN STEP	2026-10-28T05:04:41.5551187Z  b89fb5fc7ff7 Verifying Checksum
+verify	UNKNOWN STEP	2026-10-28T05:04:41.5552626Z  b89fb5fc7ff7 Download complete
+verify	UNKNOWN STEP	2026-10-28T05:04:41.5688473Z  abe1fea37542 Extracting [>                                                  ]  294.9kB/28.23MB
+verify	UNKNOWN STEP	2026-10-28T05:04:41.5716135Z  7fd1ebe418b5 Downloading [>                                                  ]  294.3kB/28.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:41.5719417Z  7fd1ebe418b5 Downloading [>                                                  ]  294.3kB/28.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:41.5740414Z  a74c50568115 Downloading [==================================================>]  1.167kB/1.167kB
+verify	UNKNOWN STEP	2026-10-28T05:04:41.5741653Z  a74c50568115 Downloading [==================================================>]  1.167kB/1.167kB
+verify	UNKNOWN STEP	2026-10-28T05:04:41.5747562Z  a74c50568115 Verifying Checksum
+verify	UNKNOWN STEP	2026-10-28T05:04:41.5748212Z  a74c50568115 Verifying Checksum
+verify	UNKNOWN STEP	2026-10-28T05:04:41.5748636Z  a74c50568115 Download complete
+verify	UNKNOWN STEP	2026-10-28T05:04:41.5759646Z  a74c50568115 Download complete
+verify	UNKNOWN STEP	2026-10-28T05:04:41.5880757Z  017b31e4ff27 Downloading [>                                                  ]  48.51kB/4.534MB
+verify	UNKNOWN STEP	2026-10-28T05:04:41.5885898Z  017b31e4ff27 Downloading [>                                                  ]  48.51kB/4.534MB
+verify	UNKNOWN STEP	2026-10-28T05:04:41.6065000Z  146d06bcb573 Downloading [>                                                  ]  15.79kB/1.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:41.6067490Z  146d06bcb573 Downloading [>                                                  ]  15.79kB/1.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:41.6324372Z  017b31e4ff27 Verifying Checksum
+verify	UNKNOWN STEP	2026-10-28T05:04:41.6327448Z  017b31e4ff27 Verifying Checksum
+verify	UNKNOWN STEP	2026-10-28T05:04:41.6332714Z  017b31e4ff27 Download complete
+verify	UNKNOWN STEP	2026-10-28T05:04:41.6365626Z  017b31e4ff27 Download complete
+verify	UNKNOWN STEP	2026-10-28T05:04:41.6380228Z  146d06bcb573 Verifying Checksum
+verify	UNKNOWN STEP	2026-10-28T05:04:41.6383408Z  146d06bcb573 Verifying Checksum
+verify	UNKNOWN STEP	2026-10-28T05:04:41.6385465Z  146d06bcb573 Download complete
+verify	UNKNOWN STEP	2026-10-28T05:04:41.6388504Z  146d06bcb573 Download complete
+verify	UNKNOWN STEP	2026-10-28T05:04:41.6718245Z  e7e8da52359d Downloading [>                                                  ]  81.28kB/8.066MB
+verify	UNKNOWN STEP	2026-10-28T05:04:41.6719903Z  e7e8da52359d Downloading [>                                                  ]  81.28kB/8.066MB
+verify	UNKNOWN STEP	2026-10-28T05:04:41.6727352Z  7fd1ebe418b5 Downloading [=====================================>             ]  20.94MB/28.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:41.6728564Z  7fd1ebe418b5 Downloading [=====================================>             ]  20.94MB/28.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:41.6785808Z  abe1fea37542 Extracting [=====>                                             ]  2.949MB/28.23MB
+verify	UNKNOWN STEP	2026-10-28T05:04:41.6823386Z  d01ea4064291 Downloading [>                                                  ]  15.74kB/1.196MB
+verify	UNKNOWN STEP	2026-10-28T05:04:41.6831483Z  d01ea4064291 Downloading [>                                                  ]  15.74kB/1.196MB
+verify	UNKNOWN STEP	2026-10-28T05:04:41.7019225Z  7fd1ebe418b5 Verifying Checksum
+verify	UNKNOWN STEP	2026-10-28T05:04:41.7021450Z  7fd1ebe418b5 Verifying Checksum
+verify	UNKNOWN STEP	2026-10-28T05:04:41.7023063Z  7fd1ebe418b5 Download complete
+verify	UNKNOWN STEP	2026-10-28T05:04:41.7108446Z  7fd1ebe418b5 Download complete
+verify	UNKNOWN STEP	2026-10-28T05:04:41.7164225Z  d01ea4064291 Verifying Checksum
+verify	UNKNOWN STEP	2026-10-28T05:04:41.7164648Z  d01ea4064291 Verifying Checksum
+verify	UNKNOWN STEP	2026-10-28T05:04:41.7166163Z  d01ea4064291 Download complete
+verify	UNKNOWN STEP	2026-10-28T05:04:41.7169825Z  d01ea4064291 Download complete
+verify	UNKNOWN STEP	2026-10-28T05:04:41.7526211Z  e7e8da52359d Verifying Checksum
+verify	UNKNOWN STEP	2026-10-28T05:04:41.7526674Z  e7e8da52359d Verifying Checksum
+verify	UNKNOWN STEP	2026-10-28T05:04:41.7527364Z  e7e8da52359d Download complete
+verify	UNKNOWN STEP	2026-10-28T05:04:41.7530479Z  e7e8da52359d Download complete
+verify	UNKNOWN STEP	2026-10-28T05:04:41.7596658Z  7fd1ebe418b5 Extracting [>                                                  ]  294.9kB/28.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:41.7603129Z  7fd1ebe418b5 Extracting [>                                                  ]  294.9kB/28.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:41.7610681Z  b1cc6947b8a6 Downloading [==================================================>]  3.144kB/3.144kB
+verify	UNKNOWN STEP	2026-10-28T05:04:41.7616465Z  b1cc6947b8a6 Downloading [==================================================>]  3.144kB/3.144kB
+verify	UNKNOWN STEP	2026-10-28T05:04:41.7627165Z  b1cc6947b8a6 Verifying Checksum
+verify	UNKNOWN STEP	2026-10-28T05:04:41.7632300Z  b1cc6947b8a6 Verifying Checksum
+verify	UNKNOWN STEP	2026-10-28T05:04:41.7636956Z  b1cc6947b8a6 Download complete
+verify	UNKNOWN STEP	2026-10-28T05:04:41.7648005Z  b1cc6947b8a6 Download complete
+verify	UNKNOWN STEP	2026-10-28T05:04:41.7656514Z  6d0eb3c6cdb9 Downloading [==================================================>]     116B/116B
+verify	UNKNOWN STEP	2026-10-28T05:04:41.7661828Z  6d0eb3c6cdb9 Downloading [==================================================>]     116B/116B
+verify	UNKNOWN STEP	2026-10-28T05:04:41.7674398Z  6d0eb3c6cdb9 Verifying Checksum
+verify	UNKNOWN STEP	2026-10-28T05:04:41.7679232Z  6d0eb3c6cdb9 Verifying Checksum
+verify	UNKNOWN STEP	2026-10-28T05:04:41.7683949Z  6d0eb3c6cdb9 Download complete
+verify	UNKNOWN STEP	2026-10-28T05:04:41.7692664Z  6d0eb3c6cdb9 Download complete
+verify	UNKNOWN STEP	2026-10-28T05:04:41.7787163Z  abe1fea37542 Extracting [=========>                                         ]  5.308MB/28.23MB
+verify	UNKNOWN STEP	2026-10-28T05:04:41.8027664Z  584b3a82e541 Downloading [==================================================>]     128B/128B
+verify	UNKNOWN STEP	2026-10-28T05:04:41.8028557Z  584b3a82e541 Downloading [==================================================>]     128B/128B
+verify	UNKNOWN STEP	2026-10-28T05:04:41.8034296Z  584b3a82e541 Verifying Checksum
+verify	UNKNOWN STEP	2026-10-28T05:04:41.8034858Z  584b3a82e541 Verifying Checksum
+verify	UNKNOWN STEP	2026-10-28T05:04:41.8035336Z  584b3a82e541 Download complete
+verify	UNKNOWN STEP	2026-10-28T05:04:41.8043878Z  584b3a82e541 Download complete
+verify	UNKNOWN STEP	2026-10-28T05:04:41.8050357Z  a219b7b9b5d4 Downloading [================>                                  ]    3.5kB/10.36kB
+verify	UNKNOWN STEP	2026-10-28T05:04:41.8059909Z  a219b7b9b5d4 Downloading [================>                                  ]    3.5kB/10.36kB
+verify	UNKNOWN STEP	2026-10-28T05:04:41.8065010Z  a219b7b9b5d4 Downloading [==================================================>]  10.36kB/10.36kB
+verify	UNKNOWN STEP	2026-10-28T05:04:41.8067372Z  a219b7b9b5d4 Downloading [==================================================>]  10.36kB/10.36kB
+verify	UNKNOWN STEP	2026-10-28T05:04:41.8076590Z  a219b7b9b5d4 Verifying Checksum
+verify	UNKNOWN STEP	2026-10-28T05:04:41.8077000Z  a219b7b9b5d4 Verifying Checksum
+verify	UNKNOWN STEP	2026-10-28T05:04:41.8077453Z  a219b7b9b5d4 Download complete
+verify	UNKNOWN STEP	2026-10-28T05:04:41.8088096Z  a219b7b9b5d4 Download complete
+verify	UNKNOWN STEP	2026-10-28T05:04:41.8103166Z  e96ba86f00e5 Downloading [>                                                  ]  532.4kB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:41.8111126Z  e96ba86f00e5 Downloading [>                                                  ]  532.4kB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:41.8459338Z  fb616fac62de Downloading [============================>                      ]  3.501kB/6.109kB
+verify	UNKNOWN STEP	2026-10-28T05:04:41.8460140Z  fb616fac62de Downloading [==================================================>]  6.109kB/6.109kB
+verify	UNKNOWN STEP	2026-10-28T05:04:41.8460853Z  fb616fac62de Downloading [============================>                      ]  3.501kB/6.109kB
+verify	UNKNOWN STEP	2026-10-28T05:04:41.8461533Z  fb616fac62de Downloading [==================================================>]  6.109kB/6.109kB
+verify	UNKNOWN STEP	2026-10-28T05:04:41.8501041Z  fb616fac62de Verifying Checksum
+verify	UNKNOWN STEP	2026-10-28T05:04:41.8501481Z  fb616fac62de Download complete
+verify	UNKNOWN STEP	2026-10-28T05:04:41.8502232Z  fb616fac62de Verifying Checksum
+verify	UNKNOWN STEP	2026-10-28T05:04:41.8502645Z  fb616fac62de Download complete
+verify	UNKNOWN STEP	2026-10-28T05:04:41.8508005Z  d254c075f128 Downloading [==================================================>]     168B/168B
+verify	UNKNOWN STEP	2026-10-28T05:04:41.8510247Z  d254c075f128 Downloading [==================================================>]     168B/168B
+verify	UNKNOWN STEP	2026-10-28T05:04:41.8513036Z  d254c075f128 Verifying Checksum
+verify	UNKNOWN STEP	2026-10-28T05:04:41.8514942Z  d254c075f128 Verifying Checksum
+verify	UNKNOWN STEP	2026-10-28T05:04:41.8515949Z  d254c075f128 Download complete
+verify	UNKNOWN STEP	2026-10-28T05:04:41.8516533Z  d254c075f128 Download complete
+verify	UNKNOWN STEP	2026-10-28T05:04:41.8621849Z  7fd1ebe418b5 Extracting [=====>                                             ]  2.949MB/28.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:41.8626559Z  7fd1ebe418b5 Extracting [=====>                                             ]  2.949MB/28.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:41.8859251Z  abe1fea37542 Extracting [==============>                                    ]  8.258MB/28.23MB
+verify	UNKNOWN STEP	2026-10-28T05:04:41.8938740Z  7f82c3d75427 Downloading [==================================================>]     186B/186B
+verify	UNKNOWN STEP	2026-10-28T05:04:41.8950831Z  7f82c3d75427 Downloading [==================================================>]     186B/186B
+verify	UNKNOWN STEP	2026-10-28T05:04:41.8958282Z  7f82c3d75427 Verifying Checksum
+verify	UNKNOWN STEP	2026-10-28T05:04:41.8960857Z  7f82c3d75427 Verifying Checksum
+verify	UNKNOWN STEP	2026-10-28T05:04:41.8963321Z  7f82c3d75427 Download complete
+verify	UNKNOWN STEP	2026-10-28T05:04:41.8972162Z  7f82c3d75427 Download complete
+verify	UNKNOWN STEP	2026-10-28T05:04:41.9029999Z  589002ba0eae Downloading [>                                                  ]  48.51kB/3.862MB
+verify	UNKNOWN STEP	2026-10-28T05:04:41.9107062Z  e96ba86f00e5 Downloading [=====>                                             ]  11.74MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:41.9140239Z  e96ba86f00e5 Downloading [=====>                                             ]  11.74MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:41.9390763Z  1d9cbdb003be Downloading [>                                                  ]  32.13kB/1.834MB
+verify	UNKNOWN STEP	2026-10-28T05:04:41.9622896Z  7fd1ebe418b5 Extracting [=======>                                           ]  4.424MB/28.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:41.9625540Z  7fd1ebe418b5 Extracting [=======>                                           ]  4.424MB/28.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:41.9672697Z  589002ba0eae Verifying Checksum
+verify	UNKNOWN STEP	2026-10-28T05:04:41.9687356Z  589002ba0eae Download complete
+verify	UNKNOWN STEP	2026-10-28T05:04:41.9938593Z  589002ba0eae Extracting [>                                                  ]  65.54kB/3.862MB
+verify	UNKNOWN STEP	2026-10-28T05:04:42.0043761Z  abe1fea37542 Extracting [================>                                  ]  9.437MB/28.23MB
+verify	UNKNOWN STEP	2026-10-28T05:04:42.0126326Z  e96ba86f00e5 Downloading [=============>                                     ]  31.95MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:42.0127694Z  e96ba86f00e5 Downloading [=============>                                     ]  31.95MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:42.0278923Z  1d9cbdb003be Downloading [==================================================>]  1.834MB/1.834MB
+verify	UNKNOWN STEP	2026-10-28T05:04:42.0289289Z  1d9cbdb003be Verifying Checksum
+verify	UNKNOWN STEP	2026-10-28T05:04:42.0290254Z  1d9cbdb003be Download complete
+verify	UNKNOWN STEP	2026-10-28T05:04:42.0527070Z  e914c6e98e37 Downloading [==================================================>]     626B/626B
+verify	UNKNOWN STEP	2026-10-28T05:04:42.0543185Z  e914c6e98e37 Verifying Checksum
+verify	UNKNOWN STEP	2026-10-28T05:04:42.0548087Z  e914c6e98e37 Download complete
+verify	UNKNOWN STEP	2026-10-28T05:04:42.0635618Z  7fd1ebe418b5 Extracting [=========>                                         ]  5.603MB/28.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:42.0637000Z  7fd1ebe418b5 Extracting [=========>                                         ]  5.603MB/28.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:42.0830954Z  589002ba0eae Extracting [===========>                                       ]  917.5kB/3.862MB
+verify	UNKNOWN STEP	2026-10-28T05:04:42.1042146Z  d631a49fb4f7 Downloading [==================================================>]     956B/956B
+verify	UNKNOWN STEP	2026-10-28T05:04:42.1050280Z  d631a49fb4f7 Verifying Checksum
+verify	UNKNOWN STEP	2026-10-28T05:04:42.1055402Z  d631a49fb4f7 Download complete
+verify	UNKNOWN STEP	2026-10-28T05:04:42.1064851Z  abe1fea37542 Extracting [==================>                                ]  10.32MB/28.23MB
+verify	UNKNOWN STEP	2026-10-28T05:04:42.1129347Z  e96ba86f00e5 Downloading [======================>                            ]  51.61MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:42.1149559Z  e96ba86f00e5 Downloading [======================>                            ]  51.61MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:42.1156747Z  8f7c784e2471 Downloading [==================================================>]     405B/405B
+verify	UNKNOWN STEP	2026-10-28T05:04:42.1157563Z  8f7c784e2471 Verifying Checksum
+verify	UNKNOWN STEP	2026-10-28T05:04:42.1158048Z  8f7c784e2471 Download complete
+verify	UNKNOWN STEP	2026-10-28T05:04:42.1811648Z  7fd1ebe418b5 Extracting [============>                                      ]  7.078MB/28.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:42.1813392Z  98104829f3fe Downloading [==================================================>]  1.398kB/1.398kB
+verify	UNKNOWN STEP	2026-10-28T05:04:42.1814185Z  7fd1ebe418b5 Extracting [============>                                      ]  7.078MB/28.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:42.1823540Z  98104829f3fe Verifying Checksum
+verify	UNKNOWN STEP	2026-10-28T05:04:42.1823974Z  98104829f3fe Download complete
+verify	UNKNOWN STEP	2026-10-28T05:04:42.1844209Z  589002ba0eae Extracting [=========================>                         ]  1.966MB/3.862MB
+verify	UNKNOWN STEP	2026-10-28T05:04:42.2151085Z  e96ba86f00e5 Downloading [=================================>                 ]  77.08MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:42.2158125Z  e96ba86f00e5 Downloading [=================================>                 ]  77.08MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:42.2279395Z  abe1fea37542 Extracting [===================>                               ]  11.21MB/28.23MB
+verify	UNKNOWN STEP	2026-10-28T05:04:42.2281103Z  44fa0a5a779f Downloading [==================================================>]   1.21kB/1.21kB
+verify	UNKNOWN STEP	2026-10-28T05:04:42.2281900Z  44fa0a5a779f Verifying Checksum
+verify	UNKNOWN STEP	2026-10-28T05:04:42.2310609Z  44fa0a5a779f Download complete
+verify	UNKNOWN STEP	2026-10-28T05:04:42.2500440Z  0151c82f84a9 Downloading [>                                                  ]  212.4kB/20.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:42.2847277Z  7fd1ebe418b5 Extracting [===============>                                   ]  8.552MB/28.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:42.2849820Z  7fd1ebe418b5 Extracting [===============>                                   ]  8.552MB/28.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:42.2864015Z  589002ba0eae Extracting [===========================================>       ]  3.342MB/3.862MB
+verify	UNKNOWN STEP	2026-10-28T05:04:42.3148297Z  e96ba86f00e5 Downloading [============================================>      ]  101.5MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:42.3162179Z  e96ba86f00e5 Downloading [============================================>      ]  101.5MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:42.3387029Z  589002ba0eae Extracting [==================================================>]  3.862MB/3.862MB
+verify	UNKNOWN STEP	2026-10-28T05:04:42.3536455Z  0151c82f84a9 Downloading [======>                                            ]  2.555MB/20.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:42.3653158Z  abe1fea37542 Extracting [======================>                            ]  12.98MB/28.23MB
+verify	UNKNOWN STEP	2026-10-28T05:04:42.3660017Z  e96ba86f00e5 Verifying Checksum
+verify	UNKNOWN STEP	2026-10-28T05:04:42.3664659Z  e96ba86f00e5 Verifying Checksum
+verify	UNKNOWN STEP	2026-10-28T05:04:42.3669658Z  e96ba86f00e5 Download complete
+verify	UNKNOWN STEP	2026-10-28T05:04:42.3674521Z  e96ba86f00e5 Download complete
+verify	UNKNOWN STEP	2026-10-28T05:04:42.3845638Z  589002ba0eae Pull complete
+verify	UNKNOWN STEP	2026-10-28T05:04:42.3900992Z  1d9cbdb003be Extracting [>                                                  ]  32.77kB/1.834MB
+verify	UNKNOWN STEP	2026-10-28T05:04:42.4117019Z  7fd1ebe418b5 Extracting [================>                                  ]  9.437MB/28.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:42.4121024Z  7fd1ebe418b5 Extracting [================>                                  ]  9.437MB/28.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:42.4546464Z  0151c82f84a9 Downloading [========================>                          ]  10.01MB/20.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:42.4700048Z  abe1fea37542 Extracting [==========================>                        ]  15.04MB/28.23MB
+verify	UNKNOWN STEP	2026-10-28T05:04:42.4891094Z  1d9cbdb003be Extracting [===============================================>   ]  1.737MB/1.834MB
+verify	UNKNOWN STEP	2026-10-28T05:04:42.5018111Z  1d9cbdb003be Extracting [==================================================>]  1.834MB/1.834MB
+verify	UNKNOWN STEP	2026-10-28T05:04:42.5054846Z  0151c82f84a9 Verifying Checksum
+verify	UNKNOWN STEP	2026-10-28T05:04:42.5055267Z  0151c82f84a9 Download complete
+verify	UNKNOWN STEP	2026-10-28T05:04:42.5122059Z  7fd1ebe418b5 Extracting [==================>                                ]  10.62MB/28.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:42.5129554Z  7fd1ebe418b5 Extracting [==================>                                ]  10.62MB/28.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:42.5901777Z  abe1fea37542 Extracting [==============================>                    ]   17.1MB/28.23MB
+verify	UNKNOWN STEP	2026-10-28T05:04:42.6194767Z  7fd1ebe418b5 Extracting [========================>                          ]  13.57MB/28.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:42.6197138Z  7fd1ebe418b5 Extracting [========================>                          ]  13.57MB/28.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:42.6909685Z  abe1fea37542 Extracting [====================================>              ]  20.64MB/28.23MB
+verify	UNKNOWN STEP	2026-10-28T05:04:42.7244975Z  7fd1ebe418b5 Extracting [===============================>                   ]  17.69MB/28.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:42.7250160Z  7fd1ebe418b5 Extracting [===============================>                   ]  17.69MB/28.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:42.8319887Z  7fd1ebe418b5 Extracting [========================================>          ]     23MB/28.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:42.8320633Z  7fd1ebe418b5 Extracting [========================================>          ]     23MB/28.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:42.9282690Z  abe1fea37542 Extracting [==========================================>        ]  23.89MB/28.23MB
+verify	UNKNOWN STEP	2026-10-28T05:04:42.9902888Z  7fd1ebe418b5 Extracting [==========================================>        ]  23.89MB/28.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:42.9904037Z  7fd1ebe418b5 Extracting [==========================================>        ]  23.89MB/28.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:43.0650116Z  abe1fea37542 Extracting [===============================================>   ]  26.84MB/28.23MB
+verify	UNKNOWN STEP	2026-10-28T05:04:43.1322240Z  7fd1ebe418b5 Extracting [===============================================>   ]  26.84MB/28.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:43.1323337Z  7fd1ebe418b5 Extracting [===============================================>   ]  26.84MB/28.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:43.4140762Z  abe1fea37542 Extracting [================================================>  ]  27.43MB/28.23MB
+verify	UNKNOWN STEP	2026-10-28T05:04:43.4630198Z  7fd1ebe418b5 Extracting [================================================>  ]  27.43MB/28.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:43.4631791Z  7fd1ebe418b5 Extracting [================================================>  ]  27.43MB/28.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:43.5405844Z  abe1fea37542 Extracting [==================================================>]  28.23MB/28.23MB
+verify	UNKNOWN STEP	2026-10-28T05:04:43.5741998Z  7fd1ebe418b5 Extracting [==================================================>]  28.25MB/28.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:43.5747521Z  7fd1ebe418b5 Extracting [==================================================>]  28.25MB/28.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:44.8717534Z  7fd1ebe418b5 Pull complete
+verify	UNKNOWN STEP	2026-10-28T05:04:44.8717857Z  abe1fea37542 Pull complete
+verify	UNKNOWN STEP	2026-10-28T05:04:44.8718085Z  7fd1ebe418b5 Pull complete
+verify	UNKNOWN STEP	2026-10-28T05:04:45.3674708Z  3db098501f01 Extracting [==================================================>]  1.102kB/1.102kB
+verify	UNKNOWN STEP	2026-10-28T05:04:45.3675562Z  3db098501f01 Extracting [==================================================>]  1.102kB/1.102kB
+verify	UNKNOWN STEP	2026-10-28T05:04:45.6664450Z  a74c50568115 Extracting [==================================================>]  1.167kB/1.167kB
+verify	UNKNOWN STEP	2026-10-28T05:04:45.6669454Z  a74c50568115 Extracting [==================================================>]  1.167kB/1.167kB
+verify	UNKNOWN STEP	2026-10-28T05:04:45.6670412Z  a74c50568115 Extracting [==================================================>]  1.167kB/1.167kB
+verify	UNKNOWN STEP	2026-10-28T05:04:45.6671346Z  a74c50568115 Extracting [==================================================>]  1.167kB/1.167kB
+verify	UNKNOWN STEP	2026-10-28T05:04:47.1229844Z  a74c50568115 Pull complete
+verify	UNKNOWN STEP	2026-10-28T05:04:47.1230963Z  a74c50568115 Pull complete
+verify	UNKNOWN STEP	2026-10-28T05:04:47.2088305Z  017b31e4ff27 Extracting [>                                                  ]  65.54kB/4.534MB
+verify	UNKNOWN STEP	2026-10-28T05:04:47.2089460Z  017b31e4ff27 Extracting [>                                                  ]  65.54kB/4.534MB
+verify	UNKNOWN STEP	2026-10-28T05:04:47.7047396Z  017b31e4ff27 Extracting [==>                                                ]  262.1kB/4.534MB
+verify	UNKNOWN STEP	2026-10-28T05:04:47.7048538Z  017b31e4ff27 Extracting [==>                                                ]  262.1kB/4.534MB
+verify	UNKNOWN STEP	2026-10-28T05:04:47.9230905Z  017b31e4ff27 Extracting [=================================>                 ]   3.08MB/4.534MB
+verify	UNKNOWN STEP	2026-10-28T05:04:47.9232049Z  017b31e4ff27 Extracting [=================================>                 ]   3.08MB/4.534MB
+verify	UNKNOWN STEP	2026-10-28T05:04:47.9711911Z  017b31e4ff27 Extracting [==================================================>]  4.534MB/4.534MB
+verify	UNKNOWN STEP	2026-10-28T05:04:47.9712986Z  017b31e4ff27 Extracting [==================================================>]  4.534MB/4.534MB
+verify	UNKNOWN STEP	2026-10-28T05:04:48.4098472Z  3db098501f01 Pull complete
+verify	UNKNOWN STEP	2026-10-28T05:04:48.4099043Z  1d9cbdb003be Pull complete
+verify	UNKNOWN STEP	2026-10-28T05:04:48.4114127Z  017b31e4ff27 Pull complete
+verify	UNKNOWN STEP	2026-10-28T05:04:48.4114595Z  017b31e4ff27 Pull complete
+verify	UNKNOWN STEP	2026-10-28T05:04:48.4122153Z  e914c6e98e37 Extracting [==================================================>]     626B/626B
+verify	UNKNOWN STEP	2026-10-28T05:04:48.4130582Z  e914c6e98e37 Extracting [==================================================>]     626B/626B
+verify	UNKNOWN STEP	2026-10-28T05:04:48.4149079Z  ca19d868f352 Extracting [==================================================>]     874B/874B
+verify	UNKNOWN STEP	2026-10-28T05:04:48.4149783Z  ca19d868f352 Extracting [==================================================>]     874B/874B
+verify	UNKNOWN STEP	2026-10-28T05:04:48.4163801Z  146d06bcb573 Extracting [=>                                                 ]  32.77kB/1.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:48.4164957Z  146d06bcb573 Extracting [=>                                                 ]  32.77kB/1.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:48.4345495Z  e914c6e98e37 Pull complete
+verify	UNKNOWN STEP	2026-10-28T05:04:48.4399449Z  d631a49fb4f7 Extracting [==================================================>]     956B/956B
+verify	UNKNOWN STEP	2026-10-28T05:04:48.4402894Z  d631a49fb4f7 Extracting [==================================================>]     956B/956B
+verify	UNKNOWN STEP	2026-10-28T05:04:48.4427478Z  ca19d868f352 Pull complete
+verify	UNKNOWN STEP	2026-10-28T05:04:48.4726174Z  d631a49fb4f7 Pull complete
+verify	UNKNOWN STEP	2026-10-28T05:04:48.4785917Z  b89fb5fc7ff7 Extracting [>                                                  ]  262.1kB/24.21MB
+verify	UNKNOWN STEP	2026-10-28T05:04:48.4786905Z  8f7c784e2471 Extracting [==================================================>]     405B/405B
+verify	UNKNOWN STEP	2026-10-28T05:04:48.4788115Z  8f7c784e2471 Extracting [==================================================>]     405B/405B
+verify	UNKNOWN STEP	2026-10-28T05:04:48.4981115Z  146d06bcb573 Extracting [==================================================>]   1.25MB/1.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:48.4982282Z  146d06bcb573 Extracting [==================================================>]   1.25MB/1.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:48.5188701Z  8f7c784e2471 Pull complete
+verify	UNKNOWN STEP	2026-10-28T05:04:48.5208165Z  44fa0a5a779f Extracting [==================================================>]   1.21kB/1.21kB
+verify	UNKNOWN STEP	2026-10-28T05:04:48.5224077Z  44fa0a5a779f Extracting [==================================================>]   1.21kB/1.21kB
+verify	UNKNOWN STEP	2026-10-28T05:04:48.5780101Z  146d06bcb573 Pull complete
+verify	UNKNOWN STEP	2026-10-28T05:04:48.5780645Z  146d06bcb573 Pull complete
+verify	UNKNOWN STEP	2026-10-28T05:04:48.5806088Z  44fa0a5a779f Pull complete
+verify	UNKNOWN STEP	2026-10-28T05:04:48.5815242Z  e7e8da52359d Extracting [>                                                  ]   98.3kB/8.066MB
+verify	UNKNOWN STEP	2026-10-28T05:04:48.5835889Z  98104829f3fe Extracting [==================================================>]  1.398kB/1.398kB
+verify	UNKNOWN STEP	2026-10-28T05:04:48.5837799Z  98104829f3fe Extracting [==================================================>]  1.398kB/1.398kB
+verify	UNKNOWN STEP	2026-10-28T05:04:48.5855364Z  b89fb5fc7ff7 Extracting [=====>                                             ]  2.621MB/24.21MB
+verify	UNKNOWN STEP	2026-10-28T05:04:48.5948651Z  e7e8da52359d Extracting [>                                                  ]   98.3kB/8.066MB
+verify	UNKNOWN STEP	2026-10-28T05:04:48.5990216Z  98104829f3fe Pull complete
+verify	UNKNOWN STEP	2026-10-28T05:04:48.6401269Z  0151c82f84a9 Extracting [>                                                  ]  229.4kB/20.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:48.6841052Z  e7e8da52359d Extracting [===============>                                   ]  2.556MB/8.066MB
+verify	UNKNOWN STEP	2026-10-28T05:04:48.6843677Z  e7e8da52359d Extracting [===============>                                   ]  2.556MB/8.066MB
+verify	UNKNOWN STEP	2026-10-28T05:04:48.7026141Z  b89fb5fc7ff7 Extracting [==========>                                        ]  4.981MB/24.21MB
+verify	UNKNOWN STEP	2026-10-28T05:04:48.7420723Z  0151c82f84a9 Extracting [====>                                              ]  1.835MB/20.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:48.7911156Z  e7e8da52359d Extracting [========================>                          ]  3.932MB/8.066MB
+verify	UNKNOWN STEP	2026-10-28T05:04:48.7912065Z  e7e8da52359d Extracting [========================>                          ]  3.932MB/8.066MB
+verify	UNKNOWN STEP	2026-10-28T05:04:48.8111711Z  b89fb5fc7ff7 Extracting [================>                                  ]  8.126MB/24.21MB
+verify	UNKNOWN STEP	2026-10-28T05:04:48.8445930Z  0151c82f84a9 Extracting [=============>                                     ]  5.505MB/20.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:48.8910352Z  e7e8da52359d Extracting [===============================>                   ]  5.014MB/8.066MB
+verify	UNKNOWN STEP	2026-10-28T05:04:48.8922479Z  e7e8da52359d Extracting [===============================>                   ]  5.014MB/8.066MB
+verify	UNKNOWN STEP	2026-10-28T05:04:48.9173491Z  b89fb5fc7ff7 Extracting [=========================>                         ]  12.32MB/24.21MB
+verify	UNKNOWN STEP	2026-10-28T05:04:48.9474139Z  0151c82f84a9 Extracting [======================>                            ]  9.175MB/20.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:48.9934415Z  e7e8da52359d Extracting [=====================================>             ]  5.997MB/8.066MB
+verify	UNKNOWN STEP	2026-10-28T05:04:48.9935227Z  e7e8da52359d Extracting [=====================================>             ]  5.997MB/8.066MB
+verify	UNKNOWN STEP	2026-10-28T05:04:49.0245251Z  b89fb5fc7ff7 Extracting [===============================>                   ]  15.47MB/24.21MB
+verify	UNKNOWN STEP	2026-10-28T05:04:49.0540473Z  0151c82f84a9 Extracting [==============================>                    ]  12.39MB/20.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:49.0993866Z  e7e8da52359d Extracting [=================================================> ]  8.061MB/8.066MB
+verify	UNKNOWN STEP	2026-10-28T05:04:49.0996764Z  e7e8da52359d Extracting [==================================================>]  8.066MB/8.066MB
+verify	UNKNOWN STEP	2026-10-28T05:04:49.1004492Z  e7e8da52359d Extracting [==================================================>]  8.066MB/8.066MB
+verify	UNKNOWN STEP	2026-10-28T05:04:49.1283575Z  b89fb5fc7ff7 Extracting [====================================>              ]  17.83MB/24.21MB
+verify	UNKNOWN STEP	2026-10-28T05:04:49.1562428Z  0151c82f84a9 Extracting [======================================>            ]   15.6MB/20.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:49.2357140Z  b89fb5fc7ff7 Extracting [===============================================>   ]  22.81MB/24.21MB
+verify	UNKNOWN STEP	2026-10-28T05:04:49.3492045Z  b89fb5fc7ff7 Extracting [=================================================> ]  23.86MB/24.21MB
+verify	UNKNOWN STEP	2026-10-28T05:04:49.3574691Z  0151c82f84a9 Extracting [=================================================> ]  20.19MB/20.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:49.3592600Z  b89fb5fc7ff7 Extracting [==================================================>]  24.21MB/24.21MB
+verify	UNKNOWN STEP	2026-10-28T05:04:49.9523289Z  0151c82f84a9 Extracting [==================================================>]  20.25MB/20.25MB
+verify	UNKNOWN STEP	2026-10-28T05:04:50.6102298Z  e7e8da52359d Pull complete
+verify	UNKNOWN STEP	2026-10-28T05:04:50.6103765Z  b89fb5fc7ff7 Pull complete
+verify	UNKNOWN STEP	2026-10-28T05:04:50.6104256Z  e7e8da52359d Pull complete
+verify	UNKNOWN STEP	2026-10-28T05:04:50.6105055Z  0151c82f84a9 Pull complete
+verify	UNKNOWN STEP	2026-10-28T05:04:50.6123017Z  d01ea4064291 Extracting [=>                                                 ]  32.77kB/1.196MB
+verify	UNKNOWN STEP	2026-10-28T05:04:50.6124296Z  d01ea4064291 Extracting [=>                                                 ]  32.77kB/1.196MB
+verify	UNKNOWN STEP	2026-10-28T05:04:50.6173844Z  4b4668b306bc Extracting [==================================================>]      95B/95B
+verify	UNKNOWN STEP	2026-10-28T05:04:50.6183817Z  4b4668b306bc Extracting [==================================================>]      95B/95B
+verify	UNKNOWN STEP	2026-10-28T05:04:50.6259519Z  proxy Pulled
+verify	UNKNOWN STEP	2026-10-28T05:04:50.6372336Z  4b4668b306bc Pull complete
+verify	UNKNOWN STEP	2026-10-28T05:04:50.6389585Z  4f4fb700ef54 Extracting [==================================================>]      32B/32B
+verify	UNKNOWN STEP	2026-10-28T05:04:50.6409913Z  4f4fb700ef54 Extracting [==================================================>]      32B/32B
+verify	UNKNOWN STEP	2026-10-28T05:04:50.6640499Z  4f4fb700ef54 Pull complete
+verify	UNKNOWN STEP	2026-10-28T05:04:50.6657679Z  71e796aaa0ba Extracting [==================================================>]  2.112kB/2.112kB
+verify	UNKNOWN STEP	2026-10-28T05:04:50.6669499Z  71e796aaa0ba Extracting [==================================================>]  2.112kB/2.112kB
+verify	UNKNOWN STEP	2026-10-28T05:04:50.7023574Z  71e796aaa0ba Pull complete
+verify	UNKNOWN STEP	2026-10-28T05:04:50.7047272Z  d01ea4064291 Extracting [==================================================>]  1.196MB/1.196MB
+verify	UNKNOWN STEP	2026-10-28T05:04:50.7048626Z  d01ea4064291 Extracting [==================================================>]  1.196MB/1.196MB
+verify	UNKNOWN STEP	2026-10-28T05:04:50.7093514Z  redis Pulled
+verify	UNKNOWN STEP	2026-10-28T05:04:50.7120861Z  d01ea4064291 Extracting [==================================================>]  1.196MB/1.196MB
+verify	UNKNOWN STEP	2026-10-28T05:04:50.7121761Z  d01ea4064291 Extracting [==================================================>]  1.196MB/1.196MB
+verify	UNKNOWN STEP	2026-10-28T05:04:50.7659286Z  d01ea4064291 Pull complete
+verify	UNKNOWN STEP	2026-10-28T05:04:50.7661559Z  d01ea4064291 Pull complete
+verify	UNKNOWN STEP	2026-10-28T05:04:50.7670602Z  6d0eb3c6cdb9 Extracting [==================================================>]     116B/116B
+verify	UNKNOWN STEP	2026-10-28T05:04:50.7671342Z  6d0eb3c6cdb9 Extracting [==================================================>]     116B/116B
+verify	UNKNOWN STEP	2026-10-28T05:04:50.7675092Z  6d0eb3c6cdb9 Extracting [==================================================>]     116B/116B
+verify	UNKNOWN STEP	2026-10-28T05:04:50.7678609Z  6d0eb3c6cdb9 Extracting [==================================================>]     116B/116B
+verify	UNKNOWN STEP	2026-10-28T05:04:50.7736376Z  6d0eb3c6cdb9 Pull complete
+verify	UNKNOWN STEP	2026-10-28T05:04:50.7737081Z  6d0eb3c6cdb9 Pull complete
+verify	UNKNOWN STEP	2026-10-28T05:04:50.7745645Z  b1cc6947b8a6 Extracting [==================================================>]  3.144kB/3.144kB
+verify	UNKNOWN STEP	2026-10-28T05:04:50.7753121Z  b1cc6947b8a6 Extracting [==================================================>]  3.144kB/3.144kB
+verify	UNKNOWN STEP	2026-10-28T05:04:50.7756792Z  b1cc6947b8a6 Extracting [==================================================>]  3.144kB/3.144kB
+verify	UNKNOWN STEP	2026-10-28T05:04:50.7757602Z  b1cc6947b8a6 Extracting [==================================================>]  3.144kB/3.144kB
+verify	UNKNOWN STEP	2026-10-28T05:04:50.7868733Z  b1cc6947b8a6 Pull complete
+verify	UNKNOWN STEP	2026-10-28T05:04:50.7870626Z  b1cc6947b8a6 Pull complete
+verify	UNKNOWN STEP	2026-10-28T05:04:50.8318600Z  e96ba86f00e5 Extracting [>                                                  ]  557.1kB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:50.8321660Z  e96ba86f00e5 Extracting [>                                                  ]  557.1kB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:50.9356845Z  e96ba86f00e5 Extracting [==>                                                ]  6.128MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:50.9360846Z  e96ba86f00e5 Extracting [==>                                                ]  6.128MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:51.0371586Z  e96ba86f00e5 Extracting [====>                                              ]  10.58MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:51.0397521Z  e96ba86f00e5 Extracting [====>                                              ]  10.58MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:51.1410418Z  e96ba86f00e5 Extracting [======>                                            ]  15.04MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:51.1415520Z  e96ba86f00e5 Extracting [======>                                            ]  15.04MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:51.2490560Z  e96ba86f00e5 Extracting [========>                                          ]  20.05MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:51.2491375Z  e96ba86f00e5 Extracting [========>                                          ]  20.05MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:51.3521651Z  e96ba86f00e5 Extracting [===========>                                       ]  25.62MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:51.3522393Z  e96ba86f00e5 Extracting [===========>                                       ]  25.62MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:51.4561897Z  e96ba86f00e5 Extracting [==============>                                    ]  34.54MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:51.4562745Z  e96ba86f00e5 Extracting [==============>                                    ]  34.54MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:51.5618428Z  e96ba86f00e5 Extracting [===================>                               ]  44.01MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:51.5619077Z  e96ba86f00e5 Extracting [===================>                               ]  44.01MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:51.6628223Z  e96ba86f00e5 Extracting [======================>                            ]  52.92MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:51.6807803Z  e96ba86f00e5 Extracting [======================>                            ]  52.92MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:51.7720617Z  e96ba86f00e5 Extracting [=========================>                         ]  58.49MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:51.7721807Z  e96ba86f00e5 Extracting [=========================>                         ]  58.49MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:51.8760454Z  e96ba86f00e5 Extracting [============================>                      ]  65.18MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:51.8762574Z  e96ba86f00e5 Extracting [============================>                      ]  65.18MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:51.9777500Z  e96ba86f00e5 Extracting [================================>                  ]  75.76MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:51.9780971Z  e96ba86f00e5 Extracting [================================>                  ]  75.76MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:52.0819484Z  e96ba86f00e5 Extracting [====================================>              ]  84.12MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:52.0822131Z  e96ba86f00e5 Extracting [====================================>              ]  84.12MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:52.1840717Z  e96ba86f00e5 Extracting [========================================>          ]  93.03MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:52.1841468Z  e96ba86f00e5 Extracting [========================================>          ]  93.03MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:52.3009644Z  e96ba86f00e5 Extracting [==========================================>        ]  98.04MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:52.3011517Z  e96ba86f00e5 Extracting [==========================================>        ]  98.04MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:52.4080832Z  e96ba86f00e5 Extracting [============================================>      ]  101.9MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:52.4082222Z  e96ba86f00e5 Extracting [============================================>      ]  101.9MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:52.5936550Z  e96ba86f00e5 Extracting [============================================>      ]  103.1MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:52.5937440Z  e96ba86f00e5 Extracting [============================================>      ]  103.1MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:52.6955820Z  e96ba86f00e5 Extracting [==============================================>    ]    107MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:52.6957567Z  e96ba86f00e5 Extracting [==============================================>    ]    107MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:52.7986380Z  e96ba86f00e5 Extracting [===============================================>   ]  109.7MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:52.7987802Z  e96ba86f00e5 Extracting [===============================================>   ]  109.7MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:52.9364759Z  e96ba86f00e5 Extracting [================================================>  ]    112MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:52.9365449Z  e96ba86f00e5 Extracting [================================================>  ]    112MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:53.1310084Z  e96ba86f00e5 Extracting [=================================================> ]  113.6MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:53.1312413Z  e96ba86f00e5 Extracting [=================================================> ]  113.6MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:53.2475936Z  e96ba86f00e5 Extracting [==================================================>]  115.2MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:53.2476888Z  e96ba86f00e5 Extracting [==================================================>]  115.2MB/115.2MB
+verify	UNKNOWN STEP	2026-10-28T05:04:56.6440081Z  e96ba86f00e5 Pull complete
+verify	UNKNOWN STEP	2026-10-28T05:04:56.6441539Z  e96ba86f00e5 Pull complete
+verify	UNKNOWN STEP	2026-10-28T05:04:56.6450776Z  a219b7b9b5d4 Extracting [==================================================>]  10.36kB/10.36kB
+verify	UNKNOWN STEP	2026-10-28T05:04:56.6454174Z  a219b7b9b5d4 Extracting [==================================================>]  10.36kB/10.36kB
+verify	UNKNOWN STEP	2026-10-28T05:04:56.6458515Z  a219b7b9b5d4 Extracting [==================================================>]  10.36kB/10.36kB
+verify	UNKNOWN STEP	2026-10-28T05:04:56.6460389Z  a219b7b9b5d4 Extracting [==================================================>]  10.36kB/10.36kB
+verify	UNKNOWN STEP	2026-10-28T05:04:56.6619847Z  a219b7b9b5d4 Pull complete
+verify	UNKNOWN STEP	2026-10-28T05:04:56.6620235Z  a219b7b9b5d4 Pull complete
+verify	UNKNOWN STEP	2026-10-28T05:04:56.6630950Z  584b3a82e541 Extracting [==================================================>]     128B/128B
+verify	UNKNOWN STEP	2026-10-28T05:04:56.6635855Z  584b3a82e541 Extracting [==================================================>]     128B/128B
+verify	UNKNOWN STEP	2026-10-28T05:04:56.6636843Z  584b3a82e541 Extracting [==================================================>]     128B/128B
+verify	UNKNOWN STEP	2026-10-28T05:04:56.6637548Z  584b3a82e541 Extracting [==================================================>]     128B/128B
+verify	UNKNOWN STEP	2026-10-28T05:04:56.6802175Z  584b3a82e541 Pull complete
+verify	UNKNOWN STEP	2026-10-28T05:04:56.6802637Z  584b3a82e541 Pull complete
+verify	UNKNOWN STEP	2026-10-28T05:04:56.6813656Z  d254c075f128 Extracting [==================================================>]     168B/168B
+verify	UNKNOWN STEP	2026-10-28T05:04:56.6815622Z  d254c075f128 Extracting [==================================================>]     168B/168B
+verify	UNKNOWN STEP	2026-10-28T05:04:56.6816693Z  d254c075f128 Extracting [==================================================>]     168B/168B
+verify	UNKNOWN STEP	2026-10-28T05:04:56.6817502Z  d254c075f128 Extracting [==================================================>]     168B/168B
+verify	UNKNOWN STEP	2026-10-28T05:04:56.7770580Z  d254c075f128 Pull complete
+verify	UNKNOWN STEP	2026-10-28T05:04:56.7771138Z  d254c075f128 Pull complete
+verify	UNKNOWN STEP	2026-10-28T05:04:56.7779681Z  fb616fac62de Extracting [==================================================>]  6.109kB/6.109kB
+verify	UNKNOWN STEP	2026-10-28T05:04:56.7783561Z  fb616fac62de Extracting [==================================================>]  6.109kB/6.109kB
+verify	UNKNOWN STEP	2026-10-28T05:04:56.7784778Z  fb616fac62de Extracting [==================================================>]  6.109kB/6.109kB
+verify	UNKNOWN STEP	2026-10-28T05:04:56.7791674Z  fb616fac62de Extracting [==================================================>]  6.109kB/6.109kB
+verify	UNKNOWN STEP	2026-10-28T05:04:56.7885293Z  fb616fac62de Pull complete
+verify	UNKNOWN STEP	2026-10-28T05:04:56.7887708Z  fb616fac62de Pull complete
+verify	UNKNOWN STEP	2026-10-28T05:04:56.7903486Z  7f82c3d75427 Extracting [==================================================>]     186B/186B
+verify	UNKNOWN STEP	2026-10-28T05:04:56.7905050Z  7f82c3d75427 Extracting [==================================================>]     186B/186B
+verify	UNKNOWN STEP	2026-10-28T05:04:56.7907248Z  7f82c3d75427 Extracting [==================================================>]     186B/186B
+verify	UNKNOWN STEP	2026-10-28T05:04:56.7977788Z  7f82c3d75427 Pull complete
+verify	UNKNOWN STEP	2026-10-28T05:04:56.7978674Z  7f82c3d75427 Pull complete
+verify	UNKNOWN STEP	2026-10-28T05:04:56.8055294Z  demo-db Pulled
+verify	UNKNOWN STEP	2026-10-28T05:04:56.8055637Z  postgres Pulled
+verify	UNKNOWN STEP	2026-10-28T05:04:57.5420137Z #1 [internal] load local bake definitions
+verify	UNKNOWN STEP	2026-10-28T05:04:57.6925155Z #1 reading from stdin 1.65kB done
+verify	UNKNOWN STEP	2026-10-28T05:04:57.6931197Z #1 DONE 0.0s
+verify	UNKNOWN STEP	2026-10-28T05:04:57.8921772Z
+verify	UNKNOWN STEP	2026-10-28T05:04:57.8922822Z #2 [demo internal] load build definition from Dockerfile
+verify	UNKNOWN STEP	2026-10-28T05:04:57.8923361Z #2 transferring dockerfile: 1.46kB 0.0s done
+verify	UNKNOWN STEP	2026-10-28T05:04:58.0741145Z #2 DONE 0.1s
+verify	UNKNOWN STEP	2026-10-28T05:04:58.0741575Z
+verify	UNKNOWN STEP	2026-10-28T05:04:58.0741922Z #3 [auth] library/python:pull token for registry-1.docker.io
+verify	UNKNOWN STEP	2026-10-28T05:04:58.0742742Z #3 DONE 0.0s
+verify	UNKNOWN STEP	2026-10-28T05:04:58.0742890Z
+verify	UNKNOWN STEP	2026-10-28T05:04:58.0743537Z #4 [migrate internal] load metadata for docker.io/library/python:3.14.8-slim-bookworm@sha256:48b13b003dda20b16f9442b8475aa05fe21bf6579a8c881db92ffb4d8fd20f83
+verify	UNKNOWN STEP	2026-10-28T05:04:58.6100392Z #4 DONE 0.6s
+verify	UNKNOWN STEP	2026-10-28T05:04:58.6100791Z
+verify	UNKNOWN STEP	2026-10-28T05:04:58.6101225Z #5 [demo internal] load .dockerignore
+verify	UNKNOWN STEP	2026-10-28T05:04:58.6101634Z #5 transferring context: 135B done
+verify	UNKNOWN STEP	2026-10-28T05:04:58.7524343Z #5 DONE 0.1s
+verify	UNKNOWN STEP	2026-10-28T05:04:58.7524583Z
+verify	UNKNOWN STEP	2026-10-28T05:04:58.7524738Z #6 [demo internal] load build context
+verify	UNKNOWN STEP	2026-10-28T05:04:58.7525132Z #6 transferring context: 510.06kB 0.0s done
+verify	UNKNOWN STEP	2026-10-28T05:04:58.7525478Z #6 DONE 0.0s
+verify	UNKNOWN STEP	2026-10-28T05:04:58.7525618Z
+verify	UNKNOWN STEP	2026-10-28T05:04:58.7526214Z #7 [migrate build 1/7] FROM docker.io/library/python:3.14.8-slim-bookworm@sha256:48b13b003dda20b16f9442b8475aa05fe21bf6579a8c881db92ffb4d8fd20f83
+verify	UNKNOWN STEP	2026-10-28T05:04:58.7527379Z #7 resolve docker.io/library/python:3.14.8-slim-bookworm@sha256:48b13b003dda20b16f9442b8475aa05fe21bf6579a8c881db92ffb4d8fd20f83 0.0s done
+verify	UNKNOWN STEP	2026-10-28T05:04:58.7528222Z #7 sha256:ea95d2ab382ff97ec2d6ac25327d00c3f08fe2877dfa8ab6cb9cfb7e4245185a 0B / 3.34MB 0.1s
+verify	UNKNOWN STEP	2026-10-28T05:04:58.7528710Z #7 sha256:902d5fe0cd9225c8c113f6af022b926275f3c1851e7c81a0ab561f11580230eb 0B / 15.34MB 0.1s
+verify	UNKNOWN STEP	2026-10-28T05:04:58.7529607Z #7 sha256:496c1a902b3a93cea3e54b90b79dbcaa0e58ad90c3fe9dd0a43c9557dc47f17d 0B / 250B 0.1s
+verify	UNKNOWN STEP	2026-10-28T05:04:58.7530370Z #7 sha256:48b13b003dda20b16f9442b8475aa05fe21bf6579a8c881db92ffb4d8fd20f83 6.54kB / 6.54kB done
+verify	UNKNOWN STEP	2026-10-28T05:04:58.7531073Z #7 sha256:a66d3a463d0be3cc537c269b0d3418746dda512417a975559a0eaa8a6406baaf 1.75kB / 1.75kB done
+verify	UNKNOWN STEP	2026-10-28T05:04:58.7531583Z #7 sha256:82cd6bca489be723b62b192752c133eb7c6acbcecaeca797628725d994998c5b 4.96kB / 4.96kB done
+verify	UNKNOWN STEP	2026-10-28T05:04:58.9361299Z #7 sha256:ea95d2ab382ff97ec2d6ac25327d00c3f08fe2877dfa8ab6cb9cfb7e4245185a 3.34MB / 3.34MB 0.2s done
+verify	UNKNOWN STEP	2026-10-28T05:04:58.9362131Z #7 sha256:902d5fe0cd9225c8c113f6af022b926275f3c1851e7c81a0ab561f11580230eb 15.34MB / 15.34MB 0.3s
+verify	UNKNOWN STEP	2026-10-28T05:04:58.9362987Z #7 sha256:496c1a902b3a93cea3e54b90b79dbcaa0e58ad90c3fe9dd0a43c9557dc47f17d 250B / 250B 0.1s done
+verify	UNKNOWN STEP	2026-10-28T05:04:58.9363818Z #7 sha256:48b13b003dda20b16f9442b8475aa05fe21bf6579a8c881db92ffb4d8fd20f83 6.54kB / 6.54kB done
+verify	UNKNOWN STEP	2026-10-28T05:04:58.9364602Z #7 sha256:a66d3a463d0be3cc537c269b0d3418746dda512417a975559a0eaa8a6406baaf 1.75kB / 1.75kB done
+verify	UNKNOWN STEP	2026-10-28T05:04:58.9365384Z #7 sha256:82cd6bca489be723b62b192752c133eb7c6acbcecaeca797628725d994998c5b 4.96kB / 4.96kB done
+verify	UNKNOWN STEP	2026-10-28T05:04:59.0777281Z #7 sha256:ea95d2ab382ff97ec2d6ac25327d00c3f08fe2877dfa8ab6cb9cfb7e4245185a 3.34MB / 3.34MB 0.2s done
+verify	UNKNOWN STEP	2026-10-28T05:04:59.0779855Z #7 extracting sha256:ea95d2ab382ff97ec2d6ac25327d00c3f08fe2877dfa8ab6cb9cfb7e4245185a
+verify	UNKNOWN STEP	2026-10-28T05:04:59.1959947Z #7 sha256:902d5fe0cd9225c8c113f6af022b926275f3c1851e7c81a0ab561f11580230eb 15.34MB / 15.34MB 0.4s done
+verify	UNKNOWN STEP	2026-10-28T05:04:59.3614000Z #7 extracting sha256:ea95d2ab382ff97ec2d6ac25327d00c3f08fe2877dfa8ab6cb9cfb7e4245185a 0.1s done
+verify	UNKNOWN STEP	2026-10-28T05:04:59.4662313Z #7 extracting sha256:902d5fe0cd9225c8c113f6af022b926275f3c1851e7c81a0ab561f11580230eb
+verify	UNKNOWN STEP	2026-10-28T05:05:00.4341212Z #7 extracting sha256:902d5fe0cd9225c8c113f6af022b926275f3c1851e7c81a0ab561f11580230eb 0.8s done
+verify	UNKNOWN STEP	2026-10-28T05:05:00.9096414Z #7 extracting sha256:496c1a902b3a93cea3e54b90b79dbcaa0e58ad90c3fe9dd0a43c9557dc47f17d
+verify	UNKNOWN STEP	2026-10-28T05:05:01.1104104Z #7 extracting sha256:496c1a902b3a93cea3e54b90b79dbcaa0e58ad90c3fe9dd0a43c9557dc47f17d done
+verify	UNKNOWN STEP	2026-10-28T05:05:01.1105431Z #7 DONE 2.3s
+verify	UNKNOWN STEP	2026-10-28T05:05:01.1106038Z
+verify	UNKNOWN STEP	2026-10-28T05:05:01.1106355Z #8 [migrate build 2/7] WORKDIR /app
+verify	UNKNOWN STEP	2026-10-28T05:05:01.1106911Z #8 DONE 0.0s
+verify	UNKNOWN STEP	2026-10-28T05:05:01.1107222Z
+verify	UNKNOWN STEP	2026-10-28T05:05:01.1107654Z #9 [migrate build 3/7] RUN pip install --no-cache-dir uv==0.13.1
+verify	UNKNOWN STEP	2026-10-28T05:05:02.9313616Z #9 1.972 Collecting uv==0.13.1
+verify	UNKNOWN STEP	2026-10-28T05:05:03.1455184Z #9 2.032   Downloading uv-0.13.1-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (11 kB)
+verify	UNKNOWN STEP	2026-10-28T05:05:03.1459616Z #9 2.041 Downloading uv-0.13.1-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (17.3 MB)
+verify	UNKNOWN STEP	2026-10-28T05:05:03.3783647Z #9 2.186    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 17.3/17.3 MB 156.6 MB/s  0:00:00
+verify	UNKNOWN STEP	2026-10-28T05:05:03.3784198Z #9 2.269 Installing collected packages: uv
+verify	UNKNOWN STEP	2026-10-28T05:05:03.5284676Z #9 2.418 Successfully installed uv-0.13.1
+verify	UNKNOWN STEP	2026-10-28T05:05:03.5291706Z #9 2.418 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+verify	UNKNOWN STEP	2026-10-28T05:05:03.5300822Z #9 2.419
+verify	UNKNOWN STEP	2026-10-28T05:05:03.5301591Z #9 2.419 [notice] A new release of pip is available: 26.2.1 -> 26.2.2
+verify	UNKNOWN STEP	2026-10-28T05:05:03.5302440Z #9 2.419 [notice] To update, run: pip install --upgrade pip
+verify	UNKNOWN STEP	2026-10-28T05:05:04.2073362Z #9 DONE 3.1s
+verify	UNKNOWN STEP	2026-10-28T05:05:04.2074511Z
+verify	UNKNOWN STEP	2026-10-28T05:05:04.2074962Z #10 [api build 4/7] COPY pyproject.toml uv.lock ./
+verify	UNKNOWN STEP	2026-10-28T05:05:04.2075762Z #10 DONE 0.0s
+verify	UNKNOWN STEP	2026-10-28T05:05:04.2076183Z
+verify	UNKNOWN STEP	2026-10-28T05:05:04.2076488Z #11 [migrate build 5/7] COPY src ./src
+verify	UNKNOWN STEP	2026-10-28T05:05:04.2077088Z #11 DONE 0.0s
+verify	UNKNOWN STEP	2026-10-28T05:05:04.2077445Z
+verify	UNKNOWN STEP	2026-10-28T05:05:04.2078036Z #12 [initialize build 6/7] RUN uv sync --frozen --no-dev --no-editable
+verify	UNKNOWN STEP	2026-10-28T05:05:04.2213329Z #12 0.164 Using CPython 3.14.8 interpreter at: /usr/local/bin/python3
+verify	UNKNOWN STEP	2026-10-28T05:05:04.4499632Z #12 0.164 Creating virtual environment at: .venv
+verify	UNKNOWN STEP	2026-10-28T05:05:04.4500572Z #12 0.177    Building ai-task-execution-platform @ file:///app
+verify	UNKNOWN STEP	2026-10-28T05:05:04.4501391Z #12 0.245 Downloading pydantic-core (2.1MiB)
+verify	UNKNOWN STEP	2026-10-28T05:05:04.4502027Z #12 0.247 Downloading sqlalchemy (3.2MiB)
+verify	UNKNOWN STEP	2026-10-28T05:05:04.4502688Z #12 0.248 Downloading psycopg-binary (5.0MiB)
+verify	UNKNOWN STEP	2026-10-28T05:05:04.4503217Z #12 0.250 Downloading tiktoken (1.1MiB)
+verify	UNKNOWN STEP	2026-10-28T05:05:04.6597192Z #12 0.393  Downloaded tiktoken
+verify	UNKNOWN STEP	2026-10-28T05:05:04.6598466Z #12 0.420  Downloaded pydantic-core
+verify	UNKNOWN STEP	2026-10-28T05:05:04.6599227Z #12 0.450  Downloaded sqlalchemy
+verify	UNKNOWN STEP	2026-10-28T05:05:04.6599742Z #12 0.453  Downloaded psycopg-binary
+verify	UNKNOWN STEP	2026-10-28T05:05:04.9744273Z #12 0.761       Built ai-task-execution-platform @ file:///app
+verify	UNKNOWN STEP	2026-10-28T05:05:04.9744782Z #12 0.767 Prepared 34 packages in 600ms
+verify	UNKNOWN STEP	2026-10-28T05:05:06.1022516Z #12 1.894 Installed 34 packages in 1.12s
+verify	UNKNOWN STEP	2026-10-28T05:05:06.1023454Z #12 1.894  + ai-task-execution-platform==0.1.0 (from file:///app)
+verify	UNKNOWN STEP	2026-10-28T05:05:06.1023898Z #12 1.894  + alembic==1.20.0
+verify	UNKNOWN STEP	2026-10-28T05:05:06.1024204Z #12 1.894  + annotated-doc==0.0.5
+verify	UNKNOWN STEP	2026-10-28T05:05:06.1024540Z #12 1.894  + annotated-types==0.8.0
+verify	UNKNOWN STEP	2026-10-28T05:05:06.1025234Z #12 1.894  + anyio==4.15.1
+verify	UNKNOWN STEP	2026-10-28T05:05:06.1025516Z #12 1.895  + certifi==2026.10.23
+verify	UNKNOWN STEP	2026-10-28T05:05:06.1025829Z #12 1.895  + charset-normalizer==3.5.2
+verify	UNKNOWN STEP	2026-10-28T05:05:06.1026151Z #12 1.895  + click==8.5.0
+verify	UNKNOWN STEP	2026-10-28T05:05:06.1026437Z #12 1.895  + fastapi==0.143.1
+verify	UNKNOWN STEP	2026-10-28T05:05:06.1026741Z #12 1.895  + greenlet==3.5.6
+verify	UNKNOWN STEP	2026-10-28T05:05:06.1027022Z #12 1.895  + h11==0.16.0
+verify	UNKNOWN STEP	2026-10-28T05:05:06.1027296Z #12 1.895  + httpcore==1.0.9
+verify	UNKNOWN STEP	2026-10-28T05:05:06.1027586Z #12 1.895  + httpx==0.28.1
+verify	UNKNOWN STEP	2026-10-28T05:05:06.1027852Z #12 1.895  + idna==3.20
+verify	UNKNOWN STEP	2026-10-28T05:05:06.1028111Z #12 1.895  + mako==1.4.3
+verify	UNKNOWN STEP	2026-10-28T05:05:06.1028374Z #12 1.895  + markupsafe==3.0.4
+verify	UNKNOWN STEP	2026-10-28T05:05:06.1028697Z #12 1.895  + opentelemetry-api==1.45.1
+verify	UNKNOWN STEP	2026-10-28T05:05:06.1029287Z #12 1.895  + opentelemetry-sdk==1.45.1
+verify	UNKNOWN STEP	2026-10-28T05:05:06.1029873Z #12 1.895  + opentelemetry-semantic-conventions==0.66b1
+verify	UNKNOWN STEP	2026-10-28T05:05:06.1030288Z #12 1.895  + prometheus-client==0.26.0
+verify	UNKNOWN STEP	2026-10-28T05:05:06.1030613Z #12 1.895  + psycopg==3.3.6
+verify	UNKNOWN STEP	2026-10-28T05:05:06.1030912Z #12 1.895  + psycopg-binary==3.3.6
+verify	UNKNOWN STEP	2026-10-28T05:05:06.1031221Z #12 1.895  + pydantic==2.14.1
+verify	UNKNOWN STEP	2026-10-28T05:05:06.1031510Z #12 1.895  + pydantic-core==2.50.1
+verify	UNKNOWN STEP	2026-10-28T05:05:06.1031814Z #12 1.895  + redis==8.1.0
+verify	UNKNOWN STEP	2026-10-28T05:05:06.1032090Z #12 1.895  + regex==2026.9.29
+verify	UNKNOWN STEP	2026-10-28T05:05:06.1032561Z #12 1.895  + requests==2.34.2
+verify	UNKNOWN STEP	2026-10-28T05:05:06.1033057Z #12 1.895  + sqlalchemy==2.0.54
+verify	UNKNOWN STEP	2026-10-28T05:05:06.1033352Z #12 1.895  + starlette==1.8.0
+verify	UNKNOWN STEP	2026-10-28T05:05:06.1033642Z #12 1.895  + tiktoken==0.14.0
+verify	UNKNOWN STEP	2026-10-28T05:05:06.1033942Z #12 1.895  + typing-extensions==4.16.0
+verify	UNKNOWN STEP	2026-10-28T05:05:06.1034273Z #12 1.895  + typing-inspection==0.4.4
+verify	UNKNOWN STEP	2026-10-28T05:05:06.1034592Z #12 1.895  + urllib3==2.8.0
+verify	UNKNOWN STEP	2026-10-28T05:05:06.1034877Z #12 1.895  + uvicorn==0.54.0
+verify	UNKNOWN STEP	2026-10-28T05:05:07.0584132Z #12 DONE 2.9s
+verify	UNKNOWN STEP	2026-10-28T05:05:07.0584696Z
+verify	UNKNOWN STEP	2026-10-28T05:05:07.0585252Z #13 [migrate build 7/7] RUN .venv/bin/python -c 'import tiktoken; tiktoken.get_encoding("o200k_base")'
+verify	UNKNOWN STEP	2026-10-28T05:05:08.4041624Z #13 DONE 1.3s
+verify	UNKNOWN STEP	2026-10-28T05:05:08.4481181Z
+verify	UNKNOWN STEP	2026-10-28T05:05:08.4482390Z #14 [initialize runtime 3/8] COPY --from=build /app/.venv /app/.venv
+verify	UNKNOWN STEP	2026-10-28T05:05:09.5709207Z #14 DONE 1.0s
+verify	UNKNOWN STEP	2026-10-28T05:05:09.5711785Z
+verify	UNKNOWN STEP	2026-10-28T05:05:09.5713014Z #15 [migrate runtime 4/8] RUN rm -rf /usr/local/lib/python3.14/ensurepip     /usr/local/lib/python3.14/site-packages/pip     /usr/local/lib/python3.14/site-packages/pip-*.dist-info /usr/local/bin/pip*
+verify	UNKNOWN STEP	2026-10-28T05:05:09.7617153Z #15 DONE 0.2s
+verify	UNKNOWN STEP	2026-10-28T05:05:09.7617491Z
+verify	UNKNOWN STEP	2026-10-28T05:05:09.7618359Z #16 [demo runtime 5/8] RUN apt-get update && apt-get install -y --no-install-recommends     libssl3=3.0.22-1~deb12u2 openssl=3.0.22-1~deb12u2     && rm -rf /var/lib/apt/lists/*
+verify	UNKNOWN STEP	2026-10-28T05:05:09.8003240Z #16 0.189 Get:1 http://deb.debian.org/debian bookworm InRelease [151 kB]
+verify	UNKNOWN STEP	2026-10-28T05:05:09.9118266Z #16 0.197 Get:2 http://deb.debian.org/debian bookworm-updates InRelease [55.4 kB]
+verify	UNKNOWN STEP	2026-10-28T05:05:09.9119023Z #16 0.197 Get:3 http://deb.debian.org/debian-security bookworm-security InRelease [34.8 kB]
+verify	UNKNOWN STEP	2026-10-28T05:05:09.9119751Z #16 0.243 Get:4 http://deb.debian.org/debian bookworm/main amd64 Packages [8790 kB]
+verify	UNKNOWN STEP	2026-10-28T05:05:10.1076183Z #16 0.299 Get:5 http://deb.debian.org/debian bookworm-updates/main amd64 Packages [6924 B]
+verify	UNKNOWN STEP	2026-10-28T05:05:10.1077899Z #16 0.346 Get:6 http://deb.debian.org/debian-security bookworm-security/main amd64 Packages [358 kB]
+verify	UNKNOWN STEP	2026-10-28T05:05:10.7124976Z #16 0.951 Fetched 9397 kB in 1s (11.6 MB/s)
+verify	UNKNOWN STEP	2026-10-28T05:05:11.0480257Z #16 0.951 Reading package lists...
+verify	UNKNOWN STEP	2026-10-28T05:05:11.4047497Z #16 1.286 Reading package lists...
+verify	UNKNOWN STEP	2026-10-28T05:05:11.4047926Z #16 1.619 Building dependency tree...
+verify	UNKNOWN STEP	2026-10-28T05:05:11.4048280Z #16 1.695 Reading state information...
+verify	UNKNOWN STEP	2026-10-28T05:05:11.4048665Z #16 1.793 The following packages will be upgraded:
+verify	UNKNOWN STEP	2026-10-28T05:05:11.5536285Z #16 1.793   libssl3 openssl
+verify	UNKNOWN STEP	2026-10-28T05:05:11.5537175Z #16 1.824 2 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.
+verify	UNKNOWN STEP	2026-10-28T05:05:11.5538091Z #16 1.824 Need to get 3482 kB of archives.
+verify	UNKNOWN STEP	2026-10-28T05:05:11.5539140Z #16 1.824 After this operation, 2048 B of additional disk space will be used.
+verify	UNKNOWN STEP	2026-10-28T05:05:11.5540104Z #16 1.824 Get:1 http://deb.debian.org/debian-security bookworm-security/main amd64 libssl3 amd64 3.0.22-1~deb12u2 [2040 kB]
+verify	UNKNOWN STEP	2026-10-28T05:05:11.5541237Z #16 1.842 Get:2 http://deb.debian.org/debian-security bookworm-security/main amd64 openssl amd64 3.0.22-1~deb12u2 [1442 kB]
+verify	UNKNOWN STEP	2026-10-28T05:05:11.5542183Z #16 1.942 debconf: delaying package configuration, since apt-utils is not installed
+verify	UNKNOWN STEP	2026-10-28T05:05:11.7413923Z #16 1.958 Fetched 3482 kB in 0s (64.2 MB/s)
+verify	UNKNOWN STEP	2026-10-28T05:05:11.7414500Z #16 1.970 (Reading database ...
+verify	UNKNOWN STEP	2026-10-28T05:05:11.7414841Z (Reading database ... 5%
+verify	UNKNOWN STEP	2026-10-28T05:05:11.7415133Z (Reading database ... 10%
+verify	UNKNOWN STEP	2026-10-28T05:05:11.7415425Z (Reading database ... 15%
+verify	UNKNOWN STEP	2026-10-28T05:05:11.7415697Z (Reading database ... 20%
+verify	UNKNOWN STEP	2026-10-28T05:05:11.7415975Z (Reading database ... 25%
+verify	UNKNOWN STEP	2026-10-28T05:05:11.7416245Z (Reading database ... 30%
+verify	UNKNOWN STEP	2026-10-28T05:05:11.7416554Z (Reading database ... 35%
+verify	UNKNOWN STEP	2026-10-28T05:05:11.7416837Z (Reading database ... 40%
+verify	UNKNOWN STEP	2026-10-28T05:05:11.7417028Z (Reading database ... 45%
+verify	UNKNOWN STEP	2026-10-28T05:05:11.7417218Z (Reading database ... 50%
+verify	UNKNOWN STEP	2026-10-28T05:05:11.7417399Z (Reading database ... 55%
+verify	UNKNOWN STEP	2026-10-28T05:05:11.7417889Z (Reading database ... 60%
+verify	UNKNOWN STEP	2026-10-28T05:05:11.7418076Z (Reading database ... 65%
+verify	UNKNOWN STEP	2026-10-28T05:05:11.7418281Z (Reading database ... 70%
+verify	UNKNOWN STEP	2026-10-28T05:05:11.7418472Z (Reading database ... 75%
+verify	UNKNOWN STEP	2026-10-28T05:05:11.7418652Z (Reading database ... 80%
+verify	UNKNOWN STEP	2026-10-28T05:05:11.7419063Z (Reading database ... 85%
+verify	UNKNOWN STEP	2026-10-28T05:05:11.7419247Z (Reading database ... 90%
+verify	UNKNOWN STEP	2026-10-28T05:05:11.7419438Z (Reading database ... 95%
+verify	UNKNOWN STEP	2026-10-28T05:05:11.7419620Z (Reading database ... 100%
+verify	UNKNOWN STEP	2026-10-28T05:05:11.7419889Z (Reading database ... 6648 files and directories currently installed.)
+verify	UNKNOWN STEP	2026-10-28T05:05:11.7420279Z #16 1.977 Preparing to unpack .../libssl3_3.0.22-1~deb12u2_amd64.deb ...
+verify	UNKNOWN STEP	2026-10-28T05:05:11.7420655Z #16 1.980 Unpacking libssl3:amd64 (3.0.22-1~deb12u2) over (3.0.22-1~deb12u1) ...
+verify	UNKNOWN STEP	2026-10-28T05:05:11.9234525Z #16 2.154 Preparing to unpack .../openssl_3.0.22-1~deb12u2_amd64.deb ...
+verify	UNKNOWN STEP	2026-10-28T05:05:11.9235871Z #16 2.156 Unpacking openssl (3.0.22-1~deb12u2) over (3.0.22-1~deb12u1) ...
+verify	UNKNOWN STEP	2026-10-28T05:05:11.9236564Z #16 2.245 Setting up libssl3:amd64 (3.0.22-1~deb12u2) ...
+verify	UNKNOWN STEP	2026-10-28T05:05:11.9237157Z #16 2.247 Setting up openssl (3.0.22-1~deb12u2) ...
+verify	UNKNOWN STEP	2026-10-28T05:05:11.9237712Z #16 2.250 Processing triggers for libc-bin (2.36-9+deb12u14) ...
+verify	UNKNOWN STEP	2026-10-28T05:05:12.0243357Z #16 DONE 2.3s
+verify	UNKNOWN STEP	2026-10-28T05:05:12.0243611Z
+verify	UNKNOWN STEP	2026-10-28T05:05:12.0243904Z #17 [api runtime 6/8] COPY --from=build /app/tokenizer-cache /app/tokenizer-cache
+verify	UNKNOWN STEP	2026-10-28T05:05:12.0244512Z #17 DONE 0.1s
+verify	UNKNOWN STEP	2026-10-28T05:05:12.0244670Z
+verify	UNKNOWN STEP	2026-10-28T05:05:12.0244965Z #18 [migrate runtime 7/8] COPY migrations ./migrations
+verify	UNKNOWN STEP	2026-10-28T05:05:12.1924114Z #18 DONE 0.0s
+verify	UNKNOWN STEP	2026-10-28T05:05:12.1924642Z
+verify	UNKNOWN STEP	2026-10-28T05:05:12.1924881Z #19 [initialize runtime 8/8] COPY alembic.ini ./
+verify	UNKNOWN STEP	2026-10-28T05:05:12.1925535Z #19 DONE 0.0s
+verify	UNKNOWN STEP	2026-10-28T05:05:12.1925759Z
+verify	UNKNOWN STEP	2026-10-28T05:05:12.1926106Z #20 [api] exporting to image
+verify	UNKNOWN STEP	2026-10-28T05:05:12.1926494Z #20 exporting layers
+verify	UNKNOWN STEP	2026-10-28T05:05:13.5060560Z #20 exporting layers 1.4s done
+verify	UNKNOWN STEP	2026-10-28T05:05:13.5061976Z  demo  Built
+verify	UNKNOWN STEP	2026-10-28T05:05:13.5062247Z  migrate  Built
+verify	UNKNOWN STEP	2026-10-28T05:05:13.5062471Z  initialize  Built
+verify	UNKNOWN STEP	2026-10-28T05:05:13.5062796Z  api  Built
+verify	UNKNOWN STEP	2026-10-28T05:05:13.5063369Z #20 writing image sha256:330045f8f68614a093830cbfee0c33a6aafc51108b249efb8a00b4a3fae7064e done
+verify	UNKNOWN STEP	2026-10-28T05:05:13.5064992Z #20 naming to docker.io/library/ai-task-platform:m1 done
+verify	UNKNOWN STEP	2026-10-28T05:05:13.5065265Z #20 DONE 1.4s
+verify	UNKNOWN STEP	2026-10-28T05:05:13.5065369Z
+verify	UNKNOWN STEP	2026-10-28T05:05:13.5065458Z #21 [demo] exporting to image
+verify	UNKNOWN STEP	2026-10-28T05:05:13.5065667Z #21 exporting layers 1.4s done
+verify	UNKNOWN STEP	2026-10-28T05:05:13.5066019Z #21 writing image sha256:330045f8f68614a093830cbfee0c33a6aafc51108b249efb8a00b4a3fae7064e done
+verify	UNKNOWN STEP	2026-10-28T05:05:13.5066418Z #21 naming to docker.io/library/ai-task-platform:m1 done
+verify	UNKNOWN STEP	2026-10-28T05:05:13.5066904Z #21 DONE 1.4s
+verify	UNKNOWN STEP	2026-10-28T05:05:13.5066999Z
+verify	UNKNOWN STEP	2026-10-28T05:05:13.5067090Z #22 [migrate] exporting to image
+verify	UNKNOWN STEP	2026-10-28T05:05:13.5067299Z #22 exporting layers 1.4s done
+verify	UNKNOWN STEP	2026-10-28T05:05:13.5067626Z #22 writing image sha256:330045f8f68614a093830cbfee0c33a6aafc51108b249efb8a00b4a3fae7064e done
+verify	UNKNOWN STEP	2026-10-28T05:05:13.5068030Z #22 naming to docker.io/library/ai-task-platform:m1 done
+verify	UNKNOWN STEP	2026-10-28T05:05:13.5068283Z #22 DONE 1.4s
+verify	UNKNOWN STEP	2026-10-28T05:05:13.5068383Z
+verify	UNKNOWN STEP	2026-10-28T05:05:13.5068467Z #23 [initialize] exporting to image
+verify	UNKNOWN STEP	2026-10-28T05:05:13.5068688Z #23 exporting layers 1.4s done
+verify	UNKNOWN STEP	2026-10-28T05:05:13.5069408Z #23 writing image sha256:330045f8f68614a093830cbfee0c33a6aafc51108b249efb8a00b4a3fae7064e done
+verify	UNKNOWN STEP	2026-10-28T05:05:13.5070158Z #23 naming to docker.io/library/ai-task-platform:m1 done
+verify	UNKNOWN STEP	2026-10-28T05:05:13.5070472Z #23 DONE 1.4s
+verify	UNKNOWN STEP	2026-10-28T05:05:13.5070729Z
+verify	UNKNOWN STEP	2026-10-28T05:05:13.5070852Z #24 [api] resolving provenance for metadata file
+verify	UNKNOWN STEP	2026-10-28T05:05:13.5071143Z #24 DONE 0.1s
+verify	UNKNOWN STEP	2026-10-28T05:05:13.5071248Z
+verify	UNKNOWN STEP	2026-10-28T05:05:13.5071526Z #25 [migrate] resolving provenance for metadata file
+verify	UNKNOWN STEP	2026-10-28T05:05:13.5071829Z #25 DONE 0.1s
+verify	UNKNOWN STEP	2026-10-28T05:05:13.5071961Z
+verify	UNKNOWN STEP	2026-10-28T05:05:13.5072235Z #26 [initialize] resolving provenance for metadata file
+verify	UNKNOWN STEP	2026-10-28T05:05:13.5072570Z #26 DONE 0.0s
+verify	UNKNOWN STEP	2026-10-28T05:05:13.5073044Z
+verify	UNKNOWN STEP	2026-10-28T05:05:13.5073196Z #27 [demo] resolving provenance for metadata file
+verify	UNKNOWN STEP	2026-10-28T05:05:13.5073508Z #27 DONE 0.0s
+verify	UNKNOWN STEP	2026-10-28T05:05:13.5125485Z  Network atp-m1-test_private  Creating
+verify	UNKNOWN STEP	2026-10-28T05:05:13.5309061Z  Network atp-m1-test_private  Created
+verify	UNKNOWN STEP	2026-10-28T05:05:13.5318070Z  Network atp-m1-test_ingress  Creating
+verify	UNKNOWN STEP	2026-10-28T05:05:13.6163136Z  Network atp-m1-test_ingress  Created
+verify	UNKNOWN STEP	2026-10-28T05:05:13.6211448Z  Volume "atp-m1-test_demo-data"  Creating
+verify	UNKNOWN STEP	2026-10-28T05:05:13.6223903Z  Volume "atp-m1-test_demo-data"  Created
+verify	UNKNOWN STEP	2026-10-28T05:05:13.6226346Z  Volume "atp-m1-test_pgdata"  Creating
+verify	UNKNOWN STEP	2026-10-28T05:05:13.6234154Z  Volume "atp-m1-test_pgdata"  Created
+verify	UNKNOWN STEP	2026-10-28T05:05:13.6242992Z  Container atp-m1-test-demo-db-1  Creating
+verify	UNKNOWN STEP	2026-10-28T05:05:13.6243741Z  Container atp-m1-test-postgres-1  Creating
+verify	UNKNOWN STEP	2026-10-28T05:05:13.6244515Z  Container atp-m1-test-redis-1  Creating
+verify	UNKNOWN STEP	2026-10-28T05:05:13.6774027Z  Container atp-m1-test-postgres-1  Created
+verify	UNKNOWN STEP	2026-10-28T05:05:13.6775816Z  Container atp-m1-test-migrate-1  Creating
+verify	UNKNOWN STEP	2026-10-28T05:05:13.6792713Z  Container atp-m1-test-demo-db-1  Created
+verify	UNKNOWN STEP	2026-10-28T05:05:13.6793527Z  Container atp-m1-test-demo-1  Creating
+verify	UNKNOWN STEP	2026-10-28T05:05:13.6814824Z  Container atp-m1-test-redis-1  Created
+verify	UNKNOWN STEP	2026-10-28T05:05:13.7060881Z  Container atp-m1-test-demo-1  Created
+verify	UNKNOWN STEP	2026-10-28T05:05:13.7073116Z  Container atp-m1-test-migrate-1  Created
+verify	UNKNOWN STEP	2026-10-28T05:05:13.7074001Z  Container atp-m1-test-initialize-1  Creating
+verify	UNKNOWN STEP	2026-10-28T05:05:13.7230181Z  Container atp-m1-test-initialize-1  Created
+verify	UNKNOWN STEP	2026-10-28T05:05:13.7234408Z  Container atp-m1-test-api-1  Creating
+verify	UNKNOWN STEP	2026-10-28T05:05:13.7390744Z  Container atp-m1-test-api-1  Created
+verify	UNKNOWN STEP	2026-10-28T05:05:13.7391527Z  Container atp-m1-test-proxy-1  Creating
+verify	UNKNOWN STEP	2026-10-28T05:05:13.7563980Z  Container atp-m1-test-proxy-1  Created
+verify	UNKNOWN STEP	2026-10-28T05:05:13.7582069Z  Container atp-m1-test-redis-1  Starting
+verify	UNKNOWN STEP	2026-10-28T05:05:13.7584307Z  Container atp-m1-test-demo-db-1  Starting
+verify	UNKNOWN STEP	2026-10-28T05:05:13.7585185Z  Container atp-m1-test-postgres-1  Starting
+verify	UNKNOWN STEP	2026-10-28T05:05:13.9633037Z  Container atp-m1-test-redis-1  Started
+verify	UNKNOWN STEP	2026-10-28T05:05:14.0026077Z  Container atp-m1-test-postgres-1  Started
+verify	UNKNOWN STEP	2026-10-28T05:05:14.0034311Z  Container atp-m1-test-postgres-1  Waiting
+verify	UNKNOWN STEP	2026-10-28T05:05:14.0287206Z  Container atp-m1-test-demo-db-1  Started
+verify	UNKNOWN STEP	2026-10-28T05:05:14.0288146Z  Container atp-m1-test-demo-db-1  Waiting
+verify	UNKNOWN STEP	2026-10-28T05:05:16.5147308Z  Container atp-m1-test-postgres-1  Healthy
+verify	UNKNOWN STEP	2026-10-28T05:05:16.5148579Z  Container atp-m1-test-migrate-1  Starting
+verify	UNKNOWN STEP	2026-10-28T05:05:16.5301476Z  Container atp-m1-test-demo-db-1  Healthy
+verify	UNKNOWN STEP	2026-10-28T05:05:16.5302514Z  Container atp-m1-test-demo-1  Starting
+verify	UNKNOWN STEP	2026-10-28T05:05:16.6914282Z  Container atp-m1-test-migrate-1  Started
+verify	UNKNOWN STEP	2026-10-28T05:05:16.6916488Z  Container atp-m1-test-migrate-1  Waiting
+verify	UNKNOWN STEP	2026-10-28T05:05:16.7293105Z  Container atp-m1-test-demo-1  Started
+verify	UNKNOWN STEP	2026-10-28T05:05:21.8908004Z  Container atp-m1-test-migrate-1  Exited
+verify	UNKNOWN STEP	2026-10-28T05:05:21.8912895Z  Container atp-m1-test-initialize-1  Starting
+verify	UNKNOWN STEP	2026-10-28T05:05:22.0106397Z  Container atp-m1-test-initialize-1  Started
+verify	UNKNOWN STEP	2026-10-28T05:05:22.0108439Z  Container atp-m1-test-initialize-1  Waiting
+verify	UNKNOWN STEP	2026-10-28T05:05:22.0109443Z  Container atp-m1-test-redis-1  Waiting
+verify	UNKNOWN STEP	2026-10-28T05:05:22.5122210Z  Container atp-m1-test-redis-1  Healthy
+verify	UNKNOWN STEP	2026-10-28T05:05:27.0120409Z  Container atp-m1-test-initialize-1  Exited
+verify	UNKNOWN STEP	2026-10-28T05:05:27.0121088Z  Container atp-m1-test-api-1  Starting
+verify	UNKNOWN STEP	2026-10-28T05:05:27.1649722Z  Container atp-m1-test-api-1  Started
+verify	UNKNOWN STEP	2026-10-28T05:05:27.1650261Z  Container atp-m1-test-api-1  Waiting
+verify	UNKNOWN STEP	2026-10-28T05:05:33.1667768Z  Container atp-m1-test-api-1  Healthy
+verify	UNKNOWN STEP	2026-10-28T05:05:33.1669035Z  Container atp-m1-test-proxy-1  Starting
+verify	UNKNOWN STEP	2026-10-28T05:05:33.2656242Z  Container atp-m1-test-proxy-1  Started
+verify	UNKNOWN STEP	2026-10-28T05:05:33.2657356Z  Container atp-m1-test-demo-db-1  Waiting
+verify	UNKNOWN STEP	2026-10-28T05:05:33.2657945Z  Container atp-m1-test-demo-1  Waiting
+verify	UNKNOWN STEP	2026-10-28T05:05:33.2658320Z  Container atp-m1-test-migrate-1  Waiting
+verify	UNKNOWN STEP	2026-10-28T05:05:33.2658693Z  Container atp-m1-test-postgres-1  Waiting
+verify	UNKNOWN STEP	2026-10-28T05:05:33.2659636Z  Container atp-m1-test-redis-1  Waiting
+verify	UNKNOWN STEP	2026-10-28T05:05:33.2660007Z  Container atp-m1-test-proxy-1  Waiting
+verify	UNKNOWN STEP	2026-10-28T05:05:33.2660381Z  Container atp-m1-test-api-1  Waiting
+verify	UNKNOWN STEP	2026-10-28T05:05:33.2660746Z  Container atp-m1-test-initialize-1  Waiting
+verify	UNKNOWN STEP	2026-10-28T05:05:33.7676653Z  Container atp-m1-test-demo-1  Healthy
+verify	UNKNOWN STEP	2026-10-28T05:05:33.7691176Z  Container atp-m1-test-migrate-1  Exited
+verify	UNKNOWN STEP	2026-10-28T05:05:33.7691818Z  Container atp-m1-test-redis-1  Healthy
+verify	UNKNOWN STEP	2026-10-28T05:05:33.7692157Z  Container atp-m1-test-initialize-1  Exited
+verify	UNKNOWN STEP	2026-10-28T05:05:33.7692515Z  Container atp-m1-test-api-1  Healthy
+verify	UNKNOWN STEP	2026-10-28T05:05:33.7692839Z  Container atp-m1-test-postgres-1  Healthy
+verify	UNKNOWN STEP	2026-10-28T05:05:33.7693195Z  Container atp-m1-test-demo-db-1  Healthy
+verify	UNKNOWN STEP	2026-10-28T05:05:35.7667938Z  Container atp-m1-test-proxy-1  Healthy
+verify	UNKNOWN STEP	2026-10-28T05:05:35.7708399Z docker compose -p atp-m1-test -f compose.yaml -f compose.demo.yaml -f compose.proxy.yaml build test
+verify	UNKNOWN STEP	2026-10-28T05:05:35.9260128Z #1 [internal] load local bake definitions
+verify	UNKNOWN STEP	2026-10-28T05:05:36.0269351Z #1 reading from stdin 1.59kB done
+verify	UNKNOWN STEP	2026-10-28T05:05:36.0269959Z #1 DONE 0.0s
+verify	UNKNOWN STEP	2026-10-28T05:05:36.0270383Z
+verify	UNKNOWN STEP	2026-10-28T05:05:36.0270675Z #2 [internal] load build definition from Dockerfile
+verify	UNKNOWN STEP	2026-10-28T05:05:36.0271098Z #2 transferring dockerfile: 1.46kB done
+verify	UNKNOWN STEP	2026-10-28T05:05:36.0271443Z #2 DONE 0.0s
+verify	UNKNOWN STEP	2026-10-28T05:05:36.0271674Z
+verify	UNKNOWN STEP	2026-10-28T05:05:36.0272183Z #3 [internal] load metadata for docker.io/library/python:3.14.8-slim-bookworm@sha256:48b13b003dda20b16f9442b8475aa05fe21bf6579a8c881db92ffb4d8fd20f83
+verify	UNKNOWN STEP	2026-10-28T05:05:36.0273544Z #3 DONE 0.0s
+verify	UNKNOWN STEP	2026-10-28T05:05:36.0274000Z
+verify	UNKNOWN STEP	2026-10-28T05:05:36.0274206Z #4 [internal] load .dockerignore
+verify	UNKNOWN STEP	2026-10-28T05:05:36.0274777Z #4 transferring context: 135B done
+verify	UNKNOWN STEP	2026-10-28T05:05:36.0275372Z #4 DONE 0.0s
+verify	UNKNOWN STEP	2026-10-28T05:05:36.0275682Z
+verify	UNKNOWN STEP	2026-10-28T05:05:36.0276390Z #5 [build 1/7] FROM docker.io/library/python:3.14.8-slim-bookworm@sha256:48b13b003dda20b16f9442b8475aa05fe21bf6579a8c881db92ffb4d8fd20f83
+verify	UNKNOWN STEP	2026-10-28T05:05:36.0277288Z #5 DONE 0.0s
+verify	UNKNOWN STEP	2026-10-28T05:05:36.0277601Z
+verify	UNKNOWN STEP	2026-10-28T05:05:36.0277883Z #6 [internal] load build context
+verify	UNKNOWN STEP	2026-10-28T05:05:36.0278507Z #6 transferring context: 736.81kB 0.0s done
+verify	UNKNOWN STEP	2026-10-28T05:05:36.0283996Z #6 DONE 0.0s
+verify	UNKNOWN STEP	2026-10-28T05:05:36.1790555Z
+verify	UNKNOWN STEP	2026-10-28T05:05:36.1800197Z #7 [build 4/7] COPY pyproject.toml uv.lock ./
+verify	UNKNOWN STEP	2026-10-28T05:05:36.1800788Z #7 CACHED
+verify	UNKNOWN STEP	2026-10-28T05:05:36.1801144Z
+verify	UNKNOWN STEP	2026-10-28T05:05:36.1801475Z #8 [build 5/7] COPY src ./src
+verify	UNKNOWN STEP	2026-10-28T05:05:36.1801961Z #8 CACHED
+verify	UNKNOWN STEP	2026-10-28T05:05:36.1802261Z
+verify	UNKNOWN STEP	2026-10-28T05:05:36.1802613Z #9 [build 6/7] RUN uv sync --frozen --no-dev --no-editable
+verify	UNKNOWN STEP	2026-10-28T05:05:36.1803190Z #9 CACHED
+verify	UNKNOWN STEP	2026-10-28T05:05:36.1803500Z
+verify	UNKNOWN STEP	2026-10-28T05:05:36.1803782Z #10 [build 2/7] WORKDIR /app
+verify	UNKNOWN STEP	2026-10-28T05:05:36.1804239Z #10 CACHED
+verify	UNKNOWN STEP	2026-10-28T05:05:36.1804933Z
+verify	UNKNOWN STEP	2026-10-28T05:05:36.1805352Z #11 [build 3/7] RUN pip install --no-cache-dir uv==0.13.1
+verify	UNKNOWN STEP	2026-10-28T05:05:36.1805934Z #11 CACHED
+verify	UNKNOWN STEP	2026-10-28T05:05:36.1806248Z
+verify	UNKNOWN STEP	2026-10-28T05:05:36.1806729Z #12 [build 7/7] RUN .venv/bin/python -c 'import tiktoken; tiktoken.get_encoding("o200k_base")'
+verify	UNKNOWN STEP	2026-10-28T05:05:36.1807466Z #12 CACHED
+verify	UNKNOWN STEP	2026-10-28T05:05:36.1807752Z
+verify	UNKNOWN STEP	2026-10-28T05:05:36.1808068Z #13 [test 1/2] RUN uv sync --frozen --no-editable
+verify	UNKNOWN STEP	2026-10-28T05:05:36.2712678Z #13 0.242 Downloading ruff (9.9MiB)
+verify	UNKNOWN STEP	2026-10-28T05:05:36.2713111Z #13 0.242 Downloading mypy (14.7MiB)
+verify	UNKNOWN STEP	2026-10-28T05:05:36.4001943Z #13 0.243 Downloading pygments (1.2MiB)
+verify	UNKNOWN STEP	2026-10-28T05:05:36.4002899Z #13 0.243 Downloading ast-serialize (1.3MiB)
+verify	UNKNOWN STEP	2026-10-28T05:05:36.4003741Z #13 0.294  Downloaded ast-serialize
+verify	UNKNOWN STEP	2026-10-28T05:05:36.4004296Z #13 0.306  Downloaded pygments
+verify	UNKNOWN STEP	2026-10-28T05:05:36.5051053Z #13 0.372  Downloaded ruff
+verify	UNKNOWN STEP	2026-10-28T05:05:36.5051509Z #13 0.476  Downloaded mypy
+verify	UNKNOWN STEP	2026-10-28T05:05:36.6555438Z #13 0.476 Prepared 9 packages in 295ms
+verify	UNKNOWN STEP	2026-10-28T05:05:38.1735474Z #13 2.144 Installed 12 packages in 1.66s
+verify	UNKNOWN STEP	2026-10-28T05:05:38.1735915Z #13 2.144  + ast-serialize==0.13.0
+verify	UNKNOWN STEP	2026-10-28T05:05:38.1736254Z #13 2.144  + iniconfig==2.3.1
+verify	UNKNOWN STEP	2026-10-28T05:05:38.1736551Z #13 2.144  + librt==0.16.0
+verify	UNKNOWN STEP	2026-10-28T05:05:38.1737170Z #13 2.144  + mypy==2.4.0
+verify	UNKNOWN STEP	2026-10-28T05:05:38.1737437Z #13 2.144  + mypy-extensions==1.1.0
+verify	UNKNOWN STEP	2026-10-28T05:05:38.1737741Z #13 2.144  + packaging==26.3
+verify	UNKNOWN STEP	2026-10-28T05:05:38.1738056Z #13 2.144  + pathspec==1.1.1
+verify	UNKNOWN STEP	2026-10-28T05:05:38.1738342Z #13 2.144  + pluggy==1.7.0
+verify	UNKNOWN STEP	2026-10-28T05:05:38.1738627Z #13 2.144  + pygments==2.21.0
+verify	UNKNOWN STEP	2026-10-28T05:05:38.1739225Z #13 2.144  + pytest==9.1.1
+verify	UNKNOWN STEP	2026-10-28T05:05:38.1739500Z #13 2.144  + pytest-asyncio==1.4.0
+verify	UNKNOWN STEP	2026-10-28T05:05:38.1739802Z #13 2.144  + ruff==0.17.0
+verify	UNKNOWN STEP	2026-10-28T05:05:39.3492095Z #13 DONE 3.3s
+verify	UNKNOWN STEP	2026-10-28T05:05:39.5872799Z
+verify	UNKNOWN STEP	2026-10-28T05:05:39.5873451Z #14 [test 2/2] COPY . .
+verify	UNKNOWN STEP	2026-10-28T05:05:39.5873898Z #14 DONE 0.1s
+verify	UNKNOWN STEP	2026-10-28T05:05:39.5874144Z
+verify	UNKNOWN STEP	2026-10-28T05:05:39.5874375Z #15 exporting to image
+verify	UNKNOWN STEP	2026-10-28T05:05:39.5874751Z #15 exporting layers
+verify	UNKNOWN STEP	2026-10-28T05:05:41.9839644Z #15 exporting layers 2.5s done
+verify	UNKNOWN STEP	2026-10-28T05:05:42.1203226Z #15 writing image sha256:7b0077e0ccc022806eef24fdaf8a8afb36e1feef4bc7918714eb1c584e18920a done
+verify	UNKNOWN STEP	2026-10-28T05:05:42.1204120Z  test  Built
+verify	UNKNOWN STEP	2026-10-28T05:05:42.1204379Z #15 naming to docker.io/library/ai-task-platform:m1-test done
+verify	UNKNOWN STEP	2026-10-28T05:05:42.1204988Z #15 DONE 2.6s
+verify	UNKNOWN STEP	2026-10-28T05:05:42.1205239Z
+verify	UNKNOWN STEP	2026-10-28T05:05:42.1205499Z #16 resolving provenance for metadata file
+verify	UNKNOWN STEP	2026-10-28T05:05:42.1206075Z #16 DONE 0.0s
+verify	UNKNOWN STEP	2026-10-28T05:05:42.1240850Z uv run --frozen python scripts/run_verification.py tests/integration
+verify	UNKNOWN STEP	2026-10-28T05:05:45.3636085Z ============================= test session starts ==============================
+verify	UNKNOWN STEP	2026-10-28T05:05:45.3639622Z platform linux -- Python 3.14.8, pytest-9.1.1, pluggy-1.7.0
+verify	UNKNOWN STEP	2026-10-28T05:05:45.3647588Z rootdir: /app
+verify	UNKNOWN STEP	2026-10-28T05:05:45.3648407Z configfile: pyproject.toml
+verify	UNKNOWN STEP	2026-10-28T05:05:45.3658080Z plugins: anyio-4.15.1, asyncio-1.4.0
+verify	UNKNOWN STEP	2026-10-28T05:05:45.3667095Z asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+verify	UNKNOWN STEP	2026-10-28T05:05:46.1000859Z collected 560 items
+verify	UNKNOWN STEP	2026-10-28T05:05:46.1022892Z
+verify	UNKNOWN STEP	2026-10-28T05:05:48.1800950Z tests/integration/test_accounting_admin.py ....                          [  0%]
+verify	UNKNOWN STEP	2026-10-28T05:05:50.4181955Z tests/integration/test_accounting_schema.py ...........                  [  2%]
+verify	UNKNOWN STEP	2026-10-28T05:06:02.5072584Z tests/integration/test_command_cli.py .                                  [  2%]
+verify	UNKNOWN STEP	2026-10-28T05:06:03.6070126Z tests/integration/test_command_regressions.py ......                     [  3%]
+verify	UNKNOWN STEP	2026-10-28T05:06:05.1364027Z tests/integration/test_command_resilience.py ...........                 [  5%]
+verify	UNKNOWN STEP	2026-10-28T05:06:05.4616145Z tests/integration/test_command_transport.py ...                          [  6%]
+verify	UNKNOWN STEP	2026-10-28T05:06:08.5183712Z tests/integration/test_commands.py ........................              [ 10%]
+verify	UNKNOWN STEP	2026-10-28T05:06:08.9552613Z tests/integration/test_database.py ...............................       [ 16%]
+verify	UNKNOWN STEP	2026-10-28T05:06:11.0339620Z  Container atp-m1-test-redis-1  Stopping
+verify	UNKNOWN STEP	2026-10-28T05:06:11.1532388Z  Container atp-m1-test-redis-1  Stopped
+verify	UNKNOWN STEP	2026-10-28T05:06:23.3552142Z  Container atp-m1-test-redis-1  Starting
+verify	UNKNOWN STEP	2026-10-28T05:06:23.5333269Z  Container atp-m1-test-redis-1  Started
+verify	UNKNOWN STEP	2026-10-28T05:06:23.8271941Z tests/integration/test_degraded.py .                                     [ 16%]
+verify	UNKNOWN STEP	2026-10-28T05:06:24.7436972Z tests/integration/test_delivery.py .......                               [ 17%]
+verify	UNKNOWN STEP	2026-10-28T05:06:26.6628648Z tests/integration/test_delivery_failure.py .                             [ 17%]
+verify	UNKNOWN STEP	2026-10-28T05:07:03.7911035Z tests/integration/test_demo_retention.py .........F......                [ 20%]
+verify	UNKNOWN STEP	2026-10-28T05:07:07.0252202Z tests/integration/test_dispatch_freshness.py ......                      [ 21%]
+verify	UNKNOWN STEP	2026-10-28T05:07:07.9570900Z tests/integration/test_event_reads.py ......                             [ 22%]
+verify	UNKNOWN STEP	2026-10-28T05:07:09.8900220Z tests/integration/test_execution.py .......                              [ 24%]
+verify	UNKNOWN STEP	2026-10-28T05:07:18.1961870Z tests/integration/test_execution_calls.py .............................. [ 29%]
+verify	UNKNOWN STEP	2026-10-28T05:07:19.1993192Z ....                                                                     [ 30%]
+verify	UNKNOWN STEP	2026-10-28T05:08:11.4956971Z tests/integration/test_execution_failures.py .............               [ 32%]
+verify	UNKNOWN STEP	2026-10-28T05:08:13.2053671Z tests/integration/test_execution_resolution.py .......                   [ 33%]
+verify	UNKNOWN STEP	2026-10-28T05:08:13.3931963Z tests/integration/test_execution_schema.py .............                 [ 36%]
+verify	UNKNOWN STEP	2026-10-28T05:08:14.6399293Z tests/integration/test_execution_transport.py ...........                [ 38%]
+verify	UNKNOWN STEP	2026-10-28T05:08:25.7979068Z tests/integration/test_execution_worker.py ..............                [ 40%]
+verify	UNKNOWN STEP	2026-10-28T05:08:30.3263963Z tests/integration/test_fixture_cleanup.py ..                             [ 40%]
+verify	UNKNOWN STEP	2026-10-28T05:08:32.7721228Z tests/integration/test_foundation_adversarial.py ....................... [ 45%]
+verify	UNKNOWN STEP	2026-10-28T05:08:40.7238291Z ......................                                                   [ 48%]
+verify	UNKNOWN STEP	2026-10-28T05:08:40.9161302Z tests/integration/test_health.py ....                                    [ 49%]
+verify	UNKNOWN STEP	2026-10-28T05:08:47.3102688Z tests/integration/test_identity.py ............                          [ 51%]
+verify	UNKNOWN STEP	2026-10-28T05:08:50.3270748Z tests/integration/test_m6_projections.py ...............                 [ 54%]
+verify	UNKNOWN STEP	2026-10-28T05:08:51.1814751Z tests/integration/test_notifications.py ...                              [ 55%]
+verify	UNKNOWN STEP	2026-10-28T05:08:57.5294009Z tests/integration/test_observability.py .....                            [ 55%]
+verify	UNKNOWN STEP	2026-10-28T05:08:59.5157610Z tests/integration/test_provider_capacity.py .....                        [ 56%]
+verify	UNKNOWN STEP	2026-10-28T05:09:16.0900176Z tests/integration/test_provider_contracts.py ........                    [ 58%]
+verify	UNKNOWN STEP	2026-10-28T05:09:41.1410354Z tests/integration/test_provider_e2e.py .                                 [ 58%]
+verify	UNKNOWN STEP	2026-10-28T05:09:42.3531235Z tests/integration/test_responses_workflow.py .......                     [ 59%]
+verify	UNKNOWN STEP	2026-10-28T05:09:50.2621064Z tests/integration/test_restore.py ......................                 [ 63%]
+verify	UNKNOWN STEP	2026-10-28T05:09:50.3980508Z tests/integration/test_restore_races.py .                                [ 63%]
+verify	UNKNOWN STEP	2026-10-28T05:09:52.0433891Z tests/integration/test_retention.py ..........                           [ 65%]
+verify	UNKNOWN STEP	2026-10-28T05:09:53.8271819Z tests/integration/test_sse.py ....                                       [ 66%]
+verify	UNKNOWN STEP	2026-10-28T05:10:07.4643385Z tests/integration/test_sse_network.py .....                              [ 67%]
+verify	UNKNOWN STEP	2026-10-28T05:10:13.0623989Z tests/integration/test_state_matrix.py ................................. [ 73%]
+verify	UNKNOWN STEP	2026-10-28T05:10:24.9336038Z ........................................................................ [ 85%]
+verify	UNKNOWN STEP	2026-10-28T05:10:27.1361813Z ................                                                         [ 88%]
+verify	UNKNOWN STEP	2026-10-28T05:10:30.9101210Z tests/integration/test_task_states.py ....................               [ 92%]
+verify	UNKNOWN STEP	2026-10-28T05:10:33.0132558Z tests/integration/test_tools_demo.py ..                                  [ 92%]
+verify	UNKNOWN STEP	2026-10-28T05:10:38.0774496Z tests/integration/test_workflow_boundaries.py ...................        [ 96%]
+verify	UNKNOWN STEP	2026-10-28T05:10:42.1319133Z tests/integration/test_workflow_corpus.py ..                             [ 96%]
+verify	UNKNOWN STEP	2026-10-28T05:11:14.3313107Z tests/integration/test_workflow_e2e.py ...                               [ 96%]
+verify	UNKNOWN STEP	2026-10-28T05:11:22.5463086Z tests/integration/test_workflow_reports.py .....                         [ 97%]
+verify	UNKNOWN STEP	2026-10-28T05:11:24.3502110Z tests/integration/test_workflows.py ........                             [ 99%]
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2030317Z tests/integration/test_z_migrations.py ....                              [100%]
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2032546Z
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2032733Z =================================== FAILURES ===================================
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2033339Z _____ test_concurrent_demo_erasure_waits_on_real_row_lock_and_audits_once ______
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2033586Z
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2033816Z demo_root = <sqlalchemy.ext.asyncio.engine.AsyncEngine object at 0x7f86e9c5a0d0>
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2034348Z tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_concurrent_demo_erasure_w0')
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2034871Z
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2035051Z     async def test_concurrent_demo_erasure_waits_on_real_row_lock_and_audits_once(
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2035364Z         demo_root: AsyncEngine,
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2035566Z         tmp_path: Path,
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2035772Z     ) -> None:
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2036162Z         owner, operation, _, digest = await seed(demo_root)
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2036802Z         proof = evidence(owner, operation, digest)
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2059465Z         jobs: list[asyncio.Task[tuple[int, str]]] = []
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2060082Z         async with demo_root.begin() as locked:
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2060571Z             await locked.execute(
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2061207Z                 text("SELECT 1 FROM report_effects WHERE owner=:o AND operation=:p FOR UPDATE"),
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2061852Z                 {"o": owner, "p": operation},
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2062299Z             )
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2062791Z             jobs = [asyncio.create_task(invoke(proof, tmp_path)) for _ in range(2)]
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2063362Z             try:
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2063764Z                 async with asyncio.timeout(5):
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2064449Z                     while True:
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2064928Z                         async with demo_root.connect() as observer:
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2065608Z                             waiting = await observer.scalar(
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2066231Z                                 text(
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2066775Z                                     "SELECT count(*) FROM pg_stat_activity WHERE datname='demo' "
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2068073Z                                     "AND wait_event_type='Lock' "
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2068783Z                                     "AND cardinality(pg_blocking_pids(pid))>0 "
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2069554Z                                     "AND query ILIKE '%purge_demo_content%'"
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2070058Z                                 )
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2070470Z                             )
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2070885Z                         if waiting == 2:
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2071329Z                             break
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2071756Z >                       await asyncio.sleep(0.01)
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2072133Z
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2072484Z tests/integration/test_demo_retention.py:265:
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2073054Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2073317Z
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2073417Z delay = 0.01, result = None
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2073582Z
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2073707Z     async def sleep(delay, result=None):
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2074357Z         """Coroutine that completes after a given time (in seconds)."""
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2074782Z         if delay <= 0:
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2075044Z             await __sleep0()
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2075310Z             return result
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2075553Z
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2075779Z         if math.isnan(delay):
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2076128Z             raise ValueError("Invalid delay: NaN (not a number)")
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2076491Z
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2076730Z         loop = events.get_running_loop()
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2077066Z         future = loop.create_future()
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2077391Z         h = loop.call_later(delay,
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2077736Z                             futures._set_result_unless_cancelled,
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2078103Z                             future, result)
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2078406Z         try:
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2078648Z >           return await future
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2079101Z                    ^^^^^^^^^^^^
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2079414Z E           asyncio.exceptions.CancelledError
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2079671Z
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2079878Z /usr/local/lib/python3.14/asyncio/tasks.py:712: CancelledError
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2080188Z
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2080415Z The above exception was the direct cause of the following exception:
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2080749Z
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2081318Z demo_root = <sqlalchemy.ext.asyncio.engine.AsyncEngine object at 0x7f86e9c5a0d0>
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2082016Z tmp_path = PosixPath('/tmp/pytest-of-unknown/pytest-0/test_concurrent_demo_erasure_w0')
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2082420Z
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2082687Z     async def test_concurrent_demo_erasure_waits_on_real_row_lock_and_audits_once(
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2083091Z         demo_root: AsyncEngine,
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2083288Z         tmp_path: Path,
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2083473Z     ) -> None:
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2083688Z         owner, operation, _, digest = await seed(demo_root)
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2083968Z         proof = evidence(owner, operation, digest)
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2084238Z         jobs: list[asyncio.Task[tuple[int, str]]] = []
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2084494Z         async with demo_root.begin() as locked:
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2084725Z             await locked.execute(
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2085041Z                 text("SELECT 1 FROM report_effects WHERE owner=:o AND operation=:p FOR UPDATE"),
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2085377Z                 {"o": owner, "p": operation},
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2085585Z             )
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2085823Z             jobs = [asyncio.create_task(invoke(proof, tmp_path)) for _ in range(2)]
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2086109Z             try:
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2086283Z >               async with asyncio.timeout(5):
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2086502Z                            ^^^^^^^^^^^^^^^^^^
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2086637Z
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2086744Z tests/integration/test_demo_retention.py:252:
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2087016Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2087202Z
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2087297Z self = <Timeout [expired]>
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2087540Z exc_type = <class 'asyncio.exceptions.CancelledError'>
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2087869Z exc_val = CancelledError(), exc_tb = <traceback object at 0x7f86e94ce8c0>
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2088091Z
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2088164Z     async def __aexit__(
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2088346Z         self,
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2088526Z         exc_type: type[BaseException] | None,
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2088756Z         exc_val: BaseException | None,
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2089382Z         exc_tb: TracebackType | None,
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2089667Z     ) -> bool | None:
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2089979Z         assert self._state in (_State.ENTERED, _State.EXPIRING)
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2090328Z
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2090544Z         if self._timeout_handler is not None:
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2090869Z             self._timeout_handler.cancel()
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2091182Z             self._timeout_handler = None
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2091460Z
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2091666Z         if self._state is _State.EXPIRING:
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2092138Z             self._state = _State.EXPIRED
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2092527Z
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2092847Z             if self._task.uncancel() <= self._cancelling and exc_type is not None:
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2093311Z                 # Since there are no new cancel requests, we're
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2093659Z                 # handling this.
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2093996Z                 if issubclass(exc_type, exceptions.CancelledError):
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2094379Z >                   raise TimeoutError from exc_val
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2094691Z E                   TimeoutError
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2094864Z
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2095041Z /usr/local/lib/python3.14/asyncio/timeouts.py:115: TimeoutError
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2095493Z =========================== short test summary info ============================
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2096259Z FAILED tests/integration/test_demo_retention.py::test_concurrent_demo_erasure_waits_on_real_row_lock_and_audits_once
+verify	UNKNOWN STEP	2026-10-28T05:11:43.2096917Z ================== 1 failed, 559 passed in 357.84s (0:05:57) ===================
+verify	UNKNOWN STEP	2026-10-28T05:11:47.3138089Z
+verify	UNKNOWN STEP	2026-10-28T05:11:47.3651151Z M6_DEGRADED_PROFILE {"streams": 100, "followed_tasks": 20, "reads": 120, "scheduled_reads_per_second": 10, "duration_seconds": 12.024, "read_p95_seconds": 0.0385, "new_creation": 503, "replay": 202, "control": 200, "heartbeat_interval_seconds": 10, "heartbeat_renewed": true, "stream_errors": 0, "physical_requests": 1, "remote_effects": 1, "committed_execution": true}
+verify	UNKNOWN STEP	2026-10-28T05:11:47.3712524Z make: *** [Makefile:25: test-integration] Error 1
+verify	UNKNOWN STEP	2026-10-28T05:11:47.3730824Z ##[error]Process completed with exit code 2.
+verify	UNKNOWN STEP	2026-10-28T05:11:47.3816855Z ##[group]Run actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+verify	UNKNOWN STEP	2026-10-28T05:11:47.3817171Z with:
+verify	UNKNOWN STEP	2026-10-28T05:11:47.3817344Z   name: m7-supply-chain-evidence
+verify	UNKNOWN STEP	2026-10-28T05:11:47.3817592Z   path: /tmp/dependencies.json
+verify	UNKNOWN STEP	/tmp/runtime-image.json
+verify	UNKNOWN STEP
+verify	UNKNOWN STEP	2026-10-28T05:11:47.3817850Z   if-no-files-found: warn
+verify	UNKNOWN STEP	2026-10-28T05:11:47.3818036Z   compression-level: 6
+verify	UNKNOWN STEP	2026-10-28T05:11:47.3818211Z   overwrite: false
+verify	UNKNOWN STEP	2026-10-28T05:11:47.3818398Z   include-hidden-files: false
+verify	UNKNOWN STEP	2026-10-28T05:11:47.3818593Z   archive: true
+verify	UNKNOWN STEP	2026-10-28T05:11:47.3818749Z env:
+verify	UNKNOWN STEP	2026-10-28T05:11:47.3819297Z   UV_PYTHON_INSTALL_DIR: /home/runner/work/_temp/uv-python-dir
+verify	UNKNOWN STEP	2026-10-28T05:11:47.3819608Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+verify	UNKNOWN STEP	2026-10-28T05:11:47.3819844Z ##[endgroup]
+verify	UNKNOWN STEP	2026-10-28T05:11:47.5020544Z Multiple search paths detected. Calculating the least common ancestor of all paths
+verify	UNKNOWN STEP	2026-10-28T05:11:47.5022107Z The least common ancestor is /tmp. This will be the root directory of the artifact
+verify	UNKNOWN STEP	2026-10-28T05:11:47.5036225Z ##[warning]No files were found with the provided path: /tmp/dependencies.json
+verify	UNKNOWN STEP	/tmp/runtime-image.json. No artifacts will be uploaded.
+verify	UNKNOWN STEP	2026-10-28T05:11:47.5201526Z ##[group]Run if [ -f .env ]; then
+verify	UNKNOWN STEP	2026-10-28T05:11:47.5201900Z ^[[36;1mif [ -f .env ]; then^[[0m
+verify	UNKNOWN STEP	2026-10-28T05:11:47.5202604Z ^[[36;1m  docker compose -p atp-m1-test -f compose.yaml -f compose.demo.yaml -f compose.proxy.yaml down --volumes --remove-orphans^[[0m
+verify	UNKNOWN STEP	2026-10-28T05:11:47.5203323Z ^[[36;1mfi^[[0m
+verify	UNKNOWN STEP	2026-10-28T05:11:47.5287301Z shell: /usr/bin/bash -e {0}
+verify	UNKNOWN STEP	2026-10-28T05:11:47.5287709Z env:
+verify	UNKNOWN STEP	2026-10-28T05:11:47.5288231Z   UV_PYTHON_INSTALL_DIR: /home/runner/work/_temp/uv-python-dir
+verify	UNKNOWN STEP	2026-10-28T05:11:47.5289238Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+verify	UNKNOWN STEP	2026-10-28T05:11:47.5289872Z ##[endgroup]
+verify	UNKNOWN STEP	2026-10-28T05:11:47.6425918Z  Container atp-m1-test-demo-1  Stopping
+verify	UNKNOWN STEP	2026-10-28T05:11:47.6426487Z  Container atp-m1-test-proxy-1  Stopping
+verify	UNKNOWN STEP	2026-10-28T05:11:47.9244907Z  Container atp-m1-test-proxy-1  Stopped
+verify	UNKNOWN STEP	2026-10-28T05:11:47.9245670Z  Container atp-m1-test-proxy-1  Removing
+verify	UNKNOWN STEP	2026-10-28T05:11:48.0960471Z  Container atp-m1-test-proxy-1  Removed
+verify	UNKNOWN STEP	2026-10-28T05:11:48.0960991Z  Container atp-m1-test-api-1  Stopping
+verify	UNKNOWN STEP	2026-10-28T05:11:48.3704859Z  Container atp-m1-test-demo-1  Stopped
+verify	UNKNOWN STEP	2026-10-28T05:11:48.3721940Z  Container atp-m1-test-demo-1  Removing
+verify	UNKNOWN STEP	2026-10-28T05:11:48.3777662Z  Container atp-m1-test-demo-1  Removed
+verify	UNKNOWN STEP	2026-10-28T05:11:48.3800653Z  Container atp-m1-test-demo-db-1  Stopping
+verify	UNKNOWN STEP	2026-10-28T05:11:48.5096200Z  Container atp-m1-test-demo-db-1  Stopped
+verify	UNKNOWN STEP	2026-10-28T05:11:48.5099284Z  Container atp-m1-test-demo-db-1  Removing
+verify	UNKNOWN STEP	2026-10-28T05:11:48.5226603Z  Container atp-m1-test-demo-db-1  Removed
+verify	UNKNOWN STEP	2026-10-28T05:11:49.0793848Z  Container atp-m1-test-api-1  Stopped
+verify	UNKNOWN STEP	2026-10-28T05:11:49.0794413Z  Container atp-m1-test-api-1  Removing
+verify	UNKNOWN STEP	2026-10-28T05:11:49.0869719Z  Container atp-m1-test-api-1  Removed
+verify	UNKNOWN STEP	2026-10-28T05:11:49.0871111Z  Container atp-m1-test-redis-1  Stopping
+verify	UNKNOWN STEP	2026-10-28T05:11:49.0871874Z  Container atp-m1-test-initialize-1  Stopping
+verify	UNKNOWN STEP	2026-10-28T05:11:49.0874547Z  Container atp-m1-test-initialize-1  Stopped
+verify	UNKNOWN STEP	2026-10-28T05:11:49.0875190Z  Container atp-m1-test-initialize-1  Removing
+verify	UNKNOWN STEP	2026-10-28T05:11:49.1013983Z  Container atp-m1-test-initialize-1  Removed
+verify	UNKNOWN STEP	2026-10-28T05:11:49.1014748Z  Container atp-m1-test-migrate-1  Stopping
+verify	UNKNOWN STEP	2026-10-28T05:11:49.1017069Z  Container atp-m1-test-migrate-1  Stopped
+verify	UNKNOWN STEP	2026-10-28T05:11:49.1017841Z  Container atp-m1-test-migrate-1  Removing
+verify	UNKNOWN STEP	2026-10-28T05:11:49.1065095Z  Container atp-m1-test-migrate-1  Removed
+verify	UNKNOWN STEP	2026-10-28T05:11:49.1065919Z  Container atp-m1-test-postgres-1  Stopping
+verify	UNKNOWN STEP	2026-10-28T05:11:49.6024226Z  Container atp-m1-test-redis-1  Stopped
+verify	UNKNOWN STEP	2026-10-28T05:11:49.6025942Z  Container atp-m1-test-redis-1  Removing
+verify	UNKNOWN STEP	2026-10-28T05:11:49.6130142Z  Container atp-m1-test-redis-1  Removed
+verify	UNKNOWN STEP	2026-10-28T05:11:49.8381562Z  Container atp-m1-test-postgres-1  Stopped
+verify	UNKNOWN STEP	2026-10-28T05:11:49.8382375Z  Container atp-m1-test-postgres-1  Removing
+verify	UNKNOWN STEP	2026-10-28T05:11:49.9599187Z  Container atp-m1-test-postgres-1  Removed
+verify	UNKNOWN STEP	2026-10-28T05:11:49.9613270Z  Network atp-m1-test_private  Removing
+verify	UNKNOWN STEP	2026-10-28T05:11:49.9614207Z  Volume atp-m1-test_pgdata  Removing
+verify	UNKNOWN STEP	2026-10-28T05:11:49.9615039Z  Network atp-m1-test_ingress  Removing
+verify	UNKNOWN STEP	2026-10-28T05:11:49.9615698Z  Volume atp-m1-test_demo-data  Removing
+verify	UNKNOWN STEP	2026-10-28T05:11:50.0002028Z  Network atp-m1-test_private  Removed
+verify	UNKNOWN STEP	2026-10-28T05:11:50.1388080Z  Network atp-m1-test_ingress  Removed
+verify	UNKNOWN STEP	2026-10-28T05:11:50.1923210Z  Volume atp-m1-test_pgdata  Removed
+verify	UNKNOWN STEP	2026-10-28T05:11:50.3548291Z  Volume atp-m1-test_demo-data  Removed
+verify	UNKNOWN STEP	2026-10-28T05:11:50.3691601Z Post job cleanup.
+verify	UNKNOWN STEP	2026-10-28T05:11:50.4463506Z [command]/usr/bin/git version
+verify	UNKNOWN STEP	2026-10-28T05:11:50.4520774Z git version 2.55.0
+verify	UNKNOWN STEP	2026-10-28T05:11:50.4604933Z Temporarily overriding HOME='/home/runner/work/_temp/6150250c-a4be-460f-a251-fbaa31cba9d8' before making global git config changes
+verify	UNKNOWN STEP	2026-10-28T05:11:50.4606046Z Adding repository directory to the temporary git global config as a safe directory
+verify	UNKNOWN STEP	2026-10-28T05:11:50.4607181Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/ai-task-execution-platform/ai-task-execution-platform
+verify	UNKNOWN STEP	2026-10-28T05:11:50.4610574Z Removing SSH command configuration
+verify	UNKNOWN STEP	2026-10-28T05:11:50.4611463Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+verify	UNKNOWN STEP	2026-10-28T05:11:50.4660865Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+verify	UNKNOWN STEP	2026-10-28T05:11:50.5034178Z Removing HTTP extra header
+verify	UNKNOWN STEP	2026-10-28T05:11:50.5035113Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+verify	UNKNOWN STEP	2026-10-28T05:11:50.5143110Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+verify	UNKNOWN STEP	2026-10-28T05:11:50.5425352Z Removing includeIf entries pointing to credentials config files
+verify	UNKNOWN STEP	2026-10-28T05:11:50.5436262Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+verify	UNKNOWN STEP	2026-10-28T05:11:50.5461094Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+verify	UNKNOWN STEP	2026-10-28T05:11:50.5888001Z Cleaning up orphan processes

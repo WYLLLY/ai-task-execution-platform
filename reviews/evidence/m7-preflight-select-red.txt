@@ -1,0 +1,17 @@
+time="2026-10-27T22:01:43+01:00" level=warning msg="Found orphan containers (atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-6fe5e13ec062 Creating
+ Container atp-m1-test-test-run-6fe5e13ec062 Created
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+_ test_delivery_refuses_missing_runtime_privilege_even_with_current_revision[SELECT ON tasks-api] _
+tests/integration/test_delivery.py:33: in test_delivery_refuses_missing_runtime_privilege_even_with_current_revision
+    assert result["ready"] is False
+E   assert True is False
+_ test_delivery_refuses_missing_runtime_privilege_even_with_current_revision[SELECT ON tasks-worker] _
+tests/integration/test_delivery.py:33: in test_delivery_refuses_missing_runtime_privilege_even_with_current_revision
+    assert result["ready"] is False
+E   assert True is False
+=========================== short test summary info ============================
+FAILED tests/integration/test_delivery.py::test_delivery_refuses_missing_runtime_privilege_even_with_current_revision[SELECT ON tasks-api]
+FAILED tests/integration/test_delivery.py::test_delivery_refuses_missing_runtime_privilege_even_with_current_revision[SELECT ON tasks-worker]
+2 failed, 5 deselected in 0.38s

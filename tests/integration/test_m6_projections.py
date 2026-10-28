@@ -24,6 +24,41 @@ from .test_execution_calls import dispatch as dispatch
 pytestmark = pytest.mark.integration
 
 
+async def test_usage_includes_only_owner_allocated_disaster_reserve_without_fabricated_calls(
+    client: AsyncClient, command_owner: dict[str, str], admin_engine: AsyncEngine
+) -> None:
+    owner = (await client.get("/v1/me", headers=command_owner)).json()["principal_id"]
+    try:
+        async with admin_engine.begin() as c:
+            await c.execute(
+                text("UPDATE principals SET reserve_cost=71,reserve_tokens=91 WHERE id=:id"),
+                {"id": owner},
+            )
+            await c.execute(
+                text("UPDATE platform_control SET reserve_cost=999,reserve_tokens=1999")
+            )
+        response = (await client.get("/v1/usage", headers=command_owner)).json()
+        assert response["disaster_provision"] == {"micro_usd": 71, "tokens": 91}
+        assert response["costs"]["uncertain_micro_usd"] == 71
+        assert response["costs"]["uncertain_tokens"] == 91
+        other = await provision_principal(sessions(admin_engine), "foreign disaster usage")
+        _, token = await issue_key(sessions(admin_engine), other)
+        foreign = (
+            await client.get("/v1/usage", headers={"Authorization": "Bearer " + token})
+        ).json()
+        assert foreign["disaster_provision"] == {"micro_usd": 0, "tokens": 0}
+        assert all(value == 0 for value in foreign["costs"].values())
+        async with admin_engine.connect() as c:
+            assert await c.scalar(text("SELECT count(*) FROM external_calls")) == 0
+    finally:
+        async with admin_engine.begin() as c:
+            await c.execute(
+                text("UPDATE principals SET reserve_cost=0,reserve_tokens=0 WHERE id=:id"),
+                {"id": owner},
+            )
+            await c.execute(text("UPDATE platform_control SET reserve_cost=0,reserve_tokens=0"))
+
+
 async def test_usage_distinguishes_estimate_provision_invoice_and_owner(
     client: AsyncClient,
     command_owner: dict[str, str],

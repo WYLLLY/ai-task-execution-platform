@@ -259,7 +259,15 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     ) -> Response:
         key = validate_key(request.headers.get("Idempotency-Key"))
         value, fingerprint = await command_body(request)
-        result = await resolve_task(control_factory, credential, task_id, key, value, fingerprint)
+        result = await resolve_task(
+            control_factory,
+            credential,
+            task_id,
+            key,
+            value,
+            fingerprint,
+            request.headers.get("X-Execution-Epoch"),
+        )
         return Response(
             content=result.body, status_code=result.status, media_type="application/json"
         )
@@ -319,7 +327,9 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         cursor: UUID | None = None,
     ) -> dict[str, object]:
         async with factory() as session:
-            query = select(Task).where(Task.principal_id == identity.principal_id)
+            query = select(Task).where(
+                Task.principal_id == identity.principal_id, Task.purged_at.is_(None)
+            )
             if cursor is not None:
                 anchor = await session.scalar(
                     select(Task).where(
@@ -378,7 +388,18 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     @app.get("/v1/system")
     async def system() -> JSONResponse:
-        return await ready()
+        from task_platform.recovery import recovery_status
+
+        result = await health(control_engine, redis, settings)
+        payload = result.model_dump(mode="json")
+        payload["recovery"] = None
+        if result.postgres and result.schema_compatible:
+            try:
+                async with asyncio.timeout(4):
+                    payload["recovery"] = await recovery_status(control_factory)
+            except SQLAlchemyError, OSError, TimeoutError:
+                payload.update(ready=False, postgres=False, submission_available=False)
+        return JSONResponse(payload, status_code=200 if payload["ready"] else 503)
 
     @app.get("/v1/me")
     async def me(identity: Annotated[Identity, Depends(current_identity)]) -> dict[str, UUID]:

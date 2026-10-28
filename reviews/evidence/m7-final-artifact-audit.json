@@ -1,0 +1,9 @@
+{
+  "files_checked": 339,
+  "known_development_secret_literals_checked": 9,
+  "known_secret_hits": [],
+  "credential_pattern_hits": [],
+  "broken_relative_links": [],
+  "agents_sha256": "2d329753a5551d5498b88e0aa3fe309f9aab8243a87e5d2dadb747c84127cfcb",
+  "agents_staged": false
+}

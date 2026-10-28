@@ -1,0 +1,60 @@
+FFFFFFFFF                                                                [100%]
+=================================== FAILURES ===================================
+___________ test_backup_streams_to_exclusive_ciphertext_and_manifest ___________
+tests/unit/test_backup_artifact.py:31: in test_backup_streams_to_exclusive_ciphertext_and_manifest
+    assert target.exists(), "successful encrypted stream must publish its artifact"
+E   AssertionError: successful encrypted stream must publish its artifact
+E   assert False
+E    +  where False = exists()
+E    +    where exists = PosixPath('/private/var/folders/h6/0xk7s0_s7db7_87hfcpb9mhm0000gp/T/pytest-of-william/pytest-1/test_backup_streams_to_exclusi0/backup.age').exists
+_________ test_backup_never_publishes_failed_or_timed_out_stream[dump] _________
+tests/unit/test_backup_artifact.py:59: in test_backup_never_publishes_failed_or_timed_out_stream
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+_______ test_backup_never_publishes_failed_or_timed_out_stream[encrypt] ________
+tests/unit/test_backup_artifact.py:59: in test_backup_never_publishes_failed_or_timed_out_stream
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+_______ test_backup_never_publishes_failed_or_timed_out_stream[timeout] ________
+tests/unit/test_backup_artifact.py:59: in test_backup_never_publishes_failed_or_timed_out_stream
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+___________ test_invalid_or_expired_backup_manifest_is_rejected[old] ___________
+tests/unit/test_backup_artifact.py:87: in test_invalid_or_expired_backup_manifest_is_rejected
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+_________ test_invalid_or_expired_backup_manifest_is_rejected[future] __________
+tests/unit/test_backup_artifact.py:87: in test_invalid_or_expired_backup_manifest_is_rejected
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+__________ test_invalid_or_expired_backup_manifest_is_rejected[size] ___________
+tests/unit/test_backup_artifact.py:87: in test_invalid_or_expired_backup_manifest_is_rejected
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+__________ test_invalid_or_expired_backup_manifest_is_rejected[hash] ___________
+tests/unit/test_backup_artifact.py:87: in test_invalid_or_expired_backup_manifest_is_rejected
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+__________ test_invalid_or_expired_backup_manifest_is_rejected[naive] __________
+tests/unit/test_backup_artifact.py:87: in test_invalid_or_expired_backup_manifest_is_rejected
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+=========================== short test summary info ============================
+FAILED tests/unit/test_backup_artifact.py::test_backup_streams_to_exclusive_ciphertext_and_manifest
+FAILED tests/unit/test_backup_artifact.py::test_backup_never_publishes_failed_or_timed_out_stream[dump]
+FAILED tests/unit/test_backup_artifact.py::test_backup_never_publishes_failed_or_timed_out_stream[encrypt]
+FAILED tests/unit/test_backup_artifact.py::test_backup_never_publishes_failed_or_timed_out_stream[timeout]
+FAILED tests/unit/test_backup_artifact.py::test_invalid_or_expired_backup_manifest_is_rejected[old]
+FAILED tests/unit/test_backup_artifact.py::test_invalid_or_expired_backup_manifest_is_rejected[future]
+FAILED tests/unit/test_backup_artifact.py::test_invalid_or_expired_backup_manifest_is_rejected[size]
+FAILED tests/unit/test_backup_artifact.py::test_invalid_or_expired_backup_manifest_is_rejected[hash]
+FAILED tests/unit/test_backup_artifact.py::test_invalid_or_expired_backup_manifest_is_rejected[naive]
+9 failed in 0.05s

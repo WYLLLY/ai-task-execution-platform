@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/william/Documents/Projet 2/scripts/run_restore_drill.py", line 393, in <module>
+    print(json.dumps(Drill().main(), sort_keys=True))
+                     ~~~~~~~~~~~~^^
+  File "/Users/william/Documents/Projet 2/scripts/run_restore_drill.py", line 228, in main
+    require(not self.compose("ps", "-aq").strip(), "project must initially be absent")
+                ~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/william/Documents/Projet 2/scripts/run_restore_drill.py", line 107, in compose
+    return self.run([*self.prefix, *arguments], data=data)
+           ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/william/Documents/Projet 2/scripts/run_restore_drill.py", line 103, in run
+    raise RuntimeError("Isolated restore command failed; sanitized diagnostic: " + str(log))
+RuntimeError: Isolated restore command failed; sanitized diagnostic: /Users/william/Documents/Projet 2/.secrets/m7-restore-c40c9730aedd491592f9031c5e04ad52/diagnostic.txt

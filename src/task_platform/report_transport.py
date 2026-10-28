@@ -51,7 +51,7 @@ class ReportTransport:
             raise ValueError("Fixed demo destination and service credential required")
         self.url = url.rstrip("/")
         self.client = httpx.AsyncClient(
-            transport=httpx.AsyncHTTPTransport(retries=0),
+            transport=httpx.AsyncHTTPTransport(retries=0, trust_env=False),
             trust_env=False,
             follow_redirects=False,
             timeout=httpx.Timeout(connect=5, read=10, write=10, pool=2),

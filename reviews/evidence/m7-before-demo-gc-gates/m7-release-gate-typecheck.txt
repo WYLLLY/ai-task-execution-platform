@@ -1,0 +1,2 @@
+'/Users/william/Documents/Projet 2/.secrets/m7-tools/uv-env/bin/uv' run --frozen mypy
+Success: no issues found in 156 source files

@@ -1,0 +1,58 @@
+time="2026-10-27T16:39:31+01:00" level=warning msg="Found orphan containers (atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-e59807540a08 Creating
+ Container atp-m1-test-test-run-e59807540a08 Created
+FFFFFFFF                                                                 [100%]
+=================================== FAILURES ===================================
+____ test_restore_quarantines_all_tasks_revokes_keys_and_preserves_exposure ____
+tests/integration/test_restore.py:83: in test_restore_quarantines_all_tasks_revokes_keys_and_preserves_exposure
+    assert await begin_restore(sessions(admin_engine), epoch, evidence) == {"quarantined": 2}
+E   AssertionError: assert {'quarantined': 0} == {'quarantined': 2}
+E
+E     Differing items:
+E     {'quarantined': 0} != {'quarantined': 2}
+E     Use -v to get more diff
+____ test_restore_rejects_missing_isolation_evidence[old_workers_isolated] _____
+tests/integration/test_restore.py:122: in test_restore_rejects_missing_isolation_evidence
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+_____ test_restore_rejects_missing_isolation_evidence[credentials_revoked] _____
+tests/integration/test_restore.py:122: in test_restore_rejects_missing_isolation_evidence
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+_____ test_restore_rejects_missing_isolation_evidence[live_egress_blocked] _____
+tests/integration/test_restore.py:122: in test_restore_rejects_missing_isolation_evidence
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+_________________ test_restore_requires_external_dispatch_lock _________________
+tests/integration/test_restore.py:131: in test_restore_requires_external_dispatch_lock
+    with pytest.raises(ValueError, match="external dispatch lock"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+___ test_unbounded_disaster_exposure_blocks_reopen_and_reserve_is_revisioned ___
+tests/integration/test_restore.py:146: in test_unbounded_disaster_exposure_blocks_reopen_and_reserve_is_revisioned
+    with pytest.raises(ValueError, match="unbounded"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+___________ test_regeneration_requires_current_execution_epoch[None] ___________
+tests/integration/test_restore.py:214: in test_regeneration_requires_current_execution_epoch
+    assert response.status_code == (428 if epoch is None else 409)
+E   assert 200 == 428
+E    +  where 200 = <Response [200 OK]>.status_code
+_________ test_regeneration_requires_current_execution_epoch[obsolete] _________
+tests/integration/test_restore.py:214: in test_regeneration_requires_current_execution_epoch
+    assert response.status_code == (428 if epoch is None else 409)
+E   assert 200 == 409
+E    +  where 200 = <Response [200 OK]>.status_code
+=========================== short test summary info ============================
+FAILED tests/integration/test_restore.py::test_restore_quarantines_all_tasks_revokes_keys_and_preserves_exposure
+FAILED tests/integration/test_restore.py::test_restore_rejects_missing_isolation_evidence[old_workers_isolated]
+FAILED tests/integration/test_restore.py::test_restore_rejects_missing_isolation_evidence[credentials_revoked]
+FAILED tests/integration/test_restore.py::test_restore_rejects_missing_isolation_evidence[live_egress_blocked]
+FAILED tests/integration/test_restore.py::test_restore_requires_external_dispatch_lock
+FAILED tests/integration/test_restore.py::test_unbounded_disaster_exposure_blocks_reopen_and_reserve_is_revisioned
+FAILED tests/integration/test_restore.py::test_regeneration_requires_current_execution_epoch[None]
+FAILED tests/integration/test_restore.py::test_regeneration_requires_current_execution_epoch[obsolete]
+8 failed in 1.02s

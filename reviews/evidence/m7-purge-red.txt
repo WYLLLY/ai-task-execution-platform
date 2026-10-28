@@ -1,0 +1,24 @@
+time="2026-10-27T16:15:58+01:00" level=warning msg="Found orphan containers (atp-m1-test-proxy-1, atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-d462cf7a9f8f Creating
+ Container atp-m1-test-test-run-d462cf7a9f8f Created
+F.FF                                                                     [100%]
+=================================== FAILURES ===================================
+__________ test_purge_preserves_unknown_exposure_and_late_settlement ___________
+tests/integration/test_retention.py:119: in test_purge_preserves_unknown_exposure_and_late_settlement
+    assert (await purge(sessions(admin_engine)))["tasks"] == 1
+E   assert 0 == 1
+____ test_only_admin_can_invoke_purge_and_runtime_cannot_edit_payloads[api] ____
+tests/integration/test_retention.py:175: in test_only_admin_can_invoke_purge_and_runtime_cannot_edit_payloads
+    with pytest.raises((DBAPIError, ValueError)):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE any of (DBAPIError, ValueError)
+__ test_only_admin_can_invoke_purge_and_runtime_cannot_edit_payloads[worker] ___
+tests/integration/test_retention.py:175: in test_only_admin_can_invoke_purge_and_runtime_cannot_edit_payloads
+    with pytest.raises((DBAPIError, ValueError)):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE any of (DBAPIError, ValueError)
+=========================== short test summary info ============================
+FAILED tests/integration/test_retention.py::test_purge_preserves_unknown_exposure_and_late_settlement
+FAILED tests/integration/test_retention.py::test_only_admin_can_invoke_purge_and_runtime_cannot_edit_payloads[api]
+FAILED tests/integration/test_retention.py::test_only_admin_can_invoke_purge_and_runtime_cannot_edit_payloads[worker]
+3 failed, 1 passed, 2 deselected in 0.68s

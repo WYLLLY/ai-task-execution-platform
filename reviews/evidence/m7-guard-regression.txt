@@ -1,0 +1,30 @@
+time="2026-10-27T17:13:18+01:00" level=warning msg="Found orphan containers (atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-77ab59cac1ae Creating
+ Container atp-m1-test-test-run-77ab59cac1ae Created
+........................................................................ [  9%]
+................... Container atp-m1-test-redis-1 Stopping
+ Container atp-m1-test-redis-1 Stopped
+ Container atp-m1-test-redis-1 Starting
+ Container atp-m1-test-redis-1 Started
+..................................................... [ 18%]
+........................................................................ [ 27%]
+........................................................................ [ 37%]
+........................................................................ [ 46%]
+........................................................................ [ 55%]
+........................................................................ [ 64%]
+.......................................................F................ [ 74%]
+........................................................................ [ 83%]
+........................................................................ [ 92%]
+........................................................                 [100%]
+=================================== FAILURES ===================================
+___________ test_backup_streams_to_exclusive_ciphertext_and_manifest ___________
+tests/unit/test_backup_artifact.py:25: in test_backup_streams_to_exclusive_ciphertext_and_manifest
+    manifest = encrypted_backup(
+scripts/backup_artifact.py:92: in encrypted_backup
+    raise ValueError("Backup failed or exceeded its absolute deadline") from None
+E   ValueError: Backup failed or exceeded its absolute deadline
+=========================== short test summary info ============================
+FAILED tests/unit/test_backup_artifact.py::test_backup_streams_to_exclusive_ciphertext_and_manifest
+1 failed, 775 passed in 272.13s (0:04:32)
+
+M6_DEGRADED_PROFILE {"streams": 100, "followed_tasks": 20, "reads": 120, "scheduled_reads_per_second": 10, "duration_seconds": 12.01, "read_p95_seconds": 0.056, "new_creation": 503, "replay": 202, "control": 200, "heartbeat_interval_seconds": 10, "heartbeat_renewed": true, "stream_errors": 0, "physical_requests": 1, "remote_effects": 1, "committed_execution": true}

@@ -72,9 +72,12 @@ async def test_transport_bounds_and_independent_physical_counts(
     effects: int,
 ) -> None:
     payload = json.dumps({"scenario": scenario}).encode()
-    permit = Permit(uuid4(), payload, 0.2, time.monotonic())
-    started = time.monotonic()
     async with SimulationTransport(simulator.url) as transport:
+        # The physical-send scenario starts with a fresh B permit. Client/TLS
+        # asset initialization is outside this 200ms HTTP experiment; an expired
+        # permit is separately required to send zero physical requests below.
+        permit = Permit(uuid4(), payload, 0.2, time.monotonic())
+        started = time.monotonic()
         result = await transport.send(permit)
     assert result.outcome == outcome
     assert simulator.count("request") == 1

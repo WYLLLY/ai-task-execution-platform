@@ -1,0 +1,23 @@
+time="2026-10-28T05:51:34+01:00" level=warning msg="Found orphan containers (atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-d52ee97d6571 Creating
+ Container atp-m1-test-test-run-d52ee97d6571 Created
+.......F                                                                 [100%]
+=================================== FAILURES ===================================
+_____ test_concurrent_demo_erasure_waits_on_real_row_lock_and_audits_once ______
+tests/integration/test_demo_retention.py:226: in test_concurrent_demo_erasure_waits_on_real_row_lock_and_audits_once
+    await asyncio.sleep(0.01)
+/usr/local/lib/python3.14/asyncio/tasks.py:712: in sleep
+    return await future
+           ^^^^^^^^^^^^
+E   asyncio.exceptions.CancelledError
+
+The above exception was the direct cause of the following exception:
+tests/integration/test_demo_retention.py:213: in test_concurrent_demo_erasure_waits_on_real_row_lock_and_audits_once
+    async with asyncio.timeout(5):
+               ^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.14/asyncio/timeouts.py:115: in __aexit__
+    raise TimeoutError from exc_val
+E   TimeoutError
+=========================== short test summary info ============================
+FAILED tests/integration/test_demo_retention.py::test_concurrent_demo_erasure_waits_on_real_row_lock_and_audits_once
+1 failed, 7 passed in 21.58s

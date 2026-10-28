@@ -46,7 +46,7 @@ class SimulationTransport:
             raise ValueError("Fixed simulation destination required")
         self.url = url.rstrip("/") + "/complete"
         self.client = httpx.AsyncClient(
-            transport=httpx.AsyncHTTPTransport(retries=0),
+            transport=httpx.AsyncHTTPTransport(retries=0, trust_env=False),
             trust_env=False,
             follow_redirects=False,
             timeout=httpx.Timeout(connect=5, read=10, write=10, pool=2),

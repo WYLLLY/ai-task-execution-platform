@@ -1,0 +1,42 @@
+FFFFF                                                                    [100%]
+=================================== FAILURES ===================================
+____________________ test_exact_approved_reference_profile _____________________
+tests/unit/test_load_metrics.py:9: in test_exact_approved_reference_profile
+    assert reference_profile() == {
+E   AssertionError: assert {} == {'owners': 20...s': 4096, ...}
+E
+E     Right contains 19 more items:
+E     {'demo_milliseconds': 100,
+E      'document_bytes': 4096,
+E      'documents_per_owner': 20,
+E      'drain_seconds': 900,
+E      'input_bytes': 4096,...
+E
+E     ...Full output truncated (15 lines hidden), use '-vv' to show
+___ test_percentiles_never_fabricate_zero_for_missing_samples[values0-None] ____
+tests/unit/test_load_metrics.py:24: in test_percentiles_never_fabricate_zero_for_missing_samples
+    assert percentiles(values)["p95"] == expected
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'p95'
+____ test_percentiles_never_fabricate_zero_for_missing_samples[values1-3.0] ____
+tests/unit/test_load_metrics.py:24: in test_percentiles_never_fabricate_zero_for_missing_samples
+    assert percentiles(values)["p95"] == expected
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'p95'
+____ test_percentiles_never_fabricate_zero_for_missing_samples[values2-3.0] ____
+tests/unit/test_load_metrics.py:24: in test_percentiles_never_fabricate_zero_for_missing_samples
+    assert percentiles(values)["p95"] == expected
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'p95'
+_______ test_model_profile_preserves_calls_citations_and_billable_usage ________
+tests/unit/test_load_metrics.py:30: in test_model_profile_preserves_calls_citations_and_billable_usage
+    assert first["cost"] == 1000 and first["tokens"] == 1200
+           ^^^^^^^^^^^^^
+E   KeyError: 'cost'
+=========================== short test summary info ============================
+FAILED tests/unit/test_load_metrics.py::test_exact_approved_reference_profile
+FAILED tests/unit/test_load_metrics.py::test_percentiles_never_fabricate_zero_for_missing_samples[values0-None]
+FAILED tests/unit/test_load_metrics.py::test_percentiles_never_fabricate_zero_for_missing_samples[values1-3.0]
+FAILED tests/unit/test_load_metrics.py::test_percentiles_never_fabricate_zero_for_missing_samples[values2-3.0]
+FAILED tests/unit/test_load_metrics.py::test_model_profile_preserves_calls_citations_and_billable_usage
+5 failed in 0.03s

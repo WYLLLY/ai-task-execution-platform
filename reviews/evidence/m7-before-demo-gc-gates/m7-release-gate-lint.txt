@@ -1,0 +1,4 @@
+'/Users/william/Documents/Projet 2/.secrets/m7-tools/uv-env/bin/uv' run --frozen ruff check .
+All checks passed!
+'/Users/william/Documents/Projet 2/.secrets/m7-tools/uv-env/bin/uv' run --frozen ruff format --check .
+200 files already formatted

@@ -1,0 +1,44 @@
+time="2026-10-27T16:43:07+01:00" level=warning msg="Found orphan containers (atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-dae0fd357c2a Creating
+ Container atp-m1-test-test-run-dae0fd357c2a Created
+..........F...FF..                                                       [100%]
+=================================== FAILURES ===================================
+____ test_restore_quarantines_all_tasks_revokes_keys_and_preserves_exposure ____
+tests/integration/test_restore.py:83: in test_restore_quarantines_all_tasks_revokes_keys_and_preserves_exposure
+    assert await begin_restore(sessions(admin_engine), epoch, evidence) == {"quarantined": 2}
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+src/task_platform/recovery.py:105: in begin_restore
+    value = RestoreEvidence.model_validate(evidence)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   pydantic_core._pydantic_core.ValidationError: 2 validation errors for RestoreEvidence
+E   restored_at
+E     Input should be a valid datetime [type=datetime_type]
+E       For further information visit https://errors.pydantic.dev/2.14/v/datetime_type
+E   incident_at
+E     Input should be a valid datetime [type=datetime_type]
+E       For further information visit https://errors.pydantic.dev/2.14/v/datetime_type
+_________________ test_restore_requires_external_dispatch_lock _________________
+tests/integration/test_restore.py:131: in test_restore_requires_external_dispatch_lock
+    with pytest.raises(ValueError, match="external dispatch lock"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AssertionError: Regex pattern did not match.
+E     Expected regex: 'external dispatch lock'
+E     Actual message: '2 validation errors for RestoreEvidence\nrestored_at\n  Input should be a valid datetime [type=datetime_type]\n    For further information visit https://errors.pydantic.dev/2.14/v/datetime_type\nincident_at\n  Input should be a valid datetime [type=datetime_type]\n    For further information visit https://errors.pydantic.dev/2.14/v/datetime_type'
+___ test_unbounded_disaster_exposure_blocks_reopen_and_reserve_is_revisioned ___
+tests/integration/test_restore.py:145: in test_unbounded_disaster_exposure_blocks_reopen_and_reserve_is_revisioned
+    await begin_restore(factory, epoch, proof())
+src/task_platform/recovery.py:105: in begin_restore
+    value = RestoreEvidence.model_validate(evidence)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   pydantic_core._pydantic_core.ValidationError: 2 validation errors for RestoreEvidence
+E   restored_at
+E     Input should be a valid datetime [type=datetime_type]
+E       For further information visit https://errors.pydantic.dev/2.14/v/datetime_type
+E   incident_at
+E     Input should be a valid datetime [type=datetime_type]
+E       For further information visit https://errors.pydantic.dev/2.14/v/datetime_type
+=========================== short test summary info ============================
+FAILED tests/integration/test_restore.py::test_restore_quarantines_all_tasks_revokes_keys_and_preserves_exposure
+FAILED tests/integration/test_restore.py::test_restore_requires_external_dispatch_lock
+FAILED tests/integration/test_restore.py::test_unbounded_disaster_exposure_blocks_reopen_and_reserve_is_revisioned
+3 failed, 15 passed in 1.93s

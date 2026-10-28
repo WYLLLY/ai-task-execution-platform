@@ -1,0 +1,17 @@
+time="2026-10-27T16:44:16+01:00" level=warning msg="Found orphan containers (atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-cdc93446e9d1 Creating
+ Container atp-m1-test-test-run-cdc93446e9d1 Created
+F.................                                                       [100%]
+=================================== FAILURES ===================================
+____ test_restore_quarantines_all_tasks_revokes_keys_and_preserves_exposure ____
+tests/integration/test_restore.py:106: in test_restore_quarantines_all_tasks_revokes_keys_and_preserves_exposure
+    assert system["recovery"]["restored_at"] == evidence["restored_at"]
+E   AssertionError: assert '2026-10-27T13:44:19.207778Z' == '2026-10-27T1....207778+00:00'
+E
+E     - 2026-10-27T13:44:19.207778+00:00
+E     ?                           ^^^^^^
+E     + 2026-10-27T13:44:19.207778Z
+E     ?                           ^
+=========================== short test summary info ============================
+FAILED tests/integration/test_restore.py::test_restore_quarantines_all_tasks_revokes_keys_and_preserves_exposure
+1 failed, 17 passed in 2.02s

@@ -1,0 +1,20 @@
+{
+  "ServerVersion": "29.5.2",
+  "NCPU": 4,
+  "MemTotal": 8308355072,
+  "OperatingSystem": "Ubuntu 24.04.4 LTS",
+  "KernelVersion": "6.8.0-117-generic",
+  "Architecture": "aarch64",
+  "Driver": "overlayfs",
+  "host_system": "Darwin",
+  "host_machine": "arm64",
+  "virtualization": "Colima ai-task-platform / Lima VZ Linux VM, 4 vCPU and 8 GiB; APFS disk image backed by host SSD",
+  "runtime_image": "sha256:d8693ab05363959e257f3a0f7ad73f8a622f2c8a3fb4b45a4ffea6324b8a8007",
+  "test_image": "sha256:4e6cc07b2b642941f320292d27af8161cd14174c7ac5bac9ccacb8e66adeccc2",
+  "runtime_source_commit": "c4e129735dc4501af1d0a64462399b380120e748",
+  "test_source_commit": "8c00f11f32fa619fef5abfc4236a3a0b0980ffde",
+  "captured_at": "2026-10-28T14:32:47.366261+00:00",
+  "data_disk_gib": 40,
+  "capacity_change": "Expanded only the Colima data disk from 20 to 40 GiB before reference measurement; no image/volume deletion",
+  "disk_evidence": "m7-reference-expanded-storage.txt"
+}

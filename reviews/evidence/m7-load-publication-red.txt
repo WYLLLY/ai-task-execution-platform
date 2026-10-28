@@ -1,0 +1,16 @@
+...........F                                                             [100%]
+=================================== FAILURES ===================================
+_____ test_failed_later_phase_still_publishes_unfavorable_nominal_metrics ______
+/Users/william/Documents/Projet 2/tests/unit/test_load_metrics.py:141: in test_failed_later_phase_still_publishes_unfavorable_nominal_metrics
+    result = json.loads((tmp_path/'reviews/evidence/m7-reference-load.json').read_text())
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/Users/william/.local/share/uv/python/cpython-3.14.8-macos-aarch64-none/lib/python3.14/pathlib/__init__.py:787: in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/Users/william/.local/share/uv/python/cpython-3.14.8-macos-aarch64-none/lib/python3.14/pathlib/__init__.py:771: in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   FileNotFoundError: [Errno 2] No such file or directory: '/private/var/folders/h6/0xk7s0_s7db7_87hfcpb9mhm0000gp/T/pytest-of-william/pytest-7/test_failed_later_phase_still_0/reviews/evidence/m7-reference-load.json'
+=========================== short test summary info ============================
+FAILED tests/unit/test_load_metrics.py::test_failed_later_phase_still_publishes_unfavorable_nominal_metrics
+1 failed, 11 passed in 0.13s

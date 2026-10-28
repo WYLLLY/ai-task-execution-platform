@@ -1,0 +1,12 @@
+.............................F                                           [100%]
+=================================== FAILURES ===================================
+_______ test_maximum_valid_timestamp_has_no_overflow_or_premature_expiry _______
+tests/unit/test_retention_policy.py:123: in test_maximum_valid_timestamp_has_no_overflow_or_premature_expiry
+    value = retention_due(stamp, accepted_at=stamp, terminal_at=stamp,
+src/task_platform/retention_policy.py:51: in retention_due
+    content=terminal_at is not None and now >= terminal_at + timedelta(days=30),
+                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   OverflowError: date value out of range
+=========================== short test summary info ============================
+FAILED tests/unit/test_retention_policy.py::test_maximum_valid_timestamp_has_no_overflow_or_premature_expiry
+1 failed, 29 passed in 0.02s

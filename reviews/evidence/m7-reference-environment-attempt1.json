@@ -1,0 +1,13 @@
+{
+  "ServerVersion": "29.5.2",
+  "NCPU": 4,
+  "MemTotal": 8308355072,
+  "OperatingSystem": "Ubuntu 24.04.4 LTS",
+  "KernelVersion": "6.8.0-117-generic",
+  "Architecture": "aarch64",
+  "Driver": "overlayfs",
+  "host_system": "Darwin",
+  "host_machine": "arm64",
+  "virtualization": "Colima ai-task-platform / Lima VZ Linux VM, provisioned4vCPU8GiB; APFS disk image backed by host SSD",
+  "runtime_image": "sha256:1aad0765df4ef336b4e066ef7f418422957ccc756b2d0725e50654b8886863e4 arm64 linux"
+}

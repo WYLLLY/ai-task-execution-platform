@@ -1,0 +1,2 @@
+Filesystem     1024-blocks     Used Available Capacity Mounted on
+/dev/vdb1         20464208 17655064   1744288      92% /var/lib/postgresql/data

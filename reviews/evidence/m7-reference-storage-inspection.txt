@@ -1,0 +1,3 @@
+13432499
+160
+69124	/var/lib/postgresql/data

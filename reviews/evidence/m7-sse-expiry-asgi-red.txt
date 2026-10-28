@@ -1,0 +1,26 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+_______ test_normal_lifetime_finishes_asgi_body_within_hard_bound[0.01] ________
+tests/unit/test_sse_stream.py:245: in test_normal_lifetime_finishes_asgi_body_within_hard_bound
+    assert sent[-1] == {"type": "http.response.body", "body": b"", "more_body": False}
+E   AssertionError: assert {'type': 'htt...e_body': True} == {'type': 'htt..._body': False}
+E
+E     Omitting 1 identical items, use -vv to show
+E     Differing items:
+E     {'more_body': True} != {'more_body': False}
+E     {'body': b'id: 1\n\n'} != {'body': b''}
+E     Use -v to get more diff
+________ test_normal_lifetime_finishes_asgi_body_within_hard_bound[0.2] ________
+tests/unit/test_sse_stream.py:245: in test_normal_lifetime_finishes_asgi_body_within_hard_bound
+    assert sent[-1] == {"type": "http.response.body", "body": b"", "more_body": False}
+E   AssertionError: assert {'type': 'htt...e_body': True} == {'type': 'htt..._body': False}
+E
+E     Omitting 1 identical items, use -vv to show
+E     Differing items:
+E     {'more_body': True} != {'more_body': False}
+E     {'body': b'id: 1\n\n'} != {'body': b''}
+E     Use -v to get more diff
+=========================== short test summary info ============================
+FAILED tests/unit/test_sse_stream.py::test_normal_lifetime_finishes_asgi_body_within_hard_bound[0.01]
+FAILED tests/unit/test_sse_stream.py::test_normal_lifetime_finishes_asgi_body_within_hard_bound[0.2]
+2 failed, 8 deselected in 0.62s

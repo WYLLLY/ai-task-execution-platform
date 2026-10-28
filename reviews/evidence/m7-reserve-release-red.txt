@@ -1,0 +1,49 @@
+time="2026-10-27T16:45:18+01:00" level=warning msg="Found orphan containers (atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-270f3f95c476 Creating
+ Container atp-m1-test-test-run-270f3f95c476 Created
+........FFFFFFF                                                          [100%]
+=================================== FAILURES ===================================
+_ test_disaster_reserve_participates_in_admission_without_double_counting[unbounded] _
+tests/integration/test_restore.py:294: in test_disaster_reserve_participates_in_admission_without_double_counting
+    assert reason == "capacity_wait", f"{scope} exposure was omitted from admission"
+E   AssertionError: unbounded exposure was omitted from admission
+E   assert None == 'capacity_wait'
+_ test_disaster_reserve_participates_in_admission_without_double_counting[global_cost] _
+tests/integration/test_restore.py:294: in test_disaster_reserve_participates_in_admission_without_double_counting
+    assert reason == "capacity_wait", f"{scope} exposure was omitted from admission"
+E   AssertionError: global_cost exposure was omitted from admission
+E   assert None == 'capacity_wait'
+_ test_disaster_reserve_participates_in_admission_without_double_counting[owner_cost] _
+tests/integration/test_restore.py:294: in test_disaster_reserve_participates_in_admission_without_double_counting
+    assert reason == "capacity_wait", f"{scope} exposure was omitted from admission"
+E   AssertionError: owner_cost exposure was omitted from admission
+E   assert None == 'capacity_wait'
+_ test_disaster_reserve_participates_in_admission_without_double_counting[unallocated_cost] _
+tests/integration/test_restore.py:294: in test_disaster_reserve_participates_in_admission_without_double_counting
+    assert reason == "capacity_wait", f"{scope} exposure was omitted from admission"
+E   AssertionError: unallocated_cost exposure was omitted from admission
+E   assert None == 'capacity_wait'
+_ test_disaster_reserve_participates_in_admission_without_double_counting[global_tokens] _
+tests/integration/test_restore.py:294: in test_disaster_reserve_participates_in_admission_without_double_counting
+    assert reason == "capacity_wait", f"{scope} exposure was omitted from admission"
+E   AssertionError: global_tokens exposure was omitted from admission
+E   assert None == 'capacity_wait'
+_ test_disaster_reserve_participates_in_admission_without_double_counting[owner_tokens] _
+tests/integration/test_restore.py:294: in test_disaster_reserve_participates_in_admission_without_double_counting
+    assert reason == "capacity_wait", f"{scope} exposure was omitted from admission"
+E   AssertionError: owner_tokens exposure was omitted from admission
+E   assert None == 'capacity_wait'
+____ test_release_requires_proof_and_associates_current_owner_authorization ____
+tests/integration/test_restore.py:369: in test_release_requires_proof_and_associates_current_owner_authorization
+    with pytest.raises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError
+=========================== short test summary info ============================
+FAILED tests/integration/test_restore.py::test_disaster_reserve_participates_in_admission_without_double_counting[unbounded]
+FAILED tests/integration/test_restore.py::test_disaster_reserve_participates_in_admission_without_double_counting[global_cost]
+FAILED tests/integration/test_restore.py::test_disaster_reserve_participates_in_admission_without_double_counting[owner_cost]
+FAILED tests/integration/test_restore.py::test_disaster_reserve_participates_in_admission_without_double_counting[unallocated_cost]
+FAILED tests/integration/test_restore.py::test_disaster_reserve_participates_in_admission_without_double_counting[global_tokens]
+FAILED tests/integration/test_restore.py::test_disaster_reserve_participates_in_admission_without_double_counting[owner_tokens]
+FAILED tests/integration/test_restore.py::test_release_requires_proof_and_associates_current_owner_authorization
+7 failed, 8 passed in 1.85s

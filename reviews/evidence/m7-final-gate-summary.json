@@ -1,0 +1,178 @@
+{
+  "lint": {
+    "exit_code": 0,
+    "classification": "PASS",
+    "passed": null,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "typecheck": {
+    "exit_code": 0,
+    "classification": "PASS",
+    "passed": null,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "test-unit": {
+    "exit_code": 0,
+    "classification": "PASS",
+    "passed": 268,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "test-commands": {
+    "exit_code": 0,
+    "classification": "PASS",
+    "passed": 183,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "test-concurrency": {
+    "exit_code": 0,
+    "classification": "PASS",
+    "passed": 35,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "test-execution": {
+    "exit_code": 0,
+    "classification": "PASS",
+    "passed": 75,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "test-failures": {
+    "exit_code": 0,
+    "classification": "PASS",
+    "passed": 24,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "test-workflows": {
+    "exit_code": 0,
+    "classification": "PASS",
+    "passed": 34,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "test-tools": {
+    "exit_code": 0,
+    "classification": "PASS",
+    "passed": 24,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "test-e2e": {
+    "exit_code": 0,
+    "classification": "PASS",
+    "passed": 3,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "test-accounting": {
+    "exit_code": 0,
+    "classification": "PASS",
+    "passed": 54,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "test-provider-contracts": {
+    "exit_code": 0,
+    "classification": "PASS",
+    "passed": 59,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "test-sse": {
+    "exit_code": 0,
+    "classification": "PASS",
+    "passed": 81,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "test-degraded": {
+    "exit_code": 0,
+    "classification": "PASS",
+    "passed": 4,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "test-observability": {
+    "exit_code": 0,
+    "classification": "PASS",
+    "passed": 19,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "test-retention": {
+    "exit_code": 0,
+    "classification": "PASS",
+    "passed": 56,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "test-restore": {
+    "exit_code": 0,
+    "classification": "PASS",
+    "passed": 46,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "test-delivery": {
+    "exit_code": 0,
+    "classification": "PASS",
+    "passed": 8,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "test-load-contracts": {
+    "exit_code": 0,
+    "classification": "PASS",
+    "passed": 53,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "verify-release-image": {
+    "exit_code": 0,
+    "classification": "PASS",
+    "passed": null,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "smoke-compose": {
+    "exit_code": 0,
+    "classification": "PASS",
+    "passed": null,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "smoke-openai": {
+    "exit_code": 0,
+    "classification": "SKIPPED",
+    "passed": null,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 1
+  }
+}

@@ -1,0 +1,11 @@
+F........                                                                [100%]
+=================================== FAILURES ===================================
+___________ test_backup_streams_to_exclusive_ciphertext_and_manifest ___________
+tests/unit/test_backup_artifact.py:25: in test_backup_streams_to_exclusive_ciphertext_and_manifest
+    manifest = encrypted_backup(
+scripts/backup_artifact.py:92: in encrypted_backup
+    raise ValueError("Backup failed or exceeded its absolute deadline") from None
+E   ValueError: Backup failed or exceeded its absolute deadline
+=========================== short test summary info ============================
+FAILED tests/unit/test_backup_artifact.py::test_backup_streams_to_exclusive_ciphertext_and_manifest
+1 failed, 8 passed in 0.07s

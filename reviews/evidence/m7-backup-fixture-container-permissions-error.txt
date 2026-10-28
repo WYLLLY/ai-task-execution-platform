@@ -1,0 +1,47 @@
+time="2026-10-27T17:21:44+01:00" level=warning msg="Found orphan containers (atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-a40a07bd7cff Creating
+ Container atp-m1-test-test-run-a40a07bd7cff Created
+EEEE.....                                                                [100%]
+==================================== ERRORS ====================================
+__ ERROR at setup of test_backup_streams_to_exclusive_ciphertext_and_manifest __
+/Users/william/Documents/Projet 2/tests/unit/test_backup_artifact.py:19: in fake_age
+    ???
+/usr/local/lib/python3.14/tempfile.py:907: in __init__
+    self.name = mkdtemp(suffix, prefix, dir)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.14/tempfile.py:381: in mkdtemp
+    _os.mkdir(file, 0o700)
+E   PermissionError: [Errno 13] Permission denied: '/app/.m7-backup-fixture-zirdkrwv'
+_ ERROR at setup of test_backup_never_publishes_failed_or_timed_out_stream[dump] _
+/Users/william/Documents/Projet 2/tests/unit/test_backup_artifact.py:19: in fake_age
+    ???
+/usr/local/lib/python3.14/tempfile.py:907: in __init__
+    self.name = mkdtemp(suffix, prefix, dir)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.14/tempfile.py:381: in mkdtemp
+    _os.mkdir(file, 0o700)
+E   PermissionError: [Errno 13] Permission denied: '/app/.m7-backup-fixture-ya5ct4f8'
+_ ERROR at setup of test_backup_never_publishes_failed_or_timed_out_stream[encrypt] _
+/Users/william/Documents/Projet 2/tests/unit/test_backup_artifact.py:19: in fake_age
+    ???
+/usr/local/lib/python3.14/tempfile.py:907: in __init__
+    self.name = mkdtemp(suffix, prefix, dir)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.14/tempfile.py:381: in mkdtemp
+    _os.mkdir(file, 0o700)
+E   PermissionError: [Errno 13] Permission denied: '/app/.m7-backup-fixture-8rk4bhmv'
+_ ERROR at setup of test_backup_never_publishes_failed_or_timed_out_stream[timeout] _
+/Users/william/Documents/Projet 2/tests/unit/test_backup_artifact.py:19: in fake_age
+    ???
+/usr/local/lib/python3.14/tempfile.py:907: in __init__
+    self.name = mkdtemp(suffix, prefix, dir)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.14/tempfile.py:381: in mkdtemp
+    _os.mkdir(file, 0o700)
+E   PermissionError: [Errno 13] Permission denied: '/app/.m7-backup-fixture-jigzzmco'
+=========================== short test summary info ============================
+ERROR tests/unit/test_backup_artifact.py::test_backup_streams_to_exclusive_ciphertext_and_manifest
+ERROR tests/unit/test_backup_artifact.py::test_backup_never_publishes_failed_or_timed_out_stream[dump]
+ERROR tests/unit/test_backup_artifact.py::test_backup_never_publishes_failed_or_timed_out_stream[encrypt]
+ERROR tests/unit/test_backup_artifact.py::test_backup_never_publishes_failed_or_timed_out_stream[timeout]
+5 passed, 4 errors in 0.08s

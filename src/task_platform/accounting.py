@@ -12,6 +12,7 @@ from task_platform.execution_models import (
     ExternalCall,
     ProviderAdmission,
 )
+from task_platform.models import PlatformControl, Principal
 from task_platform.task_models import Task
 
 
@@ -78,9 +79,33 @@ async def admission_reason(
                 .where(scope)
             )
         ).one()
+        reserve_cost = reserve_tokens = 0
+        platform = await session.get(PlatformControl, 1)
+        if platform is not None:
+            if platform.recovery is not None and not platform.recovery.get("bounded"):
+                return "capacity_wait"
+            if index == 1:
+                owner = await session.get(Principal, task.principal_id)
+                assigned = (
+                    await session.execute(
+                        select(
+                            func.coalesce(func.sum(Principal.reserve_cost), 0),
+                            func.coalesce(func.sum(Principal.reserve_tokens), 0),
+                        )
+                    )
+                ).one()
+                # Missing exposure with unknown ownership might belong to this owner.
+                # Count it conservatively here; globally count the deployment total once.
+                reserve_cost = platform.reserve_cost - int(assigned[0])
+                reserve_tokens = platform.reserve_tokens - int(assigned[1])
+                if owner is not None:
+                    reserve_cost += owner.reserve_cost
+                    reserve_tokens += owner.reserve_tokens
+            elif index == 2:
+                reserve_cost, reserve_tokens = platform.reserve_cost, platform.reserve_tokens
         if row[2]:
             return "overrun_review"
-        if row[0] + cost > cap_cost or row[1] + tokens > cap_tokens:
+        if row[0] + reserve_cost + cost > cap_cost or row[1] + reserve_tokens + tokens > cap_tokens:
             return "task_limit" if index == 0 else "capacity_wait"
     calls = await session.scalar(
         select(func.count())

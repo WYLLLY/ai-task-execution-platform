@@ -1,0 +1,11 @@
+{
+  "runtime_oci_manifest": "sha256:599c377eff3414eeebb334cfdddbf7e3ce9242e37294b62ccf9e92067b61f60f",
+  "scan_configuration_digest": "sha256:37f2c958ae0543766e6454733f59c4d02ee001a7c041cb87419bd8642d5915e9",
+  "archive_sha256": "71498943112f907238b023bc137ea23cd6842c8f25743ef33aac8e4856c7b01c",
+  "source_commit": "8050f452d461ba2ae2f5da08d30a07e0f2b53eb0",
+  "schema_revision": "0011_recovery_authority",
+  "platform": "linux/arm64",
+  "registry_publication": "SKIPPED: local artifact only",
+  "image_scan": "m7-release-image-scan.json",
+  "archive_committed": false
+}

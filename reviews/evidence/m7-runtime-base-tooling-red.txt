@@ -1,0 +1,31 @@
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import importlib.util; assert importlib.util.find_spec("pip") is None
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    import importlib.util; assert importlib.util.find_spec("pip") is None; assert importlib.util.find_spec("ensurepip") is None, "runtime bundles installer wheels"; import subprocess; subprocess.run(['/usr/local/bin/python','-c','import importlib.util; assert importlib.util.find_spec("pip") is None'],check=True); assert subprocess.check_output(["dpkg-query","-W","-f=${Version}","libssl3"]).decode() == "3.0.22-1~deb12u2", "libssl security patch missing"
+                                                                                                                                                                                        ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/usr/local/bin/python', '-c', 'import importlib.util; assert importlib.util.find_spec("pip") is None']' returned non-zero exit status 1.
+Traceback (most recent call last):
+  File "/Users/william/Documents/Projet 2/scripts/verify_release_image.py", line 42, in <module>
+    main()
+    ~~~~^^
+  File "/Users/william/Documents/Projet 2/scripts/verify_release_image.py", line 16, in main
+    subprocess.run(  # noqa: S603 -- fixed read-only artifact assertion
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        [
+        ^
+    ...<18 lines>...
+        check=True,
+        ^^^^^^^^^^^
+    )
+    ^
+  File "/Users/william/.local/share/uv/python/cpython-3.14.8-macos-aarch64-none/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/opt/homebrew/bin/docker', 'run', '--rm', '--entrypoint', 'python', 'sha256:0149313935f3949d9d23834f22f47078d825bb1fb8e2f8f5b812d93ca5da9ec0', '-c', 'import importlib.util; assert importlib.util.find_spec("pip") is None; assert importlib.util.find_spec("ensurepip") is None, "runtime bundles installer wheels"; import subprocess; subprocess.run([\'/usr/local/bin/python\',\'-c\',\'import importlib.util; assert importlib.util.find_spec("pip") is None\'],check=True); assert subprocess.check_output(["dpkg-query","-W","-f=${Version}","libssl3"]).decode() == "3.0.22-1~deb12u2", "libssl security patch missing"']' returned non-zero exit status 1.

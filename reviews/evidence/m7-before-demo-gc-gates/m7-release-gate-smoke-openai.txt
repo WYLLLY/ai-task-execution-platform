@@ -1,0 +1,2 @@
+'/Users/william/Documents/Projet 2/.secrets/m7-tools/uv-env/bin/uv' run --frozen atp smoke-openai
+SKIPPED: separate paid OpenAI smoke authorization is absent

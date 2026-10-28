@@ -1,0 +1,32 @@
+time="2026-10-28T05:16:41+01:00" level=warning msg="Found orphan containers (atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-cef25bb12eef Creating
+ Container atp-m1-test-test-run-cef25bb12eef Created
+F....................................................................... [  8%]
+................... Container atp-m1-test-redis-1 Stopping
+ Container atp-m1-test-redis-1 Stopped
+ Container atp-m1-test-redis-1 Starting
+ Container atp-m1-test-redis-1 Started
+..................................................... [ 17%]
+........................................................................ [ 26%]
+........................................................................ [ 35%]
+........................................................................ [ 44%]
+........................................................................ [ 53%]
+........................................................................ [ 62%]
+........................................................................ [ 71%]
+........................................................................ [ 80%]
+........................................................................ [ 88%]
+........................................................................ [ 97%]
+.................                                                        [100%]
+=================================== FAILURES ===================================
+__________ test_concurrent_repeated_evidence_settles_once_and_audits ___________
+tests/integration/test_accounting_admin.py:66: in test_concurrent_repeated_evidence_settles_once_and_audits
+    assert await c.scalar(text("SELECT state FROM tasks")) == "suspended"
+E   AssertionError: assert 'cancelled' == 'suspended'
+E
+E     - suspended
+E     + cancelled
+=========================== short test summary info ============================
+FAILED tests/integration/test_accounting_admin.py::test_concurrent_repeated_evidence_settles_once_and_audits
+1 failed, 808 passed in 285.70s (0:04:45)
+
+M6_DEGRADED_PROFILE {"streams": 100, "followed_tasks": 20, "reads": 120, "scheduled_reads_per_second": 10, "duration_seconds": 12.018, "read_p95_seconds": 0.0143, "new_creation": 503, "replay": 202, "control": 200, "heartbeat_interval_seconds": 10, "heartbeat_renewed": true, "stream_errors": 0, "physical_requests": 1, "remote_effects": 1, "committed_execution": true}

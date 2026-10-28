@@ -39,6 +39,40 @@ async def run_admin(args: argparse.Namespace) -> None:
     try:
         async with publishing(settings, factory):
             match args.action:
+                case "retention":
+                    from task_platform.retention import purge
+
+                    print(json.dumps(await purge(factory, limit=args.limit)))
+                case "demo-retention":
+                    from task_platform.demo_retention import erase_demo_content
+                    from task_platform.provider_commands import read_json_file
+
+                    value = await asyncio.to_thread(read_json_file, args.file)
+                    print(json.dumps({"purged": await erase_demo_content(value)}))
+                case "recovery":
+                    from task_platform.provider_commands import read_json_file
+                    from task_platform.recovery import (
+                        begin_restore,
+                        release_task,
+                        reopen,
+                        revise_reserve,
+                    )
+
+                    functions = {
+                        "begin": begin_restore,
+                        "reserve": revise_reserve,
+                        "reopen": reopen,
+                        "release": release_task,
+                    }
+                    value = await asyncio.to_thread(read_json_file, args.file)
+                    result = await functions[args.recovery_action](
+                        factory, settings.execution_epoch, value
+                    )
+                    print(json.dumps({"result": result}))
+                case "delivery":
+                    from task_platform.delivery import delivery_phase
+
+                    print(json.dumps(await delivery_phase(factory, settings, args.phase)))
                 case "operations":
                     import time
 
@@ -89,7 +123,11 @@ async def run_admin(args: argparse.Namespace) -> None:
                         await reconcile(factory, args.call, value)
                     print(json.dumps({"applied": True}))
                 case "corpus":
-                    from task_platform.corpus import import_document, revoke_document
+                    from task_platform.corpus import (
+                        delete_document,
+                        import_document,
+                        revoke_document,
+                    )
 
                     if args.corpus_action == "import":
                         content = await asyncio.to_thread(read_corpus_file, args.file)
@@ -97,6 +135,11 @@ async def run_admin(args: argparse.Namespace) -> None:
                             factory, UUID(args.principal), UUID(args.document), content
                         )
                         print(json.dumps({"document_id": args.document, "version": version}))
+                    elif args.corpus_action == "delete":
+                        changed = await delete_document(
+                            factory, UUID(args.principal), UUID(args.document), args.version
+                        )
+                        print(json.dumps({"deleted": changed}))
                     else:
                         await revoke_document(
                             factory, UUID(args.principal), UUID(args.document), args.version
@@ -246,6 +289,17 @@ def main() -> None:
     admin = commands.add_parser("admin")
     actions = admin.add_subparsers(dest="action", required=True)
     actions.add_parser("init")
+    retention = actions.add_parser("retention")
+    retention.add_argument("--limit", type=int, default=100)
+    actions.add_parser("demo-retention").add_argument("--file", required=True)
+    recovery = actions.add_parser("recovery")
+    recovery_actions = recovery.add_subparsers(dest="recovery_action", required=True)
+    for action in ("begin", "reserve", "reopen", "release"):
+        recovery_actions.add_parser(action).add_argument("--file", required=True)
+    delivery = actions.add_parser("delivery")
+    delivery.add_argument(
+        "--phase", choices=["close", "drain", "preflight", "reopen"], required=True
+    )
     operations = actions.add_parser("operations")
     operations.add_argument("--format", choices=["json", "prometheus"], default="json")
     operations.add_argument("--watch", action="store_true")
@@ -271,7 +325,7 @@ def main() -> None:
     workflow.add_argument("--enabled", choices=["true", "false"], required=True)
     corpus = actions.add_parser("corpus")
     corpus_actions = corpus.add_subparsers(dest="corpus_action", required=True)
-    for action in ("import", "revoke"):
+    for action in ("import", "revoke", "delete"):
         sub = corpus_actions.add_parser(action)
         sub.add_argument("--principal", required=True)
         sub.add_argument("--document", required=True)

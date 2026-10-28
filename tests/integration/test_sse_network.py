@@ -149,3 +149,12 @@ async def test_stream_closes_within_auth_bound_under_real_revocation_or_db_failu
                     assert time.monotonic() - started < 10
     finally:
         await engine.dispose()
+
+
+async def test_proxy_keeps_the_current_api_target_after_container_replacement() -> None:
+    async with AsyncClient(trust_env=False, timeout=4) as network:
+        direct = await network.get("http://api:8000/v1/system")
+        proxied = await network.get("http://proxy:8080/v1/system")
+        assert "schema_compatible" in direct.json()
+        assert proxied.status_code == direct.status_code
+        assert "schema_compatible" in proxied.json(), "proxy retained a replaced container address"

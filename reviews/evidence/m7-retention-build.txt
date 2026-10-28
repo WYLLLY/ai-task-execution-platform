@@ -1,0 +1,230 @@
+time="2026-10-27T16:32:09+01:00" level=warning msg="buildx Docker CLI plugin not found: falling back to the classic builder. BuildKit-only build features (multi-arch, secrets, ssh, additional contexts, ...) will not be available"
+ Image ai-task-platform:m1 Building
+ Image ai-task-platform:m1 Building
+Sending build context to Docker daemon  253.2kB
+
+Step 1/20 : FROM python:3.14.8-slim-bookworm@sha256:48b13b003dda20b16f9442b8475aa05fe21bf6579a8c881db92ffb4d8fd20f83 AS build
+ ---> 48b13b003dda
+Step 2/20 : WORKDIR /app
+ ---> Using cache
+ ---> 5aaa8d111d60
+Step 3/20 : RUN pip install --no-cache-dir uv==0.13.1
+ ---> Using cache
+ ---> b96fb089c2aa
+Step 4/20 : ENV UV_LINK_MODE=copy UV_PYTHON_DOWNLOADS=never TIKTOKEN_CACHE_DIR=/app/tokenizer-cache
+ ---> Using cache
+ ---> 0b8b5c1d4e5b
+Step 5/20 : COPY pyproject.toml uv.lock ./
+ ---> Using cache
+ ---> 035fe19bc71b
+Step 6/20 : COPY src ./src
+ ---> 07bb20e2024a
+Step 7/20 : RUN uv sync --frozen --no-dev --no-editable
+ ---> Running in c0efc1ef482e
+Using CPython 3.14.8 interpreter at: /usr/local/bin/python3
+Creating virtual environment at: .venv
+   Building ai-task-execution-platform @ file:///app
+Downloading tiktoken (1.1MiB)
+Downloading sqlalchemy (3.2MiB)
+Downloading psycopg-binary (6.5MiB)
+Downloading pydantic-core (2.0MiB)
+      Built ai-task-execution-platform @ file:///app
+ Downloaded tiktoken
+ Downloaded pydantic-core
+ Downloaded sqlalchemy
+ Downloaded psycopg-binary
+Prepared 34 packages in 12.70s
+Installed 34 packages in 57ms
+ + ai-task-execution-platform==0.1.0 (from file:///app)
+ + alembic==1.20.0
+ + annotated-doc==0.0.5
+ + annotated-types==0.8.0
+ + anyio==4.15.1
+ + certifi==2026.7.22
+ + charset-normalizer==3.5.2
+ + click==8.5.0
+ + fastapi==0.143.1
+ + greenlet==3.5.6
+ + h11==0.16.0
+ + httpcore==1.0.9
+ + httpx==0.28.1
+ + idna==3.20
+ + mako==1.4.3
+ + markupsafe==3.0.4
+ + opentelemetry-api==1.45.1
+ + opentelemetry-sdk==1.45.1
+ + opentelemetry-semantic-conventions==0.66b1
+ + prometheus-client==0.26.0
+ + psycopg==3.3.6
+ + psycopg-binary==3.3.6
+ + pydantic==2.14.1
+ + pydantic-core==2.50.1
+ + redis==8.1.0
+ + regex==2026.9.29
+ + requests==2.34.2
+ + sqlalchemy==2.0.54
+ + starlette==1.8.0
+ + tiktoken==0.14.0
+ + typing-extensions==4.16.0
+ + typing-inspection==0.4.4
+ + urllib3==2.8.0
+ + uvicorn==0.54.0
+ ---> Removed intermediate container c0efc1ef482e
+ ---> f92a06046412
+Step 8/20 : RUN .venv/bin/python -c 'import tiktoken; tiktoken.get_encoding("o200k_base")'
+ ---> Running in 911888245b55
+ ---> Removed intermediate container 911888245b55
+ ---> 5b6957423a40
+Step 9/20 : FROM python:3.14.8-slim-bookworm@sha256:48b13b003dda20b16f9442b8475aa05fe21bf6579a8c881db92ffb4d8fd20f83 AS runtime
+ ---> 48b13b003dda
+Step 10/20 : ENV PATH="/app/.venv/bin:$PATH" PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
+ ---> Using cache
+ ---> 7310cff1593e
+Step 11/20 : WORKDIR /app
+ ---> Using cache
+ ---> 8abcf65ee721
+Step 12/20 : COPY --from=build /app/.venv /app/.venv
+ ---> 685688613413
+Step 13/20 : COPY --from=build /app/tokenizer-cache /app/tokenizer-cache
+ ---> 1ff7ce06c5db
+Step 14/20 : ENV TIKTOKEN_CACHE_DIR=/app/tokenizer-cache
+ ---> Running in aa4c15dc8e02
+ ---> Removed intermediate container aa4c15dc8e02
+ ---> 4f18248d3abd
+Step 15/20 : COPY migrations ./migrations
+ ---> 1d065b90cd6b
+Step 16/20 : COPY alembic.ini ./
+ ---> 575e26689bcf
+Step 17/20 : USER 10001:10001
+ ---> Running in 2891627bbe8f
+ ---> Removed intermediate container 2891627bbe8f
+ ---> 0397df69277a
+Step 18/20 : ENTRYPOINT ["atp"]
+ ---> Running in 80a7992d04a5
+ ---> Removed intermediate container 80a7992d04a5
+ ---> 3c8e0c697e21
+Step 19/20 : CMD ["api"]
+ ---> Running in fe4ba56fc612
+ ---> Removed intermediate container fe4ba56fc612
+ ---> fb3723011170
+Step 20/20 : LABEL com.docker.compose.image.builder=classic
+ ---> Running in 3c8a0135ab5f
+ ---> Removed intermediate container 3c8a0135ab5f
+ ---> 27610624aa52
+Successfully built 27610624aa52
+Successfully tagged ai-task-platform:m1
+ Image ai-task-platform:m1 Built
+ Image ai-task-platform:m1 Built
+ Image ai-task-platform:m1-test Building
+ Image ai-task-platform:m1-test Building
+Sending build context to Docker daemon  253.2kB
+
+Step 1/27 : FROM python:3.14.8-slim-bookworm@sha256:48b13b003dda20b16f9442b8475aa05fe21bf6579a8c881db92ffb4d8fd20f83 AS build
+ ---> 48b13b003dda
+Step 2/27 : WORKDIR /app
+ ---> Using cache
+ ---> 5aaa8d111d60
+Step 3/27 : RUN pip install --no-cache-dir uv==0.13.1
+ ---> Using cache
+ ---> b96fb089c2aa
+Step 4/27 : ENV UV_LINK_MODE=copy UV_PYTHON_DOWNLOADS=never TIKTOKEN_CACHE_DIR=/app/tokenizer-cache
+ ---> Using cache
+ ---> 0b8b5c1d4e5b
+Step 5/27 : COPY pyproject.toml uv.lock ./
+ ---> Using cache
+ ---> 035fe19bc71b
+Step 6/27 : COPY src ./src
+ ---> Using cache
+ ---> 07bb20e2024a
+Step 7/27 : RUN uv sync --frozen --no-dev --no-editable
+ ---> Using cache
+ ---> f92a06046412
+Step 8/27 : RUN .venv/bin/python -c 'import tiktoken; tiktoken.get_encoding("o200k_base")'
+ ---> Using cache
+ ---> 5b6957423a40
+Step 9/27 : FROM python:3.14.8-slim-bookworm@sha256:48b13b003dda20b16f9442b8475aa05fe21bf6579a8c881db92ffb4d8fd20f83 AS runtime
+ ---> 48b13b003dda
+Step 10/27 : ENV PATH="/app/.venv/bin:$PATH" PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
+ ---> Using cache
+ ---> 7310cff1593e
+Step 11/27 : WORKDIR /app
+ ---> Using cache
+ ---> 8abcf65ee721
+Step 12/27 : COPY --from=build /app/.venv /app/.venv
+ ---> Using cache
+ ---> 685688613413
+Step 13/27 : COPY --from=build /app/tokenizer-cache /app/tokenizer-cache
+ ---> Using cache
+ ---> 1ff7ce06c5db
+Step 14/27 : ENV TIKTOKEN_CACHE_DIR=/app/tokenizer-cache
+ ---> Using cache
+ ---> 4f18248d3abd
+Step 15/27 : COPY migrations ./migrations
+ ---> Using cache
+ ---> 1d065b90cd6b
+Step 16/27 : COPY alembic.ini ./
+ ---> Using cache
+ ---> 575e26689bcf
+Step 17/27 : USER 10001:10001
+ ---> Using cache
+ ---> 0397df69277a
+Step 18/27 : ENTRYPOINT ["atp"]
+ ---> Using cache
+ ---> 3c8e0c697e21
+Step 19/27 : CMD ["api"]
+ ---> Using cache
+ ---> fb3723011170
+Step 20/27 : FROM build AS test
+ ---> 5b6957423a40
+Step 21/27 : RUN uv sync --frozen --no-editable
+ ---> Running in b438e25640e4
+Downloading pygments (1.2MiB)
+Downloading ast-serialize (1.2MiB)
+Downloading ruff (9.5MiB)
+Downloading mypy (13.7MiB)
+ Downloaded pygments
+ Downloaded ast-serialize
+ Downloaded ruff
+ Downloaded mypy
+Prepared 9 packages in 13.65s
+Installed 12 packages in 120ms
+ + ast-serialize==0.13.0
+ + iniconfig==2.3.1
+ + librt==0.16.0
+ + mypy==2.4.0
+ + mypy-extensions==1.1.0
+ + packaging==26.3
+ + pathspec==1.1.1
+ + pluggy==1.7.0
+ + pygments==2.21.0
+ + pytest==9.1.1
+ + pytest-asyncio==1.4.0
+ + ruff==0.17.0
+ ---> Removed intermediate container b438e25640e4
+ ---> 063bf56ca798
+Step 22/27 : COPY . .
+ ---> 1da8575a5844
+Step 23/27 : ENV PATH="/app/.venv/bin:$PATH" PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
+ ---> Running in b8469144de6b
+ ---> Removed intermediate container b8469144de6b
+ ---> fa9d53d06c3a
+Step 24/27 : USER 10001:10001
+ ---> Running in b0086fdc9dd1
+ ---> Removed intermediate container b0086fdc9dd1
+ ---> 8525dd30eb55
+Step 25/27 : ENTRYPOINT []
+ ---> Running in 6c7079016e5e
+ ---> Removed intermediate container 6c7079016e5e
+ ---> 21703d3efd5e
+Step 26/27 : CMD ["pytest", "-p", "no:cacheprovider"]
+ ---> Running in e44c26dda9f5
+ ---> Removed intermediate container e44c26dda9f5
+ ---> 8c1ec0050a5b
+Step 27/27 : LABEL com.docker.compose.image.builder=classic
+ ---> Running in dd8836bb75cc
+ ---> Removed intermediate container dd8836bb75cc
+ ---> 4452bf473110
+Successfully built 4452bf473110
+Successfully tagged ai-task-platform:m1-test
+ Image ai-task-platform:m1-test Built
+ Image ai-task-platform:m1-test Built

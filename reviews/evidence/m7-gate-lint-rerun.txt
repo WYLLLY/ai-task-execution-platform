@@ -1,0 +1,6 @@
+'/Users/william/Documents/Projet 2/.secrets/m7-tools/uv-env/bin/uv' run --frozen ruff check .
+Uninstalled 1 package in 2ms
+Installed 1 package in 1ms
+All checks passed!
+'/Users/william/Documents/Projet 2/.secrets/m7-tools/uv-env/bin/uv' run --frozen ruff format --check .
+191 files already formatted

@@ -1,0 +1,222 @@
+time="2026-10-27T22:07:15+01:00" level=warning msg="buildx Docker CLI plugin not found: falling back to the classic builder. BuildKit-only build features (multi-arch, secrets, ssh, additional contexts, ...) will not be available"
+ Image ai-task-platform:m1 Building
+ Image ai-task-platform:m1 Building
+Sending build context to Docker daemon  293.4kB
+
+Step 1/22 : FROM python:3.14.8-slim-bookworm@sha256:48b13b003dda20b16f9442b8475aa05fe21bf6579a8c881db92ffb4d8fd20f83 AS build
+ ---> 48b13b003dda
+Step 2/22 : WORKDIR /app
+ ---> Using cache
+ ---> 5aaa8d111d60
+Step 3/22 : RUN pip install --no-cache-dir uv==0.13.1
+ ---> Using cache
+ ---> b96fb089c2aa
+Step 4/22 : ENV UV_LINK_MODE=copy UV_PYTHON_DOWNLOADS=never TIKTOKEN_CACHE_DIR=/app/tokenizer-cache
+ ---> Using cache
+ ---> 0b8b5c1d4e5b
+Step 5/22 : COPY pyproject.toml uv.lock ./
+ ---> Using cache
+ ---> 1797f281bc07
+Step 6/22 : COPY src ./src
+ ---> Using cache
+ ---> 4a99188d164f
+Step 7/22 : RUN uv sync --frozen --no-dev --no-editable
+ ---> Using cache
+ ---> ea3a764db0e5
+Step 8/22 : RUN .venv/bin/python -c 'import tiktoken; tiktoken.get_encoding("o200k_base")'
+ ---> Using cache
+ ---> 7815586dc717
+Step 9/22 : FROM python:3.14.8-slim-bookworm@sha256:48b13b003dda20b16f9442b8475aa05fe21bf6579a8c881db92ffb4d8fd20f83 AS runtime
+ ---> 48b13b003dda
+Step 10/22 : ENV PATH="/app/.venv/bin:$PATH" PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
+ ---> Using cache
+ ---> 7310cff1593e
+Step 11/22 : WORKDIR /app
+ ---> Using cache
+ ---> 8abcf65ee721
+Step 12/22 : COPY --from=build /app/.venv /app/.venv
+ ---> Using cache
+ ---> ab7d0bdaf373
+Step 13/22 : RUN rm -rf /usr/local/lib/python3.14/ensurepip     /usr/local/lib/python3.14/site-packages/pip     /usr/local/lib/python3.14/site-packages/pip-*.dist-info /usr/local/bin/pip*
+ ---> Running in 9985c16127ac
+ ---> Removed intermediate container 9985c16127ac
+ ---> f6fd36047065
+Step 14/22 : RUN apt-get update && apt-get install -y --no-install-recommends     libssl3=3.0.22-1~deb12u2 openssl=3.0.22-1~deb12u2     && rm -rf /var/lib/apt/lists/*
+ ---> Running in 157d505cae91
+Get:1 http://deb.debian.org/debian bookworm InRelease [151 kB]
+Get:2 http://deb.debian.org/debian bookworm-updates InRelease [55.4 kB]
+Get:3 http://deb.debian.org/debian-security bookworm-security InRelease [34.8 kB]
+Get:4 http://deb.debian.org/debian bookworm/main arm64 Packages [8689 kB]
+Get:5 http://deb.debian.org/debian bookworm-updates/main arm64 Packages [6936 B]
+Get:6 http://deb.debian.org/debian-security bookworm-security/main arm64 Packages [356 kB]
+Fetched 9294 kB in 8s (1211 kB/s)
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages will be upgraded:
+  libssl3 openssl
+2 upgraded, 0 newly installed, 0 to remove and 2 not upgraded.
+Need to get 3239 kB of archives.
+After this operation, 2048 B of additional disk space will be used.
+Get:1 http://deb.debian.org/debian-security bookworm-security/main arm64 libssl3 arm64 3.0.22-1~deb12u2 [1829 kB]
+Get:2 http://deb.debian.org/debian-security bookworm-security/main arm64 openssl arm64 3.0.22-1~deb12u2 [1410 kB]
+debconf: delaying package configuration, since apt-utils is not installed
+Fetched 3239 kB in 1s (2791 kB/s)
+(Reading database ...
+(Reading database ... 5%
+(Reading database ... 10%
+(Reading database ... 15%
+(Reading database ... 20%
+(Reading database ... 25%
+(Reading database ... 30%
+(Reading database ... 35%
+(Reading database ... 40%
+(Reading database ... 45%
+(Reading database ... 50%
+(Reading database ... 55%
+(Reading database ... 60%
+(Reading database ... 65%
+(Reading database ... 70%
+(Reading database ... 75%
+(Reading database ... 80%
+(Reading database ... 85%
+(Reading database ... 90%
+(Reading database ... 95%
+(Reading database ... 100%
+(Reading database ... 6642 files and directories currently installed.)
+Preparing to unpack .../libssl3_3.0.22-1~deb12u2_arm64.deb ...
+Unpacking libssl3:arm64 (3.0.22-1~deb12u2) over (3.0.22-1~deb12u1) ...
+Preparing to unpack .../openssl_3.0.22-1~deb12u2_arm64.deb ...
+Unpacking openssl (3.0.22-1~deb12u2) over (3.0.22-1~deb12u1) ...
+Setting up libssl3:arm64 (3.0.22-1~deb12u2) ...
+Setting up openssl (3.0.22-1~deb12u2) ...
+Processing triggers for libc-bin (2.36-9+deb12u14) ...
+ ---> Removed intermediate container 157d505cae91
+ ---> 6f6d8662792c
+Step 15/22 : COPY --from=build /app/tokenizer-cache /app/tokenizer-cache
+ ---> b57cd4bdc5c3
+Step 16/22 : ENV TIKTOKEN_CACHE_DIR=/app/tokenizer-cache
+ ---> Running in 3e42a7316d5c
+ ---> Removed intermediate container 3e42a7316d5c
+ ---> 2b3962433ba2
+Step 17/22 : COPY migrations ./migrations
+ ---> 82028aca0464
+Step 18/22 : COPY alembic.ini ./
+ ---> 97983f720be9
+Step 19/22 : USER 10001:10001
+ ---> Running in 39d37cfa2cee
+ ---> Removed intermediate container 39d37cfa2cee
+ ---> 3bd0758ba1c4
+Step 20/22 : ENTRYPOINT ["atp"]
+ ---> Running in c560ce4c5efb
+ ---> Removed intermediate container c560ce4c5efb
+ ---> 6939712cf262
+Step 21/22 : CMD ["api"]
+ ---> Running in 7bbe50d34c9e
+ ---> Removed intermediate container 7bbe50d34c9e
+ ---> 9b4d09656f86
+Step 22/22 : LABEL com.docker.compose.image.builder=classic
+ ---> Running in e0ae53bd632a
+ ---> Removed intermediate container e0ae53bd632a
+ ---> 1aad0765df4e
+Successfully built 1aad0765df4e
+Successfully tagged ai-task-platform:m1
+ Image ai-task-platform:m1 Built
+ Image ai-task-platform:m1 Built
+ Image ai-task-platform:m1-test Building
+ Image ai-task-platform:m1-test Building
+Sending build context to Docker daemon  293.4kB
+
+Step 1/29 : FROM python:3.14.8-slim-bookworm@sha256:48b13b003dda20b16f9442b8475aa05fe21bf6579a8c881db92ffb4d8fd20f83 AS build
+ ---> 48b13b003dda
+Step 2/29 : WORKDIR /app
+ ---> Using cache
+ ---> 5aaa8d111d60
+Step 3/29 : RUN pip install --no-cache-dir uv==0.13.1
+ ---> Using cache
+ ---> b96fb089c2aa
+Step 4/29 : ENV UV_LINK_MODE=copy UV_PYTHON_DOWNLOADS=never TIKTOKEN_CACHE_DIR=/app/tokenizer-cache
+ ---> Using cache
+ ---> 0b8b5c1d4e5b
+Step 5/29 : COPY pyproject.toml uv.lock ./
+ ---> Using cache
+ ---> 1797f281bc07
+Step 6/29 : COPY src ./src
+ ---> Using cache
+ ---> 4a99188d164f
+Step 7/29 : RUN uv sync --frozen --no-dev --no-editable
+ ---> Using cache
+ ---> ea3a764db0e5
+Step 8/29 : RUN .venv/bin/python -c 'import tiktoken; tiktoken.get_encoding("o200k_base")'
+ ---> Using cache
+ ---> 7815586dc717
+Step 9/29 : FROM python:3.14.8-slim-bookworm@sha256:48b13b003dda20b16f9442b8475aa05fe21bf6579a8c881db92ffb4d8fd20f83 AS runtime
+ ---> 48b13b003dda
+Step 10/29 : ENV PATH="/app/.venv/bin:$PATH" PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
+ ---> Using cache
+ ---> 7310cff1593e
+Step 11/29 : WORKDIR /app
+ ---> Using cache
+ ---> 8abcf65ee721
+Step 12/29 : COPY --from=build /app/.venv /app/.venv
+ ---> Using cache
+ ---> ab7d0bdaf373
+Step 13/29 : RUN rm -rf /usr/local/lib/python3.14/ensurepip     /usr/local/lib/python3.14/site-packages/pip     /usr/local/lib/python3.14/site-packages/pip-*.dist-info /usr/local/bin/pip*
+ ---> Using cache
+ ---> f6fd36047065
+Step 14/29 : RUN apt-get update && apt-get install -y --no-install-recommends     libssl3=3.0.22-1~deb12u2 openssl=3.0.22-1~deb12u2     && rm -rf /var/lib/apt/lists/*
+ ---> Using cache
+ ---> 6f6d8662792c
+Step 15/29 : COPY --from=build /app/tokenizer-cache /app/tokenizer-cache
+ ---> Using cache
+ ---> b57cd4bdc5c3
+Step 16/29 : ENV TIKTOKEN_CACHE_DIR=/app/tokenizer-cache
+ ---> Using cache
+ ---> 2b3962433ba2
+Step 17/29 : COPY migrations ./migrations
+ ---> Using cache
+ ---> 82028aca0464
+Step 18/29 : COPY alembic.ini ./
+ ---> Using cache
+ ---> 97983f720be9
+Step 19/29 : USER 10001:10001
+ ---> Using cache
+ ---> 3bd0758ba1c4
+Step 20/29 : ENTRYPOINT ["atp"]
+ ---> Using cache
+ ---> 6939712cf262
+Step 21/29 : CMD ["api"]
+ ---> Using cache
+ ---> 9b4d09656f86
+Step 22/29 : FROM build AS test
+ ---> 7815586dc717
+Step 23/29 : RUN uv sync --frozen --no-editable
+ ---> Using cache
+ ---> bfcb498ed083
+Step 24/29 : COPY . .
+ ---> 88fadd9c7d5a
+Step 25/29 : ENV PATH="/app/.venv/bin:$PATH" PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
+ ---> Running in 22114a4d55d0
+ ---> Removed intermediate container 22114a4d55d0
+ ---> b6b150367531
+Step 26/29 : USER 10001:10001
+ ---> Running in 37be78c832fc
+ ---> Removed intermediate container 37be78c832fc
+ ---> 94c688daa46f
+Step 27/29 : ENTRYPOINT []
+ ---> Running in 443a97000548
+ ---> Removed intermediate container 443a97000548
+ ---> 2209a77c1f07
+Step 28/29 : CMD ["pytest", "-p", "no:cacheprovider"]
+ ---> Running in f2476e0a5fc4
+ ---> Removed intermediate container f2476e0a5fc4
+ ---> d8845e90095a
+Step 29/29 : LABEL com.docker.compose.image.builder=classic
+ ---> Running in ded91e17dc55
+ ---> Removed intermediate container ded91e17dc55
+ ---> 99f80b9b44d8
+Successfully built 99f80b9b44d8
+Successfully tagged ai-task-platform:m1-test
+ Image ai-task-platform:m1-test Built
+ Image ai-task-platform:m1-test Built

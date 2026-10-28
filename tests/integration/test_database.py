@@ -100,6 +100,7 @@ async def test_exact_foundation_tables_and_no_role_escalation(admin_engine: Asyn
             "call_costs",
             "cost_evidence",
             "accounting_decisions",
+            "restore_decisions",
             "provider_admission",
             "documents",
         }

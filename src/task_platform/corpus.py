@@ -3,7 +3,7 @@
 import hashlib
 from uuid import UUID
 
-from sqlalchemy import Boolean, Integer, String, Text, select
+from sqlalchemy import Boolean, Integer, String, Text, select, text
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -94,3 +94,19 @@ async def authorized_documents(
             raise NotFoundError
         documents.append(doc)
     return documents
+
+
+async def delete_document(factory: Factory, owner_id: UUID, doc_id: UUID, version: int) -> bool:
+    """Redact a version only after every active task reference has ended."""
+    async with factory.begin() as session:
+        if await session.scalar(text("SELECT current_user")) != "atp_admin":
+            raise ValueError("Dedicated administrator role required")
+        result = await session.scalar(
+            text("SELECT delete_corpus_version(:owner,:doc,:version)"),
+            {"owner": owner_id, "doc": doc_id, "version": version},
+        )
+        if result == "active":
+            raise ValueError("Corpus has active references")
+        if result == "missing":
+            raise NotFoundError
+        return bool(result == "deleted")

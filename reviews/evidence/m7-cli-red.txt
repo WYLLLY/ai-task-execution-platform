@@ -1,0 +1,46 @@
+FFFFFFF                                                                  [100%]
+=================================== FAILURES ===================================
+________________ test_m7_operator_commands[arguments0---limit] _________________
+tests/unit/test_recovery_cli.py:28: in test_m7_operator_commands
+    assert result.returncode == 0 and expected in result.stdout
+E   assert (2 == 0)
+E    +  where 2 = CompletedProcess(args=['/Users/william/Documents/Projet 2/.venv/bin/python', '-c', 'from task_platform.cli import main...principal-create', 'key-create', 'key-revoke', 'principal-disable', 'admission', 'workflow-availability', 'corpus')\n").returncode
+_______________ test_m7_operator_commands[arguments1---version] ________________
+tests/unit/test_recovery_cli.py:28: in test_m7_operator_commands
+    assert result.returncode == 0 and expected in result.stdout
+E   assert (2 == 0)
+E    +  where 2 = CompletedProcess(args=['/Users/william/Documents/Projet 2/.venv/bin/python', '-c', 'from task_platform.cli import main...ke} ...\natp admin corpus: error: argument corpus_action: invalid choice: 'delete' (choose from 'import', 'revoke')\n").returncode
+_________________ test_m7_operator_commands[arguments2---file] _________________
+tests/unit/test_recovery_cli.py:28: in test_m7_operator_commands
+    assert result.returncode == 0 and expected in result.stdout
+E   assert (2 == 0)
+E    +  where 2 = CompletedProcess(args=['/Users/william/Documents/Projet 2/.venv/bin/python', '-c', 'from task_platform.cli import main...principal-create', 'key-create', 'key-revoke', 'principal-disable', 'admission', 'workflow-availability', 'corpus')\n").returncode
+_________________ test_m7_operator_commands[arguments3---file] _________________
+tests/unit/test_recovery_cli.py:28: in test_m7_operator_commands
+    assert result.returncode == 0 and expected in result.stdout
+E   assert (2 == 0)
+E    +  where 2 = CompletedProcess(args=['/Users/william/Documents/Projet 2/.venv/bin/python', '-c', 'from task_platform.cli import main...principal-create', 'key-create', 'key-revoke', 'principal-disable', 'admission', 'workflow-availability', 'corpus')\n").returncode
+_________________ test_m7_operator_commands[arguments4---file] _________________
+tests/unit/test_recovery_cli.py:28: in test_m7_operator_commands
+    assert result.returncode == 0 and expected in result.stdout
+E   assert (2 == 0)
+E    +  where 2 = CompletedProcess(args=['/Users/william/Documents/Projet 2/.venv/bin/python', '-c', 'from task_platform.cli import main...principal-create', 'key-create', 'key-revoke', 'principal-disable', 'admission', 'workflow-availability', 'corpus')\n").returncode
+_________________ test_m7_operator_commands[arguments5---file] _________________
+tests/unit/test_recovery_cli.py:28: in test_m7_operator_commands
+    assert result.returncode == 0 and expected in result.stdout
+E   assert (2 == 0)
+E    +  where 2 = CompletedProcess(args=['/Users/william/Documents/Projet 2/.venv/bin/python', '-c', 'from task_platform.cli import main...principal-create', 'key-create', 'key-revoke', 'principal-disable', 'admission', 'workflow-availability', 'corpus')\n").returncode
+________________ test_m7_operator_commands[arguments6---phase] _________________
+tests/unit/test_recovery_cli.py:28: in test_m7_operator_commands
+    assert result.returncode == 0 and expected in result.stdout
+E   assert (2 == 0)
+E    +  where 2 = CompletedProcess(args=['/Users/william/Documents/Projet 2/.venv/bin/python', '-c', 'from task_platform.cli import main...principal-create', 'key-create', 'key-revoke', 'principal-disable', 'admission', 'workflow-availability', 'corpus')\n").returncode
+=========================== short test summary info ============================
+FAILED tests/unit/test_recovery_cli.py::test_m7_operator_commands[arguments0---limit]
+FAILED tests/unit/test_recovery_cli.py::test_m7_operator_commands[arguments1---version]
+FAILED tests/unit/test_recovery_cli.py::test_m7_operator_commands[arguments2---file]
+FAILED tests/unit/test_recovery_cli.py::test_m7_operator_commands[arguments3---file]
+FAILED tests/unit/test_recovery_cli.py::test_m7_operator_commands[arguments4---file]
+FAILED tests/unit/test_recovery_cli.py::test_m7_operator_commands[arguments5---file]
+FAILED tests/unit/test_recovery_cli.py::test_m7_operator_commands[arguments6---phase]
+7 failed in 0.57s

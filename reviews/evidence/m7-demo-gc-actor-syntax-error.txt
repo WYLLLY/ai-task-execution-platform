@@ -1,0 +1,14 @@
+time="2026-10-28T15:19:01+01:00" level=warning msg="Found orphan containers (atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-c27efbcc829a Creating
+ Container atp-m1-test-test-run-c27efbcc829a Created
+.........F......                                                         [100%]
+=================================== FAILURES ===================================
+_____ test_concurrent_demo_erasure_waits_on_real_row_lock_and_audits_once ______
+tests/integration/test_demo_retention.py:276: in test_concurrent_demo_erasure_waits_on_real_row_lock_and_audits_once
+    assert await actor.stdout.readline() == b"ready\n"
+E   AssertionError: assert b'' == b'ready\n'
+E
+E     Use -v to get more diff
+=========================== short test summary info ============================
+FAILED tests/integration/test_demo_retention.py::test_concurrent_demo_erasure_waits_on_real_row_lock_and_audits_once
+1 failed, 15 passed in 26.34s

@@ -1,0 +1,23 @@
+{
+  "lint": 2,
+  "typecheck": 2,
+  "test-unit": 2,
+  "test-commands": 0,
+  "test-concurrency": 0,
+  "test-execution": 0,
+  "test-failures": 0,
+  "test-workflows": 0,
+  "test-tools": 0,
+  "test-e2e": 0,
+  "test-accounting": 0,
+  "test-provider-contracts": 0,
+  "test-sse": 0,
+  "test-degraded": 2,
+  "test-observability": 0,
+  "test-retention": 0,
+  "test-restore": 2,
+  "test-delivery": 0,
+  "test-load-contracts": 0,
+  "verify-release-image": 2,
+  "smoke-compose": 2
+}

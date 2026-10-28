@@ -1,0 +1,55 @@
+time="2026-10-27T16:12:03+01:00" level=warning msg="Found orphan containers (atp-m1-test-proxy-1, atp-m5-full-final, atp-m5-targeted-final) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container atp-m1-test-test-run-dab4667a2649 Creating
+ Container atp-m1-test-test-run-dab4667a2649 Created
+FFFFFFFF                                                                 [100%]
+=================================== FAILURES ===================================
+___ test_authorization_rechecks_fresh_authority_after_wait[validation-lease] ___
+tests/integration/test_dispatch_freshness.py:83: in test_authorization_rechecks_fresh_authority_after_wait
+    assert permit is None, "expired authority cannot create a fresh transmission permission"
+E   AssertionError: expired authority cannot create a fresh transmission permission
+E   assert Permit(call_id=UUID('ac425b37-8655-4d50-975d-72ed8805f94e'), payload=b'{}', remaining_seconds=899.920794, measured_at=54.767323922) is None
+_ test_authorization_rechecks_fresh_authority_after_wait[validation-deadline] __
+tests/integration/test_dispatch_freshness.py:83: in test_authorization_rechecks_fresh_authority_after_wait
+    assert permit is None, "expired authority cannot create a fresh transmission permission"
+E   AssertionError: expired authority cannot create a fresh transmission permission
+E   assert Permit(call_id=UUID('d516b590-64ad-4c5e-a16c-e8603a7a62a8'), payload=b'{}', remaining_seconds=0.138071, measured_at=55.347128743) is None
+____ test_authorization_rechecks_fresh_authority_after_wait[validation-key] ____
+tests/integration/test_dispatch_freshness.py:83: in test_authorization_rechecks_fresh_authority_after_wait
+    assert permit is None, "expired authority cannot create a fresh transmission permission"
+E   AssertionError: expired authority cannot create a fresh transmission permission
+E   assert Permit(call_id=UUID('420abc17-8c32-4c77-8706-f1fa87016ecd'), payload=b'{}', remaining_seconds=899.94915, measured_at=55.819060713) is None
+__ test_authorization_rechecks_fresh_authority_after_wait[insert_flush-lease] __
+tests/integration/test_dispatch_freshness.py:83: in test_authorization_rechecks_fresh_authority_after_wait
+    assert permit is None, "expired authority cannot create a fresh transmission permission"
+E   AssertionError: expired authority cannot create a fresh transmission permission
+E   assert Permit(call_id=UUID('852ede35-37ee-49f1-b3b3-01f4c725c6f0'), payload=b'{}', remaining_seconds=899.946251, measured_at=56.300032739) is None
+_ test_authorization_rechecks_fresh_authority_after_wait[insert_flush-deadline] _
+tests/integration/test_dispatch_freshness.py:83: in test_authorization_rechecks_fresh_authority_after_wait
+    assert permit is None, "expired authority cannot create a fresh transmission permission"
+E   AssertionError: expired authority cannot create a fresh transmission permission
+E   assert Permit(call_id=UUID('6482a6c0-3186-410b-960c-111d0e734acb'), payload=b'{}', remaining_seconds=0.137182, measured_at=56.768516972) is None
+___ test_authorization_rechecks_fresh_authority_after_wait[insert_flush-key] ___
+tests/integration/test_dispatch_freshness.py:83: in test_authorization_rechecks_fresh_authority_after_wait
+    assert permit is None, "expired authority cannot create a fresh transmission permission"
+E   AssertionError: expired authority cannot create a fresh transmission permission
+E   assert Permit(call_id=UUID('024c3f98-bf91-4e9b-9af9-a431d2ae01b2'), payload=b'{}', remaining_seconds=899.949455, measured_at=57.25069563) is None
+___________ test_retention_records_real_terminal_and_command_clocks ____________
+tests/integration/test_retention.py:30: in test_retention_records_real_terminal_and_command_clocks
+    assert accepted is not None, "accepted command needs its own retention clock"
+E   AssertionError: accepted command needs its own retention clock
+E   assert None is not None
+_________ test_final_accounting_records_conservative_resolution_clock __________
+tests/integration/test_retention.py:57: in test_final_accounting_records_conservative_resolution_clock
+    assert stamp is not None, "financial retention starts from an observed resolution"
+E   AssertionError: financial retention starts from an observed resolution
+E   assert None is not None
+=========================== short test summary info ============================
+FAILED tests/integration/test_dispatch_freshness.py::test_authorization_rechecks_fresh_authority_after_wait[validation-lease]
+FAILED tests/integration/test_dispatch_freshness.py::test_authorization_rechecks_fresh_authority_after_wait[validation-deadline]
+FAILED tests/integration/test_dispatch_freshness.py::test_authorization_rechecks_fresh_authority_after_wait[validation-key]
+FAILED tests/integration/test_dispatch_freshness.py::test_authorization_rechecks_fresh_authority_after_wait[insert_flush-lease]
+FAILED tests/integration/test_dispatch_freshness.py::test_authorization_rechecks_fresh_authority_after_wait[insert_flush-deadline]
+FAILED tests/integration/test_dispatch_freshness.py::test_authorization_rechecks_fresh_authority_after_wait[insert_flush-key]
+FAILED tests/integration/test_retention.py::test_retention_records_real_terminal_and_command_clocks
+FAILED tests/integration/test_retention.py::test_final_accounting_records_conservative_resolution_clock
+8 failed in 3.56s

@@ -1,0 +1,7 @@
+{
+  "test-degraded": 0,
+  "test-restore": 0,
+  "verify-release-image": 0,
+  "smoke-compose": 0,
+  "smoke-openai": 0
+}

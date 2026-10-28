@@ -1,0 +1,11 @@
+............................F                                            [100%]
+=================================== FAILURES ===================================
+_______ test_dst_transition_cannot_shorten_the_30_day_retention_interval _______
+tests/unit/test_retention_policy.py:117: in test_dst_transition_cannot_shorten_the_30_day_retention_interval
+    assert not retention_due(before, accepted_at=accepted, terminal_at=accepted).content
+E   AssertionError: assert not True
+E    +  where True = Due(content=True, response=True, tombstone=False, financial=False).content
+E    +    where Due(content=True, response=True, tombstone=False, financial=False) = retention_due(datetime.datetime(2026, 3, 31, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Europe/Paris')), accepted_at=datetime.datetime(2026, 3, 1, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Europe/Paris')), terminal_at=datetime.datetime(2026, 3, 1, 12, 0, tzinfo=zoneinfo.ZoneInfo(key='Europe/Paris')))
+=========================== short test summary info ============================
+FAILED tests/unit/test_retention_policy.py::test_dst_transition_cannot_shorten_the_30_day_retention_interval
+1 failed, 28 passed in 0.02s

@@ -42,10 +42,8 @@ async def test_migration_roundtrip_and_schema_readiness(
     await initialize_platform(sessions(admin_engine), settings_for("admin").execution_epoch)
     assert (await client.get("/health/ready")).status_code == 200
     async with admin_engine.connect() as connection:
-        assert (
-            await connection.scalar(text("SELECT version_num FROM alembic_version"))
-            == "0006_operations"
-        )
+        revision = await connection.scalar(text("SELECT version_num FROM alembic_version"))
+        assert revision == "0011_recovery_authority"
     env["DATABASE_URL_FILE"] = str(Path(env["TEST_SECRETS_DIR"]) / "api_database_url")
     denied = await asyncio.to_thread(
         subprocess.run,
