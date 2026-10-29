@@ -207,3 +207,45 @@ test("free delivery refuses paid workflow versions before any physical request",
   assert.equal((await gateway(send("1"), "secret", f)).status, 202);
   assert.equal(n, 1);
 });
+
+test("Next internal URL may differ from the validated browser loopback Host", async () => {
+  const url = base + "tasks";
+  const body = JSON.stringify({
+    workflow: { name: "analysis", version: "1" },
+    input: { texts: ["Synthetic"] },
+  });
+  let n = 0;
+  const f = (async () => {
+    n++;
+    return Response.json({ task_id: uuid }, { status: 202 });
+  }) as typeof fetch;
+  const req = new Request(url, {
+    method: "POST",
+    headers: {
+      host: "127.0.0.1:3000",
+      origin: "http://127.0.0.1:3000",
+      "content-type": "application/json",
+      "idempotency-key": "stable",
+      "x-execution-epoch": uuid,
+    },
+    body,
+  });
+  assert.equal((await gateway(req, "secret", f)).status, 202);
+  assert.equal(n, 1);
+  const bad = new Request(url, { headers: { host: "attacker.test" } });
+  assert.equal((await gateway(bad, "secret", f)).status, 403);
+  assert.equal(n, 1);
+});
+
+test("malformed loopback high-port authorities are explicit denials", async () => {
+  let n = 0;
+  const f = (async () => {
+    n++;
+    return Response.json({});
+  }) as typeof fetch;
+  for (const host of ["localhost:65536", "127.0.0.1:99999", "[::1]:99999"]) {
+    const req = new Request(base + "tasks", { headers: { host } });
+    assert.equal((await gateway(req, "secret", f)).status, 403);
+  }
+  assert.equal(n, 0);
+});

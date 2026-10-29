@@ -64,7 +64,19 @@ export async function gateway(
     return error(405, "Unsupported method");
   if (!["localhost", "127.0.0.1", "[::1]"].includes(url.hostname))
     return error(403, "Local use only");
-  if (request.method === "POST" && request.headers.get("origin") !== url.origin)
+  const authority = request.headers.get("host") ?? url.host;
+  if (!/^(localhost|127\.0\.0\.1|\[::1\])(?::[0-9]{1,5})?$/.test(authority))
+    return error(403, "Local host required");
+  let browserOrigin: string;
+  try {
+    browserOrigin = new URL(`${url.protocol}//${authority}`).origin;
+  } catch {
+    return error(403, "Invalid local authority");
+  }
+  if (
+    request.method === "POST" &&
+    request.headers.get("origin") !== browserOrigin
+  )
     return error(403, "Same origin required");
   if (!key) return error(503, "Local API credential is not configured");
   const headers = new Headers({
