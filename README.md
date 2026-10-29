@@ -4,6 +4,15 @@ A Python/FastAPI backend with PostgreSQL as its durable source of truth. **M1–
 
 M1 provides API-key authentication, owner-scoped key metadata, administrative provisioning/revocation, operational epoch, bounded database pools, JSON logs, Alembic migrations and isolated Docker Compose services. M2 adds a PostgreSQL task queue, versioned catalogue, serialized admission, retained command responses and atomic cancellation. M3 adds lease/fencing, atomic A/B/C execution, simulated money/token reservations, recovery, owner resolution and a supervised worker. M4 adds immutable corpus versions, bounded model/tool checkpoints, validated citations and an authenticated report service with an independent PostgreSQL effect journal. M5 adds a direct Responses adapter and evidence-based accounting reconciliation. M6 adds bounded SSE, degradation controls and observability. M7 adds conservative content retention, audited restore quarantine/exposure, immutable artifact checks and repeatable isolated recovery/load campaigns. Verification uses synthetic identities and local services; no paid provider request was authorized or made.
 
+## Free local interface
+
+The Next.js workspace is in [frontend/](frontend/README.md). Start it with
+`cd frontend && pnpm install --frozen-lockfile && pnpm dev`, then open
+http://127.0.0.1:3000. Its labelled sample preview needs no credentials, Docker,
+paid hosting or OpenAI. Optional Local API mode uses an owner-only server-side key
+and restricts creation to simulated analysis:1. It does not start a worker or
+open admission/dispatch. See the [frontend plan](docs/frontend-plan.md) for scope.
+
 ## Run locally
 
 Install Docker Compose and uv **0.13.1**. The Python runtime is pinned in `.python-version`; dependencies and transitives are locked in `uv.lock`. Images and CI actions are pinned to immutable digests/SHAs.
