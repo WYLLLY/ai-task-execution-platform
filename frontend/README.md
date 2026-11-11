@@ -1,8 +1,8 @@
 # Taskroom — free local frontend
 
 No paid hosting, subscription, model API or OpenAI credential is required. The UI
-lives in this repository and runs locally. Source remains private; a recruiter
-needs repository access and a clone. There is no public hosted application.
+source is in this public repository on the Taskroom pull request branch. Clone
+that branch to run the UI locally. There is no public hosted application.
 
 ## Start
 
