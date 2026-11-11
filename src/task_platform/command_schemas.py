@@ -2,7 +2,7 @@
 
 import hashlib
 import json
-from decimal import Decimal
+from decimal import Decimal, InvalidOperation
 from typing import Annotated
 
 from pydantic import BaseModel, ConfigDict, Field
@@ -91,7 +91,7 @@ def parse_command(body: bytes) -> tuple[object, str]:
             parse_constant=_nonfinite,
         )
         canonical = _canonical(value)
-    except ValueError, UnicodeError, RecursionError:
+    except ValueError, UnicodeError, RecursionError, InvalidOperation:
         raise invalid() from None
     fingerprint = hashlib.sha256(("v1:" + canonical).encode("utf-8")).hexdigest()
     return _schema_numbers(value), fingerprint
