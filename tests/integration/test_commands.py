@@ -117,6 +117,8 @@ async def test_canonical_replay_and_collision(
         b'{"input":NaN}',
         b'{"input":Infinity}',
         b'{"input":1e999999}',
+        b'{"input":1e+999999999999999999999}',
+        b'{"input":1e-999999999999999999999}',
         b'{"input":"\\ud800"}',
         b"[" * 100 + b"0" + b"]" * 100,
         b"not JSON",
@@ -131,6 +133,7 @@ async def test_strict_json_rejects_invalid_before_mutation(
     )
     assert response.status_code == 422
     assert response.json() == {"detail": "Invalid request"}
+    assert (await create(client, command_owner, "invalid"))["task_id"]
 
 
 @pytest.mark.parametrize(

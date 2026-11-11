@@ -12,6 +12,13 @@ def test_postgres_unsupported_nul_is_rejected_at_boundary(body: bytes) -> None:
     assert error.value.status == 422
 
 
+@pytest.mark.parametrize("exponent", [b"+999999999999999999999", b"-999999999999999999999"])
+def test_unrepresentable_decimal_exponent_is_rejected_at_boundary(exponent: bytes) -> None:
+    with pytest.raises(CommandError) as error:
+        parse_command(b'{"limit":1e' + exponent + b"}")
+    assert error.value.status == 422
+
+
 @pytest.mark.parametrize(
     "left,right",
     [
