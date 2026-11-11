@@ -1,0 +1,40 @@
+$ node --experimental-strip-types --test tests/*.test.ts
+✔ terminal tasks cannot be cancelled; suspended tasks can (0.614375ms)
+✔ money preserves integer micro USD and distinguishes missing usage (0.197542ms)
+✔ missing credentials are explicit (17.279708ms)
+✔ forbidden destinations, admin, traversal, events and methods cannot reach upstream (1.124708ms)
+✔ writes require same origin and bounded JSON before dispatch (2.7125ms)
+✔ one physical request, fixed destination, no redirects, secret server side only (0.457834ms)
+✔ stable mutation identities are forwarded exactly once after ambiguous failure (0.492625ms)
+✔ upstream denial stays a denial; malformed and oversized upstream are explicit (1.13275ms)
+✔ command identity and exact body survive a tab reload (0.747416ms)
+✔ estimated charges are visible independently of confirmed and exposure (0.212ms)
+✖ definitive rejection releases the form; transport ambiguity retains the same command (0.579875ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 10
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 130.961333
+
+✖ failing tests:
+
+test at tests/platform.test.ts:173:1
+✖ definitive rejection releases the form; transport ambiguity retains the same command (0.579875ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+  true !== false
+
+      at TestContext.<anonymous> (file:///Users/william/Documents/Projet%202/frontend/tests/platform.test.ts:175:74)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+[ELIFECYCLE] Test failed. See above for more details.
