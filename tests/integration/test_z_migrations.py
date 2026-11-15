@@ -13,6 +13,7 @@ from sqlalchemy.ext.asyncio import AsyncEngine
 
 from task_platform.db import sessions
 from task_platform.execution import Executor
+from task_platform.health import SCHEMA_REVISION
 from task_platform.identity import initialize_platform, issue_key
 
 from .conftest import settings_for
@@ -43,7 +44,7 @@ async def test_migration_roundtrip_and_schema_readiness(
     assert (await client.get("/health/ready")).status_code == 200
     async with admin_engine.connect() as connection:
         revision = await connection.scalar(text("SELECT version_num FROM alembic_version"))
-        assert revision == "0011_recovery_authority"
+        assert revision == SCHEMA_REVISION
     env["DATABASE_URL_FILE"] = str(Path(env["TEST_SECRETS_DIR"]) / "api_database_url")
     denied = await asyncio.to_thread(
         subprocess.run,

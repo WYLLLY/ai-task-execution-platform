@@ -1,10 +1,9 @@
 """Integer simulated reservations. All callers hold platform/owner/provider/task locks."""
 
-from datetime import datetime, timedelta
+from datetime import UTC, datetime, timedelta
 
-from sqlalchemy import case, func, select
+from sqlalchemy import Integer, case, func, literal_column, or_, select, union
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.sql.elements import ColumnElement
 
 from task_platform.execution_models import (
     AccountingDecision,
@@ -46,8 +45,19 @@ async def admission_reason(
             True,
         ),
     )
+    platform = await session.get(PlatformControl, 1)
+    if platform is not None and platform.recovery is not None:
+        if not platform.recovery.get("bounded"):
+            return "capacity_wait"
+    day = now.astimezone(UTC).replace(hour=0, minute=0, second=0, microsecond=0)
+    current = (ExternalCall.authorized_at >= day) & (
+        ExternalCall.authorized_at < day + timedelta(days=1)
+    )
+    # Keep the threshold literal so generic plans can use the matching partial indexes.
+    zero = literal_column("0", Integer())
+    pending = or_(CallCost.exposure_cost > zero, CallCost.exposure_tokens > zero, CallCost.overrun)
+    unresolved = select(CallCost.call_id).where(pending)
     for index, (scope, cap_cost, cap_tokens, daily) in enumerate(scopes):
-        current: ColumnElement[bool] = func.date(ExternalCall.authorized_at) == now.date()
         charge = (
             case((current, CallCost.confirmed_cost), else_=0) if daily else CallCost.confirmed_cost
         )
@@ -56,6 +66,12 @@ async def admission_reason(
             if daily
             else CallCost.confirmed_tokens
         )
+        candidates = scope
+        if daily:
+            # Use independent indexable sets. A call can have both today's
+            # confirmed charges and exposure, so deduplicate its identity.
+            relevant = union(select(ExternalCall.id).where(current, scope), unresolved)
+            candidates = scope & ExternalCall.id.in_(relevant)
         row = (
             await session.execute(
                 select(
@@ -76,14 +92,11 @@ async def admission_reason(
                     ),
                 )
                 .join(ExternalCall, ExternalCall.id == CallCost.call_id)
-                .where(scope)
+                .where(candidates)
             )
         ).one()
         reserve_cost = reserve_tokens = 0
-        platform = await session.get(PlatformControl, 1)
-        if platform is not None:
-            if platform.recovery is not None and not platform.recovery.get("bounded"):
-                return "capacity_wait"
+        if platform is not None and (platform.reserve_cost or platform.reserve_tokens):
             if index == 1:
                 owner = await session.get(Principal, task.principal_id)
                 assigned = (
@@ -91,7 +104,7 @@ async def admission_reason(
                         select(
                             func.coalesce(func.sum(Principal.reserve_cost), 0),
                             func.coalesce(func.sum(Principal.reserve_tokens), 0),
-                        )
+                        ).where(or_(Principal.reserve_cost > zero, Principal.reserve_tokens > zero))
                     )
                 ).one()
                 # Missing exposure with unknown ownership might belong to this owner.
@@ -121,12 +134,12 @@ async def admission_reason(
     ) or (kind == "demo-v1" and task.tool_calls >= int(str(task.limits["tool_calls"]))):
         return "task_limit"
     active = await session.scalar(
-        select(func.count()).select_from(ExternalCall).where(ExternalCall.local_active.is_(True))
+        select(func.count()).select_from(ExternalCall).where(ExternalCall.local_active)
     )
     owner_active = await session.scalar(
         select(func.count())
         .select_from(ExternalCall)
-        .where(ExternalCall.local_active.is_(True), ExternalCall.principal_id == task.principal_id)
+        .where(ExternalCall.local_active, ExternalCall.principal_id == task.principal_id)
     )
     window = (
         await session.execute(

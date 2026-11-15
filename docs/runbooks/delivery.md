@@ -73,6 +73,17 @@ command after reviewing all remaining delivery checks. The actual failed migrati
 exercise retains its old revision, rolls back partial DDL and keeps both flags
 closed. It does not automatically invoke reopening or destructive downgrade.
 
+Revision `0012_admission_indexes` builds indexes on retained call and reserve
+tables. Keep dispatch drained and allow a maintenance window for the build.
+The migration uses a five-minute statement timeout and the existing short lock
+timeout. If either expires, keep dispatch closed and diagnose before retrying.
+
+For existing Debian-based PostgreSQL deployments, cut over both databases via
+verified logical backups and newly initialized Alpine volumes. The runtime UID
+changes from 999 to 70 and the locale implementation changes with the image.
+Keep the old volumes and compatible images intact until both restores and
+application preflight pass. Do not reuse or change ownership of the old volumes.
+
 No production TLS certificate, DNS, off-host backup destination, registry upload
 or production deployment is claimed. The private demo/test HTTP boundary is not
 a production TLS terminator; the operator must supply TLS at the ingress before

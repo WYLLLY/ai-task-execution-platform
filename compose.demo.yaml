@@ -1,8 +1,11 @@
 # Independent database and service: application rollback cannot roll back remote effects.
 services:
   demo-db:
-    image: postgres:17.11-bookworm@sha256:3645570cccdfa447589da9f57dd740faa29b30938e861289a5574b6ca6b03826
-    user: "999:999"
+    image: atp-postgres:local
+    build:
+      context: infra
+      dockerfile: Dockerfile.postgres
+    user: "70:70"
     cap_drop: [ALL]
     security_opt: [no-new-privileges:true]
     cpus: 0.5

@@ -1,7 +1,10 @@
 # M6 private test proxy; production TLS/deployment remain M7.
 services:
   proxy:
-    image: nginx:1.28-alpine@sha256:a8b39bd9cf0f83869a2162827a0caf6137ddf759d50a171451b335cecc87d236
+    image: atp-proxy:local
+    build:
+      context: infra
+      dockerfile: Dockerfile.proxy
     entrypoint: [nginx]
     command: [-g, "daemon off;"]
     user: "101:101"

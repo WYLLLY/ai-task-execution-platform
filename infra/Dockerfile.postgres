@@ -1,0 +1,4 @@
+FROM postgres:17.12-alpine3.24@sha256:34261f594522cf41dfcb76aefd42b9d201098b0e6b23c9c68733f169e4218b6f
+# The entrypoint only needs gosu when launched as root.
+RUN rm /usr/local/bin/gosu
+USER 70:70

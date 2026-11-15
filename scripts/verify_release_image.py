@@ -22,7 +22,7 @@ def main() -> None:
             "python",
             identity,
             "-c",
-            "import importlib.util; "
+            "import importlib.util, ssl; "
             'assert importlib.util.find_spec("pip") is None; '
             'assert importlib.util.find_spec("ensurepip") is None, '
             '"runtime bundles installer wheels"; '
@@ -30,9 +30,8 @@ def main() -> None:
             "subprocess.run(['/usr/local/bin/python','-c',"
             "'import importlib.util; "
             'assert importlib.util.find_spec("pip") is None\'],check=True); '
-            'assert subprocess.check_output(["dpkg-query","-W",'
-            '"-f=${Version}","libssl3"]).decode() '
-            '== "3.0.22-1~deb12u2", "libssl security patch missing"',
+            "version = tuple(map(int, ssl.OPENSSL_VERSION.split()[1].split('.'))); "
+            'assert version >= (3, 5, 9), "libssl security patch missing"',
         ],
         check=True,
     )
