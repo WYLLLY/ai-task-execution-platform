@@ -342,6 +342,18 @@ h2 {
 .muted {
   font-size: 10px;
 }
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.75rem 0;
+  font-size: 0.875rem;
+}
+.pagination button {
+  padding: 0.5rem;
+}
 .steps {
   list-style: none;
   padding: 0;

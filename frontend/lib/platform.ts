@@ -1,3 +1,17 @@
+const MAX_COMMAND_BODY_BYTES = 16384;
+// Serializing the JSON body as a string can double its length through escaping.
+const MAX_PENDING_COMMAND_LENGTH = 2 * MAX_COMMAND_BODY_BYTES + 512;
+
+export async function credentialBinding(key: string): Promise<string> {
+  const hash = await crypto.subtle.digest(
+    "SHA-256",
+    new TextEncoder().encode(key),
+  );
+  return Array.from(new Uint8Array(hash), (byte) =>
+    byte.toString(16).padStart(2, "0"),
+  ).join("");
+}
+
 export function canCancel(state: string): boolean {
   return ["queued", "running", "suspended"].includes(state);
 }
@@ -88,7 +102,7 @@ export async function gateway(
     if (!request.headers.get("content-type")?.startsWith("application/json"))
       return error(415, "JSON required");
     try {
-      body = await bounded(request.body, 16384);
+      body = await bounded(request.body, MAX_COMMAND_BODY_BYTES);
     } catch {
       return error(413, "Request too large");
     }
@@ -112,6 +126,12 @@ export async function gateway(
         return error(400, "Command identity required");
       headers.set(name, value);
     }
+    const binding = request.headers.get("x-taskroom-credential");
+    if (binding !== (await credentialBinding(key)))
+      return error(
+        409,
+        "The configured credential changed. Reconcile the original command.",
+      );
     headers.set("content-type", "application/json");
   }
   for (const name of url.searchParams.keys())
@@ -146,9 +166,10 @@ export type PendingCommand = {
   body: string;
   key: string;
   epoch: string;
+  credential?: string;
 };
 export function restoreCommand(value: string | null): PendingCommand | null {
-  if (!value || value.length > 20000) return null;
+  if (!value || value.length > MAX_PENDING_COMMAND_LENGTH) return null;
   try {
     const v = JSON.parse(value);
     if (
@@ -156,7 +177,7 @@ export function restoreCommand(value: string | null): PendingCommand | null {
       typeof v.path !== "string" ||
       !/^(tasks|tasks\/[0-9a-f-]{36}\/cancel)$/.test(v.path) ||
       typeof v.body !== "string" ||
-      v.body.length > 16384 ||
+      new TextEncoder().encode(v.body).length > MAX_COMMAND_BODY_BYTES ||
       typeof v.key !== "string" ||
       !/^[a-zA-Z0-9-]{1,128}$/.test(v.key) ||
       typeof v.epoch !== "string" ||
@@ -164,7 +185,17 @@ export function restoreCommand(value: string | null): PendingCommand | null {
     )
       return null;
     JSON.parse(v.body);
-    return { path: v.path, body: v.body, key: v.key, epoch: v.epoch };
+    const credential =
+      typeof v.credential === "string" && /^[0-9a-f]{64}$/.test(v.credential)
+        ? v.credential
+        : undefined;
+    return {
+      path: v.path,
+      body: v.body,
+      key: v.key,
+      epoch: v.epoch,
+      credential,
+    };
   } catch {
     return null;
   }
@@ -185,6 +216,15 @@ export function costRows(
   ];
 }
 
-export function retainCommand(status: number | undefined): boolean {
-  return status === undefined || status === 408 || status >= 500;
+export function pagePath(path: string, cursor: string | null): string {
+  const query = new URLSearchParams({ limit: "50" });
+  if (cursor) query.set("cursor", cursor);
+  return `${path}?${query}`;
+}
+
+export function retainCommand(
+  status: number | undefined,
+  recovering = false,
+): boolean {
+  return recovering || status === undefined || status === 408 || status >= 500;
 }

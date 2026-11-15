@@ -1,7 +1,13 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { canCancel, money, gateway } from "../lib/platform.ts";
+import {
+  canCancel,
+  money,
+  gateway,
+  credentialBinding,
+} from "../lib/platform.ts";
 const base = "http://localhost:3000/api/platform/";
+const binding = await credentialBinding("secret");
 const uuid = "00000000-0000-4000-8000-000000000001";
 const request = (
   path: string,
@@ -16,6 +22,7 @@ const request = (
       "content-type": "application/json",
       "idempotency-key": "stable-command-key",
       "x-execution-epoch": uuid,
+      "x-taskroom-credential": binding,
     },
     body,
   });
@@ -146,6 +153,28 @@ test("upstream denial stays a denial; malformed and oversized upstream are expli
       502,
     );
 });
+test("an allowed command with JSON escaping can be recovered after reload", async () => {
+  const { restoreCommand } = await import("../lib/platform.ts");
+  const value = {
+    path: "tasks",
+    body: JSON.stringify({
+      workflow: { name: "analysis", version: "1" },
+      input: { texts: ["\\".repeat(6000)] },
+    }),
+    key: "escaped-text-replay",
+    epoch: "10000000-0000-4000-8000-000000000500",
+    credential: binding,
+  };
+  assert(new TextEncoder().encode(value.body).length < 16384);
+  const serialized = JSON.stringify(value);
+  assert.deepEqual(restoreCommand(serialized), value);
+  const overLimit = {
+    ...value,
+    body: JSON.stringify({ text: "é".repeat(8192) }),
+  };
+  assert.equal(restoreCommand(JSON.stringify(overLimit)), null);
+});
+
 test("command identity and exact body survive a tab reload", async () => {
   const { restoreCommand } = await import("../lib/platform.ts");
   const value = {
@@ -153,6 +182,7 @@ test("command identity and exact body survive a tab reload", async () => {
     body: '{"input":{"texts":["synthetic"]}}',
     key: "retained-key",
     epoch: uuid,
+    credential: binding,
   };
   assert.deepEqual(restoreCommand(JSON.stringify(value)), value);
   assert.equal(restoreCommand("{broken"), null);
@@ -227,6 +257,7 @@ test("Next internal URL may differ from the validated browser loopback Host", as
       "content-type": "application/json",
       "idempotency-key": "stable",
       "x-execution-epoch": uuid,
+      "x-taskroom-credential": binding,
     },
     body,
   });
@@ -248,4 +279,38 @@ test("malformed loopback high-port authorities are explicit denials", async () =
     assert.equal((await gateway(req, "secret", f)).status, 403);
   }
   assert.equal(n, 0);
+});
+
+test("a retry rejection cannot settle an already ambiguous command", async () => {
+  const { retainCommand } = await import("../lib/platform.ts");
+  for (const status of [401, 403, 409, 410, 429, 503]) {
+    assert.equal(retainCommand(status, true), true);
+  }
+});
+
+test("task and step pagination use the server cursor without changing the page size", async () => {
+  const { pagePath } = await import("../lib/platform.ts");
+  assert.equal(pagePath("tasks", null), "tasks?limit=50");
+  assert.equal(pagePath("tasks", uuid), `tasks?limit=50&cursor=${uuid}`);
+  assert.equal(
+    pagePath(`tasks/${uuid}/steps`, uuid),
+    `tasks/${uuid}/steps?limit=50&cursor=${uuid}`,
+  );
+});
+
+test("a retained command cannot be sent under another Taskroom credential", async () => {
+  let posted = false;
+  const mock = (async () => {
+    posted = true;
+    return Response.json({ task_id: uuid }, { status: 202 });
+  }) as typeof fetch;
+  const req = request(
+    "tasks",
+    "POST",
+    "http://localhost:3000",
+    JSON.stringify({ workflow: { name: "analysis", version: "1" } }),
+  );
+  req.headers.set("x-taskroom-credential", "a".repeat(64));
+  assert.equal((await gateway(req, "other-credential", mock)).status, 409);
+  assert.equal(posted, false);
 });
