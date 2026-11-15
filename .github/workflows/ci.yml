@@ -11,7 +11,7 @@ concurrency:
 jobs:
   verify:
     runs-on: ubuntu-24.04
-    timeout-minutes: 35
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1, node24
         with:
@@ -34,30 +34,45 @@ jobs:
           echo '/tmp/age' >> "$GITHUB_PATH"
       - run: make test-retention test-restore test-delivery test-load-contracts verify-release-image
       - run: make smoke-compose
-      - name: Scan locked dependencies and immutable runtime artifact
+      - name: Scan locked dependencies and every active Compose image
         run: |
           curl --fail --location --proto '=https' --tlsv1.2 https://github.com/aquasecurity/trivy/releases/download/v0.76.1/trivy_0.76.1_Linux-64bit.tar.gz -o /tmp/trivy.tar.gz
           echo 'c7cbe3137fb8a48a17574bede3dd6beb16742d1e9772929940fc90082c39d9c0  /tmp/trivy.tar.gz' | sha256sum --check
-          mkdir /tmp/trivy-bin /tmp/atp-locked-dependencies
+          mkdir /tmp/trivy-bin /tmp/atp-locked-dependencies /tmp/atp-scans
           tar -xzf /tmp/trivy.tar.gz -C /tmp/trivy-bin trivy
           cp uv.lock pyproject.toml /tmp/atp-locked-dependencies/
-          /tmp/trivy-bin/trivy fs --scanners vuln --format json --output /tmp/dependencies.json /tmp/atp-locked-dependencies
-          /tmp/trivy-bin/trivy image --scanners vuln --format json --output /tmp/runtime-image.json ai-task-platform:m1
+          /tmp/trivy-bin/trivy fs --scanners vuln --format json --output /tmp/atp-scans/dependencies.json /tmp/atp-locked-dependencies
+          docker compose -p atp-m1-test -f compose.yaml -f compose.demo.yaml -f compose.proxy.yaml exec -T redis redis-server --version | tee /tmp/atp-scans/redis-version.txt
+          grep -Eq '(^| )v=8\.2\.11( |$)' /tmp/atp-scans/redis-version.txt
+          docker compose -p atp-m1-test -f compose.yaml -f compose.demo.yaml -f compose.proxy.yaml images --format json > /tmp/atp-scans/compose-images.json
+          docker compose -p atp-m1-test -f compose.yaml -f compose.demo.yaml -f compose.proxy.yaml images --quiet | sort -u > /tmp/atp-image-ids
+          test -s /tmp/atp-image-ids
+          while IFS= read -r image_id; do
+            case "$image_id" in
+              sha256:*) ;;
+              *) image_id="sha256:$image_id" ;;
+            esac
+            docker image save "$image_id" -o /tmp/atp-image.tar
+            /tmp/trivy-bin/trivy image --input /tmp/atp-image.tar --scanners vuln --format json --output "/tmp/atp-scans/image-${image_id#sha256:}.json"
+            rm /tmp/atp-image.tar
+          done < /tmp/atp-image-ids
           python - <<'PY'
           import json
-          for path in ('/tmp/dependencies.json', '/tmp/runtime-image.json'):
-              result = json.load(open(path))
-              libraries = [v for r in result.get('Results', []) if r.get('Class') == 'lang-pkgs' for v in r.get('Vulnerabilities', [])]
-              assert not [v for v in libraries if v['Severity'] in ('HIGH', 'CRITICAL')], path
-              print(path, 'library gate PASS; raw OS findings retained for operator triage')
+          from pathlib import Path
+
+          directory = Path('/tmp/atp-scans')
+          for path in (directory / 'dependencies.json', *sorted(directory.glob('image-*.json'))):
+              result = json.loads(path.read_text())
+              advisories = [v for r in result.get('Results', []) for v in r.get('Vulnerabilities', [])]
+              assert not any(v['VulnerabilityID'] == 'CVE-2025-62507' and v['PkgName'] == 'redis' for v in advisories), path
+              assert not [v for v in advisories if v['Severity'] in ('HIGH', 'CRITICAL')], path
+              print(path, 'dependency and image advisory gate PASS')
           PY
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: always()
         with:
           name: m7-supply-chain-evidence
-          path: |
-            /tmp/dependencies.json
-            /tmp/runtime-image.json
+          path: /tmp/atp-scans/
           if-no-files-found: warn
       - name: Clean disposable services
         if: always()

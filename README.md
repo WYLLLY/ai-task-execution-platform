@@ -245,5 +245,6 @@ The full reference benchmark is explicit and long: 60-second warmup, 1,000 tasks
 one per second, 100 SSE connections and 10 reads per second with two worker
 processes. Run it without another local test workload. The final report publishes
 its original SSE failure, the maintained TDD correction and the complete rerun.
-Raw base-image vulnerability findings and deployment prerequisites remain visible;
-a clean Python dependency gate is not a vulnerability-free image claim.
+The image verification job retains the raw Trivy reports for the application,
+PostgreSQL, Redis and proxy. Existing Debian-based PostgreSQL deployments need
+a logical restore to fresh Alpine volumes, as described in the delivery runbook.

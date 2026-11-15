@@ -17,8 +17,11 @@ x-app: &app
 
 services:
   postgres:
-    image: postgres:17.11-bookworm@sha256:3645570cccdfa447589da9f57dd740faa29b30938e861289a5574b6ca6b03826
-    user: "999:999"
+    image: atp-postgres:local
+    build:
+      context: infra
+      dockerfile: Dockerfile.postgres
+    user: "70:70"
     cap_drop: [ALL]
     security_opt: [no-new-privileges:true]
     cpus: 1.0
@@ -41,8 +44,8 @@ services:
       timeout: 2s
       retries: 30
   redis:
-    image: redis:8.2.2-bookworm@sha256:4521b581dbddea6e7d81f8fe95ede93f5648aaa66a9dacd581611bf6fe7527bd
-    user: "999:999"
+    image: redis:8.2.11-alpine@sha256:da23c2478319ceb4903857d77a2fd7aa5137d9e9d4c8165dafbacedac6403e95
+    user: "999:1000"
     read_only: true
     cap_drop: [ALL]
     security_opt: [no-new-privileges:true]

@@ -2,11 +2,12 @@
   "application_version": "0.1.0",
   "milestone": "M7",
   "python": "3.14.8",
+  "container_python": "3.14.10",
   "uv": "0.13.1",
-  "postgresql": "17.11",
-  "redis_server": "8.2.2",
+  "postgresql": "17.12",
+  "redis_server": "8.2.11",
   "schema_revisions": [
-    "0011_recovery_authority"
+    "0012_admission_indexes"
   ],
   "workflow_handlers": [
     "simulation-v1",
@@ -54,7 +55,7 @@
     ]
   },
   "demo_database": {
-    "postgresql": "17.11",
+    "postgresql": "17.12",
     "independent_cluster": true,
     "runtime_role": "atp_demo",
     "service_pool": 4,

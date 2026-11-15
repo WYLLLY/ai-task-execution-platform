@@ -23,7 +23,7 @@ from task_platform.task_models import (
     WorkflowVersion,
 )
 
-SCHEMA_REVISION = "0011_recovery_authority"
+SCHEMA_REVISION = "0012_admission_indexes"
 
 
 class Health(BaseModel):
