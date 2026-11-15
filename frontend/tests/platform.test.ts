@@ -153,6 +153,28 @@ test("upstream denial stays a denial; malformed and oversized upstream are expli
       502,
     );
 });
+test("an allowed command with JSON escaping can be recovered after reload", async () => {
+  const { restoreCommand } = await import("../lib/platform.ts");
+  const value = {
+    path: "tasks",
+    body: JSON.stringify({
+      workflow: { name: "analysis", version: "1" },
+      input: { texts: ["\\".repeat(6000)] },
+    }),
+    key: "escaped-text-replay",
+    epoch: "10000000-0000-4000-8000-000000000500",
+    credential: binding,
+  };
+  assert(new TextEncoder().encode(value.body).length < 16384);
+  const serialized = JSON.stringify(value);
+  assert.deepEqual(restoreCommand(serialized), value);
+  const overLimit = {
+    ...value,
+    body: JSON.stringify({ text: "é".repeat(8192) }),
+  };
+  assert.equal(restoreCommand(JSON.stringify(overLimit)), null);
+});
+
 test("command identity and exact body survive a tab reload", async () => {
   const { restoreCommand } = await import("../lib/platform.ts");
   const value = {

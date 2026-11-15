@@ -309,7 +309,10 @@ export default function Workspace() {
       return;
     }
     try {
-      sessionStorage.setItem("atp-pending", JSON.stringify(command));
+      const saved = JSON.stringify(command);
+      if (!restoreCommand(saved))
+        throw new Error("Command exceeds its storage contract");
+      sessionStorage.setItem("atp-pending", saved);
     } catch {
       setError("Cannot retain command safely in this tab. No request sent.");
       return;

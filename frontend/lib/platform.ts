@@ -1,3 +1,7 @@
+const MAX_COMMAND_BODY_BYTES = 16384;
+// Serializing the JSON body as a string can double its length through escaping.
+const MAX_PENDING_COMMAND_LENGTH = 2 * MAX_COMMAND_BODY_BYTES + 512;
+
 export async function credentialBinding(key: string): Promise<string> {
   const hash = await crypto.subtle.digest(
     "SHA-256",
@@ -98,7 +102,7 @@ export async function gateway(
     if (!request.headers.get("content-type")?.startsWith("application/json"))
       return error(415, "JSON required");
     try {
-      body = await bounded(request.body, 16384);
+      body = await bounded(request.body, MAX_COMMAND_BODY_BYTES);
     } catch {
       return error(413, "Request too large");
     }
@@ -165,7 +169,7 @@ export type PendingCommand = {
   credential?: string;
 };
 export function restoreCommand(value: string | null): PendingCommand | null {
-  if (!value || value.length > 20000) return null;
+  if (!value || value.length > MAX_PENDING_COMMAND_LENGTH) return null;
   try {
     const v = JSON.parse(value);
     if (
@@ -173,7 +177,7 @@ export function restoreCommand(value: string | null): PendingCommand | null {
       typeof v.path !== "string" ||
       !/^(tasks|tasks\/[0-9a-f-]{36}\/cancel)$/.test(v.path) ||
       typeof v.body !== "string" ||
-      v.body.length > 16384 ||
+      new TextEncoder().encode(v.body).length > MAX_COMMAND_BODY_BYTES ||
       typeof v.key !== "string" ||
       !/^[a-zA-Z0-9-]{1,128}$/.test(v.key) ||
       typeof v.epoch !== "string" ||
