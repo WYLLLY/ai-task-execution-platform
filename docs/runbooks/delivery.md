@@ -78,11 +78,36 @@ tables. Keep dispatch drained and allow a maintenance window for the build.
 The migration uses a five-minute statement timeout and the existing short lock
 timeout. If either expires, keep dispatch closed and diagnose before retrying.
 
-For existing Debian-based PostgreSQL deployments, cut over both databases via
-verified logical backups and newly initialized Alpine volumes. The runtime UID
-changes from 999 to 70 and the locale implementation changes with the image.
-Keep the old volumes and compatible images intact until both restores and
-application preflight pass. Do not reuse or change ownership of the old volumes.
+### Verify a Debian-to-Alpine PostgreSQL cutover
+
+The runtime UID changes from 999 to 70 and the locale implementation changes.
+Retain both original volumes and use authenticated logical backups to restore the
+platform and demo into freshly initialized PostgreSQL 17 Alpine volumes. Restore
+owners and grants after provisioning the required roles from trusted deployment
+configuration. Keep API writers, workers, demo traffic, retention and reconciliation
+quiescent through backup, restore and comparison. Leave both platform admissions
+and dispatch closed.
+
+Run the verifier **before** applying migrations that change source data or its
+schema revision. Use four libpq service names backed by protected deployment
+configuration. The readers need SELECT on all public tables and sequences,
+schema USAGE and permission to query `pg_control_system()`. Use Unix sockets
+on the database host or verified TLS for remote connections. The gate hashes
+rows inside PostgreSQL and streams the digests instead of returning row contents.
+
+```sh
+uv run --frozen python -m scripts.verify_cutover \
+  --source-platform debian_platform --restored-platform alpine_platform \
+  --source-demo debian_demo --restored-demo alpine_demo
+```
+
+The check returns PASS only when the four clusters are distinct, both pairs
+have matching public table contents and sequence states, and platform dispatch
+is closed and drained. It can use temporary server-side sort space proportional
+to the largest table. Run the ordinary migration and delivery preflight afterward
+to validate schema, grants, handlers and readiness separately. Treat any failure
+as a stop signal. Reopen only after both checks pass. Retain the old volumes and
+images intact until cutover checks pass.
 
 No production TLS certificate, DNS, off-host backup destination, registry upload
 or production deployment is claimed. The private demo/test HTTP boundary is not
