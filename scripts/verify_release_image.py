@@ -30,6 +30,10 @@ def main() -> None:
             "subprocess.run(['/usr/local/bin/python','-c',"
             "'import importlib.util; "
             'assert importlib.util.find_spec("pip") is None\'],check=True); '
+            "import pathlib, sqlalchemy, task_platform; "
+            "assert all(pathlib.Path(importlib.util.cache_from_source(package.__file__)).is_file() "
+            "for package in (sqlalchemy, task_platform)), "
+            '"worker imports must ship with precompiled bytecode"; '
             "version = tuple(map(int, ssl.OPENSSL_VERSION.split()[1].split('.'))); "
             'assert version >= (3, 5, 9), "libssl security patch missing"',
         ],
