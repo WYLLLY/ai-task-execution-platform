@@ -29,9 +29,9 @@ commit that file, or paste the key in the browser. Set permissions to 0600 and
 restart Next.js after changing configuration. Provisioning new access is a
 separate operator action requiring approval; starting the UI creates no identity.
 
-Local API reads the owner's first 50 tasks, selected snapshot, and first 50 steps.
-It polls every five seconds while visible. SSE and further pagination are not
-implemented in V1. Only simulated analysis:1 creation is allowed, enforced by the
+Local API reads the owner's tasks and steps in pages of 50 with cursor navigation
+and fetches the selected snapshot. It polls every five seconds while visible.
+Only simulated analysis:1 creation is allowed, enforced by the
 server gateway before upstream HTTP; paid workflow versions are rejected.
 Admission must already be open. The UI cannot enable dispatch or start a worker.
 Queued work remains queued without a separately configured compatible test-profile
@@ -41,9 +41,13 @@ this UI is not a new synthetic provider deployment or a real-model qualification
 Cancellation uses the observed task version. Ambiguous commands retain their
 exact body/key in this tab's session storage, including input text. Keep the tab
 until resolved: closing it or clearing its storage loses that retained identity.
-Only explicit Retry resends; no automatic regeneration occurs. Definitive 4xx
-rejections, except ambiguous 408, release the form for a fresh command. Confirmed,
-estimated and uncertain accounting are separate. Missing usage reads Unknown.
+Only explicit Retry resends the original command. Definitive 4xx rejections on
+the first attempt, except ambiguous 408, release the form for a fresh command.
+Once the outcome is ambiguous, retry rejections preserve the original identity.
+Retry requires the original configured credential. If it was rotated or revoked,
+reconcile the outcome with the operator before submitting another command. When
+the backend reports expired command history, the operator can acknowledge expiry
+to release the form. Missing usage reads Unknown.
 
 The gateway uses a fixed loopback destination, route/method allowlists, exact-origin
 writes, size/time bounds and no redirects/automatic retries. No administrator route
@@ -62,3 +66,7 @@ pnpm build
 See ../docs/frontend-plan.md and ../reviews/frontend-verification.md for evidence,
 review findings and limits. Never point destructive backend integration tests at
 your development database. No OpenAI smoke or paid deployment is part of delivery.
+
+Taskroom binds retained commands to the configured local credential. If the key
+changes, including a rotation for the same owner, reconcile the pending command
+under the original owner before submitting again. A saved command from before credential binding requires manual reconciliation.

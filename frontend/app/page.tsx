@@ -1,9 +1,11 @@
 "use client";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   canCancel,
   costRows,
+  pagePath,
+  type PendingCommand,
   restoreCommand,
   retainCommand,
 } from "../lib/platform";
@@ -19,6 +21,56 @@ type Task = {
     uncertain_micro_usd: number;
   };
 };
+type Page = {
+  cursor: string | null;
+  previous: (string | null)[];
+  next: string | null;
+};
+const firstPage: Page = { cursor: null, previous: [], next: null };
+
+function PageControls({
+  label,
+  page,
+  change,
+}: {
+  label: string;
+  page: Page;
+  change: (page: Page) => void;
+}) {
+  if (!page.previous.length && !page.next) return null;
+  return (
+    <section className="pagination" aria-label={label}>
+      <button
+        type="button"
+        disabled={page.previous.length === 0}
+        onClick={() =>
+          change({
+            cursor: page.previous.at(-1) ?? null,
+            previous: page.previous.slice(0, -1),
+            next: null,
+          })
+        }
+      >
+        Previous page
+      </button>
+      <span>Page {page.previous.length + 1}</span>
+      <button
+        type="button"
+        disabled={!page.next}
+        onClick={() =>
+          change({
+            cursor: page.next,
+            previous: [...page.previous, page.cursor],
+            next: null,
+          })
+        }
+      >
+        Next page
+      </button>
+    </section>
+  );
+}
+
 type Step = { step_id: string; path: string; state: string };
 type System = { submission_available: boolean; execution_epoch: string };
 const samples: Task[] = [
@@ -102,13 +154,18 @@ async function api(
 export default function Workspace() {
   const [live, setLive] = useState(false);
   const [configured, setConfigured] = useState(false);
+  const [credential, setCredential] = useState<string | null>(null);
   const [tasks, setTasks] = useState<Task[]>(samples);
   const [selected, setSelected] = useState("sample-01");
   const [detail, setDetail] = useState<Task | null>(samples[0]);
   const [steps, setSteps] = useState<Step[]>(sampleSteps);
   const [system, setSystem] = useState<System | null>(null);
   const [error, setError] = useState("");
+  const [readError, setReadError] = useState("");
+  const [taskPage, setTaskPage] = useState(firstPage);
+  const [stepPage, setStepPage] = useState(firstPage);
   const [busy, setBusy] = useState(false);
+  const [expiredCommand, setExpiredCommand] = useState(false);
   const [text, setText] = useState(
     "Analyze this synthetic dossier: Revenue is 42 units. All data is fictional.",
   );
@@ -116,19 +173,16 @@ export default function Workspace() {
   const [workflows, setWorkflows] = useState<
     { name: string; version: string }[]
   >([]);
-  const [pending, setPending] = useState<{
-    path: string;
-    body: string;
-    key: string;
-    epoch: string;
-  } | null>(null);
+  const [pending, setPending] = useState<PendingCommand | null>(null);
   const [tab, setTab] = useState("Overview");
-  const serial = useRef(0);
+  const taskCursor = taskPage.cursor;
+  const stepCursor = stepPage.cursor;
   useEffect(() => {
     fetch("/api/config")
       .then((r) => r.json())
       .then((v) => {
         setConfigured(v.configured === true);
+        setCredential(typeof v.credential === "string" ? v.credential : null);
         try {
           const saved = restoreCommand(sessionStorage.getItem("atp-pending"));
           if (saved) {
@@ -149,14 +203,13 @@ export default function Workspace() {
   useEffect(() => {
     if (!live) return;
     let active = true;
-    const generation = ++serial.current;
     let loading = false;
     async function refresh() {
       if (loading || document.hidden) return;
       loading = true;
       try {
         const [list, status, catalogue] = await Promise.all([
-          api("tasks?limit=50"),
+          api(pagePath("tasks", taskCursor)),
           api("system"),
           api("workflows"),
         ]);
@@ -165,11 +218,15 @@ export default function Workspace() {
         if (selected) {
           [task, progress] = await Promise.all([
             api("tasks/" + selected),
-            api("tasks/" + selected + "/steps?limit=50"),
+            api(pagePath(`tasks/${selected}/steps`, stepCursor)),
           ]);
         }
-        if (active && serial.current === generation) {
+        if (active) {
           setTasks(list.items as Task[]);
+          setTaskPage((page) => ({
+            ...page,
+            next: (list.next_cursor as string | null) ?? null,
+          }));
           setSystem(status as unknown as System);
           setWorkflows(
             (catalogue.items as { name: string; version: string }[]).filter(
@@ -178,11 +235,15 @@ export default function Workspace() {
           );
           setDetail(task as Task | null);
           setSteps((progress?.items ?? []) as Step[]);
-          setError("");
+          setStepPage((page) => ({
+            ...page,
+            next: (progress?.next_cursor as string | null) ?? null,
+          }));
+          setReadError("");
         }
       } catch (e) {
         if (active) {
-          setError(e instanceof Error ? e.message : "Local read failed");
+          setReadError(e instanceof Error ? e.message : "Local read failed");
           setSystem(null);
           setDetail(null);
         }
@@ -196,7 +257,7 @@ export default function Workspace() {
       active = false;
       clearInterval(timer);
     };
-  }, [live, selected, busy]);
+  }, [live, selected, busy, taskCursor, stepCursor]);
   function mode(value: boolean) {
     if (pending || busy) return;
     setLive(value);
@@ -205,11 +266,23 @@ export default function Workspace() {
     setDetail(value ? null : samples[0]);
     setSteps(value ? [] : sampleSteps);
     setError("");
+    setReadError("");
+    setTaskPage(firstPage);
+    setStepPage(firstPage);
     setSystem(null);
     setPending(null);
   }
+  function changeTaskPage(page: Page) {
+    setTaskPage(page);
+    setTasks([]);
+    setSelected("");
+    setDetail(null);
+    setStepPage(firstPage);
+    setSteps([]);
+  }
   function pick(task: Task) {
     setSelected(task.task_id);
+    setStepPage(firstPage);
     setDetail(live ? null : task);
     setSteps(
       live
@@ -225,7 +298,16 @@ export default function Workspace() {
             ],
     );
   }
-  async function send(command: NonNullable<typeof pending>) {
+  async function send(
+    command: NonNullable<typeof pending>,
+    recovering = false,
+  ) {
+    if (!command.credential) {
+      setError(
+        "This saved command predates credential binding. Reconcile it with the original operator before submitting again.",
+      );
+      return;
+    }
     try {
       sessionStorage.setItem("atp-pending", JSON.stringify(command));
     } catch {
@@ -235,6 +317,7 @@ export default function Workspace() {
     setBusy(true);
     setError("");
     setPending(command);
+    setExpiredCommand(false);
     try {
       const result = await api(command.path, {
         method: "POST",
@@ -242,14 +325,26 @@ export default function Workspace() {
           "content-type": "application/json",
           "idempotency-key": command.key,
           "x-execution-epoch": command.epoch,
+          "x-taskroom-credential": command.credential,
         },
         body: command.body,
       });
       sessionStorage.removeItem("atp-pending");
       setPending(null);
-      if (typeof result.task_id === "string") setSelected(result.task_id);
+      if (typeof result.task_id === "string" && result.task_id !== selected) {
+        setStepPage(firstPage);
+        setSelected(result.task_id);
+      }
     } catch (e) {
-      if (e instanceof ApiError && !retainCommand(e.status)) {
+      if (
+        recovering &&
+        e instanceof ApiError &&
+        e.status === 410 &&
+        e.message === "Command history expired"
+      ) {
+        setExpiredCommand(true);
+      }
+      if (e instanceof ApiError && !retainCommand(e.status, recovering)) {
         sessionStorage.removeItem("atp-pending");
         setPending(null);
       }
@@ -258,8 +353,14 @@ export default function Workspace() {
       setBusy(false);
     }
   }
+  function acknowledgeExpiredCommand() {
+    sessionStorage.removeItem("atp-pending");
+    setPending(null);
+    setExpiredCommand(false);
+    setError("");
+  }
   function create() {
-    if (!system || !workflow || pending) return;
+    if (!system || !workflow || !credential || pending) return;
     const [name, version] = workflow.split(":");
     void send({
       path: "tasks",
@@ -269,15 +370,17 @@ export default function Workspace() {
       }),
       key: crypto.randomUUID(),
       epoch: system.execution_epoch,
+      credential,
     });
   }
   function cancel() {
-    if (!detail || !system || pending) return;
+    if (!detail || !system || !credential || pending) return;
     void send({
       path: `tasks/${detail.task_id}/cancel`,
       body: JSON.stringify({ expected_task_version: detail.task_version }),
       key: crypto.randomUUID(),
       epoch: system.execution_epoch,
+      credential,
     });
   }
   return (
@@ -367,7 +470,7 @@ export default function Workspace() {
         <div className="facts">
           <div>
             <strong>{live ? tasks.length : "03"}</strong>
-            <span>{live ? "TASKS IN FIRST PAGE" : "EXAMPLE SCENARIOS"}</span>
+            <span>{live ? "TASKS ON THIS PAGE" : "EXAMPLE SCENARIOS"}</span>
           </div>
           <div>
             <strong>
@@ -388,6 +491,12 @@ export default function Workspace() {
             <p>{error}</p>
           </div>
         )}
+        {readError && (
+          <div className="notice error" role="alert">
+            <strong>Could not refresh workspace</strong>
+            <p>{readError}</p>
+          </div>
+        )}
         {pending && (
           <div className="notice">
             <p>
@@ -397,46 +506,61 @@ export default function Workspace() {
               payload and idempotency key. Do not create another command to
               replace it.
             </p>
-            <button disabled={busy} onClick={() => void send(pending)}>
-              Retry same command
-            </button>
+            {expiredCommand ? (
+              <button type="button" onClick={acknowledgeExpiredCommand}>
+                Acknowledge expired command
+              </button>
+            ) : (
+              <button disabled={busy} onClick={() => void send(pending, true)}>
+                Retry same command
+              </button>
+            )}
           </div>
         )}
         <section className="task-section">
           <div className="section-head">
             <h2>Execution ledger</h2>
             <span className="label">
-              {live
-                ? "OWNER-SCOPED / FIRST 50 TASKS"
-                : "SAMPLE DATA / NOT LIVE"}
+              {live ? "OWNER-SCOPED / 50 PER PAGE" : "SAMPLE DATA / NOT LIVE"}
             </span>
           </div>
           <div className="task-grid">
-            <div className="task-list" aria-label="Tasks">
-              {tasks.length === 0 ? (
-                <p className="empty">
-                  {live
-                    ? "No tasks loaded. Configure access or create your first analysis."
-                    : "No samples."}
-                </p>
-              ) : (
-                tasks.map((task, i) => (
-                  <button
-                    key={task.task_id}
-                    className="task-row"
-                    aria-pressed={selected === task.task_id}
-                    onClick={() => pick(task)}
-                  >
-                    <span className="task-index">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <span>
-                      <strong>{live ? "Analysis task" : names[i]}</strong>
-                      <small>{task.task_id}</small>
-                    </span>
-                    <span className={"badge " + task.state}>{task.state}</span>
-                  </button>
-                ))
+            <div>
+              <div className="task-list" aria-label="Tasks">
+                {tasks.length === 0 ? (
+                  <p className="empty">
+                    {live
+                      ? "No tasks loaded. Configure access or create your first analysis."
+                      : "No samples."}
+                  </p>
+                ) : (
+                  tasks.map((task, i) => (
+                    <button
+                      key={task.task_id}
+                      className="task-row"
+                      aria-pressed={selected === task.task_id}
+                      onClick={() => pick(task)}
+                    >
+                      <span className="task-index">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span>
+                        <strong>{live ? "Analysis task" : names[i]}</strong>
+                        <small>{task.task_id}</small>
+                      </span>
+                      <span className={"badge " + task.state}>
+                        {task.state}
+                      </span>
+                    </button>
+                  ))
+                )}
+              </div>
+              {live && (
+                <PageControls
+                  label="Task pages"
+                  page={taskPage}
+                  change={changeTaskPage}
+                />
               )}
             </div>
             <article className="inspector" aria-label="Selected task">
@@ -499,14 +623,28 @@ export default function Workspace() {
                     </>
                   )}
                   {tab === "Steps" && (
-                    <ol className="steps">
-                      {steps.map((s) => (
-                        <li key={s.step_id}>
-                          <span>{s.path}</span>
-                          <span className={"badge " + s.state}>{s.state}</span>
-                        </li>
-                      ))}
-                    </ol>
+                    <>
+                      <ol className="steps">
+                        {steps.map((s) => (
+                          <li key={s.step_id}>
+                            <span>{s.path}</span>
+                            <span className={"badge " + s.state}>
+                              {s.state}
+                            </span>
+                          </li>
+                        ))}
+                      </ol>
+                      {live && (
+                        <PageControls
+                          label="Step pages"
+                          page={stepPage}
+                          change={(page) => {
+                            setSteps([]);
+                            setStepPage(page);
+                          }}
+                        />
+                      )}
+                    </>
                   )}
                   {tab === "Result" &&
                     (detail.result ? (
