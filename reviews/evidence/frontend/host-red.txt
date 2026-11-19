@@ -1,0 +1,42 @@
+$ node --experimental-strip-types --test tests/*.test.ts
+✔ terminal tasks cannot be cancelled; suspended tasks can (0.671708ms)
+✔ money preserves integer micro USD and distinguishes missing usage (0.199666ms)
+✔ missing credentials are explicit (18.128584ms)
+✔ forbidden destinations, admin, traversal, events and methods cannot reach upstream (1.167542ms)
+✔ writes require same origin and bounded JSON before dispatch (2.937792ms)
+✔ one physical request, fixed destination, no redirects, secret server side only (0.536208ms)
+✔ stable mutation identities are forwarded exactly once after ambiguous failure (0.569375ms)
+✔ upstream denial stays a denial; malformed and oversized upstream are explicit (1.151958ms)
+✔ command identity and exact body survive a tab reload (0.975291ms)
+✔ estimated charges are visible independently of confirmed and exposure (0.251458ms)
+✔ definitive rejection releases the form; transport ambiguity retains the same command (0.149792ms)
+✔ free delivery refuses paid workflow versions before any physical request (0.574875ms)
+✔ Next internal URL may differ from the validated browser loopback Host (0.353791ms)
+✖ malformed loopback high-port authorities are explicit denials (0.206958ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 13
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 132.403583
+
+✖ failing tests:
+
+test at tests/platform.test.ts:240:1
+✖ malformed loopback high-port authorities are explicit denials (0.206958ms)
+  TypeError [Error]: Invalid URL
+      at new URL (node:internal/url:895:25)
+      at gateway (file:///Users/william/Documents/Projet%202/frontend/lib/platform.ts:70:25)
+      at TestContext.<anonymous> (file:///Users/william/Documents/Projet%202/frontend/tests/platform.test.ts:244:22)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1402:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:974:18)
+      at Test.postRun (node:internal/test_runner/test:1542:19)
+      at Test.run (node:internal/test_runner/test:1467:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    code: 'ERR_INVALID_URL',
+    input: 'http://localhost:65536'
+  }
+[ELIFECYCLE] Test failed. See above for more details.

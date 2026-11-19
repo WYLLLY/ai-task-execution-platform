@@ -8,3 +8,5 @@
 .mypy_cache
 .ruff_cache
 reviews
+
+frontend

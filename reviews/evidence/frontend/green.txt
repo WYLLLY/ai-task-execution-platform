@@ -1,0 +1,21 @@
+$ node --experimental-strip-types --test tests/*.test.ts
+✔ terminal tasks cannot be cancelled; suspended tasks can (0.946041ms)
+✔ money preserves integer micro USD and distinguishes missing usage (0.22175ms)
+✔ missing credentials are explicit (18.286625ms)
+✔ forbidden destinations, admin, traversal, events and methods cannot reach upstream (1.192458ms)
+✔ writes require same origin and bounded JSON before dispatch (3.180917ms)
+✔ one physical request, fixed destination, no redirects, secret server side only (0.586209ms)
+✔ stable mutation identities are forwarded exactly once after ambiguous failure (0.667083ms)
+✔ upstream denial stays a denial; malformed and oversized upstream are explicit (1.192833ms)
+✔ command identity and exact body survive a tab reload (0.822458ms)
+✔ estimated charges are visible independently of confirmed and exposure (0.229667ms)
+✔ definitive rejection releases the form; transport ambiguity retains the same command (0.152125ms)
+✔ free delivery refuses paid workflow versions before any physical request (0.463917ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 129.835709
